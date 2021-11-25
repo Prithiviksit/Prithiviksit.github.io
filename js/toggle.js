@@ -1,18 +1,15 @@
 var status = "less";
 
-function toggleText()
+function toggleText(id)
 {
-     var text="Here is some text that I want added to the HTML file";
-    
-	text=document.getElementById("textArea2").innerHTML
-	
-    if (status == "less") {
-        document.getElementById("textArea").innerHTML=text;
-        document.getElementById("toggleButton").innerText = "See Less";
-        status = "more";
-    } else if (status == "more") {
-        document.getElementById("textArea").innerHTML = "";
-        document.getElementById("toggleButton").innerText = "See More";
-        status = "less"
-    }
+  area = document.getElementById(id).getAttribute("area")
+  if (status == "less") {
+    document.getElementById(area).innerHTML=document.getElementById(id).getAttribute("ttt");
+    document.getElementById(id).innerText = "See Less.";
+    status = "more";
+  } else if (status == "more") {
+    document.getElementById(area).innerHTML = "";
+    document.getElementById(id).innerText = "See More.";
+    status = "less"
+  }
 }
