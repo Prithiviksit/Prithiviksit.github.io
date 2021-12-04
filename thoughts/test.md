@@ -1,3 +1,5 @@
+usemathjax: true
+---
 # Liquidity: A New Monetarist Perspective
 
 ![[lagosLiquidityNewMonetarist2017-zotero#Metadata]]
