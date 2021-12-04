@@ -4,6 +4,8 @@ email: "XYu23@gsb.columbia.edu"
 markdown: kramdown
 remote_theme: pages-themes/tactile@v0.2.0
 
+usemathjax: true
+
 plugins:
   - jekyll-relative-links
   - jekyll-remote-theme
