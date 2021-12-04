@@ -3,8 +3,10 @@ description: "This is the personal website of Xiaobo YU."
 email: "XYu23@gsb.columbia.edu"
 
 markdown: kramdown
+
+remote_theme: pages-themes/minimal@v0.2.0
 #remote_theme: pages-themes/tactile@v0.2.0
-theme: minimal
+#theme: minimal
 
 
 usemathjax: true
