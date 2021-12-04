@@ -25,6 +25,8 @@ Writing in HTML is painful, let alone the css and JavaScript. However, markdown 
 
 This is still to be donw. 
 
+[Link to test.md](test.md)
+
 
 
 
