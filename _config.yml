@@ -2,10 +2,11 @@ description: "This is the personal website of Xiaobo YU."
 email: "XYu23@gsb.columbia.edu"
 
 markdown: kramdown
-theme: tactile
+remote_theme: pages-themes/tactile@v0.2.0
 
 plugins:
   - jekyll-relative-links
+  - jekyll-remote-theme
 relative_links:
   enabled: true
   collections: true
