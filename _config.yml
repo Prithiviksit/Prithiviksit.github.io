@@ -9,7 +9,7 @@ kramdown:
 
 #remote_theme: pages-themes/minimal@v0.2.0
 #remote_theme: pages-themes/tactile@v0.2.0
-theme: minimal
+theme: minima
 
 
 usemathjax: true
