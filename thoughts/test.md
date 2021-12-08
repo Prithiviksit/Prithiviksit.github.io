@@ -1,5 +1,5 @@
+---
 usemathjax: true
-
 ---
 
 # Liquidity: A New Monetarist Perspective
