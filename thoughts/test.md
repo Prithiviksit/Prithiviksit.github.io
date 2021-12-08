@@ -32,4 +32,4 @@ Assuming good $3$ is useless. There are  many different situations depending on 
 - When $\rho_2$ is in the middle, there can be mixed equilibrium strategy and even non-stationary strategy that cycles over time.
 - When $\rho_2>\rho_1$, there is always a fundamental equilibrium. 
 
-$$\rho=2\sigma$$
+$$\rho=\int_{-\infty}^{+\infty}\rho_i\mathrm{d}i$$
