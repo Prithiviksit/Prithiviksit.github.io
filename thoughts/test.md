@@ -26,3 +26,5 @@ Assuming good $3$ is useless. There are  many different situations depending on 
 - Speculative equilibrium when $\rho_1>\rho_2$ and $\rho_2<\bar{\rho}_2$ . This equilibirum features   type $1$  agents trading good $2$ for the lower-return  good $3$ to improve their liquidity position,  and both goods $1$ and $3$ are used for indirect exchange.
 - When $\rho_2$ is in the middle, there can be mixed equilibrium strategy and even non-stationary strategy that cycles over time.
 - When $\rho_2>\rho_1$, there is always a fundamental equilibrium. 
+
+$$\rho=2\sigma$$
