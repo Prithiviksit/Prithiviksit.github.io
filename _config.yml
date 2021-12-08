@@ -10,8 +10,9 @@ markdown: kramdown
 
 #remote_theme: pages-themes/minimal@v0.2.0
 #remote_theme: pages-themes/tactile@v0.2.0
-remote_theme: Prithiviksit/minima@v2.5.2
-theme: minima
+#remote_theme: Prithiviksit/minima@v2.5.2
+remote_theme: Prithiviksit/minima
+#theme: minima
 
 
 #usemathjax: true
