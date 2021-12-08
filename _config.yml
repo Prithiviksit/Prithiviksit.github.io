@@ -12,7 +12,7 @@ kramdown:
 theme: minima
 
 
-usemathjax: true
+#usemathjax: true
 
 plugins:
   - jekyll-relative-links
