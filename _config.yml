@@ -10,7 +10,7 @@ markdown: kramdown
 
 #remote_theme: pages-themes/minimal@v0.2.0
 #remote_theme: pages-themes/tactile@v0.2.0
-remote_theme: Prithiviksit/minima@v0.0.1
+remote_theme: Prithiviksit/minima
 theme: minima
 
 
