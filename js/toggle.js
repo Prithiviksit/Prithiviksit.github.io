@@ -1,7 +1,8 @@
+
 var status = "less";
 
 function toggleText(id)
-{
+{	
   area = document.getElementById(id).getAttribute("area")
   if (status == "less") {
     document.getElementById(area).innerHTML=document.getElementById(id).getAttribute("ttt");
