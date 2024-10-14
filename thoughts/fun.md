@@ -25,7 +25,7 @@ categories: math physics econ fun
 
 ### Ax-Grothendieck Theorem
 - [Ax-Grothendieck Theorem: A proof using model theory](https://mathmondays.com/ax-grothendieck)
-- [A more comprehensive introduction by Terry Tao] (https://terrytao.wordpress.com/2009/03/07/infinite-fields-finite-fields-and-the-ax-grothendieck-theorem/)
+- [A more comprehensive introduction by Terry Tao](https://terrytao.wordpress.com/2009/03/07/infinite-fields-finite-fields-and-the-ax-grothendieck-theorem/)
 
 ----
 
