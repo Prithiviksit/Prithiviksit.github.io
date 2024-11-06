@@ -16,6 +16,9 @@ categories: math physics econ fun
 
 ## Math-related
 
+### A very short proof of Cayley-Hamilton Theorem using Picard–Lindelöf theorem
+- [The proof and the referee report](http://mate.dm.uba.ar/~aldoc9/Publicaciones/ch.html)
+
 ### Goodstein's Theorem
 - The introduction of it and the [Hydra game](https://markkm.com/blog/killing-the-hydra/)
 - A much heavier [proof of the unprovability](https://www.sas.upenn.edu/~htowsner/GoodsteinsTheorem.pdf) and the [video lectures](https://www.youtube.com/playlist?list=PLQ3mfuGfIEgKKVPy1mipMr3ofutgLnTU5)
@@ -26,6 +29,9 @@ categories: math physics econ fun
 ### Ax-Grothendieck Theorem
 - [Ax-Grothendieck Theorem: A proof using model theory](https://mathmondays.com/ax-grothendieck)
 - [A more comprehensive introduction by Terry Tao](https://terrytao.wordpress.com/2009/03/07/infinite-fields-finite-fields-and-the-ax-grothendieck-theorem/)
+
+
+
 
 ----
 
