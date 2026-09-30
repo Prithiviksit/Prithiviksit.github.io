@@ -1515,6 +1515,14 @@ a.button.large {
     margin-left: 0;
 }
 
+.paper-card > .paper-note {
+    margin-top: 12px;
+    color: #767676;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.6;
+}
+
 .paper-card > :last-child {
     margin-bottom: 0;
 }
