@@ -1497,6 +1497,43 @@ a.button.large {
 7. Service area style
 *********************/
 
+.paper-card {
+    margin-bottom: 24px;
+    padding: 24px 28px;
+    background: #ffffff;
+    border: 1px solid #e7e7e7;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+.paper-card > h4 {
+    margin-top: 0;
+    line-height: 1.5;
+}
+
+.paper-card > .paper-blurb {
+    margin-left: 0;
+}
+
+.paper-card > :last-child {
+    margin-bottom: 0;
+}
+
+/* Blue sampled from the RFS Volume 39, Issue 10 cover. */
+.paper-status-rfs {
+    color: #007eb9;
+}
+
+.paper-status {
+    white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+    .paper-card {
+        padding: 20px 18px;
+    }
+}
+
 .paper-blurb {
     margin: 0 0 10px 25px;
 }
