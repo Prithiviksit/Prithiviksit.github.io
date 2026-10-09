@@ -1,0 +1,11 @@
+.fun-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin: 30px 0; }
+.fun-tab { display: inline-block; padding: 10px 20px; border: 1px solid #d8d5cd; border-radius: 3px; color: #333; background: #fff; }
+.fun-tab:hover, .fun-tab[aria-selected="true"] { background: #cfb87c; border-color: #cfb87c; color: #111; }
+.fun-tab:focus-visible, .fun-panel:focus-visible { outline: 3px solid #806322; outline-offset: 4px; }
+.fun-panel[hidden] { display: none !important; }
+.fun-panel { min-height: 95px; padding-bottom: 20px; }
+.fun-group-heading { font-size: 22px; margin-bottom: 15px; }
+.fun-tabs[role="tablist"] ~ .fun-panel .fun-group-heading { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.fun-article-list { list-style: disc; padding-left: 22px; }
+.fun-article-list a { color: #66501f; text-decoration: underline; text-underline-offset: 3px; }
+.fun-article-list a:hover { color: #111; }
