@@ -143,7 +143,7 @@ This blocks the original substitution: $$p\land\neg Kp$$ fails the eligibility t
 In *Tennant on Knowable Truth* (2000), Timothy Williamson challenges the ad-hoc restriction with a modified construction. 
 
 
-Let $$n$$ rigidly name an actual number of books, and let $$E(n)$$ mean that this number is even. Since the number of books is fixed, in the relevant modal interpretation, either $E(n)$ is necessarily true or $\neg E(n)$ is necessarily true. But we may not know which.
+Let $$n$$ rigidly name an actual number of books, and let $$E(n)$$ mean that this number is even. Since the number of books is fixed, in the relevant modal interpretation, either $$E(n)$$ is necessarily true or $$\neg E(n)$$ is necessarily true. But we may not know which.
 
 
 Consider
