@@ -91,7 +91,7 @@ It is impossible to know that a particular truth is unknown.
 
 
 Recall that KP applies to _every_ true proposition.
-Therefore, it must also apply to $q=p\land\neg Kp$ :
+Therefore, it must also apply to $$q=p\land\neg Kp$$ :
 
 $$
 (p\land\neg Kp)\rightarrow
@@ -152,7 +152,7 @@ $$
 r:=p\land(Kp\to E(n)).
 $$
 
-This is much less obviously problematic than Fitch's original proposition $q$.
+This is much less obviously problematic than Fitch's original proposition $$q$$.
 
 If $$p$$ is true but unknown, $$r$$ is true because the conditional has a false antecedent. If $$r$$ is known, conjunction elimination and factivity yield $$Kp$$ and $$Kp\to E(n)$$, hence $$E(n)$$. Knowability of $$r$$ would therefore imply possible evenness; rigid numerical parity makes that actual evenness. Repeating with oddness produces a contradiction—*if both constructed propositions qualify as Cartesian*.
 
