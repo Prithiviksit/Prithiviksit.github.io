@@ -91,7 +91,7 @@ It is impossible to know that a particular truth is unknown.
 
 
 Recall that KP applies to _every_ true proposition.
-Therefore, it must also apply to $q=p\land\neg Kp$:
+Therefore, it must also apply to $q=p\land\neg Kp$ :
 
 $$
 (p\land\neg Kp)\rightarrow
