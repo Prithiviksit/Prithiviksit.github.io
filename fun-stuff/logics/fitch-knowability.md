@@ -12,10 +12,20 @@ permalink: /fun-stuff/logics/fitch-knowability.html
 
 Imagine a sealed box containing a red ball. Nobody has opened it. The ball’s color is unknown, but discovering it seems perfectly possible. “Every truth can be known” sounds compatible with a world full of unopened boxes.
 
-Fitch’s paradox asks whether that compatibility survives when “every truth” includes truths about ignorance itself. Let $$Kp$$ mean that $$p$$ is known and $$\Diamond Kp$$ that it is possible for $$p$$ to be known. The unrestricted knowability principle is the schema
+Fitch’s paradox asks whether that compatibility survives when “every truth” includes truths about _ignorance_ itself.  It shows that a seemingly modest philosophical claim
+> Every truth could, in principle, be known.
+
+logically implies a much stronger and implausible claim:
+> Every truth is already known.
+
+Fitch's paradox of knowability is probably one of the most surprising results in epistemic logic. The result is particularly interesting because it does not rely on self-reference, unlike the Liar paradox or Gödel's incompleteness theorem. 
+
+
+### Let's add some "math"
+Let $$Kp$$ mean that $$p$$ is known and $$\Diamond Kp$$ that it is possible for $$p$$ to be known. The unrestricted knowability principle is the schema
 
 $$
-p \longrightarrow \Diamond Kp.
+p \longrightarrow \Diamond Kp. \tag{KP}
 $$
 
 Its classical consequence is much stronger:
@@ -24,7 +34,7 @@ $$
 p \longrightarrow Kp.
 $$
 
-This is a conflict among assumptions about truth, knowledge, and possibility. It does not establish that human beings are omniscient.
+This is a conflict among assumptions about truth, knowledge, and possibility. 
 
 ## 2. The proof in a few steps
 
