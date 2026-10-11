@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 330" role="img" aria-labelledby="t d" font-family="Georgia, serif">
+  <title id="t">One Hydra chop that makes the Hydra bigger</title>
+  <desc id="d">A path of four nodes R, A, B, L. Chopping the leaf L leaves B as a leaf and attaches three extra copies of B to A, giving a tree with six nodes.</desc>
+  <defs>
+    <marker id="ar" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#68521f"/></marker>
+  </defs>
+  <style>
+    .e{stroke:#63666a;stroke-width:2.5;fill:none}
+    .n{fill:#f0ece2;stroke:#292b2e;stroke-width:2}
+    .h{fill:#cfb87c;stroke:#292b2e;stroke-width:2}
+    .x{fill:#fff;stroke:#b3261e;stroke-width:2.5;stroke-dasharray:5 4}
+    .l{font-size:16px;fill:#292b2e;text-anchor:middle;dominant-baseline:central}
+    .c{font:600 15px system-ui,sans-serif;fill:#63666a;text-anchor:middle}
+    .r{font:600 14px system-ui,sans-serif;fill:#b3261e}
+  </style>
+  <text class="c" x="110" y="28">Before: 4 nodes</text>
+  <text class="c" x="500" y="28">After: 6 nodes (n = 3)</text>
+
+  <!-- before -->
+  <line class="e" x1="110" y1="75" x2="110" y2="135"/>
+  <line class="e" x1="110" y1="135" x2="110" y2="195"/>
+  <line class="e" x1="110" y1="195" x2="110" y2="255"/>
+  <circle class="n" cx="110" cy="75" r="19"/><text class="l" x="110" y="75">R</text>
+  <circle class="n" cx="110" cy="135" r="19"/><text class="l" x="110" y="135">A</text>
+  <circle class="n" cx="110" cy="195" r="19"/><text class="l" x="110" y="195">B</text>
+  <circle class="x" cx="110" cy="255" r="19"/><text class="l" x="110" y="255">L</text>
+  <text class="r" x="140" y="259">chop</text>
+
+  <!-- arrow -->
+  <line x1="235" y1="165" x2="345" y2="165" stroke="#68521f" stroke-width="3" marker-end="url(#ar)"/>
+  <text class="c" x="290" y="150">regrow</text>
+
+  <!-- after -->
+  <line class="e" x1="500" y1="75" x2="500" y2="135"/>
+  <line class="e" x1="500" y1="135" x2="410" y2="205"/>
+  <line class="e" x1="500" y1="135" x2="470" y2="205"/>
+  <line class="e" x1="500" y1="135" x2="530" y2="205"/>
+  <line class="e" x1="500" y1="135" x2="590" y2="205"/>
+  <circle class="n" cx="500" cy="75" r="19"/><text class="l" x="500" y="75">R</text>
+  <circle class="n" cx="500" cy="135" r="19"/><text class="l" x="500" y="135">A</text>
+  <circle class="h" cx="410" cy="205" r="19"/><text class="l" x="410" y="205">B</text>
+  <circle class="h" cx="470" cy="205" r="19"/><text class="l" x="470" y="205">B</text>
+  <circle class="h" cx="530" cy="205" r="19"/><text class="l" x="530" y="205">B</text>
+  <circle class="h" cx="590" cy="205" r="19"/><text class="l" x="590" y="205">B</text>
+
+  <text class="c" x="320" y="312" style="font-weight:400">B survives as a bare head, plus three copies hung from A.</text>
+</svg>
