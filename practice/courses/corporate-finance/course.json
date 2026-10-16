@@ -1,9 +1,108 @@
 {
   "id": "corporate-finance",
   "title": "Corporate Finance",
-  "topic": "Lectures 15–18",
-  "description": "Four lecture topics. Five questions each. Build intuition from capital markets to the cost of equity.",
+  "topic": "Exam prep & lecture practice",
+  "description": "Three exam-prep sets, then four lecture topics. Five questions at a time.",
   "units": [
+    {
+      "id": "exam-prep",
+      "kind": "exam-prep",
+      "title": "Exam prep",
+      "description": "Three short sets based on Homework 3 and Mock Quizzes 2A and 2B. Multiple choice and fill-in-number practice using the same tested formulas.",
+      "notice": "The lecture practice below covers a broader range of material. Not every lecture question or topic will be on the exam. Use the homework, Quiz 2A/2B, and your instructor’s exam guidance to focus your preparation.",
+      "lessons": [
+        {
+          "id": "exam-prep-1",
+          "title": "Set 1 · Returns & risk",
+          "description": "Compound growth, volatility, diversification, and CAPM.",
+          "minutes": 4,
+          "icon": "chart",
+          "file": "exam-prep-1.json",
+          "questions": [
+            {
+              "id": "prep1-geometric",
+              "topic": "Geometric average return"
+            },
+            {
+              "id": "prep1-volatility",
+              "topic": "Measuring volatility"
+            },
+            {
+              "id": "prep1-diversification",
+              "topic": "Diversifiable risk"
+            },
+            {
+              "id": "prep1-market-premium",
+              "topic": "Market risk premium"
+            },
+            {
+              "id": "prep1-capm",
+              "topic": "CAPM expected return"
+            }
+          ]
+        },
+        {
+          "id": "exam-prep-2",
+          "title": "Set 2 · Markets & leverage",
+          "description": "Information in prices, beta, and the MM propositions.",
+          "minutes": 4,
+          "icon": "layers",
+          "file": "exam-prep-2.json",
+          "questions": [
+            {
+              "id": "prep2-efficiency",
+              "topic": "Semi-strong efficiency"
+            },
+            {
+              "id": "prep2-news",
+              "topic": "Earnings surprises"
+            },
+            {
+              "id": "prep2-beta",
+              "topic": "Interpreting beta"
+            },
+            {
+              "id": "prep2-mm-value",
+              "topic": "MM Proposition I"
+            },
+            {
+              "id": "prep2-mm-equity",
+              "topic": "MM Proposition II"
+            }
+          ]
+        },
+        {
+          "id": "exam-prep-3",
+          "title": "Set 3 · Hurdles & tax shields",
+          "description": "Priced risk, project rates, WACC, and interest deductions.",
+          "minutes": 5,
+          "icon": "bolt",
+          "file": "exam-prep-3.json",
+          "questions": [
+            {
+              "id": "prep3-priced-risk",
+              "topic": "Which risk is priced?"
+            },
+            {
+              "id": "prep3-project-rate",
+              "topic": "Project discount rates"
+            },
+            {
+              "id": "prep3-interest-deduction",
+              "topic": "Interest and corporate taxes"
+            },
+            {
+              "id": "prep3-wacc",
+              "topic": "After-tax WACC"
+            },
+            {
+              "id": "prep3-tax-shield",
+              "topic": "Present value of the tax shield"
+            }
+          ]
+        }
+      ]
+    },
     {
       "id": "lecture-15",
       "title": "Lecture 15 · Capital markets",
@@ -39,7 +138,8 @@
             }
           ]
         }
-      ]
+      ],
+      "kind": "lecture"
     },
     {
       "id": "lecture-16",
@@ -76,7 +176,8 @@
             }
           ]
         }
-      ]
+      ],
+      "kind": "lecture"
     },
     {
       "id": "lecture-17",
@@ -113,7 +214,8 @@
             }
           ]
         }
-      ]
+      ],
+      "kind": "lecture"
     },
     {
       "id": "lecture-18",
@@ -150,7 +252,8 @@
             }
           ]
         }
-      ]
+      ],
+      "kind": "lecture"
     }
   ]
 }

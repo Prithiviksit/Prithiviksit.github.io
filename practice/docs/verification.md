@@ -1,12 +1,12 @@
 # Source and verification record
 
-Prototype prepared on October 15, 2026, for review before public deployment.
+The app is published at `https://xiaobo-yu.com/practice/`. This record includes the exam-prep expansion.
 
 ## Teaching sources
 
-The current curriculum has one topic for each of Lectures 15–18, with five questions per topic. The `Lec*_core.tex` decks determine the core coverage; the full `Lec*.tex` decks and associated sections of Ross, Westerfield & Jordan, _Fundamentals of Corporate Finance_, 13th edition (`textbook.pdf`) were checked. No `Module` deck contributes to this question set. Slides and textbook pages are not redistributed.
+The curriculum begins with three exam-prep sets of five questions, followed by one five-question topic for each of Lectures 15–18. Exam prep is mapped to Homework 3 and Mock Quizzes 2A/2B in [exam-prep.md](exam-prep.md). The remaining source notes below describe the lecture section. The `Lec*_core.tex` decks determine the core coverage; the full `Lec*.tex` decks and associated sections of Ross, Westerfield & Jordan, _Fundamentals of Corporate Finance_, 13th edition (`textbook.pdf`) were checked. No `Module` deck contributes to this question set. Slides and textbook pages are not redistributed.
 
-Each exercise is newly written and labeled `original-application`. Its source names the exact core deck and frame; textbook references name the associated section where relevant. Prediction-market replication and the detailed trading/arbitrage examples are lecture-specific extensions, not falsely attributed to the textbook.
+Each exercise is newly written and labeled `original-application`. Lecture-question sources name the exact core deck and frame; exam-prep sources name the practice sheet and question number. Textbook references name the associated section where relevant. Prediction-market replication and the detailed trading/arbitrage examples are lecture-specific extensions, not falsely attributed to the textbook.
 
 | Lecture                    | Core frames used                                                                                                                                        | Associated textbook reading                                                                                 |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
@@ -33,7 +33,9 @@ The instructor workspace has existing edits in the full Lectures 16 and 18. All 
 
 ## Content choices
 
-- Five focused questions per lecture target approximately 3–5 minutes, including short feedback. The optional detailed explanations may take longer.
+- Adding exam prep preserves all lecture IDs, completed scores, XP, submitted answers, and unfinished sessions; a regression test compares the saved record before and after reconciling the expanded course.
+- Exam prep includes ten multiple-choice concept checks and five numerical questions, all with integer answers and independently checked formulas. The visible scope notice distinguishes broader lecture practice from exam preparation.
+- Five focused questions per lesson target approximately 3–5 minutes, including short feedback. The optional detailed explanations may take longer.
 - Lecture 15 distinguishes compound annual return, arithmetic averages, and cumulative return; the +25%/−20% example takes $100 to $125 and back to $100, giving exactly 0% compounded annually versus a 2.5% arithmetic average.
 - Lecture 16 states immediate redemption and funding assumptions for arbitrage. YES/NO claims settle at the same future date, so their prices sum to the discounted payoff. The $0.25/$0.55 state prices imply a $310 replicating value for $800/$200 terminal payoffs. Prices are not identified with physical probabilities.
 - Lecture 17 distinguishes common risk in a local insurance pool from systematic risk relative to global markets. Stock count alone does not establish diversification. Corporate diversification alone does not establish positive NPV.
@@ -43,11 +45,11 @@ The instructor workspace has existing edits in the full Lectures 16 and 18. All 
 
 ## Checks performed
 
-`npm test`: 17 tests pass, covering every authored answer, incorrect answers, numerical parsing and tolerance boundaries, permutations, heart deductions, review scheduling, duplicate-submission protection, combos, best scores, reset isolation, invalid content, v1 migration, multiple saved attempts, immutable answer events, adapter boundaries, failed writes, on-demand content loading, platform icon/manifest validity, and PWA resource integrity.
+`npm test`: 18 tests pass, covering every authored answer, incorrect answers, numerical parsing and tolerance boundaries, permutations, heart deductions, review scheduling, duplicate-submission protection, combos, best scores, reset isolation, invalid content, v1 migration, multiple saved attempts, immutable answer events, adapter boundaries, failed writes, on-demand content loading, platform icon/manifest validity, and PWA resource integrity.
 
-`npm run validate`: the manifest and all four lesson files pass JSON Schema and semantic validation; 20 unique questions cover all five types.
+`npm run validate`: the manifest and all seven lesson files pass JSON Schema and semantic validation; 35 unique questions cover all five types.
 
-`python3 tests/verify_math.py`: independently verifies all five numerical question answers, compound versus arithmetic returns, arbitrage profit, both payoff-replication states, CAPM premiums, and project hurdle comparisons.
+`python3 tests/verify_math.py`: independently verifies all ten numerical question answers, compound versus arithmetic returns, arbitrage profit, both payoff-replication states, CAPM premiums, and project hurdle comparisons.
 
 `npm run test:browser`: passes in headless Microsoft Edge on macOS. The suite completes the whole course using UI controls and checks:
 
@@ -64,16 +66,17 @@ The instructor workspace has existing edits in the full Lectures 16 and 18. All 
 - Changes from another open tab refresh once; resuming does not create a save/reload loop.
 - v1 browser storage migrates without losing XP, scores, or the unfinished draft. Replacing the prior curriculum preserves historical records, archives retired attempts, avoids inflated current mastery/completion counts, and remains stable after reload.
 - A paused review remains resumable after its last correct answer clears the review queue.
-- Cold homepage requests contain no lesson question files or KaTeX. The local test measured approximately 330 KB of uncompressed response bodies including service-worker shell and icon caching; deployment compression and headers can change transfer size.
+- Cold homepage requests contain no lesson question files or KaTeX. The local test measured approximately 269 KB of uncompressed response bodies including service-worker shell and icon caching; deployment compression and headers can change transfer size.
 - Checking and continuing an answer issue zero network requests in the tested flow. All observed application requests are same-origin GETs.
 - Previously opened lessons resume and accept answers after an offline reload. Attempting an unvisited lesson offline shows a retry message, preserves other attempts, and succeeds after reconnection.
 - A separate smoke check at `/site/practice/` verifies nested base paths, JSON fetching, and KaTeX assets.
 - PWA manifest/installability validation in a normal Chromium profile; full-course offline download, failed update recovery, waiting/activation handoff, exact progress preservation, and isolation of other apps’ caches.
 - iPhone WebKit checks for install guidance, full offline download, saved feedback/XP, and offline math. The generated native web bundle runs the same quiz and disables worker registration/install controls.
+- A targeted Android Chromium and narrow iPhone WebKit check completes all 15 exam-prep questions offline, opens every explanation, and verifies exact saved progress after reloading each submitted answer. All three prep sets complete with 100% scores, without math errors or horizontal overflow.
 - axe-core WCAG A/AA checks on the desktop path and mobile path, question, feedback, explanation, and matching screens, with no detected violations.
 
 The recorded screenshots were visually inspected. Automated accessibility checks are not a full accessibility audit. Physical iOS/Android installation, the Safari application, and Firefox were not tested. The PWA suite also exercises Playwright WebKit with an iPhone viewport; see [PWA verification](pwa-and-packaging.md#verification). Student completion times and learning outcomes have not been measured.
 
 ## Publication boundary
 
-Only `practice/` is added on the feature branch. No production pages, site configuration, or navigation are modified. Static resource paths support a site subdirectory; no client-side route rewriting is required. The existing GitHub Pages/Jekyll build was not run locally. There is no deployment until the feature branch is approved and merged.
+Only `practice/` is modified on the feature branch. No production pages, site configuration, or navigation are modified. Static resource paths support a site subdirectory; no client-side route rewriting is required. The existing GitHub Pages/Jekyll build was not run locally. The app remains under `/practice/`, with no homepage or navigation link added. GitHub Pages publishes the approved branch changes behind the existing Cloudflare configuration.

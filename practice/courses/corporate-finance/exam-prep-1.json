@@ -1,0 +1,146 @@
+{
+  "id": "exam-prep-1",
+  "title": "Set 1 · Returns & risk",
+  "description": "Compound growth, volatility, diversification, and CAPM.",
+  "minutes": 4,
+  "icon": "chart",
+  "questions": [
+    {
+      "id": "prep1-geometric",
+      "type": "multiple-choice",
+      "topic": "Geometric average return",
+      "prompt": "What does the geometric average annual return summarize?",
+      "options": [
+        {
+          "id": "growth",
+          "text": "The constant annual rate that reproduces the investment’s compounded growth."
+        },
+        {
+          "id": "arithmetic",
+          "text": "The sum of annual returns divided by the number of years."
+        },
+        {
+          "id": "volatility",
+          "text": "The typical spread of returns around their average."
+        },
+        {
+          "id": "best",
+          "text": "The return earned in the investment’s best year."
+        }
+      ],
+      "answer": "growth",
+      "explanation": "It is the constant annual rate that gives the same final wealth over the holding period.",
+      "detail": "Compounding multiplies gross returns. The geometric average is \\(\\left[\\prod_{t=1}^{T}(1+r_t)\\right]^{1/T}-1\\). It answers: what steady annual rate would take the same initial investment to the same final value?",
+      "misconception": "An arithmetic average describes an average one-period return; it need not reproduce multiyear compounded wealth.",
+      "source": {
+        "file": "homework3_core.tex",
+        "section": "Homework 3 · Question 1",
+        "kind": "original-application"
+      }
+    },
+    {
+      "id": "prep1-volatility",
+      "type": "multiple-choice",
+      "topic": "Measuring volatility",
+      "prompt": "Which statistic directly measures how widely stock returns fluctuate?",
+      "options": [
+        {
+          "id": "standard-deviation",
+          "text": "Standard deviation of returns."
+        },
+        {
+          "id": "market-value",
+          "text": "Market value of the firm’s equity."
+        },
+        {
+          "id": "dividend",
+          "text": "Average cash dividend per share."
+        },
+        {
+          "id": "shares",
+          "text": "Number of shares outstanding."
+        }
+      ],
+      "answer": "standard-deviation",
+      "explanation": "Standard deviation measures the spread of returns around their mean.",
+      "detail": "Larger positive and negative deviations both increase standard deviation. Two stocks can have the same average return but very different volatility.",
+      "misconception": "Volatility measures total return variation; it is not the same thing as beta or the chance of default.",
+      "source": {
+        "file": "homework3_core.tex",
+        "section": "Homework 3 · Question 2",
+        "kind": "original-application"
+      }
+    },
+    {
+      "id": "prep1-diversification",
+      "type": "multiple-choice",
+      "topic": "Diversifiable risk",
+      "prompt": "Which risk is most likely to shrink when an investor holds many firms across unrelated industries?",
+      "options": [
+        {
+          "id": "firm-specific",
+          "text": "An unexpected equipment failure at one company."
+        },
+        {
+          "id": "recession",
+          "text": "An economy-wide recession."
+        },
+        {
+          "id": "inflation",
+          "text": "An unexpected jump in economy-wide inflation."
+        },
+        {
+          "id": "market",
+          "text": "A broad market downturn."
+        }
+      ],
+      "answer": "firm-specific",
+      "explanation": "A company-specific equipment failure can be diversified across many unrelated firms.",
+      "detail": "Independent firm-level surprises tend to offset one another in a broad portfolio. Common economic shocks can affect many holdings together and remain even in a diversified portfolio.",
+      "misconception": "Adding many stocks does not eliminate systematic risk shared across the economy.",
+      "source": {
+        "file": "homework3_core.tex",
+        "section": "Homework 3 · Question 5",
+        "kind": "original-application"
+      }
+    },
+    {
+      "id": "prep1-market-premium",
+      "type": "numerical",
+      "topic": "Market risk premium",
+      "prompt": "What is the market risk premium?",
+      "context": "The expected annual market return is 11% and the annual risk-free rate is 3%. Enter a percentage.",
+      "answer": 8,
+      "unit": "%",
+      "absoluteTolerance": 0.01,
+      "relativeTolerance": 0,
+      "explanation": "8%: the expected market return exceeds the risk-free rate by 8 percentage points.",
+      "detail": "The tested formula is \\(E[R_M]-r_f\\). Substituting the inputs gives \\(11\\%-3\\%=8\\%\\). This is the expected compensation for holding the market’s risk rather than the risk-free asset.",
+      "misconception": "The expected market return includes both the risk-free return and the market risk premium.",
+      "source": {
+        "file": "homework3_core.tex",
+        "section": "Homework 3 · Question 11",
+        "kind": "original-application"
+      }
+    },
+    {
+      "id": "prep1-capm",
+      "type": "numerical",
+      "topic": "CAPM expected return",
+      "prompt": "What expected return does CAPM imply for the stock?",
+      "context": "The stock’s beta is 1.5, the annual risk-free rate is 3%, and the expected annual market return is 11%. Enter a percentage.",
+      "answer": 15,
+      "unit": "%",
+      "absoluteTolerance": 0.01,
+      "relativeTolerance": 0,
+      "explanation": "15%: 3% plus 1.5 times the 8% market risk premium.",
+      "detail": "Use \\(E[R_i]=r_f+\\beta_i(E[R_M]-r_f)\\). First find the market premium, \\(11\\%-3\\%=8\\%\\). Then \\(3\\%+1.5(8\\%)=15\\%\\). This is a model-implied expected return, not a guaranteed realized return.",
+      "misconception": "Multiply beta by the market risk premium, not by the full expected market return.",
+      "source": {
+        "file": "homework3_core.tex",
+        "section": "Homework 3 · Question 12",
+        "kind": "original-application"
+      }
+    }
+  ]
+}

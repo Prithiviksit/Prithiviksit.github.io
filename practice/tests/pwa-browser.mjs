@@ -8,7 +8,7 @@ import { createHash } from "node:crypto";
 import { chromium, webkit, devices } from "playwright";
 import { emptyProgress, STORAGE_KEY } from "../js/progress.js";
 import { activateSession, submit, finish } from "../js/logic.js";
-import { root, lessons } from "./validate.mjs";
+import { root, lessons, lectureLessons } from "./validate.mjs";
 
 const context = { self: {} };
 vm.runInNewContext(
@@ -228,11 +228,11 @@ try {
       submit(state, q);
     }
     finish(state);
-    activateSession(state, lessons[1], lessons[1].questions);
+    activateSession(state, lectureLessons[1], lectureLessons[1].questions);
     state.active.cards[0].draft = {};
-    activateSession(state, lessons[3], lessons[3].questions);
+    activateSession(state, lectureLessons[3], lectureLessons[3].questions);
     state.active.cards[0].draft = "15";
-    submit(state, lessons[3].questions[0]);
+    submit(state, lectureLessons[3].questions[0]);
     state.active.index = 1;
     await page.evaluate(
       ({ key, state }) => localStorage.setItem(key, JSON.stringify(state)),

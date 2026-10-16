@@ -5,7 +5,7 @@ import path from "node:path";
 import { chromium } from "playwright";
 import { STORAGE_KEY, LEGACY_STORAGE_KEY } from "../js/progress.js";
 import { createSession } from "../js/logic.js";
-import { root, lessons } from "./validate.mjs";
+import { root, lessons, lectureLessons } from "./validate.mjs";
 
 const url = process.env.BASE_URL || "http://127.0.0.1:8765/practice/";
 const launch = {
@@ -51,7 +51,7 @@ try {
   assert.ok(!initial.some((u) => /katex/.test(u)), "No initial math download");
   assert.ok(
     !initial.some((u) =>
-      /\/(lec15-capital-markets|lec16-market-efficiency|lec17-risk-return|lec18-capm)\.json$/.test(
+      /\/(exam-prep-[123]|lec15-capital-markets|lec16-market-efficiency|lec17-risk-return|lec18-capm)\.json$/.test(
         new URL(u).pathname,
       ),
     ),
@@ -77,7 +77,7 @@ try {
   // Skip straight to lesson four, independent of all other topics.
   await start(page, "lec18-capm");
   const files = requests.filter((r) =>
-    /\/(lec15-capital-markets|lec16-market-efficiency|lec17-risk-return|lec18-capm)\.json$/.test(
+    /\/(exam-prep-[123]|lec15-capital-markets|lec16-market-efficiency|lec17-risk-return|lec18-capm)\.json$/.test(
       new URL(r.url).pathname,
     ),
   );
@@ -161,7 +161,7 @@ try {
   );
 
   const migration = await browser.newContext();
-  const session = createSession(lessons[0], lessons[0].questions);
+  const session = createSession(lectureLessons[0], lectureLessons[0].questions);
   session.cards[0].draft = "8";
   const legacy = {
     version: 1,
@@ -217,7 +217,9 @@ try {
   ])
     assert.deepEqual(migrated[key], previous[key]);
   assert.equal(
-    await updated.locator(".section-count").textContent(),
+    await updated
+      .locator('[aria-labelledby="lecture-practice-title"] .section-count')
+      .textContent(),
     "0 of 4 complete",
   );
   assert.equal(
@@ -226,7 +228,7 @@ try {
       .last()
       .locator("strong")
       .textContent(),
-    "0/20",
+    "0/35",
   );
   await updated.locator('.sidebar [data-view="progress"]').click();
   assert.ok(
@@ -243,13 +245,13 @@ try {
     migrated,
     "Reload does not repeat the content migration",
   );
-  await start(updated, lessons[0].id);
+  await start(updated, lectureLessons[0].id);
   await updated.locator("#number-answer").fill("0");
   await updated.locator("#check-button").click();
   assert.equal((await read(updated)).xp, previous.xp + 10);
   await curriculum.close();
   console.log(
-    "PASS previous curriculum retains XP/history/scores/attempts and opens all four new topics without a reset.",
+    "PASS previous curriculum retains XP/history/scores/attempts and opens all seven topics without a reset.",
   );
 
   const reviewContext = await browser.newContext();

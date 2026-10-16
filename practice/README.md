@@ -1,6 +1,6 @@
 # Finpath — Corporate Finance Practice
 
-An installable, static, mobile-friendly Corporate Finance practice app for Lectures 15–18: four short lessons, 20 source-grounded questions, and a reusable exercise engine. It lives entirely under `/practice/` and does not change the academic website’s navigation, theme, or deployment configuration.
+An installable, static, mobile-friendly Corporate Finance practice app with three exam-prep sets followed by Lectures 15–18: seven short lessons, 35 source-grounded questions, and a reusable exercise engine. It lives entirely under `/practice/` and does not change the academic website’s navigation, theme, or deployment configuration.
 
 ## Preview
 
@@ -20,6 +20,12 @@ GitHub Pages can serve this directory unchanged. All application resources use r
 | -------------------------------------------- | -------------------------------------------------- |
 | ![Mobile feedback](docs/mobile-feedback.png) | ![Mobile explanation](docs/mobile-explanation.png) |
 
+## Exam prep
+
+Three five-question sets appear before the lecture path. They use only multiple choice and numerical input, with five whole-number calculation answers using the same formulas as Homework 3 and Mock Quizzes 2A/2B. The three sets collectively cover the ten concept checks and five calculation formulas in those practice materials. See [the question/source map](docs/exam-prep.md).
+
+The visible scope notice explains that the lecture practice covers a broader range: not every lecture question or topic will be on the exam. Exam prep is voluntary, open from the start, and saved independently using the existing progress store. All existing lecture IDs and questions remain unchanged.
+
 ## Lecture topics
 
 Each topic has five questions, selected from its `Lec` core deck and checked against the full lecture and associated textbook sections. No `Module` slide content is used.
@@ -33,7 +39,7 @@ Each topic has five questions, selected from its `Lec` core deck and checked aga
 
 ## Learning behavior
 
-- Four lessons, five questions each, targeting approximately 3–5 minutes per lesson. Timing is an estimate, not a measured student outcome.
+- Seven lessons, five questions each, targeting approximately 3–5 minutes per lesson. Timing is an estimate, not a measured student outcome.
 - Multiple choice, true/false, matching, sequence, and numerical questions. Choices and matching definitions are shuffled once per question visit and retain their order on reload.
 - A correct first-pass answer earns 10 XP. Review answers earn 5 XP. Consecutive correct answers add 2, 4, then at most 6 bonus XP. Errors break the combo. Repeated practice can earn more XP.
 - Incorrect submissions cost one heart, reveal the answer, and enter the review queue. Lessons stay at five questions. Review is optional and separate; review sessions contain up to five questions.

@@ -2579,3 +2579,83 @@ dialog {
   inset: var(--safe-top) auto var(--safe-bottom) var(--safe-left);
   overflow-y: auto;
 }
+
+/* Exam preparation sits before the broader lecture path. */
+.exam-prep {
+  margin-bottom: 42px;
+}
+.prep-intro {
+  color: #b0bdd1;
+  font-size: 14px;
+  line-height: 1.65;
+  margin-bottom: 18px;
+}
+.exam-scope {
+  padding: 16px 18px;
+  border: 1px solid #5c487a;
+  border-radius: 14px;
+  background: #a78bfa0b;
+  margin-bottom: 20px;
+}
+.exam-scope strong {
+  color: #d7c5fc;
+  font-size: 13px;
+}
+.exam-scope p {
+  color: #b6c0d1;
+  font-size: 13px;
+  line-height: 1.65;
+  margin-top: 6px;
+}
+.prep-sets {
+  display: grid;
+  gap: 12px;
+}
+.prep-stop {
+  padding: 20px;
+  min-height: 125px;
+  border: 1px solid #39435a;
+  border-radius: 17px;
+  background: linear-gradient(115deg, #29233e, #1b2434);
+  gap: 18px;
+}
+.prep-stop.current {
+  border-color: #8b5fcb;
+}
+.prep-stop .lesson-node {
+  width: 60px;
+  height: 60px;
+  border-radius: 20px;
+}
+.prep-stop .lesson-copy p {
+  max-width: none;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.prep-stop .lesson-meta {
+  font-size: 10px;
+}
+@media (max-width: 480px) {
+  .prep-stop {
+    padding: 16px 12px;
+    gap: 14px;
+  }
+  .prep-stop .lesson-node {
+    width: 50px;
+    height: 50px;
+    border-radius: 16px;
+  }
+  .prep-stop .lesson-node .icon {
+    width: 24px;
+    height: 24px;
+  }
+  .prep-stop .lesson-copy h3 {
+    font-size: 15px;
+  }
+  .prep-stop .lesson-copy p {
+    font-size: 12px;
+  }
+  .exam-scope {
+    padding: 14px;
+  }
+}
