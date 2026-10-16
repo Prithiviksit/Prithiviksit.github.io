@@ -18,6 +18,11 @@ checks = {
     'lec16-replication': 800 * .25 + 200 * no_price,
     'lec18-cost-equity': capm,
     'lec18-alpha': 13.4 - (3 + 1.4 * (9 - 3)),
+    'prep1-market-premium': 11 - 3,
+    'prep1-capm': 3 + 1.5 * (11 - 3),
+    'prep2-mm-equity': 10 + .5 * (10 - 4),
+    'prep3-wacc': .5 * 14 + .5 * 8 * (1 - .25),
+    'prep3-tax-shield': .20 * 80,
 }
 for name, answer in checks.items():
     assert math.isclose(questions[name]['answer'], answer, abs_tol=1e-12), (name, answer)
@@ -31,4 +36,5 @@ assert 800 * 1 + 200 * 0 == 800 and 800 * 0 + 200 * 1 == 200
 assert math.isclose(capm - 3, 12)
 assert 3 + .5 * 6 == 6 < 10 < 12 == 3 + 1.5 * 6
 assert questions['lec18-project-hurdle']['answer'] == 'reject'
-print('Verified all five numeric answers, compounding versus arithmetic means, arbitrage profit, both replication states, CAPM premiums and project hurdles.')
+assert all(float(v).is_integer() for k, v in checks.items() if k.startswith('prep'))
+print('Verified all ten numeric answers, compounding versus arithmetic means, arbitrage profit, both replication states, CAPM premiums and project hurdles.')

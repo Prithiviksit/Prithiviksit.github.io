@@ -150,12 +150,12 @@ test("completing and retrying preserves best first-pass score and cumulative XP"
   p.active.xp = 50;
   p.xp = 50;
   assert.equal(finish(p).score, 80);
-  assert.equal(p.lessons["lec15-capital-markets"].best, 80);
+  assert.equal(p.lessons[lessons[0].id].best, 80);
   p.active = createSession(lessons[0], lessons[0].questions);
   p.active.firstCorrect = 2;
   finish(p);
-  assert.equal(p.lessons["lec15-capital-markets"].best, 80);
-  assert.equal(p.lessons["lec15-capital-markets"].attempts, 2);
+  assert.equal(p.lessons[lessons[0].id].best, 80);
+  assert.equal(p.lessons[lessons[0].id].attempts, 2);
   assert.equal(p.xp, 50);
 });
 test("storage round trip and reset affect only this app", () => {

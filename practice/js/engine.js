@@ -127,43 +127,51 @@ function momentum() {
   return `<aside class="right-column"><section class="panel momentum"><div class="eyebrow">YOUR MOMENTUM ${icon("coin")}</div><div class="ring" style="--percent:${(100 * completed()) / lessons.length}"><div><strong>${completed()}<span>/${lessons.length}</span></strong><small>lessons complete</small></div></div><div class="stat-pair"><div><strong class="amber">${progress.xp}</strong><span>Total XP</span></div><div><strong>${mastered}<small>/${total}</small></strong><span>Practiced correctly</span></div></div></section><section class="panel daily-note"><div class="note-icon">${icon("book")}</div><div class="eyebrow">A THOUGHT TO KEEP</div><h3>Risk is about<br>the company it keeps.</h3><p>An asset’s role in your portfolio matters as much as its risk on its own.</p><button class="text-button violet" data-action="notes">Open field notes ${icon("arrow")}</button></section><section class="gentle-note">${icon("heart")}<p>Room to make mistakes.<br><span>Retry freely. Keep your progress.</span></p></section></aside>`;
 }
 
-function marketPath() {
-  const points = lessons.map((lesson, i) => {
-    const t = lessons.length === 1 ? 0.5 : i / (lessons.length - 1);
+function marketPath(pathLessons) {
+  const points = pathLessons.map((lesson, i) => {
+    const t = pathLessons.length === 1 ? 0.5 : i / (pathLessons.length - 1);
     return {
       lesson,
       x: 48 + 504 * t,
       y:
         155 -
         120 * t +
-        (i > 0 && i < lessons.length - 1 ? (i % 2 ? -28 : 28) : 0),
+        (i > 0 && i < pathLessons.length - 1 ? (i % 2 ? -28 : 28) : 0),
     };
   });
   const line = points.map((p) => `${p.x},${p.y}`).join(" ");
   return `<section class="market-path" aria-label="Choose any lesson"><div class="market-caption"><span>${icon("chart")} YOUR LEARNING PORTFOLIO</span><small>Start anywhere</small></div><div class="market-chart"><svg viewBox="0 0 600 200" preserveAspectRatio="none" aria-hidden="true"><path d="M0 45H600M0 105H600M0 165H600" stroke="currentColor" opacity=".12"/><polygon points="${points[0].x},195 ${line} ${points.at(-1).x},195" fill="#7c3aed" opacity=".08"/><polyline points="${line}" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>${points.map(({ lesson, x, y }, i) => `<button class="market-node ${progress.lessons[lesson.id]?.completed ? "complete" : ""}" data-label="${esc(lesson.title)}" style="left:${x / 6}%;top:${y / 2}%" data-action="start" data-id="${lesson.id}" aria-label="${esc(lesson.title)}, ${unfinished(lesson.id) ? "resume" : "start"} lesson">${progress.lessons[lesson.id]?.completed ? icon("check") : String(i + 1).padStart(2, "0")}</button>`).join("")}</div><p>Growth has its ups and downs. Keep investing in yourself.</p></section>`;
 }
 
+function lessonStop(l, i, next, exam = false) {
+  const done = progress.lessons[l.id];
+  const saved = unfinished(l.id);
+  const current = !done && l.id === next.id;
+  return `<div class="lesson-stop ${exam ? "prep-stop" : i % 2 ? "offset" : ""} ${current ? "current" : done ? "complete" : "available"}"><button class="lesson-node" data-action="start" data-id="${esc(l.id)}" aria-label="${esc(l.title)}${saved ? ", resume lesson" : done ? ", completed, best " + done.best + "%" : ", start lesson"}">${icon(saved ? "review" : done ? "check" : l.icon)}</button><div class="lesson-copy">${current ? '<span class="start-label">SUGGESTED NEXT</span>' : ""}<h3>${esc(l.title)}</h3><p>${esc(l.description)}</p><span class="lesson-meta">${saved ? `${icon("review")} Resume · question ${saved.index + 1} of ${saved.cards.length}` : done ? `${icon("check")} ${done.best}% best · practice again` : `${icon("clock")} 3–5 min · ${l.questions.length} questions`}</span></div>${current && !exam ? button("start", icon("arrow"), "node-go", `data-id="${esc(l.id)}" aria-label="Start ${esc(l.title)}"`) : ""}</div>`;
+}
+
 function home() {
   const next = nextLesson();
   const active = progress.active;
-  let index = 0;
-  const path = course.units
+  const prep = course.units.find((unit) => unit.kind === "exam-prep");
+  const lectureUnits = course.units.filter((unit) => unit.kind !== "exam-prep");
+  const lectureLessons = lectureUnits.flatMap((unit) => unit.lessons);
+  const lectureComplete = lectureLessons.filter(
+    (l) => progress.lessons[l.id]?.completed,
+  ).length;
+  const prepComplete =
+    prep?.lessons.filter((l) => progress.lessons[l.id]?.completed).length || 0;
+  const examSection = prep
+    ? `<section class="exam-prep" aria-labelledby="exam-prep-title"><div class="section-heading"><div><div class="eyebrow">FOCUS YOUR PREPARATION</div><h2 id="exam-prep-title">${esc(prep.title)}</h2></div><span class="section-count">${prepComplete} of ${prep.lessons.length} sets</span></div><p class="prep-intro">${esc(prep.description)}</p><aside class="exam-scope" aria-label="Exam scope"><strong>About exam coverage</strong><p>${esc(prep.notice)}</p></aside><div class="prep-sets">${prep.lessons.map((l, i) => lessonStop(l, i, next, true)).join("")}</div></section>`
+    : "";
+  const path = lectureUnits
     .map(
-      (unit, unitIndex) =>
-        `<section class="unit"><div class="unit-heading"><span class="unit-number">0${unitIndex + 1}</span><div><h2>${esc(unit.title)}</h2><p>${esc(unit.description)}</p></div></div><div class="lesson-path">${unit.lessons
-          .map(() => {
-            const i = index++;
-            const l = lessons[i];
-            const done = progress.lessons[l.id];
-            const saved = unfinished(l.id);
-            const current = !done && l.id === next.id;
-            return `<div class="lesson-stop ${i % 2 ? "offset" : ""} ${current ? "current" : done ? "complete" : "available"}"><button class="lesson-node" data-action="start" data-id="${esc(l.id)}"  aria-label="${esc(l.title)}${saved ? ", resume lesson" : done ? ", completed, best " + done.best + "%" : ", start lesson"}">${icon(saved ? "review" : done ? "check" : l.icon)}</button><div class="lesson-copy">${current ? '<span class="start-label">SUGGESTED NEXT</span>' : ""}<h3>${esc(l.title)}</h3><p>${esc(l.description)}</p><span class="lesson-meta">${saved ? `${icon("review")} Resume · question ${saved.index + 1} of ${saved.cards.length}` : done ? `${icon("check")} ${done.best}% best · practice again` : `${icon("clock")} 3–5 min · ${l.questions.length} questions`}</span></div>${current ? button("start", icon("arrow"), "node-go", `data-id="${esc(l.id)}" aria-label="Start ${esc(l.title)}"`) : ""}</div>`;
-          })
-          .join("")}</div></section>`,
+      (unit, i) =>
+        `<section class="unit"><div class="unit-heading"><span class="unit-number">${String(i + 1).padStart(2, "0")}</span><div><h2>${esc(unit.title)}</h2><p>${esc(unit.description)}</p></div></div><div class="lesson-path">${unit.lessons.map((l) => lessonStop(l, i, next)).join("")}</div></section>`,
     )
     .join("");
   shell(
-    `<section class="hero"><div class="hero-copy"><div class="eyebrow"><span class="tiny-line"></span> THE PRACTICE LAB</div><h1>Small steps.<br><span>Sharper instincts.</span></h1><p>Put your lectures into practice. Build a little confidence.<br>Your next breakthrough is a few questions away.</p><button data-action="${active ? "resume" : "start"}" data-id="${esc(next.id)}" class="button primary">${active ? "Resume lesson" : completed() === lessons.length ? "Practice again" : "Let’s practice"} ${icon("arrow")}</button><span class="hero-time">${icon("clock")} 3–5 minutes · Start anywhere</span></div>${illustration()}</section><div class="learning-grid"><div><div class="section-heading"><div><div class="eyebrow">YOUR LEARNING PATH</div><h2>${esc(course.topic)}</h2></div><span class="section-count">${completed()} of ${lessons.length} complete</span></div><div class="course-progress" role="progressbar" aria-label="Course completion" aria-valuenow="${completed()}" aria-valuemin="0" aria-valuemax="${lessons.length}"><span style="width:${(100 * completed()) / lessons.length}%"></span></div>${marketPath()}${path}<div class="path-finish">${icon("trophy")}<span>${completed() === lessons.length ? "Path complete. Keep your intuition sharp with review." : "A stronger financial instinct starts here."}</span></div></div>${momentum()}</div>`,
+    `<section class="hero"><div class="hero-copy"><div class="eyebrow"><span class="tiny-line"></span> THE PRACTICE LAB</div><h1>Small steps.<br><span>Sharper instincts.</span></h1><p>Prepare for the exam or explore your lecture topics.<br>Build confidence, five questions at a time.</p><button data-action="${active ? "resume" : "start"}" data-id="${esc(next.id)}" class="button primary">${active ? "Resume lesson" : completed() === lessons.length ? "Practice again" : "Let’s practice"} ${icon("arrow")}</button><span class="hero-time">${icon("clock")} 3–5 minutes · Start anywhere</span></div>${illustration()}</section><div class="learning-grid"><div>${examSection}<section aria-labelledby="lecture-practice-title"><div class="section-heading"><div><div class="eyebrow">EXPLORE YOUR LECTURES</div><h2 id="lecture-practice-title">Lecture practice</h2></div><span class="section-count">${lectureComplete} of ${lectureLessons.length} complete</span></div><div class="course-progress" role="progressbar" aria-label="Lecture completion" aria-valuenow="${lectureComplete}" aria-valuemin="0" aria-valuemax="${lectureLessons.length}"><span style="width:${(100 * lectureComplete) / lectureLessons.length}%"></span></div>${marketPath(lectureLessons)}${path}</section><div class="path-finish">${icon("trophy")}<span>${completed() === lessons.length ? "Path complete. Keep your intuition sharp with review." : "A stronger financial instinct starts here."}</span></div></div>${momentum()}</div>`,
   );
 }
 
@@ -329,7 +337,7 @@ function showWhy() {
   if (!card.feedback) return;
   openDialog(
     "Let’s unpack it.",
-    `<div class="eyebrow">${esc(q.topic)}</div><p class="explain-question">${esc(q.prompt)}</p><h3>The intuition</h3><p>${esc(q.detail)}</p><div class="misconception"><h3>A common trap</h3><p>${esc(q.misconception)}</p></div><details class="source-note"><summary>From your course</summary><p>${esc(q.source.file)}<br>${esc(q.source.section)}${q.source.textbook ? `<br>${esc(q.source.textbook)}` : ""}<br>${q.source.kind === "adapted" ? "Adapted from the lecture." : "Original practice application of the lecture concept."}</p></details>${button("close-dialog", "Got it " + icon("check"), "button primary")}`,
+    `<div class="eyebrow">${esc(q.topic)}</div><p class="explain-question">${esc(q.prompt)}</p><h3>The intuition</h3><p>${esc(q.detail)}</p><div class="misconception"><h3>A common trap</h3><p>${esc(q.misconception)}</p></div><details class="source-note"><summary>From your course</summary><p>${esc(q.source.file)}<br>${esc(q.source.section)}${q.source.textbook ? `<br>${esc(q.source.textbook)}` : ""}<br>${q.source.kind === "adapted" ? "Adapted from the course material." : "Original practice application of the course material."}</p></details>${button("close-dialog", "Got it " + icon("check"), "button primary")}`,
     "explanation-dialog",
   );
 }
@@ -337,7 +345,7 @@ function showWhy() {
 function notes() {
   openDialog(
     "Your field notes",
-    `<p>Four lecture topics. A few ideas to carry with you.</p><dl class="field-notes"><dt>Lecture 15 · Capital markets</dt><dd>Market orders prioritize execution; limit orders protect price. Geometric averages measure compounded growth. Volatility counts dispersion on both sides of the mean.</dd><dt>Lecture 16 · Market efficiency</dt><dd>Weak, semi-strong, and strong efficiency describe different information sets. Arbitrage matches certain payoffs, but funding and trading constraints can limit correction. YES plus NO is worth the present value of their guaranteed combined payoff.</dd><dt>Lecture 17 · Risk & diversification</dt><dd>Independent surprises can cancel; common exposure remains. More holdings alone do not ensure diversification. Systematic exposure, rather than total volatility, determines the risk premium in this benchmark.</dd><dt>Lecture 18 · CAPM & cost of equity</dt><dd>Required return = risk-free rate + beta × market risk premium. Alpha compares expected return with this benchmark. Choose a project’s hurdle rate using its own risk.</dd></dl>${button("close-dialog", "Back to practice", "button primary")}`,
+    `<p>Exam prep uses the homework and Mock Quiz 2A/2B concepts and formulas. Lecture practice goes further; not every lecture question or topic will be on the exam.</p><dl class="field-notes"><dt>Exam formulas</dt><dd>Market risk premium: \\(E[R_M]-r_f\\). CAPM: \\(r_E=r_f+\\beta(E[R_M]-r_f)\\). MM II without taxes: \\(r_E=r_U+(D/E)(r_U-r_D)\\). After-tax WACC: \\((E/V)r_E+(D/V)r_D(1-T_C)\\). For permanent debt with usable deductions and tax-shield risk equal to debt risk: \\(PV(\\text{tax shield})=T_C D\\).</dd></dl><dl class="field-notes"><dt>Lecture 15 · Capital markets</dt><dd>Market orders prioritize execution; limit orders protect price. Geometric averages measure compounded growth. Volatility counts dispersion on both sides of the mean.</dd><dt>Lecture 16 · Market efficiency</dt><dd>Weak, semi-strong, and strong efficiency describe different information sets. Arbitrage matches certain payoffs, but funding and trading constraints can limit correction. YES plus NO is worth the present value of their guaranteed combined payoff.</dd><dt>Lecture 17 · Risk & diversification</dt><dd>Independent surprises can cancel; common exposure remains. More holdings alone do not ensure diversification. Systematic exposure, rather than total volatility, determines the risk premium in this benchmark.</dd><dt>Lecture 18 · CAPM & cost of equity</dt><dd>Required return = risk-free rate + beta × market risk premium. Alpha compares expected return with this benchmark. Choose a project’s hurdle rate using its own risk.</dd></dl>${button("close-dialog", "Back to practice", "button primary")}`,
   );
 }
 

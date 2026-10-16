@@ -117,8 +117,26 @@ try {
   await noOverflow(page);
   await accessible(page);
   await shot(page, "desktop-path");
+  assert.equal(await page.locator(".exam-prep .lesson-node").count(), 3);
+  assert.ok(
+    (await page.locator(".exam-scope").textContent()).includes(
+      "Not every lecture question or topic will be on the exam",
+    ),
+  );
+  assert.ok(
+    await page.evaluate(() =>
+      Boolean(
+        document
+          .querySelector(".exam-prep")
+          .compareDocumentPosition(
+            document.querySelector("#lecture-practice-title"),
+          ) & Node.DOCUMENT_POSITION_FOLLOWING,
+      ),
+    ),
+  );
+
   assert.equal(await page.locator(".lesson-node:disabled").count(), 0);
-  await action(page, "start").click();
+  await page.locator('.lesson-node[data-id="lec15-capital-markets"]').click();
   assert.equal(await page.locator("#check-button").isDisabled(), true);
   await page.locator("#number-answer").fill("20");
   await action(page, "toggle-sign").click();
@@ -161,7 +179,9 @@ try {
   await shot(page, "lesson-complete");
   await action(page, "nav").click();
   assert.equal(await page.locator(".lesson-node:disabled").count(), 0);
-  for (const lesson of lessons.slice(1)) {
+  for (const lesson of lessons.filter(
+    (l) => l.id !== "lec15-capital-markets",
+  )) {
     await page.locator(`.lesson-node[data-id="${lesson.id}"]`).click();
     await page.locator("#question-title").waitFor();
     while ((await state(page)).active) {
@@ -178,18 +198,18 @@ try {
     assert.equal((await state(page)).lessons[lesson.id].best, 100);
     await action(page, "nav").click();
   }
-  assert.equal((await state(page)).xp, 256);
-  assert.equal((await state(page)).history.length, 20);
-  assert.equal(Object.keys((await state(page)).lessons).length, 4);
+  assert.equal((await state(page)).xp, 52 + (lessons.length - 1) * 68);
+  assert.equal((await state(page)).history.length, 35);
+  assert.equal(Object.keys((await state(page)).lessons).length, 7);
   await page.reload();
   await page.locator(".hero").waitFor();
-  assert.equal((await state(page)).xp, 256);
+  assert.equal((await state(page)).xp, 52 + (lessons.length - 1) * 68);
   await page.locator('.sidebar [data-view="progress"]').click();
-  assert.equal(await page.locator(".record").count(), 4);
+  assert.equal(await page.locator(".record").count(), 7);
   await action(page, "settings").click();
   await action(page, "reset-step").click();
   await page.keyboard.press("Escape");
-  assert.equal((await state(page)).xp, 256);
+  assert.equal((await state(page)).xp, 52 + (lessons.length - 1) * 68);
   await action(page, "settings").click();
   await action(page, "reset-step").click();
   await action(page, "reset-confirm").click();
@@ -206,7 +226,7 @@ try {
   await noOverflow(m);
   await accessible(m);
   await shot(m, "mobile-path");
-  await action(m, "start").click();
+  await m.locator('.lesson-node[data-id="lec15-capital-markets"]').click();
   await noOverflow(m);
   await accessible(m);
   await shot(m, "mobile-question");
@@ -291,7 +311,9 @@ try {
   );
   await corrupt.context.close();
   const reopen = await newPage();
-  await action(reopen.page, "start").click();
+  await reopen.page
+    .locator('.lesson-node[data-id="lec15-capital-markets"]')
+    .click();
   await reopen.page.locator("#number-answer").fill("-20");
   await reopen.page.close();
   const reopened = await reopen.context.newPage();

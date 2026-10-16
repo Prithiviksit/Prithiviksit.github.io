@@ -1,7 +1,12 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import { course, lessons } from "./validate.mjs";
+import {
+  course,
+  lessons as allLessons,
+  lectureLessons as lessons,
+  prepLessons,
+} from "./validate.mjs";
 import {
   createProgressStore,
   localStorageAdapter,
@@ -36,7 +41,7 @@ test("curriculum replacement archives retired attempts without losing historical
   activateSession(p, lessons[3], lessons[3].questions);
   p.active.cards[0].draft = "15";
   const current = structuredClone(p.active);
-  assert.equal(reconcileContent(p, lessons), true);
+  assert.equal(reconcileContent(p, allLessons), true);
   assert.deepEqual(p.active, current);
   assert.deepEqual(p.paused, {});
   assert.deepEqual(p.review, []);
@@ -60,7 +65,7 @@ test("curriculum replacement archives retired attempts without losing historical
   store.save(p);
   const reloaded = store.load();
   assert.equal(
-    reconcileContent(reloaded, lessons),
+    reconcileContent(reloaded, allLessons),
     false,
     "Migration is idempotent",
   );
@@ -217,4 +222,30 @@ test("lesson files load only when requested and concurrent reads share one reque
   ]);
   assert.equal(calls.length, 2);
   assert.equal(review.length, 2);
+});
+
+test("adding exam prep preserves completed lectures and unfinished attempts exactly", () => {
+  const p = emptyProgress();
+  activateSession(p, lessons[0], lessons[0].questions);
+  p.active.cards[0].draft = "0";
+  submit(p, lessons[0].questions[0]);
+  finish(p);
+  activateSession(p, lessons[3], lessons[3].questions);
+  p.active.cards[0].draft = "15";
+  submit(p, lessons[3].questions[0]);
+  p.active.index = 1;
+  const before = structuredClone(p);
+  assert.equal(reconcileContent(p, allLessons), false);
+  assert.deepEqual(p, before);
+  activateSession(p, prepLessons[0], prepLessons[0].questions);
+  assert.deepEqual(p.paused["lesson:lec18-capm"], before.active);
+  for (const key of [
+    "xp",
+    "lessons",
+    "history",
+    "completedSessions",
+    "questions",
+  ])
+    assert.deepEqual(p[key], before[key]);
+  assert.ok(prepLessons.every((l) => !p.lessons[l.id]));
 });

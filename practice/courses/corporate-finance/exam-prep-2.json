@@ -1,0 +1,161 @@
+{
+  "id": "exam-prep-2",
+  "title": "Set 2 · Markets & leverage",
+  "description": "Information in prices, beta, and the MM propositions.",
+  "minutes": 4,
+  "icon": "layers",
+  "questions": [
+    {
+      "id": "prep2-efficiency",
+      "type": "multiple-choice",
+      "topic": "Semi-strong efficiency",
+      "prompt": "Under semi-strong-form market efficiency, which information is already reflected in stock prices?",
+      "options": [
+        {
+          "id": "public",
+          "text": "All publicly available information."
+        },
+        {
+          "id": "history",
+          "text": "Only past prices and trading volume."
+        },
+        {
+          "id": "private",
+          "text": "All public information and all private insider information."
+        },
+        {
+          "id": "statements",
+          "text": "Only published financial statements."
+        }
+      ],
+      "answer": "public",
+      "explanation": "Semi-strong efficiency covers all publicly available information.",
+      "detail": "Public information includes financial reports, news releases, and other publicly observable facts. Weak-form efficiency focuses on trading history; strong-form efficiency additionally includes private information.",
+      "misconception": "Semi-strong efficiency does not say that every piece of private insider information is already reflected in prices.",
+      "source": {
+        "file": "mock_quiz_a_core.tex",
+        "section": "Mock Quiz 2A · Question 3",
+        "kind": "original-application"
+      }
+    },
+    {
+      "id": "prep2-news",
+      "type": "multiple-choice",
+      "topic": "Earnings surprises",
+      "prompt": "Which comparison identifies the new earnings information relevant to an efficient market?",
+      "options": [
+        {
+          "id": "expectations",
+          "text": "Reported earnings compared with what investors expected."
+        },
+        {
+          "id": "zero",
+          "text": "Reported earnings compared with zero."
+        },
+        {
+          "id": "dividends",
+          "text": "Reported earnings compared with dividends paid."
+        },
+        {
+          "id": "price",
+          "text": "Reported earnings per share compared with the stock price."
+        }
+      ],
+      "answer": "expectations",
+      "explanation": "The news is the difference between reported and expected earnings.",
+      "detail": "Positive earnings can still disappoint if investors expected more. Earnings that exactly match expectations contain no earnings surprise that must push the price up. Other simultaneous news can still move the price.",
+      "misconception": "A profit is not automatically good news for the stock price: expectations matter.",
+      "source": {
+        "file": "mock_quiz_a_core.tex",
+        "section": "Mock Quiz 2A · Question 4",
+        "kind": "original-application"
+      }
+    },
+    {
+      "id": "prep2-beta",
+      "type": "multiple-choice",
+      "topic": "Interpreting beta",
+      "prompt": "A stock’s beta is 1.5. What does beta describe?",
+      "options": [
+        {
+          "id": "sensitivity",
+          "text": "Its sensitivity to market returns, with greater positive exposure than a beta of 1."
+        },
+        {
+          "id": "default",
+          "text": "A 1.5% annual probability of default."
+        },
+        {
+          "id": "total-risk",
+          "text": "Its total return standard deviation of 1.5%."
+        },
+        {
+          "id": "guarantee",
+          "text": "A guaranteed return of 1.5% every year."
+        }
+      ],
+      "answer": "sensitivity",
+      "explanation": "Beta measures market sensitivity, not total volatility or a guaranteed return.",
+      "detail": "A beta above one indicates greater positive exposure to broad market movements than a beta of one. Firm-specific news can still move the stock independently of the market.",
+      "misconception": "Beta is not an exact multiplier for every day’s realized return, nor a measure of all the stock’s risk.",
+      "source": {
+        "file": "mock_quiz_a_core.tex",
+        "section": "Mock Quiz 2A · Question 7",
+        "kind": "original-application"
+      }
+    },
+    {
+      "id": "prep2-mm-value",
+      "type": "multiple-choice",
+      "topic": "MM Proposition I",
+      "prompt": "A firm replaces some equity with debt. What happens to total firm value under MM Proposition I?",
+      "options": [
+        {
+          "id": "unchanged",
+          "text": "It stays unchanged because the operating assets and cash flows are unchanged."
+        },
+        {
+          "id": "increase",
+          "text": "It necessarily rises because debt has a lower required return."
+        },
+        {
+          "id": "decrease",
+          "text": "It necessarily falls because equity becomes riskier."
+        },
+        {
+          "id": "zero-equity",
+          "text": "It equals the debt value because shareholders no longer matter."
+        }
+      ],
+      "answer": "unchanged",
+      "explanation": "Changing the financing mix alone does not change total firm value under these assumptions.",
+      "detail": "MM Proposition I separates the value created by operating assets from the way that value is divided among debt and equity holders. More borrowing can change equity risk without creating additional operating cash flow.",
+      "misconception": "A lower cost of debt does not make financing a free source of value: the remaining equity becomes riskier.",
+      "source": {
+        "file": "mock_quiz_a_core.tex",
+        "section": "Mock Quiz 2A · Question 9",
+        "kind": "original-application"
+      },
+      "context": "Assume perfect capital markets without taxes, and hold the firm’s investment policy and operating cash flows fixed."
+    },
+    {
+      "id": "prep2-mm-equity",
+      "type": "numerical",
+      "topic": "MM Proposition II",
+      "prompt": "What is the firm’s cost of levered equity?",
+      "context": "Assume perfect capital markets without taxes. The unlevered cost of capital is 10%, the cost of debt is 4%, and the debt-to-equity ratio is 0.5. Use MM Proposition II and enter a percentage.",
+      "answer": 13,
+      "unit": "%",
+      "absoluteTolerance": 0.01,
+      "relativeTolerance": 0,
+      "explanation": "13%: 10% + 0.5 × (10% − 4%).",
+      "detail": "Without taxes, MM Proposition II is \\(r_E=r_U+(D/E)(r_U-r_D)\\). Therefore \\(r_E=10\\%+0.5(10\\%-4\\%)=13\\%\\). Debt concentrates more of the business risk on equity holders.",
+      "misconception": "The given 0.5 is debt divided by equity, not debt divided by total firm value. Do not add a corporate-tax adjustment in this no-tax question.",
+      "source": {
+        "file": "mock_quiz_a_core.tex",
+        "section": "Mock Quiz 2A · Question 13",
+        "kind": "original-application"
+      }
+    }
+  ]
+}

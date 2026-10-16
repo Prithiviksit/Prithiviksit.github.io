@@ -28,18 +28,50 @@ for (const [file, values] of [
   }
 }
 validateCourse(course, lessons);
-assert.equal(course.units.length, 4, "Four lecture topics");
-for (const [i, unit] of course.units.entries()) {
-  assert.equal(unit.lessons.length, 1, "One short lesson per lecture topic");
-  const lesson = lessons[i];
+export const prepLessons = lessons.filter((l) => l.id.startsWith("exam-prep-"));
+export const lectureLessons = lessons.filter((l) => l.id.startsWith("lec"));
+assert.equal(course.units.length, 5);
+assert.equal(course.units[0].kind, "exam-prep", "Exam prep precedes lectures");
+assert.equal(course.units[0].lessons.length, 3);
+assert.match(
+  course.units[0].notice,
+  /Not every lecture question or topic will be on the exam/,
+);
+assert.equal(lectureLessons.length, 4, "Preserve four lecture topics");
+for (const lesson of lessons) {
   assert.equal(lesson.questions.length, 5);
   assert.ok(lesson.minutes >= 3 && lesson.minutes <= 5);
+}
+for (const [i, lesson] of lectureLessons.entries()) {
   for (const q of lesson.questions) {
     assert.ok(q.id.startsWith(`lec${15 + i}-`), q.id);
     assert.ok(q.source.file.startsWith(`Lec${15 + i}_`), q.source.file);
-    assert.ok(!/module/i.test(JSON.stringify(q.source)), "Only Lec sources");
+    assert.ok(
+      !/module/i.test(JSON.stringify(q.source)),
+      "Only Lec sources for lectures",
+    );
   }
 }
+for (const [i, lesson] of prepLessons.entries()) {
+  const sources = [
+    "homework3_core.tex",
+    "mock_quiz_a_core.tex",
+    "mock_quiz_b_core.tex",
+  ];
+  assert.ok(lesson.questions.some((q) => q.type === "numerical"));
+  assert.ok(lesson.questions.some((q) => q.type === "multiple-choice"));
+  for (const q of lesson.questions) {
+    assert.ok(["numerical", "multiple-choice"].includes(q.type));
+    assert.equal(q.source.file, sources[i]);
+    if (q.type === "numerical") assert.ok(Number.isInteger(q.answer));
+  }
+}
+assert.equal(
+  prepLessons.flatMap((l) => l.questions).filter((q) => q.type === "numerical")
+    .length,
+  5,
+);
+
 assert.equal(
   new Set(lessons.flatMap((l) => l.questions.map((q) => q.type))).size,
   5,

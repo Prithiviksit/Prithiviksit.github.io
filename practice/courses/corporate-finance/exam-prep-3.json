@@ -1,0 +1,146 @@
+{
+  "id": "exam-prep-3",
+  "title": "Set 3 · Hurdles & tax shields",
+  "description": "Priced risk, project rates, WACC, and interest deductions.",
+  "minutes": 5,
+  "icon": "bolt",
+  "questions": [
+    {
+      "id": "prep3-priced-risk",
+      "type": "multiple-choice",
+      "topic": "Which risk is priced?",
+      "prompt": "Under CAPM, which exposure earns an expected risk premium?",
+      "options": [
+        {
+          "id": "systematic",
+          "text": "Systematic risk measured by beta."
+        },
+        {
+          "id": "firm-specific",
+          "text": "Firm-specific risk that can be diversified away."
+        },
+        {
+          "id": "total",
+          "text": "Every source of total return volatility equally."
+        },
+        {
+          "id": "past-loss",
+          "text": "Any risk that caused the investor a loss last year."
+        }
+      ],
+      "answer": "systematic",
+      "explanation": "CAPM compensates systematic exposure; diversifiable firm-specific risk earns no separate premium.",
+      "detail": "Investors can spread independent firm-specific risks across a broad portfolio. What remains relevant for CAPM compensation is how the investment covaries with the market, summarized by beta.",
+      "misconception": "A stock can be volatile because of firm-specific news without having a high CAPM expected return.",
+      "source": {
+        "file": "mock_quiz_b_core.tex",
+        "section": "Mock Quiz 2B · Question 6",
+        "kind": "original-application"
+      }
+    },
+    {
+      "id": "prep3-project-rate",
+      "type": "multiple-choice",
+      "topic": "Project discount rates",
+      "prompt": "Which discount rate should be used for a new project whose risk differs from the firm’s existing business?",
+      "options": [
+        {
+          "id": "project",
+          "text": "A rate appropriate for the project’s risk and financing."
+        },
+        {
+          "id": "company",
+          "text": "The firm’s existing average rate, regardless of the project’s risk."
+        },
+        {
+          "id": "dividend",
+          "text": "The firm’s dividend yield."
+        },
+        {
+          "id": "risk-free",
+          "text": "The risk-free rate, since the firm can diversify."
+        }
+      ],
+      "answer": "project",
+      "explanation": "The required return must match the project’s risk and financing.",
+      "detail": "The opportunity cost of capital depends on the use of the funds. A single company-wide hurdle can accept overly risky projects too easily or reject attractive safer projects. Comparable businesses can help assess the project’s systematic risk.",
+      "misconception": "The identity of the parent company does not make all its projects equally risky.",
+      "source": {
+        "file": "mock_quiz_b_core.tex",
+        "section": "Mock Quiz 2B · Question 8",
+        "kind": "original-application"
+      }
+    },
+    {
+      "id": "prep3-interest-deduction",
+      "type": "multiple-choice",
+      "topic": "Interest and corporate taxes",
+      "prompt": "With sufficient taxable income, what does an additional deductible interest payment do to the corporate tax bill?",
+      "options": [
+        {
+          "id": "reduce",
+          "text": "It reduces taxable income and therefore reduces corporate taxes."
+        },
+        {
+          "id": "increase",
+          "text": "It increases taxable income and therefore increases corporate taxes."
+        },
+        {
+          "id": "none",
+          "text": "It has no effect on taxable income."
+        },
+        {
+          "id": "eliminate",
+          "text": "It always eliminates the entire corporate tax bill."
+        }
+      ],
+      "answer": "reduce",
+      "explanation": "Deductible interest lowers taxable income, creating an interest tax shield.",
+      "detail": "For a fully usable deduction, the annual tax saving is \\(T_C\\times\\text{interest paid}\\). The firm saves the tax rate times the deduction, not the full interest payment.",
+      "misconception": "A tax deduction reduces taxable income; it is not a dollar-for-dollar tax credit.",
+      "source": {
+        "file": "mock_quiz_b_core.tex",
+        "section": "Mock Quiz 2B · Question 10",
+        "kind": "original-application"
+      }
+    },
+    {
+      "id": "prep3-wacc",
+      "type": "numerical",
+      "topic": "After-tax WACC",
+      "prompt": "What is the firm’s after-tax weighted average cost of capital?",
+      "context": "Using market values, the firm is financed 50% by equity and 50% by debt. Its cost of equity is 14%, cost of debt is 8%, and corporate tax rate is 25%. Assume interest is fully deductible. Enter a percentage.",
+      "answer": 10,
+      "unit": "%",
+      "absoluteTolerance": 0.01,
+      "relativeTolerance": 0,
+      "explanation": "10%: the equity contribution is 7%, and the after-tax debt contribution is 3%.",
+      "detail": "Use \\(r_{WACC}=(E/V)r_E+(D/V)r_D(1-T_C)\\), with \\(V=E+D\\). The after-tax debt cost is \\(8\\%(1-0.25)=6\\%\\). Weighting the two sources gives \\(0.5(14\\%)+0.5(6\\%)=10\\%\\).",
+      "misconception": "Apply the corporate-tax adjustment to debt, not to equity. The weights use market values rather than book values.",
+      "source": {
+        "file": "mock_quiz_b_core.tex",
+        "section": "Mock Quiz 2B · Question 14",
+        "kind": "original-application"
+      }
+    },
+    {
+      "id": "prep3-tax-shield",
+      "type": "numerical",
+      "topic": "Present value of the tax shield",
+      "prompt": "What is the present value of the interest tax shield, in millions of dollars?",
+      "context": "A firm maintains $80 million of permanent debt. Its corporate tax rate is 20%. Assume sufficient taxable income to use all interest deductions and tax-shield risk equal to debt risk. Enter the number of millions.",
+      "answer": 16,
+      "unit": "million dollars",
+      "absoluteTolerance": 0.01,
+      "relativeTolerance": 0,
+      "explanation": "$16 million: 20% of $80 million.",
+      "detail": "Under the stated permanent-debt assumptions, \\(PV(\\text{interest tax shield})=T_C D\\). Thus \\(0.20\\times80=16\\) million dollars. Equivalently, discounting the perpetual annual tax saving \\(T_C r_D D\\) at \\(r_D\\) yields \\(T_C D\\).",
+      "misconception": "Do not multiply by the interest rate again: that gives an annual tax saving, not the present value of all future tax savings.",
+      "source": {
+        "file": "mock_quiz_b_core.tex",
+        "section": "Mock Quiz 2B · Question 15",
+        "kind": "original-application"
+      }
+    }
+  ]
+}
