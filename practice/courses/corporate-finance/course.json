@@ -1,0 +1,26 @@
+{
+  "id": "corporate-finance",
+  "title": "Corporate Finance",
+  "topic": "Risk & return",
+  "description": "Build intuition for uncertainty, diversification, and the risks worth taking.",
+  "units": [
+    {
+      "id": "foundations",
+      "title": "Meet risk & return",
+      "description": "Start with what you earn—and what could change.",
+      "lessons": ["risk-return.json", "risk-radar.json"]
+    },
+    {
+      "id": "portfolios",
+      "title": "Think in portfolios",
+      "description": "The mix matters more than the number of stocks.",
+      "lessons": ["diversification.json"]
+    },
+    {
+      "id": "exposure",
+      "title": "Turn up the exposure",
+      "description": "See what borrowing and beta really change.",
+      "lessons": ["leverage-beta.json"]
+    }
+  ]
+}

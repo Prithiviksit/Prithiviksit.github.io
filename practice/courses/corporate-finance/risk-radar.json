@@ -1,0 +1,141 @@
+{
+  "id": "risk-radar",
+  "title": "Spot the risk",
+  "description": "Separate company surprises from market shocks.",
+  "minutes": 4,
+  "icon": "radar",
+  "questions": [
+    {
+      "id": "risk-matching",
+      "type": "matching",
+      "topic": "Risk radar",
+      "prompt": "Match each idea to its example.",
+      "context": "Choose a concept on the left, then its match on the right.",
+      "pairs": [
+        {
+          "id": "specific",
+          "left": "Firm-specific shock",
+          "right": "A fire closes one company’s only factory."
+        },
+        {
+          "id": "market",
+          "left": "Systematic shock",
+          "right": "A broad recession weakens demand across industries."
+        },
+        {
+          "id": "concentration",
+          "left": "Concentrated exposure",
+          "right": "Salary and savings depend on the same employer."
+        },
+        {
+          "id": "spread",
+          "left": "Diversification",
+          "right": "Spread investments across different economic drivers."
+        }
+      ],
+      "explanation": "Ask how widely a shock is shared, and whether your exposures overlap.",
+      "detail": "A factory fire is primarily company-specific; a broad recession affects many firms together. Concentration is about exposure: employer stock ties savings to the same business that pays your salary. Diversification spreads firm-specific exposure across different businesses, but does not make broad economic shocks disappear.",
+      "misconception": "A severe loss is not automatically systematic. The key is how it co-moves with broad market risk.",
+      "source": {
+        "file": "Lec17_Risk_and_Return.tex",
+        "section": "Two Types of Risk: Systematic vs. Idiosyncratic; The Double-Whammy Risk",
+        "kind": "adapted"
+      }
+    },
+    {
+      "id": "volatility-premium",
+      "type": "true-false",
+      "topic": "Common misconception",
+      "prompt": "In the CAPM benchmark, a stock with greater total volatility must have a higher expected return.",
+      "answer": false,
+      "explanation": "False. CAPM prices systematic exposure, measured by beta—not total volatility.",
+      "detail": "Some volatility comes from company-specific news. A diversified investor can reduce that exposure by spreading investments, so CAPM does not reward idiosyncratic volatility by itself. A very volatile stock can have low market exposure and a low required expected return.",
+      "misconception": "“More risk, more return” needs qualification: which risk, and expected or realized return?",
+      "source": {
+        "file": "Lec17_Risk_and_Return.tex",
+        "section": "Fallacy 1: High Risk Means High Return",
+        "kind": "adapted"
+      }
+    },
+    {
+      "id": "recession-protection",
+      "type": "multiple-choice",
+      "topic": "Economic intuition",
+      "prompt": "Your income falls in recessions. Why might Stock B be especially useful?",
+      "table": {
+        "headers": ["Economy", "Stock A", "Stock B"],
+        "rows": [
+          ["Good (80%)", "+20%", "−5%"],
+          ["Recession (20%)", "−40%", "+60%"],
+          ["Expected return", "8%", "8%"]
+        ]
+      },
+      "options": [
+        {
+          "id": "hedge",
+          "text": "It pays more when your other income is low."
+        },
+        { "id": "mean", "text": "It has a higher expected return than A." },
+        { "id": "safe", "text": "It never loses money." },
+        { "id": "vol", "text": "It must have a lower standalone volatility." }
+      ],
+      "answer": "hedge",
+      "explanation": "Timing matters. B provides resources when your other income falls.",
+      "detail": "Both expected returns are 8%. B loses in the good state but gains in the recession, helping offset your income exposure. B actually has slightly higher standalone volatility: 26% versus A’s 24%. Its appeal here comes from how its payoffs relate to your other income; this is not a universal ranking of the two assets.",
+      "misconception": "A useful hedge need not have the lowest standalone volatility or the highest expected return.",
+      "source": {
+        "file": "Lec17_Risk_and_Return.tex",
+        "section": "Which Asset Is Actually Riskier?",
+        "kind": "adapted"
+      }
+    },
+    {
+      "id": "systematic-remains",
+      "type": "true-false",
+      "topic": "What stays with you",
+      "prompt": "A broadly diversified stock portfolio can still lose value during an economy-wide downturn.",
+      "answer": true,
+      "explanation": "True. Diversification reduces firm-specific risk; shared economic exposure remains.",
+      "detail": "When many firms are exposed to the same downturn, their losses can arrive together. Holding more names does not guarantee an offsetting gain. The size of the remaining exposure depends on the portfolio’s composition, not just its stock count.",
+      "misconception": "Diversified does not mean risk-free.",
+      "source": {
+        "file": "Lec17_Risk_and_Return.tex",
+        "section": "Micro vs. Macro Shocks: Which One Cancels Out?",
+        "kind": "adapted"
+      }
+    },
+    {
+      "id": "employer-stock",
+      "type": "multiple-choice",
+      "topic": "Apply it",
+      "prompt": "Maya’s salary and most of her retirement savings depend on her employer. What is the central risk?",
+      "options": [
+        {
+          "id": "joint",
+          "text": "A firm setback can hurt her job and savings together."
+        },
+        {
+          "id": "premium",
+          "text": "Her employer’s stock must earn a lower return."
+        },
+        {
+          "id": "count",
+          "text": "Owning any individual stock always causes a loss."
+        },
+        {
+          "id": "fix",
+          "text": "Buying more shares of her employer removes the risk."
+        }
+      ],
+      "answer": "joint",
+      "explanation": "The same company shock can hit two parts of Maya’s financial life at once.",
+      "detail": "Her labor income and financial wealth share an exposure. A setback may reduce both her earnings and retirement balance, precisely when she needs a cushion. Diversifying financial assets can reduce this overlap without requiring a forecast of the employer’s stock price.",
+      "misconception": "Knowing a company well does not eliminate its risk or the overlap with your salary.",
+      "source": {
+        "file": "Lec17_Risk_and_Return.tex",
+        "section": "The Double-Whammy Risk",
+        "kind": "adapted"
+      }
+    }
+  ]
+}

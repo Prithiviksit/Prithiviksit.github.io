@@ -1,0 +1,149 @@
+{
+  "id": "returns",
+  "title": "Returns, unpacked",
+  "description": "Averages, surprises, and the price of risk.",
+  "minutes": 4,
+  "icon": "chart",
+  "questions": [
+    {
+      "id": "expected-return",
+      "type": "numerical",
+      "topic": "Expected returns",
+      "prompt": "What is Stock A’s expected return?",
+      "context": "Weight each outcome by how likely it is.",
+      "table": {
+        "headers": ["Economy", "Probability", "Stock A"],
+        "rows": [
+          ["Good", "80%", "+20%"],
+          ["Recession", "20%", "−40%"]
+        ]
+      },
+      "answer": 8,
+      "unit": "%",
+      "absoluteTolerance": 0.05,
+      "relativeTolerance": 0,
+      "explanation": "The expected return is 8%. The less likely loss still pulls the average down.",
+      "detail": "Expected return is a probability-weighted average: \\(E[R]=0.8(20\\%)+0.2(-40\\%)=8\\%\\). It describes an average across possible outcomes, not a promised payoff. The stock returns either 20% or −40% in this example; it never actually returns 8%.",
+      "misconception": "An unweighted average of 20% and −40% gives −10%, but the two states are not equally likely.",
+      "source": {
+        "file": "Lec17_Risk_and_Return.tex",
+        "section": "Which Asset Is Actually Riskier?",
+        "kind": "adapted"
+      }
+    },
+    {
+      "id": "expected-not-promised",
+      "type": "multiple-choice",
+      "topic": "Expected versus realized",
+      "prompt": "A fund has an expected annual return of 8%. Which conclusion follows?",
+      "options": [
+        {
+          "id": "average",
+          "text": "8% is a probability-weighted average, not a promise."
+        },
+        {
+          "id": "guarantee",
+          "text": "The fund will earn at least 8% next year."
+        },
+        {
+          "id": "eight",
+          "text": "Every $100 will be worth exactly $108 next year."
+        },
+        {
+          "id": "chance",
+          "text": "There is an 8% chance the fund makes money."
+        }
+      ],
+      "answer": "average",
+      "explanation": "Expected return summarizes possible outcomes. A single realized return can be higher or lower.",
+      "detail": "An expectation averages returns over possible states using their probabilities. It is not a minimum return, a certainty, or the probability of a positive return. Two funds can have the same expectation and very different downside outcomes.",
+      "misconception": "The word “expected” sounds like a forecast that must come true. In finance it has a precise statistical meaning.",
+      "source": {
+        "file": "Module_2_Risk_Return.tex",
+        "section": "Expectation, Variance and Covariance",
+        "kind": "original-application"
+      }
+    },
+    {
+      "id": "volatility-intuition",
+      "type": "multiple-choice",
+      "topic": "Volatility",
+      "prompt": "Both funds average 5%. Which has more volatile returns?",
+      "table": {
+        "headers": ["Equally likely states", "Fund A", "Fund B"],
+        "rows": [
+          ["Outcome 1", "0%", "−15%"],
+          ["Outcome 2", "10%", "25%"]
+        ]
+      },
+      "options": [
+        {
+          "id": "b",
+          "text": "Fund B: its outcomes lie farther from its average."
+        },
+        { "id": "a", "text": "Fund A: it never has a negative return." },
+        { "id": "same", "text": "Both: their expected returns are identical." },
+        {
+          "id": "unknown",
+          "text": "Impossible to tell without the funds’ prices."
+        }
+      ],
+      "answer": "b",
+      "explanation": "Fund B’s returns are 20 percentage points from its mean; Fund A’s are only 5.",
+      "detail": "Volatility is the standard deviation of returns around their mean. Here \\(\\sigma_A=5\\%\\) and \\(\\sigma_B=20\\%\\). Both upside and downside deviations count. An equal expected return does not imply equal volatility, and volatility alone does not tell us how a fund moves with the market.",
+      "misconception": "Volatility is not just the chance of a loss, and it is not the same thing as expected return.",
+      "source": {
+        "file": "Module_2_Risk_Return.tex",
+        "section": "Expectation, Variance and Covariance",
+        "kind": "original-application"
+      }
+    },
+    {
+      "id": "risk-premium",
+      "type": "numerical",
+      "topic": "Risk premiums",
+      "prompt": "What is the fund’s expected risk premium?",
+      "context": "Over the same one-year horizon, a risky fund has a 10% expected return and the risk-free asset pays 4%. Enter the difference in percentage points.",
+      "answer": 6,
+      "unit": "percentage points",
+      "absoluteTolerance": 0.01,
+      "relativeTolerance": 0,
+      "explanation": "The expected premium is 6 percentage points: 10% − 4%.",
+      "detail": "The risk-free rate compensates for waiting. The expected risk premium is the additional expected return for bearing risk: \\(E[R]-R_f=10\\%-4\\%=6\\%\\). It is expected compensation, not a guaranteed realized bonus. In the CAPM benchmark, compensation is tied to systematic exposure.",
+      "misconception": "Dividing 10 by 4 gives a ratio. A risk premium is a difference in returns over the same horizon.",
+      "source": {
+        "file": "Lec18_CAPM_Cost_of_Capital.tex",
+        "section": "The CAPM Equation: Breaking Down the Formula",
+        "kind": "original-application"
+      }
+    },
+    {
+      "id": "expected-steps",
+      "type": "sequence",
+      "topic": "Put it together",
+      "prompt": "Build an expected-return calculation, step by step.",
+      "context": "Use the arrows to put the workflow in order.",
+      "items": [
+        {
+          "id": "states",
+          "text": "List the possible states and their probabilities."
+        },
+        { "id": "returns", "text": "Assign a return to each listed state." },
+        {
+          "id": "weight",
+          "text": "Multiply each return by its state’s probability."
+        },
+        { "id": "sum", "text": "Add the probability-weighted returns." }
+      ],
+      "answer": ["states", "returns", "weight", "sum"],
+      "explanation": "Define the states, map their returns, weight them, then add.",
+      "detail": "Probabilities must sum to one. Once each state has a probability and a return, expected return is \\(E[R]=\\sum_s p_sR_s\\). This workflow keeps a rare loss from receiving the same weight as a common gain. You are averaging possible one-period outcomes, not compounding returns across years.",
+      "misconception": "Multiplying returns together is compounding across time. It is not how we average mutually exclusive states.",
+      "source": {
+        "file": "Module_2_Risk_Return.tex",
+        "section": "Expectation, Variance and Covariance",
+        "kind": "original-application"
+      }
+    }
+  ]
+}
