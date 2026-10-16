@@ -1,6 +1,6 @@
 # Finpath — Corporate Finance Practice
 
-A static, mobile-friendly Risk & Return prototype: four short lessons, 20 source-grounded questions, and a reusable exercise engine. It lives entirely under `/practice/` and does not change the academic website’s navigation, theme, or deployment configuration.
+An installable, static, mobile-friendly Risk & Return practice app: four short lessons, 20 source-grounded questions, and a reusable exercise engine. It lives entirely under `/practice/` and does not change the academic website’s navigation, theme, or deployment configuration.
 
 ## Preview
 
@@ -39,9 +39,11 @@ Use the lesson’s × button to return to the path; saving also happens automati
 
 Use number keys to select choices and Enter to check or continue. Tab and Space work for other controls. Matching uses concept/definition buttons; sequence questions use up/down buttons, including on touch devices. A ± button supports negative returns even when a mobile numeric keyboard omits a minus key. Explanations use a native modal with Escape dismissal and focus containment. Reduced-motion preferences suppress animation.
 
-## Downloads and offline use
+## Install and practice offline
 
-The homepage fetches only the small course index. A lesson’s question file and locally bundled math assets load when needed. Answers and drafts are processed and saved locally; there are no answer-submission requests. The service worker caches the application shell and requested static files, so previously opened lessons can be resumed offline. A lesson that has never been downloaded requires one online visit. No external service, paid dependency, or backend is needed.
+Open **Settings → Take Finpath with you** for installation and offline controls. iPhone/iPad users can use Safari’s **Share → Add to Home Screen**; Android users can use Chrome’s **Install app** menu or the install button when offered. The app launches in standalone mode with original violet icons.
+
+The homepage fetches only the small course index. A lesson’s question file and locally bundled math assets load when needed. Answers and drafts are processed and saved locally; there are no answer-submission requests. The service worker caches the application shell and requested static files, so previously opened lessons can be resumed offline. Choose **Save all lessons offline** to download the entire course, including math and explanations (about 0.8 MB), without opening each lesson first. Otherwise, an unvisited lesson needs connectivity. No external service, paid dependency, or backend is needed. Updates verify new files before activation, wait for open app windows to close, and preserve local progress. See [PWA deployment and native packaging](docs/pwa-and-packaging.md) for Cloudflare cache guidance, the update process, and future iOS/Android wrappers.
 
 ## Add content
 
@@ -57,6 +59,8 @@ Development dependencies are optional for students and static hosting. Node.js 2
 cd practice
 npm ci
 npm run content:index
+npm run pwa:assets
+npm run pwa:check
 npm run validate
 npm test
 npm run verify:math
@@ -75,4 +79,4 @@ To use an installed Chromium browser instead:
 BROWSER_EXECUTABLE="/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge" npm run test:browser
 ```
 
-Set `BASE_URL` if the server uses a different port or path. Browser checks write screenshots to the ignored `test-results/` folder. The development packages are Playwright, Ajv, and axe-core; none is requested by the student-facing page.
+Set `BASE_URL` if the server uses a different port or path. Browser checks write screenshots to the ignored `test-results/` folder. Set `TEST_WEBKIT=1` after installing Playwright WebKit for the iPhone engine pass. `npm run package:native` prepares the same app for a future native wrapper without installing any SDK. The development packages are Playwright, Ajv, and axe-core; none is requested by the student-facing page.

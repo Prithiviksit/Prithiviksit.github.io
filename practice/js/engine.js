@@ -2,6 +2,7 @@ import { activateSession, submit, finish, isReady } from "./logic.js";
 import { createProgressStore, emptyProgress } from "./progress.js";
 import { createContentLoader, validateManifest } from "./content.js";
 import { loadMath, renderMath } from "./math.js";
+import { pwa, webRuntime } from "./pwa.js";
 
 const app = document.querySelector("#app");
 const dialog = document.querySelector("#dialog");
@@ -106,7 +107,7 @@ function nav() {
 }
 
 function shell(content) {
-  app.innerHTML = `<aside class="sidebar"><a class="brand" href="./" aria-label="Finpath home"><img src="assets/mark.svg" alt="" width="38" height="38">finpath<span class="brand-dot">.</span></a><div class="sidebar-caption">A LITTLE PRACTICE. A LOT OF POSSIBILITY.</div>${nav()}<div class="sidebar-bottom"><div class="course-label">YOUR CLASSROOM</div><strong>Corporate Finance</strong><span>From concepts to confidence.</span><button class="text-button" data-action="notes">${icon("book")} Field notes</button><button class="text-button" data-action="settings">${icon("settings")} Settings</button><a class="back-site" href="../">← Academic website</a></div></aside><div class="workspace"><header class="topbar"><div class="mobile-brand"><img src="assets/mark.svg" alt="" width="28" height="28">finpath.</div><div class="breadcrumb">Corporate Finance <span>/</span> <strong>Practice</strong></div><div class="top-meta"><span class="saved-label"><i></i> Saved on this device</span><span class="xp-chip">${icon("coin")} ${progress.xp} <small>XP</small></span><button class="avatar" aria-label="Open settings" data-action="settings">CF</button></div></header><div id="storage-notice" class="storage-notice" role="alert" ${storageError ? "" : "hidden"}>${esc(storageError)}</div><main id="main" tabindex="-1">${content}</main><footer class="site-footer">Small steps. Stronger intuition.<span>Corporate Finance · Risk & Return</span></footer></div><div class="mobile-nav">${nav()}</div>`;
+  app.innerHTML = `<aside class="sidebar"><a class="brand" href="./" aria-label="Finpath home"><img src="assets/mark.svg" alt="" width="38" height="38">finpath<span class="brand-dot">.</span></a><div class="sidebar-caption">A LITTLE PRACTICE. A LOT OF POSSIBILITY.</div>${nav()}<div class="sidebar-bottom"><div class="course-label">YOUR CLASSROOM</div><strong>Corporate Finance</strong><span>From concepts to confidence.</span><button class="text-button" data-action="notes">${icon("book")} Field notes</button>${webRuntime ? button("app-options", "Install & offline", "text-button") : ""}<button class="text-button" data-action="settings">${icon("settings")} Settings</button><a class="back-site" href="../">← Academic website</a></div></aside><div class="workspace"><header class="topbar"><div class="mobile-brand"><img src="assets/mark.svg" alt="" width="28" height="28">finpath.</div><div class="breadcrumb">Corporate Finance <span>/</span> <strong>Practice</strong></div><div class="top-meta"><span class="saved-label"><i></i> Saved on this device</span><span class="xp-chip">${icon("coin")} ${progress.xp} <small>XP</small></span><button class="avatar" aria-label="Open settings" data-action="settings">CF</button></div></header><div id="storage-notice" class="storage-notice" role="alert" ${storageError ? "" : "hidden"}>${esc(storageError)}</div><main id="main" tabindex="-1">${content}</main><footer class="site-footer">Small steps. Stronger intuition.<span>Corporate Finance · Risk & Return</span></footer></div><div class="mobile-nav">${nav()}</div>`;
   math();
 }
 
@@ -336,10 +337,47 @@ function notes() {
   );
 }
 
+function appOptions() {
+  openDialog(
+    "A little practice, anywhere.",
+    `<div class="pwa-intro"><img src="assets/icons/icon-192.png" width="68" height="68" alt="Finpath app icon"><div><h3>Finpath, in your pocket.</h3><p>Add it to your home screen. Keep a few minutes of learning within reach.</p></div></div><section class="pwa-section"><h3 id="pwa-install-heading">Make yourself at home</h3><button id="pwa-install-button" data-action="install-app" class="button primary" hidden>Install Finpath ${icon("arrow")}</button><div id="pwa-install-help"><p id="pwa-ios-help"><strong>iPhone or iPad:</strong> Open in Safari, tap Share, then Add to Home Screen. If shown, leave Open as Web App on.</p><p id="pwa-android-help"><strong>Android:</strong> In Chrome, open the menu and tap Install app or Add to Home screen.</p></div><p id="pwa-installed" hidden>Finpath is ready on your home screen.</p></section><section class="pwa-section"><h3>Keep learning offline</h3><p>Save all ${lessons.length} lessons and their explanations in one small download. Your answers stay on this device.</p><p id="pwa-status" class="pwa-status" role="status" aria-live="polite">Checking saved lessons…</p><button id="pwa-offline-button" data-action="save-offline" class="button secondary">Save all lessons offline ${icon("arrow")}</button></section><p id="pwa-update" class="pwa-update" hidden>A new version is ready. Close all Finpath windows and reopen when you’re ready. Your saved progress stays.</p>`,
+    "pwa-dialog",
+  );
+  renderPwaStatus(pwa.getState());
+  pwa.refresh();
+}
+
+function renderPwaStatus(state) {
+  const status = document.querySelector("#pwa-status");
+  if (!dialog.open || !status) return;
+  document.querySelector("#pwa-install-button").hidden =
+    !state.canInstall || state.installed;
+  document.querySelector("#pwa-install-help").hidden = state.installed;
+  document.querySelector("#pwa-ios-help").hidden = state.platform === "android";
+  document.querySelector("#pwa-android-help").hidden = state.platform === "ios";
+  document.querySelector("#pwa-installed").hidden = !state.installed;
+  document.querySelector("#pwa-update").hidden = !state.update;
+  status.textContent =
+    state.message ||
+    (state.offline?.ready
+      ? "All lessons are ready offline on this device."
+      : state.offline
+        ? `Save every lesson, including math and explanations (${(state.offline.bytes / 1024 / 1024).toFixed(1)} MB).`
+        : "Checking saved lessons…");
+  const download = document.querySelector("#pwa-offline-button");
+  download.disabled = state.downloading || !!state.offline?.ready;
+  download.textContent = state.downloading
+    ? "Saving…"
+    : state.offline?.ready
+      ? "Ready for offline practice"
+      : "Save all lessons offline";
+}
+pwa.subscribe(renderPwaStatus);
+
 function settings() {
   openDialog(
     "Your practice, your pace",
-    `<p>Completed lessons, XP, answer history, and every unfinished lesson are saved automatically in this browser. No account is needed. Clearing browser data removes saved progress.</p>${storageError ? `<p class="storage-notice">${esc(storageError)}</p>` : ""}<div class="setting-row"><div><h3>Save a copy</h3><p>Export progress as a JSON file for your records.</p></div>${button("export", "Export", "button secondary small")}</div><div class="setting-row"><div><h3>A fresh start</h3><p>Clear scores, XP, answer history, and all unfinished lessons.</p></div>${button("reset-step", "Reset progress", "button danger small")}</div>`,
+    `<p>Completed lessons, XP, answer history, and every unfinished lesson are saved automatically in this browser. No account is needed. Clearing browser data removes saved progress.</p>${webRuntime ? `<div class="setting-row"><div><h3>Take Finpath with you</h3><p>Install the app and save lessons for offline practice.</p></div>${button("app-options", "Open", "button secondary small")}</div>` : ""}${storageError ? `<p class="storage-notice">${esc(storageError)}</p>` : ""}<div class="setting-row"><div><h3>Save a copy</h3><p>Export progress as a JSON file for your records.</p></div>${button("export", "Export", "button secondary small")}</div><div class="setting-row"><div><h3>A fresh start</h3><p>Clear scores, XP, answer history, and all unfinished lessons.</p></div>${button("reset-step", "Reset progress", "button danger small")}</div>`,
   );
 }
 
@@ -407,6 +445,18 @@ document.addEventListener("click", (event) => {
   }
   if (action === "resume") {
     if (progress.active) start(progress.active.lessonId, progress.active.mode);
+    return;
+  }
+  if (action === "app-options") {
+    appOptions();
+    return;
+  }
+  if (action === "install-app") {
+    pwa.install();
+    return;
+  }
+  if (action === "save-offline") {
+    pwa.download();
     return;
   }
   if (action === "settings") {
@@ -637,12 +687,4 @@ async function init() {
   }
 }
 
-// Static caching is optional; it never sends progress or answers anywhere.
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register(new URL("../sw.js", import.meta.url), { updateViaCache: "none" })
-    .catch((error) =>
-      console.warn("Static caching unavailable:", error.message),
-    );
-}
 init();

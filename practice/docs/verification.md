@@ -33,7 +33,7 @@ The source workspace had existing edits in Lectures 16 and 18. Those files were 
 
 ## Checks performed
 
-`npm test`: 14 tests pass, covering every authored answer, incorrect answers, numerical parsing and tolerance boundaries, permutations, heart deductions, review scheduling, duplicate-submission protection, combos, best scores, reset isolation, invalid content, v1 migration, multiple saved attempts, immutable answer events, adapter boundaries, failed writes, and on-demand content loading.
+`npm test`: 16 tests pass, covering every authored answer, incorrect answers, numerical parsing and tolerance boundaries, permutations, heart deductions, review scheduling, duplicate-submission protection, combos, best scores, reset isolation, invalid content, v1 migration, multiple saved attempts, immutable answer events, adapter boundaries, failed writes, on-demand content loading, platform icon/manifest validity, and PWA resource integrity.
 
 `npm run validate`: the manifest and all four lesson files pass JSON Schema and semantic validation; 20 unique questions cover all five types.
 
@@ -54,13 +54,15 @@ The source workspace had existing edits in Lectures 16 and 18. Those files were 
 - Changes from another open tab refresh once; resuming does not create a save/reload loop.
 - v1 browser storage migrates without losing XP, scores, or the unfinished draft.
 - A paused review remains resumable after its last correct answer clears the review queue.
-- Cold homepage requests contain no lesson question files or KaTeX. The local test measured approximately 109 KB of uncompressed response bodies including service-worker shell caching; deployment compression and headers can change transfer size.
+- Cold homepage requests contain no lesson question files or KaTeX. The local test measured approximately 325 KB of uncompressed response bodies including service-worker shell and icon caching; deployment compression and headers can change transfer size.
 - Checking and continuing an answer issue zero network requests in the tested flow. All observed application requests are same-origin GETs.
 - Previously opened lessons resume and accept answers after an offline reload. Attempting an unvisited lesson offline shows a retry message, preserves other attempts, and succeeds after reconnection.
 - A separate smoke check at `/site/practice/` verifies nested base paths, JSON fetching, and KaTeX assets.
+- PWA manifest/installability validation in a normal Chromium profile; full-course offline download, failed update recovery, waiting/activation handoff, exact progress preservation, and isolation of other apps’ caches.
+- iPhone WebKit checks for install guidance, full offline download, saved feedback/XP, and offline math. The generated native web bundle runs the same quiz and disables worker registration/install controls.
 - axe-core WCAG A/AA checks on the desktop path and mobile path, question, feedback, explanation, and matching screens, with no detected violations.
 
-The recorded screenshots were visually inspected. Automated accessibility checks are not a full accessibility audit. Physical iOS/Android devices, Safari, and Firefox were not tested. Student completion times and learning outcomes have not been measured.
+The recorded screenshots were visually inspected. Automated accessibility checks are not a full accessibility audit. Physical iOS/Android installation, the Safari application, and Firefox were not tested. The PWA suite also exercises Playwright WebKit with an iPhone viewport; see [PWA verification](pwa-and-packaging.md#verification). Student completion times and learning outcomes have not been measured.
 
 ## Publication boundary
 

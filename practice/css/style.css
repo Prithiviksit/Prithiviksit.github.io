@@ -2501,3 +2501,81 @@ dialog .explain-question {
     margin-bottom: 30px;
   }
 }
+
+/* Insets also protect standalone iOS controls in portrait and landscape. */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+body {
+  padding: var(--safe-top) var(--safe-right) 0 var(--safe-left);
+}
+.mobile-nav {
+  padding-left: max(16px, var(--safe-left));
+  padding-right: max(16px, var(--safe-right));
+}
+.exercise-footer {
+  padding-bottom: max(23px, var(--safe-bottom));
+}
+dialog {
+  max-height: calc(100dvh - var(--safe-top) - var(--safe-bottom) - 32px);
+}
+.pwa-intro {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 22px 0;
+}
+.pwa-intro img {
+  border-radius: 19px;
+  flex-shrink: 0;
+  box-shadow: 0 5px 0 #352050;
+}
+.pwa-intro h3 {
+  margin: 0 0 4px;
+}
+.pwa-intro p {
+  margin: 0;
+  font-size: 13px;
+}
+.pwa-section {
+  padding: 20px 0;
+  border-top: 1px solid #3b4157;
+}
+.pwa-section h3 {
+  margin: 0 0 8px;
+}
+.pwa-section p {
+  font-size: 13px;
+}
+.pwa-section strong {
+  color: #e9d5ff;
+}
+.pwa-section .button {
+  margin-top: 8px;
+}
+.pwa-status {
+  color: #c4b5fd;
+}
+.pwa-update {
+  padding: 15px;
+  border: 1px solid #705298;
+  border-radius: 13px;
+  background: #2f2245;
+  font-size: 13px;
+}
+@media (display-mode: standalone) {
+  html {
+    background: #111827;
+  }
+}
+
+[hidden] {
+  display: none !important;
+}
+.sidebar {
+  inset: var(--safe-top) auto var(--safe-bottom) var(--safe-left);
+  overflow-y: auto;
+}

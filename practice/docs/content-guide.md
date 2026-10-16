@@ -9,7 +9,7 @@ The hierarchy is course → units → lesson files → questions. The renderer a
 5. Add `{ "file": "your-lesson.json" }` to a unit’s `lessons` array in `course.json`, then run `npm run content:index`. This copies lesson metadata and question IDs/topics into the lightweight index; prompts, answers, and explanations remain in the separately fetched lesson file. Order determines the suggested path only; every lesson is independently accessible. Add a unit there if needed.
 6. Target five focused questions and approximately 3–5 minutes per lesson. Each lesson should explain its own assumptions and require no earlier app completion. Missed answers enter optional review without extending the lesson.
 7. After changing lesson metadata or question IDs/topics, rerun `npm run content:index`. Run schema validation, independent numerical verification, and browser checks. Inspect long questions and equations at a narrow mobile width.
-8. Increment `RELEASE` in `sw.js` whenever publishing changes to the shell, lessons, or bundled assets. This creates a fresh static cache; see [storage and caching](progress-storage.md).
+8. Run `npm run pwa:assets` and commit the generated `sw-assets.js` whenever publishing changes to the shell, lessons, or bundled assets. `npm run pwa:check` catches a stale index. This creates a fresh, verified static cache; see [storage and caching](progress-storage.md).
 
 No engine edits are needed. Existing IDs identify saved progress; renaming or deleting IDs requires a deliberate storage migration or a communicated reset. The current runtime stops and preserves incompatible saved data instead of silently deleting it. Adding new IDs is compatible with existing progress.
 

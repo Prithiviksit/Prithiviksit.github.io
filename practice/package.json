@@ -4,10 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "icons": "node scripts/generate-icons.mjs",
+    "pwa:assets": "node scripts/generate-pwa-assets.mjs",
+    "pwa:check": "node scripts/generate-pwa-assets.mjs --check",
+    "package:native": "node scripts/package-native.mjs",
     "content:index": "node scripts/update-course-index.mjs",
     "validate": "node tests/validate.mjs",
     "test": "node --test tests/*.test.mjs",
-    "test:browser": "node tests/browser.mjs && node tests/static-browser.mjs",
+    "test:browser": "node tests/browser.mjs && node tests/static-browser.mjs && node tests/pwa-browser.mjs && node tests/native-browser.mjs",
     "verify:math": "python3 tests/verify_math.py"
   },
   "devDependencies": {

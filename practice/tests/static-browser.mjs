@@ -51,7 +51,9 @@ try {
   assert.ok(!initial.some((u) => /katex/.test(u)), "No initial math download");
   assert.ok(
     !initial.some((u) =>
-      /\/(risk-return|risk-radar|diversification|leverage-beta)\.json$/.test(u),
+      /\/(risk-return|risk-radar|diversification|leverage-beta)\.json$/.test(
+        new URL(u).pathname,
+      ),
     ),
     "No initial question files",
   );
@@ -76,11 +78,11 @@ try {
   await start(page, "leverage-beta");
   const files = requests.filter((r) =>
     /\/(risk-return|risk-radar|diversification|leverage-beta)\.json$/.test(
-      r.url,
+      new URL(r.url).pathname,
     ),
   );
   assert.deepEqual(
-    [...new Set(files.map((r) => r.url.split("/").at(-1)))],
+    [...new Set(files.map((r) => new URL(r.url).pathname.split("/").at(-1)))],
     ["leverage-beta.json"],
   );
   const count = requests.length;
