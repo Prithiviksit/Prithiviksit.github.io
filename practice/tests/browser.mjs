@@ -127,7 +127,7 @@ try {
   assert.equal(await page.locator("#number-answer").inputValue(), "20");
   await page.locator("#number-answer").fill("8oops");
   assert.equal(await page.locator("#check-button").isDisabled(), true);
-  const first = questionMap.get("lec15-compound-return");
+  const first = questionMap.get("lec15-compound-round-trip");
   await check(page, first, false);
   assert.equal((await state(page)).active.hearts, 4);
   await action(page, "why").click();

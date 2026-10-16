@@ -34,7 +34,7 @@ test("curriculum replacement archives retired attempts without losing historical
   const p = store.load();
   // A current lesson can coexist with the retired attempts and stays resumable.
   activateSession(p, lessons[3], lessons[3].questions);
-  p.active.cards[0].draft = "11.4";
+  p.active.cards[0].draft = "15";
   const current = structuredClone(p.active);
   assert.equal(reconcileContent(p, lessons), true);
   assert.deepEqual(p.active, current);
@@ -85,7 +85,7 @@ test("legacy progress migrates scores, XP, drafts and answered feedback without 
     lessons: {
       "lec16-market-efficiency": { best: 100, attempts: 1, completed: true },
     },
-    questions: { "lec15-compound-return": { correct: 1, wrong: 0 } },
+    questions: { "lec15-compound-round-trip": { correct: 1, wrong: 0 } },
     review: [],
     active: session,
   };
@@ -112,7 +112,7 @@ test("independent unfinished sessions retain positions and drafts across adapter
   const store = createProgressStore(localStorageAdapter(memoryStorage())),
     p = emptyProgress();
   activateSession(p, lessons[3], lessons[3].questions);
-  p.active.cards[0].draft = "11.4";
+  p.active.cards[0].draft = "15";
   submit(p, lessons[3].questions[0]);
   p.active.index = 1;
   const firstId = p.active.id;
@@ -124,7 +124,7 @@ test("independent unfinished sessions retain positions and drafts across adapter
   activateSession(restored, lessons[3], lessons[3].questions);
   assert.equal(restored.active.id, firstId);
   assert.equal(restored.active.index, 1);
-  assert.equal(restored.active.cards[0].draft, "11.4");
+  assert.equal(restored.active.cards[0].draft, "15");
   assert.equal(restored.xp, 10);
   assert.equal(
     restored.paused["lesson:lec15-capital-markets"].cards[0].draft,
@@ -209,11 +209,11 @@ test("lesson files load only when requested and concurrent reads share one reque
   assert.equal(calls.length, 0);
   await Promise.all([loader.lesson("lec18-capm"), loader.lesson("lec18-capm")]);
   assert.equal(calls.length, 1);
-  await loader.questions(["lec18-beta", "lec18-required-return"]);
+  await loader.questions(["lec18-beta", "lec18-cost-equity"]);
   assert.equal(calls.length, 1);
   const review = await loader.questions([
-    "lec18-required-return",
-    "lec15-compound-return",
+    "lec18-cost-equity",
+    "lec15-compound-round-trip",
   ]);
   assert.equal(calls.length, 2);
   assert.equal(review.length, 2);

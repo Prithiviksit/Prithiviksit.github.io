@@ -86,7 +86,7 @@ try {
     ["lec18-capm.json"],
   );
   const count = requests.length;
-  await page.locator("#number-answer").fill("11.4");
+  await page.locator("#number-answer").fill("15");
   await page.locator("#check-button").click();
   await page.locator("#continue-button").click();
   await page.locator("#number-answer").waitFor();
@@ -98,7 +98,7 @@ try {
   const saved = await read(page);
   assert.equal(saved.xp, 10);
   assert.equal(saved.history.length, 1);
-  assert.equal(saved.history[0].submittedAnswer, "11.4");
+  assert.equal(saved.history[0].submittedAnswer, "15");
   assert.equal(saved.active.index, 1);
   await exit(page);
   await start(page, "lec15-capital-markets");
@@ -132,7 +132,7 @@ try {
   await exit(page);
   await start(page, "lec15-capital-markets");
   assert.equal(await page.locator("#number-answer").inputValue(), "7.5");
-  await page.locator("#number-answer").fill("12.25");
+  await page.locator("#number-answer").fill("0");
   await page.locator("#check-button").click();
   assert.equal((await read(page)).history.length, 3);
   await exit(page);
@@ -244,7 +244,7 @@ try {
     "Reload does not repeat the content migration",
   );
   await start(updated, lessons[0].id);
-  await updated.locator("#number-answer").fill("12.25");
+  await updated.locator("#number-answer").fill("0");
   await updated.locator("#check-button").click();
   assert.equal((await read(updated)).xp, previous.xp + 10);
   await curriculum.close();
@@ -257,7 +257,7 @@ try {
   await reviewPage.goto(url);
   await reviewPage.locator(".hero").waitFor();
   await start(reviewPage, "lec15-capital-markets");
-  await reviewPage.locator("#number-answer").fill("0");
+  await reviewPage.locator("#number-answer").fill("999");
   await reviewPage.locator("#check-button").click();
   await exit(reviewPage);
   await reviewPage
@@ -265,7 +265,7 @@ try {
     .click();
   await reviewPage.locator('[data-action="start-review"]').click();
   await reviewPage.locator("#number-answer").waitFor();
-  await reviewPage.locator("#number-answer").fill("12.25");
+  await reviewPage.locator("#number-answer").fill("0");
   await reviewPage.locator("#check-button").click();
   await exit(reviewPage);
   assert.equal((await read(reviewPage)).review.length, 0);
@@ -300,9 +300,9 @@ try {
     revision,
     "Opening a saved attempt must not write again or trigger a tab reload loop",
   );
-  await second.locator("#number-answer").fill("12.25");
+  await second.locator("#number-answer").fill("0");
   await first.waitForFunction(
-    () => document.querySelector("#number-answer")?.value === "12.25",
+    () => document.querySelector("#number-answer")?.value === "0",
   );
   await first.waitForTimeout(400);
   assert.equal((await read(first)).revision, revision + 1);

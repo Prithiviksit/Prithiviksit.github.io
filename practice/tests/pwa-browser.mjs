@@ -189,7 +189,7 @@ try {
     activateSession(state, lessons[1], lessons[1].questions);
     state.active.cards[0].draft = {};
     activateSession(state, lessons[3], lessons[3].questions);
-    state.active.cards[0].draft = "11.4";
+    state.active.cards[0].draft = "15";
     submit(state, lessons[3].questions[0]);
     state.active.index = 1;
     await page.evaluate(
@@ -316,7 +316,7 @@ try {
       });
       await close(page);
       await start(page, "lec18-capm");
-      await page.locator("#number-answer").fill("11.4");
+      await page.locator("#number-answer").fill("15");
       await page.locator("#check-button").click();
       const before = await storage(page);
       await ctx.setOffline(true);

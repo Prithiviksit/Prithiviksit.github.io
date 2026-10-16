@@ -42,9 +42,9 @@ test("numeric input rejects blank, partial and nonfinite input", () => {
     assert.equal(parseNumber(value), null, value);
   assert.equal(parseNumber(" −20% "), -20);
   assert.equal(parseNumber(".5"), 0.5);
-  const q = all.find((q) => q.id === "lec15-compound-return");
-  assert.ok(grade(q, "12.255"));
-  assert.ok(!grade(q, "12.2551"));
+  const q = all.find((q) => q.id === "lec15-compound-round-trip");
+  assert.ok(grade(q, "0.005"));
+  assert.ok(!grade(q, "0.0051"));
   assert.ok(
     grade(
       { ...q, answer: 100, absoluteTolerance: 0, relativeTolerance: 0.01 },

@@ -18,7 +18,7 @@
           "file": "lec15-capital-markets.json",
           "questions": [
             {
-              "id": "lec15-compound-return",
+              "id": "lec15-compound-round-trip",
               "topic": "Compounded growth"
             },
             {
@@ -129,7 +129,7 @@
           "file": "lec18-capm.json",
           "questions": [
             {
-              "id": "lec18-required-return",
+              "id": "lec18-cost-equity",
               "topic": "CAPM benchmark"
             },
             {

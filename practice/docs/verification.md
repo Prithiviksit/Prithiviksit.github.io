@@ -34,12 +34,12 @@ The instructor workspace has existing edits in the full Lectures 16 and 18. All 
 ## Content choices
 
 - Five focused questions per lecture target approximately 3–5 minutes, including short feedback. The optional detailed explanations may take longer.
-- Lecture 15 distinguishes compound annual return, arithmetic averages, and cumulative return; the new +40%/−10% example compounds to 26% total and approximately 12.25% annually.
+- Lecture 15 distinguishes compound annual return, arithmetic averages, and cumulative return; the +25%/−20% example takes $100 to $125 and back to $100, giving exactly 0% compounded annually versus a 2.5% arithmetic average.
 - Lecture 16 states immediate redemption and funding assumptions for arbitrage. YES/NO claims settle at the same future date, so their prices sum to the discounted payoff. The $0.25/$0.55 state prices imply a $310 replicating value for $800/$200 terminal payoffs. Prices are not identified with physical probabilities.
 - Lecture 17 distinguishes common risk in a local insurance pool from systematic risk relative to global markets. Stock count alone does not establish diversification. Corporate diversification alone does not establish positive NPV.
-- Lecture 18 uses hypothetical inputs: 3% risk-free, 9% expected market return, beta 1.4, a required return of 11.4%, and 2 percentage points of alpha for a 13.4% forecast. The all-equity project example states conventional cash flows and compares its 10% IRR with its own 12% hurdle, not the parent’s 6% rate.
+- Lecture 18.1 uses hypothetical inputs of 3% risk-free, 9% expected market return, and beta 2, giving a whole-number required return of 15%. The separate alpha exercise uses beta 1.4 and a 13.4% forecast, giving 2 percentage points of alpha above its 11.4% benchmark. The all-equity project example states conventional cash flows and compares its 10% IRR with its own 12% hurdle, not the parent’s 6% rate.
 - Beta is an average market sensitivity, not an exact daily multiplier. Risk-premium statements are qualified as the systematic-risk/CAPM benchmark. No live company estimates are invented.
-- Replacement content uses new lesson/question IDs. The previous curriculum fixture checks that earlier XP, scores, answer history, completed-session records, and full unfinished attempts survive the change. Old completions do not mark new topics complete.
+- Replacement content uses new lesson/question IDs. Revised calculation inputs in 15.1 and 18.1 also receive new question IDs so saved feedback is never paired with a changed answer. The previous curriculum fixture checks that earlier XP, scores, answer history, completed-session records, and full unfinished attempts survive the change. Old completions do not mark new topics complete.
 
 ## Checks performed
 

@@ -51,7 +51,7 @@ try {
   await page.locator(".hero").waitFor();
   assert.equal(await page.locator('[data-action="app-options"]').count(), 0);
   await page.locator('.lesson-node[data-id="lec15-capital-markets"]').click();
-  await page.locator("#number-answer").fill("12.25");
+  await page.locator("#number-answer").fill("0");
   await page.locator("#check-button").click();
   assert.equal(
     await page.evaluate(
