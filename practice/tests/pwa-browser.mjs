@@ -50,7 +50,13 @@ function release() {
   served.set(
     "sw-assets.js",
     Buffer.from(
-      "self.FINPATH_ASSETS = " + JSON.stringify({ version, files }) + ";",
+      "self.FINPATH_ASSETS = " +
+        JSON.stringify({
+          version,
+          files,
+          html: served.get("index.html").toString(),
+        }) +
+        ";",
     ),
   );
   return served;
@@ -74,12 +80,23 @@ const server = http.createServer((req, res) => {
     return;
   }
   const file = url.pathname.slice(prefix.length) || "index.html";
-  const body = release().get(file);
+  let body = release().get(file);
   if (!body || (broken && file === "css/style.css")) {
     res.writeHead(503);
     res.end("Temporarily unavailable");
     return;
   }
+  // Production Cloudflare adds per-request scripts to HTML. Offline installation
+  // must still use the verified original shell, without the injected dependency.
+  if (file === "index.html")
+    body = Buffer.from(
+      body
+        .toString()
+        .replace(
+          "</body>",
+          "<script>window.edgeInjected = true;</script></body>",
+        ),
+    );
   res.writeHead(200, {
     "Content-Type": types[path.extname(file)] || "application/octet-stream",
     "Cache-Control": "no-store",
@@ -152,7 +169,17 @@ try {
     let page = await ctx.newPage();
     await page.goto(url);
     await page.locator(".hero").waitFor();
+    assert.equal(await page.evaluate(() => window.edgeInjected), true);
     await ready(page);
+    assert.equal(
+      await page.evaluate(async () => {
+        const response = await caches.match(
+          new URL("index.html", location.href),
+        );
+        return (await response.text()).includes("edgeInjected");
+      }),
+      false,
+    );
     const cdp = await ctx.newCDPSession(page);
     await cdp.send("Page.enable");
     const manifest = await cdp.send("Page.getAppManifest");

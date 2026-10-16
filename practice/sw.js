@@ -1,6 +1,6 @@
 /* Static files only. This worker never reads, writes, or resets student progress. */
 importScripts("./sw-assets.js");
-const { version, files } = self.FINPATH_ASSETS;
+const { version, files, html } = self.FINPATH_ASSETS;
 const ROOT = new URL("./", self.location.href);
 const PREFIX = `finpath-static:${ROOT.pathname}:`;
 const CACHE = `${PREFIX}pwa-${version}`;
@@ -16,8 +16,15 @@ async function saveFile(cache, file) {
   // A content-specific query avoids stale CDN responses under ordinary cache keys.
   const remote = new URL(key);
   remote.searchParams.set("v", file.sha256.slice(0, 16));
-  const response = await fetch(remote, { cache: "no-store" });
-  if (!response.ok || response.type !== "basic")
+  // Cloudflare may inject scripts into network HTML. The generated index carries
+  // the original shell; it passes the same digest check as every downloaded file.
+  const embedded = file.path === "index.html";
+  const response = embedded
+    ? new Response(html, {
+        headers: { "Content-Type": "text/html; charset=utf-8" },
+      })
+    : await fetch(remote, { cache: "no-store" });
+  if (!response.ok || (!embedded && response.type !== "basic"))
     throw new Error(`Could not download ${file.path}.`);
   const bytes = await response.clone().arrayBuffer();
   const digest = [

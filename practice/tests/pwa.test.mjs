@@ -36,7 +36,9 @@ test("install manifest has scoped standalone identity and valid platform PNGs", 
 test("release index matches all shipped files and excludes lesson bodies from the initial shell", () => {
   const context = { self: {} };
   vm.runInNewContext(read("sw-assets.js").toString(), context);
-  const { files } = context.self.FINPATH_ASSETS;
+  const { files, html } = context.self.FINPATH_ASSETS;
+  assert.equal(html, read("index.html").toString());
+  assert.match(html, /<script data-cfasync="false" type="module" src=/);
   for (const entry of files)
     assert.equal(
       createHash("sha256").update(read(entry.path)).digest("hex"),
