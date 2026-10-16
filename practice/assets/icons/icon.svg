@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>Finpath: growing financial intuition</title>
+  <defs>
+    <linearGradient id="violet" x2="1" y2="1">
+      <stop stop-color="#8b5cf6"/>
+      <stop offset=".55" stop-color="#7c3aed"/>
+      <stop offset="1" stop-color="#4c1d95"/>
+    </linearGradient>
+    <linearGradient id="bar" x2="0" y2="1">
+      <stop stop-color="#fff"/>
+      <stop offset="1" stop-color="#ddd6fe"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#violet)" d="M0 0h512v512H0z"/>
+  <circle cx="418" cy="48" r="230" fill="#fff" opacity=".035"/>
+  <circle cx="30" cy="480" r="260" fill="#1e1049" opacity=".08"/>
+  <g fill="url(#bar)">
+    <rect x="143" y="269" width="46" height="98" rx="16"/>
+    <rect x="233" y="228" width="46" height="139" rx="16"/>
+    <rect x="323" y="190" width="46" height="177" rx="16"/>
+  </g>
+  <path d="m151 220 73-59 47 22 71-57" fill="none" stroke="#e9d5ff" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="346" cy="126" r="23" fill="#fbbf24"/>
+  <path d="m339 132 12-12m-8 0h8v8" fill="none" stroke="#5b21b6" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

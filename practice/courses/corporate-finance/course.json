@@ -1,0 +1,156 @@
+{
+  "id": "corporate-finance",
+  "title": "Corporate Finance",
+  "topic": "Lectures 15–18",
+  "description": "Four lecture topics. Five questions each. Build intuition from capital markets to the cost of equity.",
+  "units": [
+    {
+      "id": "lecture-15",
+      "title": "Lecture 15 · Capital markets",
+      "description": "Markets, trading, and measuring returns.",
+      "lessons": [
+        {
+          "id": "lec15-capital-markets",
+          "title": "Capital markets",
+          "description": "Markets, trading, and measuring returns.",
+          "minutes": 4,
+          "icon": "chart",
+          "file": "lec15-capital-markets.json",
+          "questions": [
+            {
+              "id": "lec15-compound-round-trip",
+              "topic": "Compounded growth"
+            },
+            {
+              "id": "lec15-limit-order",
+              "topic": "Trading orders"
+            },
+            {
+              "id": "lec15-market-claims",
+              "topic": "What markets trade"
+            },
+            {
+              "id": "lec15-dealer",
+              "topic": "Brokers and dealers"
+            },
+            {
+              "id": "lec15-volatility",
+              "topic": "Measuring risk"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lecture-16",
+      "title": "Lecture 16 · Market efficiency",
+      "description": "Information, arbitrage, and prediction markets.",
+      "lessons": [
+        {
+          "id": "lec16-market-efficiency",
+          "title": "Market efficiency",
+          "description": "Information, arbitrage, and prediction markets.",
+          "minutes": 5,
+          "icon": "radar",
+          "file": "lec16-market-efficiency.json",
+          "questions": [
+            {
+              "id": "lec16-efficiency-forms",
+              "topic": "Information in prices"
+            },
+            {
+              "id": "lec16-arbitrage",
+              "topic": "Matching prices to payoffs"
+            },
+            {
+              "id": "lec16-arbitrage-limits",
+              "topic": "Limits to arbitrage"
+            },
+            {
+              "id": "lec16-no-price",
+              "topic": "Prediction market prices"
+            },
+            {
+              "id": "lec16-replication",
+              "topic": "Replicating a payoff"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lecture-17",
+      "title": "Lecture 17 · Risk & return",
+      "description": "Separate shared shocks from risks that can cancel.",
+      "lessons": [
+        {
+          "id": "lec17-risk-return",
+          "title": "Risk & diversification",
+          "description": "Separate shared shocks from risks that can cancel.",
+          "minutes": 4,
+          "icon": "layers",
+          "file": "lec17-risk-return.json",
+          "questions": [
+            {
+              "id": "lec17-risk-types",
+              "topic": "Two types of risk"
+            },
+            {
+              "id": "lec17-insurance-pool",
+              "topic": "When pooling helps"
+            },
+            {
+              "id": "lec17-volatility-premium",
+              "topic": "Which risk earns a premium?"
+            },
+            {
+              "id": "lec17-airline-basket",
+              "topic": "Look beneath the labels"
+            },
+            {
+              "id": "lec17-corporate-diversification",
+              "topic": "Who should diversify?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lecture-18",
+      "title": "Lecture 18 · CAPM & cost of equity",
+      "description": "Beta, alpha, and the right hurdle for a project.",
+      "lessons": [
+        {
+          "id": "lec18-capm",
+          "title": "CAPM & cost of equity",
+          "description": "Beta, alpha, and the right hurdle for a project.",
+          "minutes": 5,
+          "icon": "bolt",
+          "file": "lec18-capm.json",
+          "questions": [
+            {
+              "id": "lec18-cost-equity",
+              "topic": "CAPM benchmark"
+            },
+            {
+              "id": "lec18-alpha",
+              "topic": "Return beyond beta"
+            },
+            {
+              "id": "lec18-beta",
+              "topic": "Interpreting beta"
+            },
+            {
+              "id": "lec18-beta-drivers",
+              "topic": "What drives equity beta?"
+            },
+            {
+              "id": "lec18-project-hurdle",
+              "topic": "The project’s opportunity cost"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

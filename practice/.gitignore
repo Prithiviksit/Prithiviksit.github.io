@@ -1,0 +1,4 @@
+node_modules/
+test-results/
+native-www/
+.DS_Store

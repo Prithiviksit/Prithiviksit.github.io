@@ -1,0 +1,257 @@
+{
+  "version": 2,
+  "courseId": "corporate-finance",
+  "generation": "8f62baf5-cca7-48ee-902f-b900eedbf7ac",
+  "revision": 0,
+  "updatedAt": null,
+  "xp": 78,
+  "lessons": {
+    "risk-radar": {
+      "best": 100,
+      "attempts": 1,
+      "completed": true
+    }
+  },
+  "questions": {
+    "risk-matching": {
+      "correct": 1,
+      "wrong": 0
+    },
+    "volatility-premium": {
+      "correct": 1,
+      "wrong": 0
+    },
+    "recession-protection": {
+      "correct": 1,
+      "wrong": 0
+    },
+    "systematic-remains": {
+      "correct": 1,
+      "wrong": 0
+    },
+    "employer-stock": {
+      "correct": 1,
+      "wrong": 0
+    },
+    "levered-loss": {
+      "correct": 1,
+      "wrong": 0
+    },
+    "expected-return": {
+      "correct": 0,
+      "wrong": 1
+    }
+  },
+  "review": ["expected-return"],
+  "active": {
+    "id": "bb8b7899-4c0f-4d09-8698-6e9bc78a1a1a",
+    "startedAt": "2026-10-16T04:22:55.416Z",
+    "lessonId": "returns",
+    "title": "Returns, unpacked",
+    "mode": "lesson",
+    "cards": [
+      {
+        "id": "expected-return",
+        "review": false,
+        "order": [],
+        "draft": "5",
+        "feedback": {
+          "correct": false,
+          "xp": 0
+        }
+      },
+      {
+        "id": "expected-not-promised",
+        "review": false,
+        "order": ["average", "eight", "guarantee", "chance"],
+        "draft": "average",
+        "feedback": null
+      },
+      {
+        "id": "volatility-intuition",
+        "review": false,
+        "order": ["b", "same", "unknown", "a"],
+        "draft": null,
+        "feedback": null
+      },
+      {
+        "id": "risk-premium",
+        "review": false,
+        "order": [],
+        "draft": null,
+        "feedback": null
+      },
+      {
+        "id": "expected-steps",
+        "review": false,
+        "order": ["states", "returns", "sum", "weight"],
+        "draft": ["states", "returns", "sum", "weight"],
+        "feedback": null
+      }
+    ],
+    "index": 1,
+    "originalCount": 5,
+    "firstCorrect": 0,
+    "hearts": 4,
+    "combo": 0,
+    "xp": 0
+  },
+  "paused": {
+    "lesson:leverage-beta": {
+      "id": "4d6b9231-bfab-4e37-9b8f-13c95ac065b0",
+      "startedAt": "2026-10-16T04:22:55.409Z",
+      "lessonId": "leverage-beta",
+      "title": "Risk, amplified",
+      "mode": "lesson",
+      "cards": [
+        {
+          "id": "levered-loss",
+          "review": false,
+          "order": [],
+          "draft": "-20",
+          "feedback": {
+            "correct": true,
+            "xp": 10
+          }
+        },
+        {
+          "id": "levered-gain",
+          "review": false,
+          "order": ["ten", "guaranteed", "twenty", "forty"],
+          "draft": null,
+          "feedback": null
+        },
+        {
+          "id": "beta-match",
+          "review": false,
+          "order": ["low", "high", "negative", "one"],
+          "draft": {},
+          "feedback": null
+        },
+        {
+          "id": "beta-not-exact",
+          "review": false,
+          "order": [true, false],
+          "draft": null,
+          "feedback": null
+        },
+        {
+          "id": "negative-beta",
+          "review": false,
+          "order": ["higher", "lower", "zero", "return"],
+          "draft": null,
+          "feedback": null
+        }
+      ],
+      "index": 1,
+      "originalCount": 5,
+      "firstCorrect": 1,
+      "hearts": 5,
+      "combo": 1,
+      "xp": 10
+    }
+  },
+  "history": [
+    {
+      "id": "78dc4cd5-1317-4f53-a835-dc57ef41e833:0",
+      "sessionId": "78dc4cd5-1317-4f53-a835-dc57ef41e833",
+      "lessonId": "risk-radar",
+      "questionId": "risk-matching",
+      "position": 0,
+      "review": false,
+      "submittedAnswer": {
+        "specific": "specific",
+        "market": "market",
+        "concentration": "concentration",
+        "spread": "spread"
+      },
+      "correct": true,
+      "xpEarned": 10,
+      "answeredAt": "2026-10-16T04:22:55.401Z"
+    },
+    {
+      "id": "78dc4cd5-1317-4f53-a835-dc57ef41e833:1",
+      "sessionId": "78dc4cd5-1317-4f53-a835-dc57ef41e833",
+      "lessonId": "risk-radar",
+      "questionId": "volatility-premium",
+      "position": 1,
+      "review": false,
+      "submittedAnswer": false,
+      "correct": true,
+      "xpEarned": 12,
+      "answeredAt": "2026-10-16T04:22:55.401Z"
+    },
+    {
+      "id": "78dc4cd5-1317-4f53-a835-dc57ef41e833:2",
+      "sessionId": "78dc4cd5-1317-4f53-a835-dc57ef41e833",
+      "lessonId": "risk-radar",
+      "questionId": "recession-protection",
+      "position": 2,
+      "review": false,
+      "submittedAnswer": "hedge",
+      "correct": true,
+      "xpEarned": 14,
+      "answeredAt": "2026-10-16T04:22:55.401Z"
+    },
+    {
+      "id": "78dc4cd5-1317-4f53-a835-dc57ef41e833:3",
+      "sessionId": "78dc4cd5-1317-4f53-a835-dc57ef41e833",
+      "lessonId": "risk-radar",
+      "questionId": "systematic-remains",
+      "position": 3,
+      "review": false,
+      "submittedAnswer": true,
+      "correct": true,
+      "xpEarned": 16,
+      "answeredAt": "2026-10-16T04:22:55.401Z"
+    },
+    {
+      "id": "78dc4cd5-1317-4f53-a835-dc57ef41e833:4",
+      "sessionId": "78dc4cd5-1317-4f53-a835-dc57ef41e833",
+      "lessonId": "risk-radar",
+      "questionId": "employer-stock",
+      "position": 4,
+      "review": false,
+      "submittedAnswer": "joint",
+      "correct": true,
+      "xpEarned": 16,
+      "answeredAt": "2026-10-16T04:22:55.401Z"
+    },
+    {
+      "id": "4d6b9231-bfab-4e37-9b8f-13c95ac065b0:0",
+      "sessionId": "4d6b9231-bfab-4e37-9b8f-13c95ac065b0",
+      "lessonId": "leverage-beta",
+      "questionId": "levered-loss",
+      "position": 0,
+      "review": false,
+      "submittedAnswer": "-20",
+      "correct": true,
+      "xpEarned": 10,
+      "answeredAt": "2026-10-16T04:22:55.409Z"
+    },
+    {
+      "id": "bb8b7899-4c0f-4d09-8698-6e9bc78a1a1a:0",
+      "sessionId": "bb8b7899-4c0f-4d09-8698-6e9bc78a1a1a",
+      "lessonId": "returns",
+      "questionId": "expected-return",
+      "position": 0,
+      "review": false,
+      "submittedAnswer": "5",
+      "correct": false,
+      "xpEarned": 0,
+      "answeredAt": "2026-10-16T04:22:55.416Z"
+    }
+  ],
+  "completedSessions": [
+    {
+      "id": "78dc4cd5-1317-4f53-a835-dc57ef41e833",
+      "completedAt": "2026-10-16T04:22:55.401Z",
+      "title": "Spot the risk",
+      "xp": 68,
+      "score": 100,
+      "mode": "lesson",
+      "lessonId": "risk-radar"
+    }
+  ],
+  "legacyTotals": null
+}

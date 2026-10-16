@@ -1,0 +1,154 @@
+{
+  "id": "lec18-capm",
+  "title": "CAPM & cost of equity",
+  "description": "Beta, alpha, and the right hurdle for a project.",
+  "minutes": 5,
+  "icon": "bolt",
+  "questions": [
+    {
+      "id": "lec18-cost-equity",
+      "type": "numerical",
+      "topic": "CAPM benchmark",
+      "prompt": "What cost of equity does CAPM imply?",
+      "context": "The annual risk-free rate is 3%, the expected market return is 9%, and the stock’s equity beta is 2. Enter a percentage.",
+      "answer": 15,
+      "unit": "%",
+      "absoluteTolerance": 0.01,
+      "relativeTolerance": 0,
+      "explanation": "15%. The market premium is 6%, and this stock’s risk premium is 2 × 6% = 12%.",
+      "detail": "First subtract the risk-free rate from the expected market return: \\(9\\%-3\\%=6\\%\\). Then \\(r_E=3\\%+2(6\\%)=15\\%\\). CAPM adds compensation for systematic risk to the return for waiting. It specifies a required expected return, not a guaranteed one-year outcome.",
+      "misconception": "The 9% expected market return is not the market risk premium. Using 3% + 2 × 9% counts the risk-free component again.",
+      "source": {
+        "file": "Lec18_CAPM_Cost_of_Capital_core.tex",
+        "section": "Beta and CAPM",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.7, The Security Market Line; §14.2, The Cost of Equity"
+      }
+    },
+    {
+      "id": "lec18-alpha",
+      "type": "numerical",
+      "topic": "Return beyond beta",
+      "prompt": "What is the stock’s expected alpha, in percentage points?",
+      "context": "A stock’s forecast expected return is 13.4%. Its beta is 1.4, the risk-free rate is 3%, and the expected market return is 9%. Compare the forecast with CAPM.",
+      "answer": 2,
+      "unit": "percentage points",
+      "absoluteTolerance": 0.01,
+      "relativeTolerance": 0,
+      "explanation": "Alpha is +2 percentage points: 13.4% expected return minus the 11.4% CAPM benchmark.",
+      "detail": "The benchmark is \\(3\\%+1.4(9\\%-3\\%)=11.4\\%\\). Thus \\(\\alpha=13.4\\%-11.4\\%=2\\%\\). Alpha measures the gap relative to risk-adjusted compensation. A high expected return due to high beta is not itself alpha, and an estimated alpha is not a guaranteed realized profit.",
+      "misconception": "Subtracting only the 3% risk-free rate gives the total expected risk premium, not alpha.",
+      "source": {
+        "file": "Lec18_CAPM_Cost_of_Capital_core.tex",
+        "section": "Alpha: Return Relative to the CAPM Benchmark",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.7, The Security Market Line"
+      }
+    },
+    {
+      "id": "lec18-beta",
+      "type": "matching",
+      "topic": "Interpreting beta",
+      "prompt": "Match each beta to its market sensitivity.",
+      "pairs": [
+        {
+          "id": "one",
+          "left": "Beta = 1.0",
+          "right": "Market-level sensitivity"
+        },
+        {
+          "id": "high",
+          "left": "Beta = 1.5",
+          "right": "Greater positive market sensitivity"
+        },
+        {
+          "id": "low",
+          "left": "Beta = 0.5",
+          "right": "Lower positive market sensitivity"
+        },
+        {
+          "id": "negative",
+          "left": "Beta = −0.5",
+          "right": "Negative market sensitivity on average"
+        }
+      ],
+      "explanation": "Beta describes market exposure: one matches the market; values above one amplify it; a negative beta offsets it on average.",
+      "detail": "Beta measures sensitivity to market returns, not total volatility. A beta of 1.5 means greater market exposure than a beta of 1; 0.5 means less positive exposure. A negative beta tends to move against market shocks on average. Firm-specific news still matters, so beta is not an exact multiplier for every day’s return.",
+      "misconception": "A beta of 0.5 does not mean a 50% chance of losing money. A negative beta does not guarantee protection in every downturn.",
+      "source": {
+        "file": "Lec18_CAPM_Cost_of_Capital_core.tex",
+        "section": "Beta and CAPM",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.6, Systematic Risk and Beta"
+      }
+    },
+    {
+      "id": "lec18-beta-drivers",
+      "type": "multiple-choice",
+      "topic": "What drives equity beta?",
+      "prompt": "For a business with positive market exposure, which combination tends to amplify equity beta?",
+      "options": [
+        {
+          "id": "amplify",
+          "text": "Cyclical revenues, high fixed operating costs, and more debt."
+        },
+        {
+          "id": "stable",
+          "text": "Stable revenues, flexible costs, and no debt."
+        },
+        {
+          "id": "remove",
+          "text": "More debt, because creditors absorb all equity risk."
+        },
+        {
+          "id": "irrelevant",
+          "text": "None: beta is unrelated to the firm’s business or financing."
+        }
+      ],
+      "answer": "amplify",
+      "explanation": "Cyclical revenues, high fixed operating costs, and more debt tend to amplify equity exposure.",
+      "detail": "Cyclical demand connects revenues to the economy. Fixed operating costs make profits respond more strongly to changes in those revenues. Debt then concentrates the business risk on the equity holders after promised payments. These are distinct mechanisms; the direction is stated for a business with positive market exposure, holding other factors comparable.",
+      "misconception": "Borrowing does not remove the underlying business risk. It reallocates more of that risk to the smaller equity stake.",
+      "source": {
+        "file": "Lec18_CAPM_Cost_of_Capital_core.tex",
+        "section": "What Drives Beta?",
+        "kind": "original-application"
+      }
+    },
+    {
+      "id": "lec18-project-hurdle",
+      "type": "multiple-choice",
+      "topic": "The project’s opportunity cost",
+      "prompt": "Should this all-equity project be accepted under CAPM?",
+      "context": "An all-equity firm with beta 0.5 evaluates an all-equity project with beta 1.5 and IRR 10%. The risk-free rate is 3% and the market risk premium is 6%. Cash flows are conventional: an initial outlay followed by positive inflows.",
+      "options": [
+        {
+          "id": "reject",
+          "text": "Reject: the project’s required return is 12%."
+        },
+        {
+          "id": "firm",
+          "text": "Accept: 10% exceeds the parent firm’s 6% hurdle."
+        },
+        {
+          "id": "riskfree",
+          "text": "Accept: 10% exceeds the 3% risk-free rate."
+        },
+        {
+          "id": "zero",
+          "text": "Accept: equity has no required return because it pays no interest."
+        }
+      ],
+      "answer": "reject",
+      "explanation": "Reject. The project requires 12%, above its 10% IRR, even though the firm’s own hurdle is only 6%.",
+      "detail": "The project’s required return is \\(3\\%+1.5(6\\%)=12\\%\\). The parent’s is \\(3\\%+0.5(6\\%)=6\\%\\). For conventional cash flows, an IRR of 10% below the project’s 12% hurdle implies negative NPV. Match the discount rate to the use of capital: comparable businesses can help estimate the project’s risk, with adjustments for financing where needed.",
+      "misconception": "Clearing the parent firm’s hurdle is insufficient when the project has a different systematic risk. A single company-wide rate can favor bad risky projects over good safer ones.",
+      "source": {
+        "file": "Lec18_CAPM_Cost_of_Capital_core.tex",
+        "section": "The Divisional Hurdle Rate Trap",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §14.5, Divisional and Project Costs of Capital"
+      }
+    }
+  ]
+}
