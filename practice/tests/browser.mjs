@@ -17,7 +17,7 @@ const errors = [];
 const questionMap = new Map(
   lessons.flatMap((l) => l.questions).map((q) => [q.id, q]),
 );
-const storageKey = "finpath:corporate-finance:v1";
+const storageKey = "finpath:corporate-finance";
 const state = (page) =>
   page.evaluate((key) => JSON.parse(localStorage.getItem(key)), storageKey);
 const action = (page, id) =>
@@ -117,7 +117,7 @@ try {
   await noOverflow(page);
   await accessible(page);
   await shot(page, "desktop-path");
-  assert.equal(await page.locator(".lesson-node:disabled").count(), 3);
+  assert.equal(await page.locator(".lesson-node:disabled").count(), 0);
   await action(page, "start").click();
   assert.equal(await page.locator("#check-button").isDisabled(), true);
   await page.locator("#number-answer").fill("20");
@@ -157,12 +157,13 @@ try {
     await action(page, "continue").click();
   }
   assert.equal((await state(page)).lessons.returns.best, 80);
-  assert.equal((await state(page)).review.length, 0);
+  assert.equal((await state(page)).review.length, 1);
   await shot(page, "lesson-complete");
   await action(page, "nav").click();
-  assert.equal(await page.locator(".lesson-node:disabled").count(), 2);
+  assert.equal(await page.locator(".lesson-node:disabled").count(), 0);
   for (const lesson of lessons.slice(1)) {
     await page.locator(`.lesson-node[data-id="${lesson.id}"]`).click();
+    await page.locator("#question-title").waitFor();
     while ((await state(page)).active) {
       const s = await state(page);
       const q = questionMap.get(s.active.cards[s.active.index].id);
@@ -177,25 +178,27 @@ try {
     assert.equal((await state(page)).lessons[lesson.id].best, 100);
     await action(page, "nav").click();
   }
-  assert.equal((await state(page)).xp, 267);
+  assert.equal((await state(page)).xp, 256);
+  assert.equal((await state(page)).history.length, 20);
   assert.equal(Object.keys((await state(page)).lessons).length, 4);
   await page.reload();
   await page.locator(".hero").waitFor();
-  assert.equal((await state(page)).xp, 267);
+  assert.equal((await state(page)).xp, 256);
   await page.locator('.sidebar [data-view="progress"]').click();
   assert.equal(await page.locator(".record").count(), 4);
   await action(page, "settings").click();
   await action(page, "reset-step").click();
   await page.keyboard.press("Escape");
-  assert.equal((await state(page)).xp, 267);
+  assert.equal((await state(page)).xp, 256);
   await action(page, "settings").click();
   await action(page, "reset-step").click();
   await action(page, "reset-confirm").click();
-  assert.equal(await state(page), null);
-  assert.equal(await page.locator(".lesson-node:disabled").count(), 3);
+  assert.equal((await state(page)).xp, 0);
+  assert.equal((await state(page)).history.length, 0);
+  assert.equal(await page.locator(".lesson-node:disabled").count(), 0);
   await context.close();
   console.log(
-    "PASS full course, all exercise types, keyboard, persistence, XP, explanations, unlocks, two-step reset.",
+    "PASS full course, all exercise types, keyboard, persistence, XP, explanations, open access, two-step reset.",
   );
 
   const mobile = await newPage({ width: 390, height: 844 });
@@ -207,26 +210,23 @@ try {
   await noOverflow(m);
   await accessible(m);
   await shot(m, "mobile-question");
-  // Five wrong first-pass answers trigger practice mode; errors remain after failed retry.
+  // Five mistakes complete the short lesson; review remains optional.
   for (let i = 0; i < 5; i++) {
     const s = await state(m),
       q = questionMap.get(s.active.cards[s.active.index].id);
     await check(m, q, false);
     await noOverflow(m);
-    await action(m, "continue").click();
-  }
-  assert.equal((await state(m)).active.hearts, 0);
-  assert.ok(await m.locator(".practice-mode").isVisible());
-  for (let i = 0; i < 5; i++) {
-    const s = await state(m),
-      q = questionMap.get(s.active.cards[s.active.index].id);
-    await check(m, q, false);
+    if (i === 4) {
+      assert.equal((await state(m)).active.hearts, 0);
+      assert.ok(await m.locator(".practice-mode").isVisible());
+    }
     await action(m, "continue").click();
   }
   assert.equal((await state(m)).review.length, 5);
   await action(m, "nav").click();
   await m.locator('.mobile-nav [data-view="review"]').click();
   await action(m, "start-review").click();
+  await m.locator("#question-title").waitFor();
   await check(m, first, true);
   await noOverflow(m);
   await accessible(m);
@@ -258,6 +258,7 @@ try {
   );
   await action(m, "nav").click();
   await m.locator('.lesson-node[data-id="risk-radar"]').click();
+  await m.locator(".matching").waitFor();
   await noOverflow(m);
   await accessible(m);
   await shot(m, "mobile-matching");

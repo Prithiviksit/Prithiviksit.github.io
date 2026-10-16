@@ -4,9 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "content:index": "node scripts/update-course-index.mjs",
     "validate": "node tests/validate.mjs",
-    "test": "node --test tests/logic.test.mjs",
-    "test:browser": "node tests/browser.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "node tests/browser.mjs && node tests/static-browser.mjs",
     "verify:math": "python3 tests/verify_math.py"
   },
   "devDependencies": {

@@ -5,7 +5,7 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1] / 'courses/corporate-finance'
 course = json.loads((root / 'course.json').read_text())
-questions = {q['id']: q for u in course['units'] for f in u['lessons'] for q in json.loads((root / f).read_text())['questions']}
+questions = {q['id']: q for u in course['units'] for f in u['lessons'] for q in json.loads((root / f['file']).read_text())['questions']}
 
 expected_a = .8 * 20 + .2 * -40
 expected_b = .8 * -5 + .2 * 60

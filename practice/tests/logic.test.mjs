@@ -13,9 +13,8 @@ import {
 } from "../js/logic.js";
 import {
   emptyProgress,
-  loadProgress,
-  saveProgress,
-  resetProgress,
+  createProgressStore,
+  localStorageAdapter,
   STORAGE_KEY,
 } from "../js/progress.js";
 
@@ -78,7 +77,7 @@ test("answer order is a permutation and stored per card", () => {
   const s = all.find((q) => q.type === "sequence");
   assert.notDeepEqual(makeCard(s).draft, s.answer);
 });
-test("incorrect answers cost one heart, queue once, and repeat later", () => {
+test("incorrect answers cost one heart, queue once without extending the lesson", () => {
   const p = emptyProgress();
   p.active = createSession(lessons[0], lessons[0].questions);
   p.active.cards[0].draft = 900;
@@ -86,13 +85,13 @@ test("incorrect answers cost one heart, queue once, and repeat later", () => {
   assert.equal(p.active.hearts, 4);
   assert.equal(p.xp, 0);
   assert.deepEqual(p.review, [all[0].id]);
-  assert.equal(p.active.cards.length, 6);
+  assert.equal(p.active.cards.length, 5);
   assert.equal(submit(p, all[0]), false);
   assert.equal(p.active.hearts, 4);
-  p.active.index = 5;
-  p.active.cards[5].draft = 900;
+  p.active = createSession(lessons[0], [all[0]], "review");
+  p.active.cards[0].draft = 900;
   submit(p, all[0]);
-  assert.equal(p.active.cards.length, 6);
+  assert.equal(p.active.cards.length, 1);
   assert.deepEqual(p.review, [all[0].id]);
 });
 test("XP survives reload and a repeated check cannot double award it", () => {
@@ -120,11 +119,16 @@ test("five mistakes do not block learning; later success clears review", () => {
     submit(p, all[i]);
   }
   assert.equal(p.active.hearts, 0);
-  assert.equal(p.active.cards.length, 10);
-  p.active.index = 5;
-  p.active.cards[5].draft = 8;
+  assert.equal(p.active.cards.length, 5);
+  finish(p);
+  p.active = createSession(
+    { id: "review", title: "Review" },
+    [all[0]],
+    "review",
+  );
+  p.active.cards[0].draft = 8;
   submit(p, all[0]);
-  assert.equal(p.active.hearts, 0);
+  assert.equal(p.active.hearts, 5);
   assert.ok(p.xp > 0);
   assert.ok(!p.review.includes(all[0].id));
 });
@@ -152,13 +156,16 @@ test("storage round trip and reset affect only this app", () => {
   };
   const p = emptyProgress();
   p.xp = 42;
-  saveProgress(p, storage);
-  assert.equal(loadProgress(storage).xp, 42);
-  resetProgress(storage);
-  assert.equal(data.has(STORAGE_KEY), false);
+  const store = createProgressStore(localStorageAdapter(storage));
+  store.save(p);
+  assert.equal(store.load().xp, 42);
+  const oldGeneration = p.generation;
+  const blank = store.reset();
+  assert.equal(store.load().xp, 0);
+  assert.notEqual(blank.generation, oldGeneration);
   assert.equal(data.get("unrelated"), "keep");
   storage.setItem(STORAGE_KEY, "broken");
-  assert.throws(() => loadProgress(storage));
+  assert.throws(() => store.load());
 });
 test("content validation rejects duplicate IDs and invalid answer references", () => {
   const copy = structuredClone(lessons);

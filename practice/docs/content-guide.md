@@ -6,25 +6,27 @@ The hierarchy is course → units → lesson files → questions. The renderer a
 2. Give the lesson and every question a new, stable, lowercase hyphenated ID. IDs must be unique across the course.
 3. Set the title, description, estimated minutes, and icon (`chart`, `radar`, `layers`, `bolt`, or `book`).
 4. Write the questions, correct answers, concise explanations, detailed intuition, misconceptions, and source references.
-5. Add the filename to a unit’s `lessons` array in `course.json`. Order determines the path and prerequisite sequence. Add a unit there if needed.
-6. Run schema validation, independent numerical verification, and browser checks. Inspect long questions and equations at a narrow mobile width.
+5. Add `{ "file": "your-lesson.json" }` to a unit’s `lessons` array in `course.json`, then run `npm run content:index`. This copies lesson metadata and question IDs/topics into the lightweight index; prompts, answers, and explanations remain in the separately fetched lesson file. Order determines the suggested path only; every lesson is independently accessible. Add a unit there if needed.
+6. Target five focused questions and approximately 3–5 minutes per lesson. Each lesson should explain its own assumptions and require no earlier app completion. Missed answers enter optional review without extending the lesson.
+7. After changing lesson metadata or question IDs/topics, rerun `npm run content:index`. Run schema validation, independent numerical verification, and browser checks. Inspect long questions and equations at a narrow mobile width.
+8. Increment `RELEASE` in `sw.js` whenever publishing changes to the shell, lessons, or bundled assets. This creates a fresh static cache; see [storage and caching](progress-storage.md).
 
 No engine edits are needed. Existing IDs identify saved progress; renaming or deleting IDs requires a deliberate storage migration or a communicated reset. The current runtime stops and preserves incompatible saved data instead of silently deleting it. Adding new IDs is compatible with existing progress.
 
 ## Common question fields
 
-| Field | Purpose |
-| --- | --- |
-| `id` | Stable identity, such as `expected-return` |
-| `type` | One of the five supported types below |
-| `topic` | Short label above the exercise |
-| `prompt` | The exact task; specify horizon, units, and assumptions |
-| `context` | Optional scenario or instruction |
-| `table` | Optional `headers` and `rows` arrays; each row must match the header count |
-| `explanation` | Concise feedback shown after both correct and incorrect answers |
-| `detail` | Longer prewritten explanation under “Why?” |
-| `misconception` | Why a tempting incorrect answer fails |
-| `source` | `file`, `section`, and `kind`: `adapted` or `original-application` |
+| Field           | Purpose                                                                    |
+| --------------- | -------------------------------------------------------------------------- |
+| `id`            | Stable identity, such as `expected-return`                                 |
+| `type`          | One of the five supported types below                                      |
+| `topic`         | Short label above the exercise                                             |
+| `prompt`        | The exact task; specify horizon, units, and assumptions                    |
+| `context`       | Optional scenario or instruction                                           |
+| `table`         | Optional `headers` and `rows` arrays; each row must match the header count |
+| `explanation`   | Concise feedback shown after both correct and incorrect answers            |
+| `detail`        | Longer prewritten explanation under “Why?”                                 |
+| `misconception` | Why a tempting incorrect answer fails                                      |
+| `source`        | `file`, `section`, and `kind`: `adapted` or `original-application`         |
 
 Content is plain text and is HTML-escaped. Inline math uses `\(...\)`; display math uses `$$...$$`. JSON requires backslashes to be escaped, so write `"\\(E[R]=8\\%\\)"`. KaTeX runs with `trust: false`. Arbitrary HTML is not supported.
 
@@ -74,4 +76,4 @@ A small machine-precision allowance avoids rejecting a value exactly on the tole
 
 Separate expected from realized returns and systematic exposure from standalone volatility. State borrowing costs and other simplifying assumptions in leverage problems. Explain why an answer makes economic sense. Use hypothetical scenarios instead of unsupported current company claims. Cite a checked source section; label new examples as original applications. Verify every numerical answer and any numbers mentioned in conceptual explanations independently.
 
-`tests/validate.mjs` checks the JSON schemas and cross-field constraints, including duplicate IDs, answer references, sequence permutations, and table dimensions. `tests/verify_math.py` deliberately checks that every numerical question has an independent calculation. Extend that script when adding numerical questions. Browser tests currently exercise this 20-question prototype and its intended progression; update fixture-specific counts when the curriculum changes.
+`tests/validate.mjs` checks the JSON schemas and cross-field constraints, including duplicate IDs, answer references, sequence permutations, table dimensions, and agreement between the course index and each lesson file. `tests/verify_math.py` deliberately checks that every numerical question has an independent calculation. Extend that script when adding numerical questions. Browser tests currently exercise this 20-question prototype and open lesson access; update fixture-specific counts when the curriculum changes.

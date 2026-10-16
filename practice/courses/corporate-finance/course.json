@@ -8,19 +8,142 @@
       "id": "foundations",
       "title": "Meet risk & return",
       "description": "Start with what you earn—and what could change.",
-      "lessons": ["risk-return.json", "risk-radar.json"]
+      "lessons": [
+        {
+          "id": "returns",
+          "title": "Returns, unpacked",
+          "description": "Averages, surprises, and the price of risk.",
+          "minutes": 4,
+          "icon": "chart",
+          "file": "risk-return.json",
+          "questions": [
+            {
+              "id": "expected-return",
+              "topic": "Expected returns"
+            },
+            {
+              "id": "expected-not-promised",
+              "topic": "Expected versus realized"
+            },
+            {
+              "id": "volatility-intuition",
+              "topic": "Volatility"
+            },
+            {
+              "id": "risk-premium",
+              "topic": "Risk premiums"
+            },
+            {
+              "id": "expected-steps",
+              "topic": "Put it together"
+            }
+          ]
+        },
+        {
+          "id": "risk-radar",
+          "title": "Spot the risk",
+          "description": "Separate company surprises from market shocks.",
+          "minutes": 4,
+          "icon": "radar",
+          "file": "risk-radar.json",
+          "questions": [
+            {
+              "id": "risk-matching",
+              "topic": "Risk radar"
+            },
+            {
+              "id": "volatility-premium",
+              "topic": "Common misconception"
+            },
+            {
+              "id": "recession-protection",
+              "topic": "Economic intuition"
+            },
+            {
+              "id": "systematic-remains",
+              "topic": "What stays with you"
+            },
+            {
+              "id": "employer-stock",
+              "topic": "Apply it"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "portfolios",
       "title": "Think in portfolios",
       "description": "The mix matters more than the number of stocks.",
-      "lessons": ["diversification.json"]
+      "lessons": [
+        {
+          "id": "diversification",
+          "title": "Better together",
+          "description": "Discover why the mix changes the risk.",
+          "minutes": 4,
+          "icon": "layers",
+          "file": "diversification.json",
+          "questions": [
+            {
+              "id": "offset-portfolio",
+              "topic": "Portfolio returns"
+            },
+            {
+              "id": "thirty-stocks",
+              "topic": "Common misconception"
+            },
+            {
+              "id": "correlation-match",
+              "topic": "How returns move"
+            },
+            {
+              "id": "airline-basket",
+              "topic": "Look beneath the labels"
+            },
+            {
+              "id": "diversify-workflow",
+              "topic": "A portfolio checklist"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "exposure",
       "title": "Turn up the exposure",
       "description": "See what borrowing and beta really change.",
-      "lessons": ["leverage-beta.json"]
+      "lessons": [
+        {
+          "id": "leverage-beta",
+          "title": "Risk, amplified",
+          "description": "Borrowing, beta, and both sides of the trade.",
+          "minutes": 4,
+          "icon": "bolt",
+          "file": "leverage-beta.json",
+          "questions": [
+            {
+              "id": "levered-loss",
+              "topic": "Leverage & losses"
+            },
+            {
+              "id": "levered-gain",
+              "topic": "Both sides of leverage"
+            },
+            {
+              "id": "beta-match",
+              "topic": "Read the beta"
+            },
+            {
+              "id": "beta-not-exact",
+              "topic": "Common misconception"
+            },
+            {
+              "id": "negative-beta",
+              "topic": "The bigger picture"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

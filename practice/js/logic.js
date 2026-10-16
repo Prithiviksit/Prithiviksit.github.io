@@ -78,6 +78,8 @@ export function makeCard(question, review = false) {
 
 export function createSession(lesson, questions, mode = "lesson") {
   return {
+    id: crypto.randomUUID(),
+    startedAt: new Date().toISOString(),
     lessonId: lesson.id,
     title: lesson.title,
     mode,
@@ -89,6 +91,20 @@ export function createSession(lesson, questions, mode = "lesson") {
     combo: 0,
     xp: 0,
   };
+}
+
+export const sessionKey = (session) => `${session.mode}:${session.lessonId}`;
+
+export function activateSession(progress, lesson, questions, mode = "lesson") {
+  const key = `${mode}:${lesson.id}`;
+  if (progress.active && sessionKey(progress.active) === key)
+    return progress.active;
+  if (progress.active)
+    progress.paused[sessionKey(progress.active)] = progress.active;
+  progress.active =
+    progress.paused[key] || createSession(lesson, questions, mode);
+  delete progress.paused[key];
+  return progress.active;
 }
 
 // One submission changes all progress atomically; persisted feedback prevents duplicate XP on reload.
@@ -108,7 +124,8 @@ export function submit(progress, question) {
     session.hearts = Math.max(0, session.hearts - 1);
     if (!progress.review.includes(question.id))
       progress.review.push(question.id);
-    if (!card.review) session.cards.push(makeCard(question, true));
+    // Keep lessons short. Misses live in the optional review queue instead of
+    // extending a five-question lesson with mandatory repeats.
   }
   session.xp += xp;
   progress.xp += xp;
@@ -116,6 +133,18 @@ export function submit(progress, question) {
   stats[correct ? "correct" : "wrong"]++;
   progress.questions[question.id] = stats;
   card.feedback = { correct, xp };
+  progress.history.push({
+    id: `${session.id}:${session.index}`,
+    sessionId: session.id,
+    lessonId: session.lessonId,
+    questionId: question.id,
+    position: session.index,
+    review: card.review,
+    submittedAnswer: structuredClone(card.draft),
+    correct,
+    xpEarned: xp,
+    answeredAt: new Date().toISOString(),
+  });
   return true;
 }
 
@@ -133,12 +162,15 @@ export function finish(progress) {
     };
   }
   const result = {
+    id: session.id,
+    completedAt: new Date().toISOString(),
     title: session.title,
     xp: session.xp,
     score,
     mode: session.mode,
     lessonId: session.lessonId,
   };
+  progress.completedSessions.push(result);
   progress.active = null;
   return result;
 }

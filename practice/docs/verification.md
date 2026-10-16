@@ -6,11 +6,11 @@ Prototype prepared on October 15, 2026, for review before public deployment.
 
 The source files were read from the instructor’s existing Corporate Finance workspace. Questions identify the relevant file and frame title in their `source` field. “Adapted” indicates an example or idea directly adapted from that section; “original-application” indicates a newly written exercise using the checked concept. The lecture files themselves are not redistributed in this directory.
 
-| Source | Concepts used |
-| --- | --- |
-| `Lec17_Risk_and_Return.tex` | Employer concentration; systematic versus idiosyncratic risk; diversification; the two-state 50/50 portfolio; the recession-protection example; limits of stock-count rules |
-| `Lec18_CAPM_Cost_of_Capital.tex` | Beta as market sensitivity; financial leverage; expected risk premiums; levered exposure versus investment skill |
-| `Module_2_Risk_Return.tex` | Definitions of expectation, variance, covariance, and correlation |
+| Source                           | Concepts used                                                                                                                                                               |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Lec17_Risk_and_Return.tex`      | Employer concentration; systematic versus idiosyncratic risk; diversification; the two-state 50/50 portfolio; the recession-protection example; limits of stock-count rules |
+| `Lec18_CAPM_Cost_of_Capital.tex` | Beta as market sensitivity; financial leverage; expected risk premiums; levered exposure versus investment skill                                                            |
+| `Module_2_Risk_Return.tex`       | Definitions of expectation, variance, covariance, and correlation                                                                                                           |
 
 Source SHA-256 checksums at inspection:
 
@@ -33,7 +33,7 @@ The source workspace had existing edits in Lectures 16 and 18. Those files were 
 
 ## Checks performed
 
-`npm test`: nine tests pass, covering every authored answer, incorrect answers, numerical parsing and tolerance boundaries, permutations, heart deductions, review scheduling, duplicate-submission protection, combos, best scores, reset isolation, and invalid content.
+`npm test`: 14 tests pass, covering every authored answer, incorrect answers, numerical parsing and tolerance boundaries, permutations, heart deductions, review scheduling, duplicate-submission protection, combos, best scores, reset isolation, invalid content, v1 migration, multiple saved attempts, immutable answer events, adapter boundaries, failed writes, and on-demand content loading.
 
 `npm run validate`: the manifest and all four lesson files pass JSON Schema and semantic validation; 20 unique questions cover all five types.
 
@@ -43,12 +43,20 @@ The source workspace had existing edits in Lectures 16 and 18. Those files were 
 
 - Correct and incorrect feedback, explanations, and local KaTeX rendering.
 - Randomized choices retaining order across reload; unsubmitted choices and numerical drafts resuming after exit, reload, or closing and reopening a tab.
-- Exact cumulative XP, combo bonuses, hearts, zero-heart practice, first-pass scores, and lesson unlocks.
-- Missed-question repetition, persistent review, correct answers clearing the queue, and review not changing lesson best scores.
+- Exact cumulative XP, combo bonuses, hearts, zero-heart practice, first-pass scores, and independent lesson access.
+- Five-question lessons without mandatory repetitions, persistent optional review, correct answers clearing the queue, and review not changing lesson best scores.
 - Two-step reset, canceled reset preserving progress, and malformed local storage being preserved for recovery.
 - Keyboard selection/Enter, native dialog focus containment, and Escape dismissal.
 - Desktop at 1440 × 1000; mobile at 390 × 844; narrow-layout overflow checks at 320 × 740.
-- No failed static resources or browser JavaScript errors.
+- No unexpected failed static resources or browser JavaScript errors in the full-course flow.
+- Skipping directly to lesson four, preserving drafts across several unfinished lessons, and recording the actual submitted answer and timestamp.
+- A real browser-process restart with a persistent local profile restores the same lesson and draft.
+- Changes from another open tab refresh once; resuming does not create a save/reload loop.
+- v1 browser storage migrates without losing XP, scores, or the unfinished draft.
+- A paused review remains resumable after its last correct answer clears the review queue.
+- Cold homepage requests contain no lesson question files or KaTeX. The local test measured approximately 109 KB of uncompressed response bodies including service-worker shell caching; deployment compression and headers can change transfer size.
+- Checking and continuing an answer issue zero network requests in the tested flow. All observed application requests are same-origin GETs.
+- Previously opened lessons resume and accept answers after an offline reload. Attempting an unvisited lesson offline shows a retry message, preserves other attempts, and succeeds after reconnection.
 - A separate smoke check at `/site/practice/` verifies nested base paths, JSON fetching, and KaTeX assets.
 - axe-core WCAG A/AA checks on the desktop path and mobile path, question, feedback, explanation, and matching screens, with no detected violations.
 

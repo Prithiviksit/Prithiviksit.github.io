@@ -46,8 +46,61 @@
             "minItems": 1,
             "uniqueItems": true,
             "items": {
-              "type": "string",
-              "pattern": "^[a-z0-9-]+\\.json$"
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "title",
+                "description",
+                "minutes",
+                "icon",
+                "file",
+                "questions"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]*$"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minutes": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "icon": {
+                  "enum": ["chart", "radar", "layers", "bolt", "book"]
+                },
+                "file": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9-]+\\.json$"
+                },
+                "questions": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["id", "topic"],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "pattern": "^[a-z][a-z0-9-]*$"
+                      },
+                      "topic": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }

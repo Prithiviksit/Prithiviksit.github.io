@@ -1,17 +1,7 @@
-import {
-  validateCourse,
-  createSession,
-  submit,
-  finish,
-  isReady,
-} from "./logic.js";
-import {
-  loadProgress,
-  saveProgress,
-  resetProgress,
-  emptyProgress,
-  STORAGE_KEY,
-} from "./progress.js";
+import { activateSession, submit, finish, isReady } from "./logic.js";
+import { createProgressStore, emptyProgress } from "./progress.js";
+import { createContentLoader, validateManifest } from "./content.js";
+import { loadMath, renderMath } from "./math.js";
 
 const app = document.querySelector("#app");
 const dialog = document.querySelector("#dialog");
@@ -27,6 +17,7 @@ const esc = (value) =>
       ],
   );
 const paths = {
+  coin: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="6" stroke-opacity=".55"/><path d="m9 15 6-6m-4 0h4v4"/>',
   path: '<path d="M5 19h4a4 4 0 0 0 0-8H8a3 3 0 0 1 0-6h9"/><path d="m14 2 3 3-3 3"/>',
   review: '<path d="M4 10a8 8 0 1 1 1 8M4 4v6h6"/><path d="M12 8v5l3 2"/>',
   trophy:
@@ -61,32 +52,28 @@ let course,
   view = "learn",
   selectedPair = null,
   storageError = "",
-  loadError = false;
+  loadError = false,
+  store,
+  content,
+  loadRequest = 0,
+  loadingLesson = false;
 
 function math(root = app) {
-  if (!window.renderMathInElement)
-    throw new Error(
-      "The local math renderer could not load. Reload this page.",
-    );
-  window.renderMathInElement(root, {
-    delimiters: [
-      { left: "\\(", right: "\\)", display: false },
-      { left: "$$", right: "$$", display: true },
-    ],
-    throwOnError: true,
-    trust: false,
-  });
+  renderMath(root);
 }
 
 function persist() {
   try {
-    saveProgress(progress);
+    store.save(progress);
     storageError = "";
   } catch {
     storageError =
       "Progress could not be saved. Check browser storage before closing this page.";
     announce(storageError);
   }
+  const savedLabel = document.querySelector(".saved-label");
+  if (savedLabel)
+    savedLabel.innerHTML = `<i></i> ${storageError ? "Not saved yet" : "Saved on this device"}`;
   const notice = document.querySelector("#storage-notice");
   if (notice) {
     notice.hidden = !storageError;
@@ -96,8 +83,10 @@ function persist() {
 
 const completed = () =>
   lessons.filter((l) => progress.lessons[l.id]?.completed).length;
-const available = (i) =>
-  i === 0 || progress.lessons[lessons[i - 1].id]?.completed;
+const unfinished = (id) =>
+  progress.active?.lessonId === id && progress.active.mode === "lesson"
+    ? progress.active
+    : progress.paused[`lesson:${id}`];
 const nextLesson = () =>
   lessons.find((l) => !progress.lessons[l.id]?.completed) || lessons[0];
 const button = (action, label, cls = "button secondary", extra = "") =>
@@ -117,7 +106,7 @@ function nav() {
 }
 
 function shell(content) {
-  app.innerHTML = `<aside class="sidebar"><a class="brand" href="./" aria-label="Finpath home"><img src="assets/mark.svg" alt="" width="38" height="38">finpath<span class="brand-dot">.</span></a><div class="sidebar-caption">A LITTLE PRACTICE. A LOT OF POSSIBILITY.</div>${nav()}<div class="sidebar-bottom"><div class="course-label">YOUR CLASSROOM</div><strong>Corporate Finance</strong><span>From concepts to confidence.</span><button class="text-button" data-action="notes">${icon("book")} Field notes</button><button class="text-button" data-action="settings">${icon("settings")} Settings</button><a class="back-site" href="../">← Academic website</a></div></aside><div class="workspace"><header class="topbar"><div class="mobile-brand"><img src="assets/mark.svg" alt="" width="28" height="28">finpath.</div><div class="breadcrumb">Corporate Finance <span>/</span> <strong>Practice</strong></div><div class="top-meta"><span class="saved-label"><i></i> Saved on this device</span><span class="xp-chip">${icon("bolt")} ${progress.xp} <small>XP</small></span><button class="avatar" aria-label="Open settings" data-action="settings">CF</button></div></header><div id="storage-notice" class="storage-notice" role="alert" ${storageError ? "" : "hidden"}>${esc(storageError)}</div><main id="main" tabindex="-1">${content}</main><footer class="site-footer">Small steps. Stronger intuition.<span>Corporate Finance · Risk & Return</span></footer></div><div class="mobile-nav">${nav()}</div>`;
+  app.innerHTML = `<aside class="sidebar"><a class="brand" href="./" aria-label="Finpath home"><img src="assets/mark.svg" alt="" width="38" height="38">finpath<span class="brand-dot">.</span></a><div class="sidebar-caption">A LITTLE PRACTICE. A LOT OF POSSIBILITY.</div>${nav()}<div class="sidebar-bottom"><div class="course-label">YOUR CLASSROOM</div><strong>Corporate Finance</strong><span>From concepts to confidence.</span><button class="text-button" data-action="notes">${icon("book")} Field notes</button><button class="text-button" data-action="settings">${icon("settings")} Settings</button><a class="back-site" href="../">← Academic website</a></div></aside><div class="workspace"><header class="topbar"><div class="mobile-brand"><img src="assets/mark.svg" alt="" width="28" height="28">finpath.</div><div class="breadcrumb">Corporate Finance <span>/</span> <strong>Practice</strong></div><div class="top-meta"><span class="saved-label"><i></i> Saved on this device</span><span class="xp-chip">${icon("coin")} ${progress.xp} <small>XP</small></span><button class="avatar" aria-label="Open settings" data-action="settings">CF</button></div></header><div id="storage-notice" class="storage-notice" role="alert" ${storageError ? "" : "hidden"}>${esc(storageError)}</div><main id="main" tabindex="-1">${content}</main><footer class="site-footer">Small steps. Stronger intuition.<span>Corporate Finance · Risk & Return</span></footer></div><div class="mobile-nav">${nav()}</div>`;
   math();
 }
 
@@ -130,7 +119,23 @@ function momentum() {
   const mastered = Object.values(progress.questions).filter(
     (q) => q.correct > 0,
   ).length;
-  return `<aside class="right-column"><section class="panel momentum"><div class="eyebrow">YOUR MOMENTUM ${icon("sparkle")}</div><div class="ring" style="--percent:${(100 * completed()) / lessons.length}"><div><strong>${completed()}<span>/${lessons.length}</span></strong><small>lessons complete</small></div></div><div class="stat-pair"><div><strong class="amber">${progress.xp}</strong><span>Total XP</span></div><div><strong>${mastered}<small>/${total}</small></strong><span>Practiced correctly</span></div></div></section><section class="panel daily-note"><div class="note-icon">${icon("book")}</div><div class="eyebrow">A THOUGHT TO KEEP</div><h3>Risk is about<br>the company it keeps.</h3><p>An asset’s role in your portfolio matters as much as its risk on its own.</p><button class="text-button violet" data-action="notes">Open field notes ${icon("arrow")}</button></section><section class="gentle-note">${icon("heart")}<p>Room to make mistakes.<br><span>Retry freely. Keep your progress.</span></p></section></aside>`;
+  return `<aside class="right-column"><section class="panel momentum"><div class="eyebrow">YOUR MOMENTUM ${icon("coin")}</div><div class="ring" style="--percent:${(100 * completed()) / lessons.length}"><div><strong>${completed()}<span>/${lessons.length}</span></strong><small>lessons complete</small></div></div><div class="stat-pair"><div><strong class="amber">${progress.xp}</strong><span>Total XP</span></div><div><strong>${mastered}<small>/${total}</small></strong><span>Practiced correctly</span></div></div></section><section class="panel daily-note"><div class="note-icon">${icon("book")}</div><div class="eyebrow">A THOUGHT TO KEEP</div><h3>Risk is about<br>the company it keeps.</h3><p>An asset’s role in your portfolio matters as much as its risk on its own.</p><button class="text-button violet" data-action="notes">Open field notes ${icon("arrow")}</button></section><section class="gentle-note">${icon("heart")}<p>Room to make mistakes.<br><span>Retry freely. Keep your progress.</span></p></section></aside>`;
+}
+
+function marketPath() {
+  const points = lessons.map((lesson, i) => {
+    const t = lessons.length === 1 ? 0.5 : i / (lessons.length - 1);
+    return {
+      lesson,
+      x: 48 + 504 * t,
+      y:
+        155 -
+        120 * t +
+        (i > 0 && i < lessons.length - 1 ? (i % 2 ? -28 : 28) : 0),
+    };
+  });
+  const line = points.map((p) => `${p.x},${p.y}`).join(" ");
+  return `<section class="market-path" aria-label="Choose any lesson"><div class="market-caption"><span>${icon("chart")} YOUR LEARNING PORTFOLIO</span><small>Start anywhere</small></div><div class="market-chart"><svg viewBox="0 0 600 200" preserveAspectRatio="none" aria-hidden="true"><path d="M0 45H600M0 105H600M0 165H600" stroke="currentColor" opacity=".12"/><polygon points="${points[0].x},195 ${line} ${points.at(-1).x},195" fill="#7c3aed" opacity=".08"/><polyline points="${line}" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>${points.map(({ lesson, x, y }, i) => `<button class="market-node ${progress.lessons[lesson.id]?.completed ? "complete" : ""}" data-label="${esc(lesson.title)}" style="left:${x / 6}%;top:${y / 2}%" data-action="start" data-id="${lesson.id}" aria-label="${esc(lesson.title)}, ${unfinished(lesson.id) ? "resume" : "start"} lesson">${progress.lessons[lesson.id]?.completed ? icon("check") : String(i + 1).padStart(2, "0")}</button>`).join("")}</div><p>Growth has its ups and downs. Keep investing in yourself.</p></section>`;
 }
 
 function home() {
@@ -145,31 +150,33 @@ function home() {
             const i = index++;
             const l = lessons[i];
             const done = progress.lessons[l.id];
-            const unlocked = available(i);
-            const current = !done && unlocked;
-            return `<div class="lesson-stop ${i % 2 ? "offset" : ""} ${current ? "current" : done ? "complete" : "locked"}"><button class="lesson-node" data-action="start" data-id="${esc(l.id)}" ${unlocked ? "" : "disabled"} aria-label="${esc(l.title)}${done ? ", completed, best " + done.best + "%" : current ? ", start lesson" : ", locked"}">${icon(done ? "check" : unlocked ? l.icon : "lock")}</button><div class="lesson-copy">${current ? '<span class="start-label">YOUR NEXT STEP</span>' : ""}<h3>${esc(l.title)}</h3><p>${esc(l.description)}</p><span class="lesson-meta">${done ? `${icon("check")} Completed · ${done.best}% best` : unlocked ? `${icon("clock")} ${l.minutes} min · ${l.questions.length} questions` : `Complete ${esc(lessons[i - 1].title)} to unlock`}</span></div>${current ? button("start", icon("arrow"), "node-go", `data-id="${esc(l.id)}" aria-label="Start ${esc(l.title)}"`) : ""}</div>`;
+            const saved = unfinished(l.id);
+            const current = !done && l.id === next.id;
+            return `<div class="lesson-stop ${i % 2 ? "offset" : ""} ${current ? "current" : done ? "complete" : "available"}"><button class="lesson-node" data-action="start" data-id="${esc(l.id)}"  aria-label="${esc(l.title)}${saved ? ", resume lesson" : done ? ", completed, best " + done.best + "%" : ", start lesson"}">${icon(saved ? "review" : done ? "check" : l.icon)}</button><div class="lesson-copy">${current ? '<span class="start-label">SUGGESTED NEXT</span>' : ""}<h3>${esc(l.title)}</h3><p>${esc(l.description)}</p><span class="lesson-meta">${saved ? `${icon("review")} Resume · question ${saved.index + 1} of ${saved.cards.length}` : done ? `${icon("check")} ${done.best}% best · practice again` : `${icon("clock")} 3–5 min · ${l.questions.length} questions`}</span></div>${current ? button("start", icon("arrow"), "node-go", `data-id="${esc(l.id)}" aria-label="Start ${esc(l.title)}"`) : ""}</div>`;
           })
           .join("")}</div></section>`,
     )
     .join("");
   shell(
-    `<section class="hero"><div class="hero-copy"><div class="eyebrow"><span class="tiny-line"></span> THE PRACTICE LAB</div><h1>Small steps.<br><span>Sharper instincts.</span></h1><p>Make sense of risk. Build a little confidence.<br>Your next breakthrough is a few questions away.</p><button data-action="${active ? "resume" : "start"}" data-id="${esc(next.id)}" class="button primary">${active ? "Resume lesson" : completed() === lessons.length ? "Practice again" : "Let’s practice"} ${icon("arrow")}</button><span class="hero-time">${icon("clock")} About 4 minutes</span></div>${illustration()}</section><div class="learning-grid"><div><div class="section-heading"><div><div class="eyebrow">YOUR LEARNING PATH</div><h2>${esc(course.topic)}</h2></div><span class="section-count">${completed()} of ${lessons.length} complete</span></div><div class="course-progress" role="progressbar" aria-label="Course completion" aria-valuenow="${completed()}" aria-valuemin="0" aria-valuemax="${lessons.length}"><span style="width:${(100 * completed()) / lessons.length}%"></span></div>${path}<div class="path-finish">${icon("trophy")}<span>${completed() === lessons.length ? "Path complete. Keep your intuition sharp with review." : "A stronger financial instinct starts here."}</span></div></div>${momentum()}</div>`,
+    `<section class="hero"><div class="hero-copy"><div class="eyebrow"><span class="tiny-line"></span> THE PRACTICE LAB</div><h1>Small steps.<br><span>Sharper instincts.</span></h1><p>Make sense of risk. Build a little confidence.<br>Your next breakthrough is a few questions away.</p><button data-action="${active ? "resume" : "start"}" data-id="${esc(next.id)}" class="button primary">${active ? "Resume lesson" : completed() === lessons.length ? "Practice again" : "Let’s practice"} ${icon("arrow")}</button><span class="hero-time">${icon("clock")} 3–5 minutes · Start anywhere</span></div>${illustration()}</section><div class="learning-grid"><div><div class="section-heading"><div><div class="eyebrow">YOUR LEARNING PATH</div><h2>${esc(course.topic)}</h2></div><span class="section-count">${completed()} of ${lessons.length} complete</span></div><div class="course-progress" role="progressbar" aria-label="Course completion" aria-valuenow="${completed()}" aria-valuemin="0" aria-valuemax="${lessons.length}"><span style="width:${(100 * completed()) / lessons.length}%"></span></div>${marketPath()}${path}<div class="path-finish">${icon("trophy")}<span>${completed() === lessons.length ? "Path complete. Keep your intuition sharp with review." : "A stronger financial instinct starts here."}</span></div></div>${momentum()}</div>`,
   );
 }
 
 function reviewPage() {
   const ids = progress.review;
+  const saved =
+    progress.active?.mode === "review" || progress.paused["review:review"];
   shell(
-    `<div class="page-heading"><div class="eyebrow">MAKE IT STICK</div><h1>A second look.</h1><p>Small mistakes are useful clues. Revisit them at your own pace.</p></div><section class="panel review-panel"><div class="large-symbol">${icon(ids.length ? "review" : "check")}</div><h2>${ids.length ? `${ids.length} question${ids.length > 1 ? "s" : ""} to revisit` : "A clear review queue"}</h2><p>${ids.length ? "Each correct answer clears a question from your queue. Your lesson progress stays with you." : "Missed questions will appear here. Start a lesson and let curiosity lead."}</p>${button(ids.length ? "start-review" : "nav", ids.length ? "Start review " + icon("arrow") : "Back to learning " + icon("arrow"), "button primary", 'data-view="learn"')}</section>${ids.length ? `<div class="review-list">${ids.map((id) => `<div>${icon("review")}<span>${esc(questions.get(id).topic)}</span></div>`).join("")}</div>` : ""}`,
+    `<div class="page-heading"><div class="eyebrow">MAKE IT STICK</div><h1>A second look.</h1><p>Small mistakes are useful clues. Revisit them at your own pace.</p></div><section class="panel review-panel"><div class="large-symbol">${icon(ids.length ? "review" : "check")}</div><h2>${ids.length ? `${ids.length} question${ids.length > 1 ? "s" : ""} to revisit` : "A clear review queue"}</h2><p>${saved ? "Your unfinished review is saved. Pick up exactly where you left off." : ids.length ? "Each correct answer clears a question from your queue. Your lesson progress stays with you." : "Missed questions will appear here. Start a lesson and let curiosity lead."}</p>${button(saved || ids.length ? "start-review" : "nav", (saved ? "Resume review " : ids.length ? "Start review " : "Back to learning ") + icon("arrow"), "button primary", 'data-view="learn"')}</section>${ids.length ? `<div class="review-list">${ids.map((id) => `<div>${icon("review")}<span>${esc(questions.get(id).topic)}</span></div>`).join("")}</div>` : ""}`,
   );
 }
 
 function progressPage() {
   shell(
-    `<div class="page-heading"><div class="eyebrow">SEE HOW FAR YOU’VE COME</div><h1>Progress, earned.</h1><p>Every question is another rep for your financial intuition.</p></div><div class="progress-summary"><section class="panel"><span class="amber">${icon("bolt")}</span><strong>${progress.xp}</strong><p>Total XP earned</p></section><section class="panel"><span class="violet">${icon("trophy")}</span><strong>${completed()} / ${lessons.length}</strong><p>Lessons completed</p></section><section class="panel"><span class="mint">${icon("review")}</span><strong>${progress.review.length}</strong><p>Questions to revisit</p></section></div><div class="section-heading"><h2>Your lesson record</h2><span class="muted">Best first-pass scores</span></div>${lessons
+    `<div class="page-heading"><div class="eyebrow">SEE HOW FAR YOU’VE COME</div><h1>Progress, earned.</h1><p>Every question is another rep for your financial intuition.</p></div><div class="progress-summary"><section class="panel"><span class="amber">${icon("coin")}</span><strong>${progress.xp}</strong><p>Total XP earned</p></section><section class="panel"><span class="violet">${icon("trophy")}</span><strong>${completed()} / ${lessons.length}</strong><p>Lessons completed</p></section><section class="panel"><span class="mint">${icon("review")}</span><strong>${progress.review.length}</strong><p>Questions to revisit</p></section></div><div class="section-heading"><h2>Your lesson record</h2><span class="muted">Best first-pass scores</span></div>${lessons
       .map((l, i) => {
         const record = progress.lessons[l.id];
-        return `<section class="record panel"><div class="record-icon">${icon(l.icon)}</div><div><h3>${esc(l.title)}</h3><p>${record ? `${record.attempts} attempt${record.attempts > 1 ? "s" : ""} · ${record.best === 100 ? "Full marks" : record.best >= 80 ? "Strong foundation" : "Keep building"}` : "Your progress starts with a first try."}</p></div><strong>${record ? record.best + "%" : "—"}</strong>${button("start", record ? "Practice" : "Start", "button secondary small", `data-id="${l.id}" ${available(i) ? "" : "disabled"}`)}</section>`;
+        return `<section class="record panel"><div class="record-icon">${icon(l.icon)}</div><div><h3>${esc(l.title)}</h3><p>${record ? `${record.attempts} attempt${record.attempts > 1 ? "s" : ""} · ${record.best === 100 ? "Full marks" : record.best >= 80 ? "Strong foundation" : "Keep building"}` : "Your progress starts with a first try."}</p></div><strong>${record ? record.best + "%" : "—"}</strong>${button("start", unfinished(l.id) ? "Resume" : record ? "Practice" : "Start", "button secondary small", `data-id="${l.id}"`)}</section>`;
       })
       .join("")}`,
   );
@@ -189,38 +196,51 @@ function goHome(target = "learn") {
   document.querySelector("#main")?.focus({ preventScroll: true });
 }
 
-function start(id, mode = "lesson") {
-  if (progress.active) {
-    if (progress.active.lessonId === id && progress.active.mode === mode) {
-      view = "lesson";
-      render();
-      return;
-    }
+async function start(id, mode = "lesson") {
+  const metadata =
+    mode === "review"
+      ? { id: "review", title: "A second look" }
+      : lessons.find((l) => l.id === id);
+  if (!metadata) return;
+  const key = `${mode}:${id}`;
+  const saved =
+    progress.active?.mode === mode && progress.active.lessonId === id
+      ? progress.active
+      : progress.paused[key];
+  const ids = saved
+    ? saved.cards.map((c) => c.id)
+    : mode === "review"
+      ? progress.review.slice(0, 5)
+      : metadata.questions.map((q) => q.id);
+  if (!ids.length) return;
+  const request = ++loadRequest;
+  loadingLesson = true;
+  openDialog(
+    "Getting your lesson ready",
+    "<p>Loading this short practice session…</p>",
+  );
+  try {
+    const [items] = await Promise.all([content.questions(ids), loadMath()]);
+    if (request !== loadRequest) return;
+    for (const q of items) questions.set(q.id, q);
+    const previous = progress.active;
+    activateSession(progress, metadata, items, mode);
+    selectedPair = null;
+    if (progress.active !== previous) persist();
+    loadingLesson = false;
+    dialog.close();
+    view = "lesson";
+    render();
+    window.scrollTo(0, 0);
+    document.querySelector("#question-title")?.focus();
+  } catch (error) {
+    if (request !== loadRequest) return;
+    loadingLesson = false;
     openDialog(
-      "A lesson is in progress",
-      `<p>Resume your saved question, or start this new session. XP and completed lessons are kept. Starting a new session replaces the unfinished attempt.</p>${button("resume", "Resume saved lesson", "button primary")}${button("replace-session", "Start new session", "button secondary", `data-id="${esc(id)}" data-mode="${mode}"`)}`,
+      "This lesson could not load",
+      `<p>Your progress is safe. Reconnect to download a lesson you have not opened on this device, then try again.</p><p class="small">${esc(error.message)}</p>${button("start", "Try again", "button primary", `data-id="${esc(id)}" data-mode="${mode}"`)}${button("close-dialog", "Back to the path", "button secondary")}`,
     );
-    return;
   }
-  if (mode === "review") {
-    if (!progress.review.length) return;
-    const ids = progress.review.slice(0, 5);
-    progress.active = createSession(
-      { id: "review", title: "A second look" },
-      ids.map((id) => questions.get(id)),
-      "review",
-    );
-  } else {
-    const i = lessons.findIndex((l) => l.id === id);
-    if (i < 0 || !available(i)) return;
-    progress.active = createSession(lessons[i], lessons[i].questions);
-  }
-  selectedPair = null;
-  persist();
-  view = "lesson";
-  render();
-  window.scrollTo(0, 0);
-  document.querySelector("#question-title")?.focus();
 }
 
 function current() {
@@ -280,14 +300,14 @@ function renderLesson() {
     matching: "Connect the ideas",
     sequence: "Put it in order",
   };
-  app.innerHTML = `<div class="lesson-screen"><header class="lesson-top"><button class="icon-button exit" data-action="exit" aria-label="Save and exit lesson">${icon("close")}</button><div class="lesson-progress-wrap"><div class="lesson-top-title"><span>${esc(s.title)}</span><span>${s.index + 1} / ${s.cards.length}</span></div><div class="lesson-progress" role="progressbar" aria-label="Lesson progress" aria-valuenow="${s.index + (checked ? 1 : 0)}" aria-valuemin="0" aria-valuemax="${s.cards.length}"><span style="width:${(100 * (s.index + (checked ? 1 : 0))) / s.cards.length}%"></span></div></div><span class="heart-count" aria-label="${s.hearts} hearts remaining">${icon("heart")} ${s.hearts}</span><span class="xp-chip">${icon("bolt")} ${s.xp}<small> XP</small></span></header><div id="storage-notice" class="storage-notice" role="alert" ${storageError ? "" : "hidden"}>${esc(storageError)}</div><main id="main" class="exercise"><div class="exercise-kicker"><span>${card.review ? icon("review") + " SECOND LOOK" : esc(q.topic)}</span><span>${icon("book")} Risk & return</span></div>${s.hearts === 0 ? '<div class="practice-mode">Practice mode · Keep going at your own pace. Your XP is safe.</div>' : ""}<div class="question-type">${typeLabels[q.type]}</div><h1 id="question-title" tabindex="-1">${esc(q.prompt)}</h1>${q.context ? `<p class="question-context">${esc(q.context)}</p>` : ""}${q.table ? `<div class="case-table"><table><caption class="sr-only">Question scenario</caption><thead><tr>${q.table.headers.map((h) => `<th scope="col">${esc(h)}</th>`).join("")}</tr></thead><tbody>${q.table.rows.map((row) => `<tr>${row.map((cell, i) => (i === 0 ? `<th scope="row">${esc(cell)}</th>` : `<td>${esc(cell)}</td>`)).join("")}</tr>`).join("")}</tbody></table></div>` : ""}${answers(q, card)}</main><footer class="exercise-footer ${checked ? (card.feedback.correct ? "success-footer" : "error-footer") : ""}"><div class="footer-inner">${checked ? `<div class="feedback" role="status"><span class="feedback-symbol">${icon(card.feedback.correct ? "check" : "review")}</span><div><h2>${card.feedback.correct ? ["Nicely reasoned.", "You’ve got it.", "That’s the idea."][s.index % 3] : "A useful one to revisit."}</h2><p>${esc(q.explanation)}</p>${!card.feedback.correct ? `<div class="correct-answer"><strong>Correct answer:</strong> ${esc(answerLabel(q))}</div>` : ""}<span class="reward">${card.feedback.xp ? `+${card.feedback.xp} XP${s.combo > 1 ? ` · ${s.combo} in a row` : ""}` : "Saved for review · Mistakes are part of learning"}</span></div></div><div class="feedback-actions">${button("why", "Why? " + icon("book"), "button secondary")}${button("continue", "Continue " + icon("arrow"), "button primary", 'id="continue-button"')}</div>` : `<span class="keyboard-hint">${q.type === "multiple-choice" || q.type === "true-false" ? "Number keys to choose · " : ""}<kbd>Enter</kbd> to check</span>${button("check", "Check answer", "button primary", 'id="check-button" ' + (isReady(q, card.draft) ? "" : "disabled"))}`}</div></footer></div>`;
+  app.innerHTML = `<div class="lesson-screen"><header class="lesson-top"><button class="icon-button exit" data-action="exit" aria-label="Save and exit lesson">${icon("close")}</button><div class="lesson-progress-wrap"><div class="lesson-top-title"><span>${esc(s.title)}</span><span>${s.index + 1} / ${s.cards.length}</span></div><div class="lesson-progress" role="progressbar" aria-label="Lesson progress" aria-valuenow="${s.index + (checked ? 1 : 0)}" aria-valuemin="0" aria-valuemax="${s.cards.length}"><span style="width:${(100 * (s.index + (checked ? 1 : 0))) / s.cards.length}%"></span></div></div><span class="heart-count" aria-label="${s.hearts} hearts remaining">${icon("heart")} ${s.hearts}</span><span class="xp-chip">${icon("coin")} ${s.xp}<small> XP</small></span></header><div id="storage-notice" class="storage-notice" role="alert" ${storageError ? "" : "hidden"}>${esc(storageError)}</div><main id="main" class="exercise"><div class="exercise-kicker"><span>${card.review ? icon("review") + " SECOND LOOK" : esc(q.topic)}</span><span>${icon("book")} Risk & return</span></div>${s.hearts === 0 ? '<div class="practice-mode">Practice mode · Keep going at your own pace. Your XP is safe.</div>' : ""}<div class="question-type">${typeLabels[q.type]}</div><h1 id="question-title" tabindex="-1">${esc(q.prompt)}</h1>${q.context ? `<p class="question-context">${esc(q.context)}</p>` : ""}${q.table ? `<div class="case-table"><table><caption class="sr-only">Question scenario</caption><thead><tr>${q.table.headers.map((h) => `<th scope="col">${esc(h)}</th>`).join("")}</tr></thead><tbody>${q.table.rows.map((row) => `<tr>${row.map((cell, i) => (i === 0 ? `<th scope="row">${esc(cell)}</th>` : `<td>${esc(cell)}</td>`)).join("")}</tr>`).join("")}</tbody></table></div>` : ""}${answers(q, card)}</main><footer class="exercise-footer ${checked ? (card.feedback.correct ? "success-footer" : "error-footer") : ""}"><div class="footer-inner">${checked ? `<div class="feedback" role="status"><span class="feedback-symbol">${icon(card.feedback.correct ? "check" : "review")}</span><div><h2>${card.feedback.correct ? ["Nicely reasoned.", "You’ve got it.", "That’s the idea."][s.index % 3] : "A useful one to revisit."}</h2><p>${esc(q.explanation)}</p>${!card.feedback.correct ? `<div class="correct-answer"><strong>Correct answer:</strong> ${esc(answerLabel(q))}</div>` : ""}<span class="reward">${card.feedback.xp ? `${icon("coin")} +${card.feedback.xp} XP${s.combo > 1 ? ` · ${s.combo} in a row` : ""}` : "Saved for review · Mistakes are part of learning"}</span></div></div><div class="feedback-actions">${button("why", "Why? " + icon("book"), "button secondary")}${button("continue", "Continue " + icon("arrow"), "button primary", 'id="continue-button"')}</div>` : `<span class="keyboard-hint">${q.type === "multiple-choice" || q.type === "true-false" ? "Number keys to choose · " : ""}<kbd>Enter</kbd> to check</span>${button("check", "Check answer", "button primary", 'id="check-button" ' + (isReady(q, card.draft) ? "" : "disabled"))}`}</div></footer></div>`;
   math();
 }
 
 function showResult(result) {
   view = "complete";
   shell(
-    `<section class="completion"><div class="celebration" aria-hidden="true"><i></i><i></i><i></i><i></i><div class="achievement">${icon("trophy")}</div></div><div class="eyebrow">${result.mode === "review" ? "REVIEW COMPLETE" : "LESSON COMPLETE"}</div><h1>One step sharper.</h1><p>${esc(result.title)} is in the books.<br>${result.score === 100 ? "Careful thinking looks good on you." : "Keep the insight. Come back to the tricky parts."}</p><div class="result-stats"><div><span>Total earned</span><strong class="amber">${icon("bolt")} ${result.xp} XP</strong></div><div><span>First-pass accuracy</span><strong>${result.score}%</strong></div></div>${progress.review.length ? `<p>${progress.review.length} question${progress.review.length > 1 ? "s" : ""} waiting in your review queue.</p>` : ""}<div class="completion-actions">${button("nav", "Back to the path " + icon("arrow"), "button primary", 'data-view="learn"')}${progress.review.length ? button("start-review", "Review missed questions", "button secondary") : ""}</div><p class="small muted">Progress saved on this device. Your next lesson is ready.</p></section>`,
+    `<section class="completion"><div class="celebration" aria-hidden="true"><i></i><i></i><i></i><i></i><div class="achievement">${icon("trophy")}</div></div><div class="eyebrow">${result.mode === "review" ? "REVIEW COMPLETE" : "LESSON COMPLETE"}</div><h1>One step sharper.</h1><p>${esc(result.title)} is in the books.<br>${result.score === 100 ? "Careful thinking looks good on you." : "Keep the insight. Come back to the tricky parts."}</p><div class="result-stats"><div><span>Total earned</span><strong class="amber">${icon("coin")} ${result.xp} XP</strong></div><div><span>First-pass accuracy</span><strong>${result.score}%</strong></div></div>${progress.review.length ? `<p>${progress.review.length} question${progress.review.length > 1 ? "s" : ""} waiting in your review queue.</p>` : ""}<div class="completion-actions">${button("nav", "Back to the path " + icon("arrow"), "button primary", 'data-view="learn"')}${progress.review.length ? button("start-review", "Review missed questions", "button secondary") : ""}</div><p class="small muted">Pick any lesson next, or revisit a favorite.</p></section>`,
   );
   document.querySelector("#main")?.focus();
 }
@@ -319,7 +339,7 @@ function notes() {
 function settings() {
   openDialog(
     "Your practice, your pace",
-    `<p>Progress lives in this browser on this device. No account is needed. Clearing browser data removes saved progress.</p>${storageError ? `<p class="storage-notice">${esc(storageError)}</p>` : ""}<div class="setting-row"><div><h3>Save a copy</h3><p>Export progress as a JSON file for your records.</p></div>${button("export", "Export", "button secondary small")}</div><div class="setting-row"><div><h3>A fresh start</h3><p>Clear lesson scores, XP, and your review queue.</p></div>${button("reset-step", "Reset progress", "button danger small")}</div>`,
+    `<p>Completed lessons, XP, answer history, and every unfinished lesson are saved automatically in this browser. No account is needed. Clearing browser data removes saved progress.</p>${storageError ? `<p class="storage-notice">${esc(storageError)}</p>` : ""}<div class="setting-row"><div><h3>Save a copy</h3><p>Export progress as a JSON file for your records.</p></div>${button("export", "Export", "button secondary small")}</div><div class="setting-row"><div><h3>A fresh start</h3><p>Clear scores, XP, answer history, and all unfinished lessons.</p></div>${button("reset-step", "Reset progress", "button danger small")}</div>`,
   );
 }
 
@@ -366,6 +386,10 @@ document.addEventListener("click", (event) => {
     return;
   }
   if (action === "close-dialog") {
+    if (loadingLesson) {
+      loadRequest++;
+      loadingLesson = false;
+    }
     dialog.close();
     return;
   }
@@ -374,7 +398,7 @@ document.addEventListener("click", (event) => {
     return;
   }
   if (action === "start") {
-    start(el.dataset.id);
+    start(el.dataset.id, el.dataset.mode || "lesson");
     return;
   }
   if (action === "start-review") {
@@ -382,16 +406,7 @@ document.addEventListener("click", (event) => {
     return;
   }
   if (action === "resume") {
-    dialog.close();
-    view = "lesson";
-    render();
-    window.scrollTo(0, 0);
-    return;
-  }
-  if (action === "replace-session") {
-    progress.active = null;
-    dialog.close();
-    start(el.dataset.id, el.dataset.mode);
+    if (progress.active) start(progress.active.lessonId, progress.active.mode);
     return;
   }
   if (action === "settings") {
@@ -411,7 +426,7 @@ document.addEventListener("click", (event) => {
   }
   if (action === "reset-confirm") {
     try {
-      progress = resetProgress();
+      progress = store.reset();
       storageError = "";
       loadError = false;
       dialog.close();
@@ -427,9 +442,7 @@ document.addEventListener("click", (event) => {
   if (action === "export") {
     let raw;
     try {
-      raw = loadError
-        ? localStorage.getItem(STORAGE_KEY)
-        : JSON.stringify(progress, null, 2);
+      raw = loadError ? store.exportRaw() : JSON.stringify(progress, null, 2);
     } catch {
       raw = JSON.stringify(progress, null, 2);
     }
@@ -565,41 +578,46 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-// Avoid two open tabs silently overwriting each other's latest saved state.
-window.addEventListener("storage", (event) => {
-  if (event.key !== STORAGE_KEY) return;
-  window.location.reload();
+// The adapter owns storage events; the quiz engine is independent of persistence transport.
+dialog.addEventListener("cancel", () => {
+  if (loadingLesson) {
+    loadRequest++;
+    loadingLesson = false;
+  }
 });
 
 async function init() {
   try {
     const base = new URL("../courses/corporate-finance/", import.meta.url);
-    const read = async (file) => {
-      const response = await fetch(new URL(file, base));
-      if (!response.ok)
-        throw new Error(`Could not load ${file} (${response.status}).`);
-      return response.json();
-    };
-    course = await read("course.json");
-    lessons = await Promise.all(
-      course.units.flatMap((u) => u.lessons).map(read),
-    );
-    validateCourse(course, lessons);
+    const response = await fetch(new URL("course.json", base));
+    if (!response.ok)
+      throw new Error(`Could not load the course index (${response.status}).`);
+    course = await response.json();
+    validateManifest(course);
+    lessons = course.units.flatMap((unit) => unit.lessons);
     questions = new Map(
       lessons.flatMap((l) => l.questions).map((q) => [q.id, q]),
     );
+    content = createContentLoader(course, base);
     try {
-      progress = loadProgress();
+      store = createProgressStore();
+      progress = store.load();
+      const sessions = [
+        ...Object.values(progress.paused),
+        ...(progress.active ? [progress.active] : []),
+      ];
       if (
         progress.review.some((id) => !questions.has(id)) ||
-        (progress.active &&
-          (progress.active.cards.some((c) => !questions.has(c.id)) ||
-            (progress.active.mode === "lesson" &&
-              !lessons.some((l) => l.id === progress.active.lessonId))))
+        sessions.some(
+          (s) =>
+            s.cards.some((c) => !questions.has(c.id)) ||
+            (s.mode === "lesson" && !lessons.some((l) => l.id === s.lessonId)),
+        )
       )
         throw new Error(
           "Saved questions no longer match this course. Export or reset progress in Settings.",
         );
+      store.subscribe(() => window.location.reload());
     } catch (error) {
       progress = emptyProgress();
       storageError = error.message;
@@ -609,11 +627,22 @@ async function init() {
       );
       return;
     }
-    view = progress.active ? "lesson" : "learn";
+    view = "learn";
     render();
+    if (progress.active)
+      await start(progress.active.lessonId, progress.active.mode);
   } catch (error) {
-    app.innerHTML = `<main id="main" class="loading"><h1>Practice could not load.</h1><p>${esc(error.message)}</p><p>Serve the website over HTTP, then reload. Contact the instructor if this persists.</p><a href="./">Reload practice</a></main>`;
+    app.innerHTML = `<main id="main" class="loading"><h1>Practice could not load.</h1><p>${esc(error.message)}</p><p>Reconnect and reload. Contact the instructor if this persists.</p><a href="./">Reload practice</a></main>`;
     console.error(error);
   }
+}
+
+// Static caching is optional; it never sends progress or answers anywhere.
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register(new URL("../sw.js", import.meta.url), { updateViaCache: "none" })
+    .catch((error) =>
+      console.warn("Static caching unavailable:", error.message),
+    );
 }
 init();

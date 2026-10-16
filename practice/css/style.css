@@ -582,19 +582,7 @@ p {
   position: relative;
   padding-top: 8px;
 }
-.lesson-path:before {
-  content: "";
-  position: absolute;
-  left: 48px;
-  top: 38px;
-  bottom: 40px;
-  width: 60px;
-  border-left: 2px dashed #39425b;
-  border-bottom: 2px dashed #39425b;
-  border-radius: 0 0 0 25px;
-  transform: rotate(-12deg);
-  opacity: 0.6;
-}
+
 .lesson-stop {
   display: flex;
   align-items: center;
@@ -2365,4 +2353,151 @@ dialog .explain-question {
 }
 .match-tile small {
   width: 100%;
+}
+
+/* A market-inspired route: progress is voluntary, and growth includes dips. */
+.market-path {
+  border: 1px solid #44365e;
+  background: linear-gradient(130deg, #211f36, #182234);
+  border-radius: 17px;
+  padding: 18px 20px 16px;
+  margin-bottom: 28px;
+}
+.market-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 9px;
+  letter-spacing: 0.09em;
+  color: #c4b5fd;
+  font-weight: 700;
+}
+.market-caption > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.market-caption .icon {
+  width: 16px;
+  height: 16px;
+}
+.market-caption small {
+  font-size: 10px;
+  color: #b0a7c6;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+.market-chart {
+  position: relative;
+  height: 160px;
+  margin: 13px 8px 0;
+  color: #c4b5fd;
+}
+.market-chart > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.market-node {
+  position: absolute;
+  translate: -50% -50%;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid #aa82ee;
+  border-radius: 15px;
+  background: #593299;
+  color: white;
+  box-shadow: 0 4px 0 #32204d;
+  font-size: 12px;
+  font-weight: 750;
+  transition: transform 0.2s;
+}
+.market-node:hover {
+  transform: translateY(-3px);
+  background: #7c3aed;
+}
+.market-node.complete {
+  background: #214e3c;
+  border-color: #34d399;
+  color: #b5f5de;
+  box-shadow: 0 4px 0 #153427;
+}
+.market-path > p {
+  font-size: 10px;
+  color: #aaa2bb;
+  margin-top: 8px;
+}
+.available .lesson-node {
+  background: #302442;
+  border-color: #715196;
+  color: #c4b5fd;
+  box-shadow: 0 6px 0 #1d172d;
+}
+.available .lesson-node:hover {
+  transform: rotate(0) translateY(-3px);
+  background: #49315f;
+}
+.reward .icon {
+  width: 17px;
+  height: 17px;
+  margin-right: 4px;
+}
+@media (max-width: 640px) {
+  .market-path {
+    padding: 17px 14px;
+  }
+  .market-chart {
+    height: 140px;
+    margin: 16px 8px 0;
+  }
+  .market-caption {
+    font-size: 8px;
+  }
+  .market-caption small {
+    font-size: 9px;
+  }
+  .market-path > p {
+    font-size: 9px;
+  }
+  .hero-time {
+    display: block;
+    margin: 16px 0 0;
+  }
+  .hero {
+    min-height: 300px;
+  }
+  .market-node {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+  }
+}
+
+.market-node:after {
+  content: attr(data-label);
+  position: absolute;
+  top: calc(100% + 8px);
+  width: 110px;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #cdc4e2;
+  pointer-events: none;
+}
+.market-chart {
+  margin-bottom: 28px;
+}
+@media (max-width: 640px) {
+  .market-node:after {
+    width: 70px;
+    font-size: 9px;
+  }
+  .market-chart {
+    margin-bottom: 30px;
+  }
 }

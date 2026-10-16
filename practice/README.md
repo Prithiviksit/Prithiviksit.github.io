@@ -16,8 +16,8 @@ GitHub Pages can serve this directory unchanged. All application resources use r
 
 ![Desktop learning path](docs/desktop-path.png)
 
-| Answer feedback | Prewritten explanation |
-| --- | --- |
+| Answer feedback                              | Prewritten explanation                             |
+| -------------------------------------------- | -------------------------------------------------- |
 | ![Mobile feedback](docs/mobile-feedback.png) | ![Mobile explanation](docs/mobile-explanation.png) |
 
 ## Learning behavior
@@ -25,23 +25,27 @@ GitHub Pages can serve this directory unchanged. All application resources use r
 - Four lessons, five questions each, targeting approximately 3–5 minutes per lesson. Timing is an estimate, not a measured student outcome.
 - Multiple choice, true/false, matching, sequence, and numerical questions. Choices and matching definitions are shuffled once per question visit and retain their order on reload.
 - A correct first-pass answer earns 10 XP. Review answers earn 5 XP. Consecutive correct answers add 2, 4, then at most 6 bonus XP. Errors break the combo. Repeated practice can earn more XP.
-- Incorrect submissions cost one heart, reveal the answer, and enter the review queue. First-pass mistakes reappear once after the lesson’s original questions. Remaining mistakes stay in the review queue; dedicated review sessions contain up to five questions.
+- Incorrect submissions cost one heart, reveal the answer, and enter the review queue. Lessons stay at five questions. Review is optional and separate; review sessions contain up to five questions.
 - Five hearts reset for each session. At zero, practice continues with no further penalty. Earned XP and completed lessons are retained.
-- Finishing a lesson unlocks the next regardless of score. Best scores measure accuracy on the original five questions; later retries within the lesson do not inflate that score. Review sessions do not change lesson scores.
+- Every lesson is open from the beginning. Students can skip ahead, revisit completed lessons, or switch between unfinished attempts. The upward-trending path includes dips and suggests a journey without enforcing prerequisites. Coin icons represent XP. Best scores measure accuracy on each five-question attempt; review sessions do not change lesson scores.
 - “Practiced correctly” counts distinct questions answered correctly at least once. It is an activity indicator, not a claim of permanent mastery. Full marks means a 100% best first-pass score.
 - “Why?” opens prewritten intuition, a common misconception, and the relevant source section. No generated tutoring or external calls occur.
 
 ## Persistence and controls
 
-Progress is stored under `finpath:corporate-finance:v1` in this browser’s `localStorage`. It includes XP, lesson attempts and best scores, question statistics, review IDs, active question, drafts, shuffled orders, hearts, combo, and submitted feedback. Reloading an answered question cannot award XP twice. A change from another tab reloads the current tab to the latest saved state.
+Progress is stored under `finpath:corporate-finance` in this browser’s `localStorage`. It includes completed lessons, XP, best scores, full submitted-answer history, completion records, and a separate unfinished attempt for each lesson. Drafts, question positions, shuffled orders, hearts, combos, and feedback save immediately. Reloading an answered question cannot award XP twice. A change from another tab reloads the current tab to the latest saved state. Existing v1 progress migrates automatically.
 
-Save and exit with the lesson’s × button; unfinished lessons resume on reload. Opening a different lesson asks whether to replace the unfinished attempt. Settings includes JSON export and a two-step reset that removes only this application’s storage key. Export is a record/backup; import is not included in this prototype. Invalid stored data is preserved until explicitly reset; storage failures are displayed rather than silently claiming a save. There is no cross-device synchronization, and clearing browser data removes progress.
+Use the lesson’s × button to return to the path; saving also happens automatically without pressing it. The active lesson resumes on reload or reopening the same browser. Switching topics parks the previous attempt for later. Settings includes JSON export and a two-step reset limited to this application’s progress. Export is a record/backup; import is not included in this prototype. Invalid stored data is preserved until explicitly reset; storage failures are displayed rather than silently claiming a save. There is no cross-device synchronization, and clearing browser data removes progress. The versioned storage contract separates persistence from scoring, so a future cloud adapter can be added without changing the quiz engine. See [the storage and caching design](docs/progress-storage.md).
 
 Use number keys to select choices and Enter to check or continue. Tab and Space work for other controls. Matching uses concept/definition buttons; sequence questions use up/down buttons, including on touch devices. A ± button supports negative returns even when a mobile numeric keyboard omits a minus key. Explanations use a native modal with Escape dismissal and focus containment. Reduced-motion preferences suppress animation.
 
+## Downloads and offline use
+
+The homepage fetches only the small course index. A lesson’s question file and locally bundled math assets load when needed. Answers and drafts are processed and saved locally; there are no answer-submission requests. The service worker caches the application shell and requested static files, so previously opened lessons can be resumed offline. A lesson that has never been downloaded requires one online visit. No external service, paid dependency, or backend is needed.
+
 ## Add content
 
-See [the content guide](docs/content-guide.md), [course manifest schema](courses/course.schema.json), and [lesson schema](courses/lesson.schema.json). To add a lecture, create a new lesson JSON file and add its filename to `course.json`. The game engine does not need to change. Use stable question IDs to preserve saved progress.
+See [the content guide](docs/content-guide.md), [course manifest schema](courses/course.schema.json), and [lesson schema](courses/lesson.schema.json). To add a lecture, create a new lesson JSON file, add its filename to `course.json`, and run `npm run content:index` to refresh the lightweight metadata index. The game engine does not need to change. Use stable question IDs to preserve saved progress.
 
 See [the source and verification record](docs/verification.md) for provenance and test coverage.
 
@@ -52,6 +56,7 @@ Development dependencies are optional for students and static hosting. Node.js 2
 ```sh
 cd practice
 npm ci
+npm run content:index
 npm run validate
 npm test
 npm run verify:math
