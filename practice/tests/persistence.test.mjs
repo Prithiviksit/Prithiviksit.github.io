@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import { course, lessons } from "./validate.mjs";
 import {
   createProgressStore,
@@ -7,6 +8,7 @@ import {
   emptyProgress,
   STORAGE_KEY,
   LEGACY_STORAGE_KEY,
+  reconcileContent,
 } from "../js/progress.js";
 import { activateSession, createSession, submit, finish } from "../js/logic.js";
 import { createContentLoader } from "../js/content.js";
@@ -20,6 +22,54 @@ function memoryStorage() {
     removeItem: (k) => data.delete(k),
   };
 }
+test("curriculum replacement archives retired attempts without losing historical progress", () => {
+  const original = JSON.parse(
+    fs.readFileSync(
+      new URL("fixtures/previous-curriculum-progress.json", import.meta.url),
+    ),
+  );
+  const storage = memoryStorage();
+  storage.setItem(STORAGE_KEY, JSON.stringify(original));
+  const store = createProgressStore(localStorageAdapter(storage));
+  const p = store.load();
+  // A current lesson can coexist with the retired attempts and stays resumable.
+  activateSession(p, lessons[3], lessons[3].questions);
+  p.active.cards[0].draft = "11.4";
+  const current = structuredClone(p.active);
+  assert.equal(reconcileContent(p, lessons), true);
+  assert.deepEqual(p.active, current);
+  assert.deepEqual(p.paused, {});
+  assert.deepEqual(p.review, []);
+  assert.deepEqual(p.archivedContent.review, original.review);
+  for (const session of [original.active, ...Object.values(original.paused)]) {
+    assert.deepEqual(
+      p.archivedContent.sessions.find((s) => s.id === session.id),
+      session,
+    );
+  }
+  for (const key of [
+    "xp",
+    "lessons",
+    "questions",
+    "history",
+    "completedSessions",
+    "generation",
+  ]) {
+    assert.deepEqual(p[key], original[key], key);
+  }
+  store.save(p);
+  const reloaded = store.load();
+  assert.equal(
+    reconcileContent(reloaded, lessons),
+    false,
+    "Migration is idempotent",
+  );
+  assert.deepEqual(reloaded, p);
+  assert.ok(
+    lessons.every((l) => !reloaded.lessons[l.id]),
+    "Old completion cannot mark a new topic complete",
+  );
+});
 test("legacy progress migrates scores, XP, drafts and answered feedback without invented history", () => {
   const storage = memoryStorage(),
     session = createSession(lessons[0], lessons[0].questions);
@@ -32,8 +82,10 @@ test("legacy progress migrates scores, XP, drafts and answered feedback without 
   const legacy = {
     version: 1,
     xp: 78,
-    lessons: { "risk-radar": { best: 100, attempts: 1, completed: true } },
-    questions: { "expected-return": { correct: 1, wrong: 0 } },
+    lessons: {
+      "lec16-market-efficiency": { best: 100, attempts: 1, completed: true },
+    },
+    questions: { "lec15-compound-return": { correct: 1, wrong: 0 } },
     review: [],
     active: session,
   };
@@ -42,7 +94,7 @@ test("legacy progress migrates scores, XP, drafts and answered feedback without 
   const result = store.load();
   assert.equal(result.version, 2);
   assert.equal(result.xp, 78);
-  assert.equal(result.lessons["risk-radar"].best, 100);
+  assert.equal(result.lessons["lec16-market-efficiency"].best, 100);
   assert.equal(result.active.cards[0].draft, "8");
   assert.ok(result.active.cards[0].feedback.correct);
   assert.equal(result.history.length, 0);
@@ -60,7 +112,7 @@ test("independent unfinished sessions retain positions and drafts across adapter
   const store = createProgressStore(localStorageAdapter(memoryStorage())),
     p = emptyProgress();
   activateSession(p, lessons[3], lessons[3].questions);
-  p.active.cards[0].draft = "-20";
+  p.active.cards[0].draft = "11.4";
   submit(p, lessons[3].questions[0]);
   p.active.index = 1;
   const firstId = p.active.id;
@@ -72,9 +124,12 @@ test("independent unfinished sessions retain positions and drafts across adapter
   activateSession(restored, lessons[3], lessons[3].questions);
   assert.equal(restored.active.id, firstId);
   assert.equal(restored.active.index, 1);
-  assert.equal(restored.active.cards[0].draft, "-20");
+  assert.equal(restored.active.cards[0].draft, "11.4");
   assert.equal(restored.xp, 10);
-  assert.equal(restored.paused["lesson:returns"].cards[0].draft, "7.9");
+  assert.equal(
+    restored.paused["lesson:lec15-capital-markets"].cards[0].draft,
+    "7.9",
+  );
 });
 test("answer events are immutable snapshots with unique IDs and completion records", () => {
   const p = emptyProgress();
@@ -85,7 +140,7 @@ test("answer events are immutable snapshots with unique IDs and completion recor
   );
   submit(p, q);
   const event = structuredClone(p.history[0]);
-  p.active.cards[0].draft.specific = "changed";
+  p.active.cards[0].draft.weak = "changed";
   assert.deepEqual(p.history[0], event);
   assert.equal(submit(p, q), false);
   assert.equal(p.history.length, 1);
@@ -152,14 +207,14 @@ test("lesson files load only when requested and concurrent reads share one reque
     },
   );
   assert.equal(calls.length, 0);
-  await Promise.all([
-    loader.lesson("leverage-beta"),
-    loader.lesson("leverage-beta"),
+  await Promise.all([loader.lesson("lec18-capm"), loader.lesson("lec18-capm")]);
+  assert.equal(calls.length, 1);
+  await loader.questions(["lec18-beta", "lec18-required-return"]);
+  assert.equal(calls.length, 1);
+  const review = await loader.questions([
+    "lec18-required-return",
+    "lec15-compound-return",
   ]);
-  assert.equal(calls.length, 1);
-  await loader.questions(["beta-not-exact", "levered-loss"]);
-  assert.equal(calls.length, 1);
-  const review = await loader.questions(["levered-loss", "expected-return"]);
   assert.equal(calls.length, 2);
   assert.equal(review.length, 2);
 });

@@ -4,40 +4,50 @@ Prototype prepared on October 15, 2026, for review before public deployment.
 
 ## Teaching sources
 
-The source files were read from the instructor’s existing Corporate Finance workspace. Questions identify the relevant file and frame title in their `source` field. “Adapted” indicates an example or idea directly adapted from that section; “original-application” indicates a newly written exercise using the checked concept. The lecture files themselves are not redistributed in this directory.
+The current curriculum has one topic for each of Lectures 15–18, with five questions per topic. The `Lec*_core.tex` decks determine the core coverage; the full `Lec*.tex` decks and associated sections of Ross, Westerfield & Jordan, _Fundamentals of Corporate Finance_, 13th edition (`textbook.pdf`) were checked. No `Module` deck contributes to this question set. Slides and textbook pages are not redistributed.
 
-| Source                           | Concepts used                                                                                                                                                               |
-| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Lec17_Risk_and_Return.tex`      | Employer concentration; systematic versus idiosyncratic risk; diversification; the two-state 50/50 portfolio; the recession-protection example; limits of stock-count rules |
-| `Lec18_CAPM_Cost_of_Capital.tex` | Beta as market sensitivity; financial leverage; expected risk premiums; levered exposure versus investment skill                                                            |
-| `Module_2_Risk_Return.tex`       | Definitions of expectation, variance, covariance, and correlation                                                                                                           |
+Each exercise is newly written and labeled `original-application`. Its source names the exact core deck and frame; textbook references name the associated section where relevant. Prediction-market replication and the detailed trading/arbitrage examples are lecture-specific extensions, not falsely attributed to the textbook.
+
+| Lecture                    | Core frames used                                                                                                                                        | Associated textbook reading                                                                                 |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| 15 — Capital markets       | Multiplitude of Financial Markets; Equity Markets: Where and How Stocks Trade; Return and Risk Measurement                                              | §8.3 (dealers/brokers), §12.4 (volatility), §12.5 (arithmetic/geometric averages)                           |
+| 16 — Market efficiency     | The 3 Forms of Market Efficiency; Arbitrage: One Smart Guy vs. the Meme Crowd; Prediction Markets: Price by Matching Payoffs; Why Efficiency Has Limits | §12.6 (capital market efficiency); state-claim pricing and funding constraints are developed in the lecture |
+| 17 — Risk & return         | Two Types of Risk; Earthquake vs. Bike Theft Insurance; Three Common Fallacies                                                                          | §§13.4–13.6 (systematic/unsystematic risk, diversification, systematic-risk principle)                      |
+| 18 — CAPM & cost of equity | Beta and CAPM; Alpha; What Drives Beta?; The Divisional Hurdle Rate Trap                                                                                | §§13.6–13.7 (beta/SML), §14.2 (cost of equity), §14.5 (project/divisional discount rates)                   |
 
 Source SHA-256 checksums at inspection:
 
 ```text
+a95c6a0386d603b498895fe8f00746c90dea3db10f89c8871cbdc4780aa10b96  Lec15_Capital_Markets_Intro.tex
+fae92ebddb2a31d58a654d64636af764c28b41491d9cbc03501045e870bd881e  Lec15_Capital_Markets_Intro_core.tex
+522a5dd72f837ba2d54a0d0f089da52fc7d8287dc6dfa9dbcb097ca4c3a088e4  Lec16_Market_Efficiency.tex
+dbe930b01a5593aad0483bc22f91cd0e6a967ea7d40b6649b0d0660d4426fe5b  Lec16_Market_Efficiency_core.tex
 66c30cc9d4511ceccc687459abef7414787ad759a9491c815308dabacd84f9f7  Lec17_Risk_and_Return.tex
+53b9a11cbbfbf3d27b123d0dbdbd5e004df3f2e6f303b6beaca1bea67a239f78  Lec17_Risk_and_Return_core.tex
 0d23f4c82a0153ec19917d143b55cc72ab075bd6def73592d97987b86df2b631  Lec18_CAPM_Cost_of_Capital.tex
-9a3a326e09ba51be47c94e730c46e217ab457d610388ce1c1e95aca0b14e4399  Module_2_Risk_Return.tex
+0160f6e7e7056498fb280cf414b6cab13084e868da09b7af054043e9d0481105  Lec18_CAPM_Cost_of_Capital_core.tex
+a5813ce416957a7e8b09422f1cb0376d021c5ca9e416294a43115a0fc244b1f8  textbook.pdf
 ```
 
-The source workspace had existing edits in Lectures 16 and 18. Those files were only read; their edits were preserved. This prototype uses the inspected source content rather than assuming a clean committed version.
+The instructor workspace has existing edits in the full Lectures 16 and 18. All source decks were read only; those edits are preserved.
 
 ## Content choices
 
-- Compensation for systematic risk is explicitly framed as a CAPM benchmark rather than an unconditional claim about every market or investor.
-- The 50/50 portfolio’s risk elimination is labeled a special two-state example. No universal stock count is said to eliminate risk.
-- The recession-protection question preserves equal 8% expected returns and distinguishes the 24% versus 26% standalone volatilities from the investor’s income exposure.
-- Leverage examples specify zero interest, a one-period horizon, and omitted taxes, fees, and margin calls. Gains and losses are both amplified.
-- Beta is a statistical sensitivity, not an exact realized-return multiplier. A lower portfolio beta is not equated with lower total volatility.
-- No historical company-return claims or live market estimates were invented. No paid tutoring API is used.
+- Five focused questions per lecture target approximately 3–5 minutes, including short feedback. The optional detailed explanations may take longer.
+- Lecture 15 distinguishes compound annual return, arithmetic averages, and cumulative return; the new +40%/−10% example compounds to 26% total and approximately 12.25% annually.
+- Lecture 16 states immediate redemption and funding assumptions for arbitrage. YES/NO claims settle at the same future date, so their prices sum to the discounted payoff. The $0.25/$0.55 state prices imply a $310 replicating value for $800/$200 terminal payoffs. Prices are not identified with physical probabilities.
+- Lecture 17 distinguishes common risk in a local insurance pool from systematic risk relative to global markets. Stock count alone does not establish diversification. Corporate diversification alone does not establish positive NPV.
+- Lecture 18 uses hypothetical inputs: 3% risk-free, 9% expected market return, beta 1.4, a required return of 11.4%, and 2 percentage points of alpha for a 13.4% forecast. The all-equity project example states conventional cash flows and compares its 10% IRR with its own 12% hurdle, not the parent’s 6% rate.
+- Beta is an average market sensitivity, not an exact daily multiplier. Risk-premium statements are qualified as the systematic-risk/CAPM benchmark. No live company estimates are invented.
+- Replacement content uses new lesson/question IDs. The previous curriculum fixture checks that earlier XP, scores, answer history, completed-session records, and full unfinished attempts survive the change. Old completions do not mark new topics complete.
 
 ## Checks performed
 
-`npm test`: 16 tests pass, covering every authored answer, incorrect answers, numerical parsing and tolerance boundaries, permutations, heart deductions, review scheduling, duplicate-submission protection, combos, best scores, reset isolation, invalid content, v1 migration, multiple saved attempts, immutable answer events, adapter boundaries, failed writes, on-demand content loading, platform icon/manifest validity, and PWA resource integrity.
+`npm test`: 17 tests pass, covering every authored answer, incorrect answers, numerical parsing and tolerance boundaries, permutations, heart deductions, review scheduling, duplicate-submission protection, combos, best scores, reset isolation, invalid content, v1 migration, multiple saved attempts, immutable answer events, adapter boundaries, failed writes, on-demand content loading, platform icon/manifest validity, and PWA resource integrity.
 
 `npm run validate`: the manifest and all four lesson files pass JSON Schema and semantic validation; 20 unique questions cover all five types.
 
-`python3 tests/verify_math.py`: independently verifies all four numerical question answers and every supporting mean, volatility, levered return, and portfolio beta used in the conceptual explanations.
+`python3 tests/verify_math.py`: independently verifies all five numerical question answers, compound versus arithmetic returns, arbitrage profit, both payoff-replication states, CAPM premiums, and project hurdle comparisons.
 
 `npm run test:browser`: passes in headless Microsoft Edge on macOS. The suite completes the whole course using UI controls and checks:
 
@@ -47,14 +57,14 @@ The source workspace had existing edits in Lectures 16 and 18. Those files were 
 - Five-question lessons without mandatory repetitions, persistent optional review, correct answers clearing the queue, and review not changing lesson best scores.
 - Two-step reset, canceled reset preserving progress, and malformed local storage being preserved for recovery.
 - Keyboard selection/Enter, native dialog focus containment, and Escape dismissal.
-- Desktop at 1440 × 1000; mobile at 390 × 844; narrow-layout overflow checks at 320 × 740.
+- Desktop at 1440 × 1000; mobile at 390 × 844; narrow-layout overflow checks at 320 × 740. The longer replication and project-hurdle scenarios, feedback, math, and expanded source notes were also checked at 320px.
 - No unexpected failed static resources or browser JavaScript errors in the full-course flow.
 - Skipping directly to lesson four, preserving drafts across several unfinished lessons, and recording the actual submitted answer and timestamp.
 - A real browser-process restart with a persistent local profile restores the same lesson and draft.
 - Changes from another open tab refresh once; resuming does not create a save/reload loop.
-- v1 browser storage migrates without losing XP, scores, or the unfinished draft.
+- v1 browser storage migrates without losing XP, scores, or the unfinished draft. Replacing the prior curriculum preserves historical records, archives retired attempts, avoids inflated current mastery/completion counts, and remains stable after reload.
 - A paused review remains resumable after its last correct answer clears the review queue.
-- Cold homepage requests contain no lesson question files or KaTeX. The local test measured approximately 325 KB of uncompressed response bodies including service-worker shell and icon caching; deployment compression and headers can change transfer size.
+- Cold homepage requests contain no lesson question files or KaTeX. The local test measured approximately 330 KB of uncompressed response bodies including service-worker shell and icon caching; deployment compression and headers can change transfer size.
 - Checking and continuing an answer issue zero network requests in the tested flow. All observed application requests are same-origin GETs.
 - Previously opened lessons resume and accept answers after an offline reload. Attempting an unvisited lesson offline shows a retry message, preserves other attempts, and succeeds after reconnection.
 - A separate smoke check at `/site/practice/` verifies nested base paths, JSON fetching, and KaTeX assets.

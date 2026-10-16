@@ -1,145 +1,152 @@
 {
   "id": "corporate-finance",
   "title": "Corporate Finance",
-  "topic": "Risk & return",
-  "description": "Build intuition for uncertainty, diversification, and the risks worth taking.",
+  "topic": "Lectures 15–18",
+  "description": "Four lecture topics. Five questions each. Build intuition from capital markets to the cost of equity.",
   "units": [
     {
-      "id": "foundations",
-      "title": "Meet risk & return",
-      "description": "Start with what you earn—and what could change.",
+      "id": "lecture-15",
+      "title": "Lecture 15 · Capital markets",
+      "description": "Markets, trading, and measuring returns.",
       "lessons": [
         {
-          "id": "returns",
-          "title": "Returns, unpacked",
-          "description": "Averages, surprises, and the price of risk.",
+          "id": "lec15-capital-markets",
+          "title": "Capital markets",
+          "description": "Markets, trading, and measuring returns.",
           "minutes": 4,
           "icon": "chart",
-          "file": "risk-return.json",
+          "file": "lec15-capital-markets.json",
           "questions": [
             {
-              "id": "expected-return",
-              "topic": "Expected returns"
+              "id": "lec15-compound-return",
+              "topic": "Compounded growth"
             },
             {
-              "id": "expected-not-promised",
-              "topic": "Expected versus realized"
+              "id": "lec15-limit-order",
+              "topic": "Trading orders"
             },
             {
-              "id": "volatility-intuition",
-              "topic": "Volatility"
+              "id": "lec15-market-claims",
+              "topic": "What markets trade"
             },
             {
-              "id": "risk-premium",
-              "topic": "Risk premiums"
+              "id": "lec15-dealer",
+              "topic": "Brokers and dealers"
             },
             {
-              "id": "expected-steps",
-              "topic": "Put it together"
-            }
-          ]
-        },
-        {
-          "id": "risk-radar",
-          "title": "Spot the risk",
-          "description": "Separate company surprises from market shocks.",
-          "minutes": 4,
-          "icon": "radar",
-          "file": "risk-radar.json",
-          "questions": [
-            {
-              "id": "risk-matching",
-              "topic": "Risk radar"
-            },
-            {
-              "id": "volatility-premium",
-              "topic": "Common misconception"
-            },
-            {
-              "id": "recession-protection",
-              "topic": "Economic intuition"
-            },
-            {
-              "id": "systematic-remains",
-              "topic": "What stays with you"
-            },
-            {
-              "id": "employer-stock",
-              "topic": "Apply it"
+              "id": "lec15-volatility",
+              "topic": "Measuring risk"
             }
           ]
         }
       ]
     },
     {
-      "id": "portfolios",
-      "title": "Think in portfolios",
-      "description": "The mix matters more than the number of stocks.",
+      "id": "lecture-16",
+      "title": "Lecture 16 · Market efficiency",
+      "description": "Information, arbitrage, and prediction markets.",
       "lessons": [
         {
-          "id": "diversification",
-          "title": "Better together",
-          "description": "Discover why the mix changes the risk.",
-          "minutes": 4,
-          "icon": "layers",
-          "file": "diversification.json",
+          "id": "lec16-market-efficiency",
+          "title": "Market efficiency",
+          "description": "Information, arbitrage, and prediction markets.",
+          "minutes": 5,
+          "icon": "radar",
+          "file": "lec16-market-efficiency.json",
           "questions": [
             {
-              "id": "offset-portfolio",
-              "topic": "Portfolio returns"
+              "id": "lec16-efficiency-forms",
+              "topic": "Information in prices"
             },
             {
-              "id": "thirty-stocks",
-              "topic": "Common misconception"
+              "id": "lec16-arbitrage",
+              "topic": "Matching prices to payoffs"
             },
             {
-              "id": "correlation-match",
-              "topic": "How returns move"
+              "id": "lec16-arbitrage-limits",
+              "topic": "Limits to arbitrage"
             },
             {
-              "id": "airline-basket",
+              "id": "lec16-no-price",
+              "topic": "Prediction market prices"
+            },
+            {
+              "id": "lec16-replication",
+              "topic": "Replicating a payoff"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lecture-17",
+      "title": "Lecture 17 · Risk & return",
+      "description": "Separate shared shocks from risks that can cancel.",
+      "lessons": [
+        {
+          "id": "lec17-risk-return",
+          "title": "Risk & diversification",
+          "description": "Separate shared shocks from risks that can cancel.",
+          "minutes": 4,
+          "icon": "layers",
+          "file": "lec17-risk-return.json",
+          "questions": [
+            {
+              "id": "lec17-risk-types",
+              "topic": "Two types of risk"
+            },
+            {
+              "id": "lec17-insurance-pool",
+              "topic": "When pooling helps"
+            },
+            {
+              "id": "lec17-volatility-premium",
+              "topic": "Which risk earns a premium?"
+            },
+            {
+              "id": "lec17-airline-basket",
               "topic": "Look beneath the labels"
             },
             {
-              "id": "diversify-workflow",
-              "topic": "A portfolio checklist"
+              "id": "lec17-corporate-diversification",
+              "topic": "Who should diversify?"
             }
           ]
         }
       ]
     },
     {
-      "id": "exposure",
-      "title": "Turn up the exposure",
-      "description": "See what borrowing and beta really change.",
+      "id": "lecture-18",
+      "title": "Lecture 18 · CAPM & cost of equity",
+      "description": "Beta, alpha, and the right hurdle for a project.",
       "lessons": [
         {
-          "id": "leverage-beta",
-          "title": "Risk, amplified",
-          "description": "Borrowing, beta, and both sides of the trade.",
-          "minutes": 4,
+          "id": "lec18-capm",
+          "title": "CAPM & cost of equity",
+          "description": "Beta, alpha, and the right hurdle for a project.",
+          "minutes": 5,
           "icon": "bolt",
-          "file": "leverage-beta.json",
+          "file": "lec18-capm.json",
           "questions": [
             {
-              "id": "levered-loss",
-              "topic": "Leverage & losses"
+              "id": "lec18-required-return",
+              "topic": "CAPM benchmark"
             },
             {
-              "id": "levered-gain",
-              "topic": "Both sides of leverage"
+              "id": "lec18-alpha",
+              "topic": "Return beyond beta"
             },
             {
-              "id": "beta-match",
-              "topic": "Read the beta"
+              "id": "lec18-beta",
+              "topic": "Interpreting beta"
             },
             {
-              "id": "beta-not-exact",
-              "topic": "Common misconception"
+              "id": "lec18-beta-drivers",
+              "topic": "What drives equity beta?"
             },
             {
-              "id": "negative-beta",
-              "topic": "The bigger picture"
+              "id": "lec18-project-hurdle",
+              "topic": "The project’s opportunity cost"
             }
           ]
         }

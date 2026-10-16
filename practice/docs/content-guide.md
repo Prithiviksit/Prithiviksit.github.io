@@ -11,22 +11,22 @@ The hierarchy is course → units → lesson files → questions. The renderer a
 7. After changing lesson metadata or question IDs/topics, rerun `npm run content:index`. Run schema validation, independent numerical verification, and browser checks. Inspect long questions and equations at a narrow mobile width.
 8. Run `npm run pwa:assets` and commit the generated `sw-assets.js` whenever publishing changes to the shell, lessons, or bundled assets. `npm run pwa:check` catches a stale index. This creates a fresh, verified static cache; see [storage and caching](progress-storage.md).
 
-No engine edits are needed. Existing IDs identify saved progress; renaming or deleting IDs requires a deliberate storage migration or a communicated reset. The current runtime stops and preserves incompatible saved data instead of silently deleting it. Adding new IDs is compatible with existing progress.
+No engine edits are needed. Keep existing IDs for unchanged questions, but give replacements new IDs. The runtime archives attempts containing retired IDs and preserves all earlier XP, scores, and answer history; it does not reset progress. Archived attempts are retained for export, not offered as current lessons. Adding new IDs leaves compatible saved attempts resumable. See the curriculum migration in the storage guide.
 
 ## Common question fields
 
-| Field           | Purpose                                                                    |
-| --------------- | -------------------------------------------------------------------------- |
-| `id`            | Stable identity, such as `expected-return`                                 |
-| `type`          | One of the five supported types below                                      |
-| `topic`         | Short label above the exercise                                             |
-| `prompt`        | The exact task; specify horizon, units, and assumptions                    |
-| `context`       | Optional scenario or instruction                                           |
-| `table`         | Optional `headers` and `rows` arrays; each row must match the header count |
-| `explanation`   | Concise feedback shown after both correct and incorrect answers            |
-| `detail`        | Longer prewritten explanation under “Why?”                                 |
-| `misconception` | Why a tempting incorrect answer fails                                      |
-| `source`        | `file`, `section`, and `kind`: `adapted` or `original-application`         |
+| Field           | Purpose                                                                                                    |
+| --------------- | ---------------------------------------------------------------------------------------------------------- |
+| `id`            | Stable identity, such as `expected-return`                                                                 |
+| `type`          | One of the five supported types below                                                                      |
+| `topic`         | Short label above the exercise                                                                             |
+| `prompt`        | The exact task; specify horizon, units, and assumptions                                                    |
+| `context`       | Optional scenario or instruction                                                                           |
+| `table`         | Optional `headers` and `rows` arrays; each row must match the header count                                 |
+| `explanation`   | Concise feedback shown after both correct and incorrect answers                                            |
+| `detail`        | Longer prewritten explanation under “Why?”                                                                 |
+| `misconception` | Why a tempting incorrect answer fails                                                                      |
+| `source`        | `file`, `section`, `kind` (`adapted` or `original-application`), and optional `textbook` reading reference |
 
 Content is plain text and is HTML-escaped. Inline math uses `\(...\)`; display math uses `$$...$$`. JSON requires backslashes to be escaped, so write `"\\(E[R]=8\\%\\)"`. KaTeX runs with `trust: false`. Arbitrary HTML is not supported.
 
@@ -53,7 +53,7 @@ A small machine-precision allowance avoids rejecting a value exactly on the tole
 
 ```json
 {
-  "id": "new-premium-example",
+  "id": "lec18-premium-example",
   "type": "numerical",
   "topic": "Risk premiums",
   "prompt": "A fund has an expected one-year return of 9%. The one-year risk-free rate is 3%. What is the expected risk premium in percentage points?",
@@ -74,6 +74,6 @@ A small machine-precision allowance avoids rejecting a value exactly on the tole
 
 ## Editorial checks
 
-Separate expected from realized returns and systematic exposure from standalone volatility. State borrowing costs and other simplifying assumptions in leverage problems. Explain why an answer makes economic sense. Use hypothetical scenarios instead of unsupported current company claims. Cite a checked source section; label new examples as original applications. Verify every numerical answer and any numbers mentioned in conceptual explanations independently.
+Separate expected from realized returns and systematic exposure from standalone volatility. State borrowing costs and other simplifying assumptions in leverage problems. Explain why an answer makes economic sense. Use hypothetical scenarios instead of unsupported current company claims. Use only the relevant `Lec` lecture/core deck and associated textbook chapters, never `Module` decks. Cite the checked lecture frame in `source.file`/`source.section`, add the textbook title and section in `source.textbook` where relevant, and label new examples as original applications. Lecture-specific extensions need not be attributed to textbook sections that do not cover them. Verify every numerical answer and any numbers mentioned in conceptual explanations independently.
 
-`tests/validate.mjs` checks the JSON schemas and cross-field constraints, including duplicate IDs, answer references, sequence permutations, table dimensions, and agreement between the course index and each lesson file. `tests/verify_math.py` deliberately checks that every numerical question has an independent calculation. Extend that script when adding numerical questions. Browser tests currently exercise this 20-question prototype and open lesson access; update fixture-specific counts when the curriculum changes.
+`tests/validate.mjs` checks the JSON schemas and cross-field constraints, including duplicate IDs, answer references, sequence permutations, table dimensions, and agreement between the course index and each lesson file. `tests/verify_math.py` deliberately checks that every numerical question has an independent calculation. Extend that script when adding numerical questions. The current validation also enforces Lectures 15–18, one five-question lesson per topic, 3–5 minute estimates, and sources matching each lecture number. Extend that coverage rule when the curriculum expands. Browser tests exercise this 20-question course and open lesson access; update fixture-specific counts when the curriculum changes.

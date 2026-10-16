@@ -101,6 +101,10 @@
             },
             "kind": {
               "enum": ["adapted", "original-application"]
+            },
+            "textbook": {
+              "type": "string",
+              "minLength": 1
             }
           }
         },

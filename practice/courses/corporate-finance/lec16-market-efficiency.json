@@ -1,0 +1,129 @@
+{
+  "id": "lec16-market-efficiency",
+  "title": "Market efficiency",
+  "description": "Information, arbitrage, and prediction markets.",
+  "minutes": 5,
+  "icon": "radar",
+  "questions": [
+    {
+      "id": "lec16-efficiency-forms",
+      "type": "matching",
+      "topic": "Information in prices",
+      "prompt": "Match each form of efficiency to the information prices already reflect.",
+      "pairs": [
+        {
+          "id": "weak",
+          "left": "Weak form",
+          "right": "Past prices and trading volume"
+        },
+        {
+          "id": "semi",
+          "left": "Semi-strong form",
+          "right": "All publicly available information"
+        },
+        {
+          "id": "strong",
+          "left": "Strong form",
+          "right": "All public and private information"
+        }
+      ],
+      "explanation": "Weak: trading history. Semi-strong: all public information. Strong: public and private information.",
+      "detail": "The forms differ in their information sets, which are nested. Semi-strong efficiency includes past prices plus public news and financial statements. Strong efficiency also includes private information; it is a much stronger claim. Efficiency does not mean prices never change: new information can change them.",
+      "misconception": "Semi-strong efficiency does not say private information is already reflected in prices.",
+      "source": {
+        "file": "Lec16_Market_Efficiency_core.tex",
+        "section": "The 3 Forms of Market Efficiency",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §12.6, Capital Market Efficiency"
+      }
+    },
+    {
+      "id": "lec16-arbitrage",
+      "type": "sequence",
+      "topic": "Matching prices to payoffs",
+      "prompt": "Put this arbitrage trade in order, starting with no cash.",
+      "context": "A token is available to buy for $0.85 and can immediately and certainly be redeemed for $1. Assume no fees, no borrowing interest, and sufficient trading and credit access.",
+      "items": [
+        {
+          "id": "borrow",
+          "text": "Borrow $0.85."
+        },
+        {
+          "id": "buy",
+          "text": "Use the borrowed $0.85 to buy one token."
+        },
+        {
+          "id": "redeem",
+          "text": "Redeem the token for $1."
+        },
+        {
+          "id": "repay",
+          "text": "Repay $0.85 and keep the remaining $0.15."
+        }
+      ],
+      "answer": ["borrow", "buy", "redeem", "repay"],
+      "explanation": "Borrow $0.85, buy the token, redeem it for $1, then repay $0.85 and keep $0.15.",
+      "detail": "Under the stated assumptions, redemption fixes the payoff before the trade begins. Borrowing finances the purchase, and immediate redemption provides enough cash to repay the loan and retain $0.15. Buying pressure tends to push the token price toward its $1 redemption value. This conclusion depends on certain redemption, executable prices, and access to funding.",
+      "misconception": "Buying an apparently cheap stock and hoping its price recovers is risky. Here the redemption mechanism locks in the proceeds.",
+      "source": {
+        "file": "Lec16_Market_Efficiency_core.tex",
+        "section": "Arbitrage: One Smart Guy vs. the Meme Crowd",
+        "kind": "original-application"
+      }
+    },
+    {
+      "id": "lec16-arbitrage-limits",
+      "type": "true-false",
+      "topic": "Limits to arbitrage",
+      "prompt": "If a stock looks overpriced, shorting it guarantees a profit before any margin call.",
+      "answer": false,
+      "explanation": "False. Mispricing can persist or worsen while funding and borrowing costs accumulate.",
+      "detail": "A short seller can face rising prices, collateral demands, or the loss of borrowed shares before an apparent mispricing corrects. Independent information can help prices become informative, but shared biases and limits to trading can delay correction. Identifying a valuation disagreement is not the same as locking in a riskless payoff.",
+      "misconception": "Being right about a long-run valuation does not guarantee that a trader can finance the position long enough to benefit.",
+      "source": {
+        "file": "Lec16_Market_Efficiency_core.tex",
+        "section": "Why Efficiency Has Limits",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §12.6, Capital Market Efficiency — what efficiency does and does not imply"
+      }
+    },
+    {
+      "id": "lec16-no-price",
+      "type": "numerical",
+      "topic": "Prediction market prices",
+      "prompt": "What is the no-arbitrage price of the NO contract today?",
+      "context": "YES pays $1 if an event occurs in one year; NO pays $1 otherwise. Both settle with certainty on the same date. YES costs $0.25, the annual risk-free rate is 25%, and trading is frictionless. Enter dollars per contract.",
+      "answer": 0.55,
+      "unit": "dollars",
+      "absoluteTolerance": 0.005,
+      "relativeTolerance": 0,
+      "explanation": "The NO price is $0.55. YES plus NO guarantees $1 in one year, worth $0.80 today.",
+      "detail": "Exactly one contract pays $1, so the pair replicates a risk-free payment. Therefore \\(p_{\\mathrm{YES}}+p_{\\mathrm{NO}}=1/1.25=0.80\\), and \\(p_{\\mathrm{NO}}=0.80-0.25=0.55\\). With a positive interest rate, the two current prices sum to the discounted payoff, not $1.",
+      "misconception": "Subtracting $0.25 directly from $1 ignores the year of discounting. These prices need not be physical probabilities.",
+      "source": {
+        "file": "Lec16_Market_Efficiency_core.tex",
+        "section": "Prediction Markets: Price by Matching Payoffs",
+        "kind": "original-application"
+      }
+    },
+    {
+      "id": "lec16-replication",
+      "type": "numerical",
+      "topic": "Replicating a payoff",
+      "prompt": "What is the stock’s no-arbitrage price today?",
+      "context": "In one year, a stock pays $800 if an event occurs and $200 otherwise, with no other payouts. On the same settlement date, YES pays $1 in the event and NO pays $1 otherwise. Their prices today are $0.25 and $0.55. All claims trade frictionlessly and settle with certainty.",
+      "answer": 310,
+      "unit": "dollars",
+      "absoluteTolerance": 0.01,
+      "relativeTolerance": 0,
+      "explanation": "The stock is worth $310: 800 YES contracts plus 200 NO contracts match its payoff.",
+      "detail": "Buy 800 YES contracts and 200 NO contracts. The portfolio pays $800 if the event occurs and $200 otherwise, exactly like the stock. Its price is \\(800(0.25)+200(0.55)=310\\). Equal payoffs in every state imply equal prices under frictionless trading. State prices already include discounting; do not discount the result again.",
+      "misconception": "The $500 midpoint ignores the traded state prices. Replication does not require an estimate of the event’s physical probability.",
+      "source": {
+        "file": "Lec16_Market_Efficiency_core.tex",
+        "section": "Prediction Markets: Price by Matching Payoffs",
+        "kind": "original-application"
+      }
+    }
+  ]
+}

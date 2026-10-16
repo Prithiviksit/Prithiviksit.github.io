@@ -1,6 +1,6 @@
 # Finpath — Corporate Finance Practice
 
-An installable, static, mobile-friendly Risk & Return practice app: four short lessons, 20 source-grounded questions, and a reusable exercise engine. It lives entirely under `/practice/` and does not change the academic website’s navigation, theme, or deployment configuration.
+An installable, static, mobile-friendly Corporate Finance practice app for Lectures 15–18: four short lessons, 20 source-grounded questions, and a reusable exercise engine. It lives entirely under `/practice/` and does not change the academic website’s navigation, theme, or deployment configuration.
 
 ## Preview
 
@@ -20,6 +20,17 @@ GitHub Pages can serve this directory unchanged. All application resources use r
 | -------------------------------------------- | -------------------------------------------------- |
 | ![Mobile feedback](docs/mobile-feedback.png) | ![Mobile explanation](docs/mobile-explanation.png) |
 
+## Lecture topics
+
+Each topic has five questions, selected from its `Lec` core deck and checked against the full lecture and associated textbook sections. No `Module` slide content is used.
+
+| Lecture | Topic                  | Five question focuses                                                                                            |
+| ------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| 15      | Capital markets        | Compound annual return; limit orders; market instruments; brokers/dealers; volatility                            |
+| 16      | Market efficiency      | Efficiency forms; arbitrage sequence; limits to arbitrage; YES/NO pricing; payoff replication                    |
+| 17      | Risk & diversification | Risk types; independent versus correlated losses; priced risk; industry concentration; corporate diversification |
+| 18      | CAPM & cost of equity  | CAPM return; alpha; beta interpretation; beta drivers; project hurdle rates                                      |
+
 ## Learning behavior
 
 - Four lessons, five questions each, targeting approximately 3–5 minutes per lesson. Timing is an estimate, not a measured student outcome.
@@ -33,7 +44,7 @@ GitHub Pages can serve this directory unchanged. All application resources use r
 
 ## Persistence and controls
 
-Progress is stored under `finpath:corporate-finance` in this browser’s `localStorage`. It includes completed lessons, XP, best scores, full submitted-answer history, completion records, and a separate unfinished attempt for each lesson. Drafts, question positions, shuffled orders, hearts, combos, and feedback save immediately. Reloading an answered question cannot award XP twice. A change from another tab reloads the current tab to the latest saved state. Existing v1 progress migrates automatically.
+Progress is stored under `finpath:corporate-finance` in this browser’s `localStorage`. It includes completed lessons, XP, best scores, full submitted-answer history, completion records, and a separate unfinished attempt for each lesson. Drafts, question positions, shuffled orders, hearts, combos, and feedback save immediately. Reloading an answered question cannot award XP twice. A change from another tab reloads the current tab to the latest saved state. Existing v1 progress migrates automatically. Curriculum changes retain earlier XP, scores, and answer history; retired unfinished attempts and review IDs are archived intact for export. New lecture topics have separate completion records.
 
 Use the lesson’s × button to return to the path; saving also happens automatically without pressing it. The active lesson resumes on reload or reopening the same browser. Switching topics parks the previous attempt for later. Settings includes JSON export and a two-step reset limited to this application’s progress. Export is a record/backup; import is not included in this prototype. Invalid stored data is preserved until explicitly reset; storage failures are displayed rather than silently claiming a save. There is no cross-device synchronization, and clearing browser data removes progress. The versioned storage contract separates persistence from scoring, so a future cloud adapter can be added without changing the quiz engine. See [the storage and caching design](docs/progress-storage.md).
 
@@ -47,7 +58,7 @@ The homepage fetches only the small course index. A lesson’s question file and
 
 ## Add content
 
-See [the content guide](docs/content-guide.md), [course manifest schema](courses/course.schema.json), and [lesson schema](courses/lesson.schema.json). To add a lecture, create a new lesson JSON file, add its filename to `course.json`, and run `npm run content:index` to refresh the lightweight metadata index. The game engine does not need to change. Use stable question IDs to preserve saved progress.
+See [the content guide](docs/content-guide.md), [course manifest schema](courses/course.schema.json), and [lesson schema](courses/lesson.schema.json). To add a lecture, create a new lesson JSON file, add its filename to `course.json`, and run `npm run content:index` to refresh the lightweight metadata index. The game engine does not need to change. Keep IDs stable for the same content; use new IDs for replacement exercises so old completions cannot be mistaken for new learning.
 
 See [the source and verification record](docs/verification.md) for provenance and test coverage.
 

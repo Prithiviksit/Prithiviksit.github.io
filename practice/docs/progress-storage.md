@@ -16,6 +16,7 @@ The storage key is `finpath:corporate-finance`. Its version 2 JSON document cont
 | `active`, `paused`           | Current session and one unfinished session per other lesson or review                                     |
 | `history`                    | Submitted-answer events with answer value, correctness, XP, question/session IDs, position, and timestamp |
 | `completedSessions`          | Completion records with session ID, score, XP, lesson, mode, and timestamp                                |
+| `archivedContent`            | Retired sessions (full saved state) and review IDs preserved for export and future sync                   |
 | `legacyTotals`               | Preserved aggregate baseline when upgrading older saves                                                   |
 
 A session stores its question cards, shuffled orders, drafts, submitted feedback, current index, hearts, combo, and earned XP. Switching topics moves the current session into `paused`, keyed by `lesson:<lesson-id>` or `review:review`. Finishing removes the active session and adds its completion record. Completed lessons remain available for new attempts.
@@ -23,6 +24,12 @@ A session stores its question cards, shuffled orders, drafts, submitted feedback
 Answer event IDs combine a randomly generated session ID and card position. Submitted answers are copied before appending, so later edits cannot change historical answers. Saved feedback prevents a second submission or extra XP after reload. Reset writes a fresh generation and blank progress, then removes the legacy key; it does not touch other websites’ storage.
 
 The old `finpath:corporate-finance:v1` key is read if no current key exists. Migration retains scores, XP, review IDs, and the unfinished attempt, including its feedback. Older aggregate totals become a baseline; historical answer details that v1 never stored cannot be reconstructed. The old raw document remains available until reset. Malformed or unsupported saves are preserved and the app offers export/reset rather than silently overwriting them.
+
+### Curriculum changes
+
+`reconcileContent(progress, lessons)` compares saved card IDs with the current lightweight index. If a session contains retired questions or no longer belongs to its lesson, the complete session is copied to `archivedContent.sessions` before leaving the active/paused slots. Retired review IDs move to `archivedContent.review`. XP, lesson scores, per-question totals, immutable answer history, completion events, and reset generation are unchanged. Current sessions remain resumable. Reconciliation is idempotent, runs before automatic resume, and saves locally through the existing adapter.
+
+The archive is an optional additive field in version 2; existing v2 documents load without it, and v1 migration still works. Old question files are no longer in the active course, so retired attempts are retained as records rather than offered for resumption. The Progress screen explains this when earlier records are present; Settings exports everything. Current-topic completion and the practiced-question count use only IDs in the new course. Never reuse an old lesson/question ID for substantively different content.
 
 Storage failure is reported visibly. Practice can continue in memory, but it cannot be claimed as saved until a write succeeds. Settings exports the full JSON record. Import is not implemented. Browser storage is specific to an origin and browser profile; clearing site data or private browsing cleanup can remove it.
 

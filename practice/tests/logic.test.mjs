@@ -42,9 +42,9 @@ test("numeric input rejects blank, partial and nonfinite input", () => {
     assert.equal(parseNumber(value), null, value);
   assert.equal(parseNumber(" −20% "), -20);
   assert.equal(parseNumber(".5"), 0.5);
-  const q = all.find((q) => q.id === "expected-return");
-  assert.ok(grade(q, "8.05"));
-  assert.ok(!grade(q, "8.051"));
+  const q = all.find((q) => q.id === "lec15-compound-return");
+  assert.ok(grade(q, "12.255"));
+  assert.ok(!grade(q, "12.2551"));
   assert.ok(
     grade(
       { ...q, answer: 100, absoluteTolerance: 0, relativeTolerance: 0.01 },
@@ -97,7 +97,7 @@ test("incorrect answers cost one heart, queue once without extending the lesson"
 test("XP survives reload and a repeated check cannot double award it", () => {
   const p = emptyProgress();
   p.active = createSession(lessons[0], lessons[0].questions);
-  p.active.cards[0].draft = 8;
+  p.active.cards[0].draft = correct(all[0]);
   submit(p, all[0]);
   const copy = JSON.parse(JSON.stringify(p));
   assert.equal(copy.xp, 10);
@@ -115,7 +115,18 @@ test("five mistakes do not block learning; later success clears review", () => {
   for (let i = 0; i < 5; i++) {
     p.active.index = i;
     p.active.cards[i].draft =
-      all[i].type === "sequence" ? [...all[i].answer].reverse() : "999";
+      all[i].type === "sequence"
+        ? [...all[i].answer].reverse()
+        : all[i].type === "true-false"
+          ? !all[i].answer
+          : all[i].type === "matching"
+            ? Object.fromEntries(
+                all[i].pairs.map((pair, j, pairs) => [
+                  pair.id,
+                  pairs[(j + 1) % pairs.length].id,
+                ]),
+              )
+            : "999";
     submit(p, all[i]);
   }
   assert.equal(p.active.hearts, 0);
@@ -126,7 +137,7 @@ test("five mistakes do not block learning; later success clears review", () => {
     [all[0]],
     "review",
   );
-  p.active.cards[0].draft = 8;
+  p.active.cards[0].draft = correct(all[0]);
   submit(p, all[0]);
   assert.equal(p.active.hearts, 5);
   assert.ok(p.xp > 0);
@@ -139,12 +150,12 @@ test("completing and retrying preserves best first-pass score and cumulative XP"
   p.active.xp = 50;
   p.xp = 50;
   assert.equal(finish(p).score, 80);
-  assert.equal(p.lessons.returns.best, 80);
+  assert.equal(p.lessons["lec15-capital-markets"].best, 80);
   p.active = createSession(lessons[0], lessons[0].questions);
   p.active.firstCorrect = 2;
   finish(p);
-  assert.equal(p.lessons.returns.best, 80);
-  assert.equal(p.lessons.returns.attempts, 2);
+  assert.equal(p.lessons["lec15-capital-markets"].best, 80);
+  assert.equal(p.lessons["lec15-capital-markets"].attempts, 2);
   assert.equal(p.xp, 50);
 });
 test("storage round trip and reset affect only this app", () => {

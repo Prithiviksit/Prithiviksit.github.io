@@ -1,0 +1,148 @@
+{
+  "id": "lec15-capital-markets",
+  "title": "Capital markets",
+  "description": "Markets, trading, and measuring returns.",
+  "minutes": 4,
+  "icon": "chart",
+  "questions": [
+    {
+      "id": "lec15-compound-return",
+      "type": "numerical",
+      "topic": "Compounded growth",
+      "prompt": "What is the geometric average annual return?",
+      "context": "An investment earns +40% in year 1 and −10% in year 2. No money is added or withdrawn. Enter a percentage, rounded to two decimal places.",
+      "answer": 12.25,
+      "unit": "%",
+      "absoluteTolerance": 0.005,
+      "relativeTolerance": 0,
+      "explanation": "About 12.25% per year. Compounding +40% and −10% turns $100 into $126 over two years.",
+      "detail": "The geometric average is the constant annual rate that reproduces the same final wealth: \\(g=\\sqrt{1.40\\times0.90}-1\\approx12.25\\%\\). The arithmetic average is \\((40\\%-10\\%)/2=15\\%\\), but compounding at 15% would give a different ending value. Multiply gross returns across time; do not simply average them when measuring compound growth.",
+      "misconception": "The two-year total return is 26%, not the annual return. The arithmetic average of 15% answers a different question.",
+      "source": {
+        "file": "Lec15_Capital_Markets_Intro_core.tex",
+        "section": "Return and Risk Measurement",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §12.5, More about Average Returns"
+      }
+    },
+    {
+      "id": "lec15-limit-order",
+      "type": "multiple-choice",
+      "topic": "Trading orders",
+      "prompt": "You will pay at most $48 per share. Which order fits that constraint?",
+      "options": [
+        {
+          "id": "limit",
+          "text": "A buy limit order at $48; execution is not guaranteed."
+        },
+        {
+          "id": "market",
+          "text": "A market order; it guarantees a price no higher than $48."
+        },
+        {
+          "id": "sell",
+          "text": "A sell limit order at $48."
+        },
+        {
+          "id": "guaranteed",
+          "text": "A buy limit order at $48; it must execute immediately."
+        }
+      ],
+      "answer": "limit",
+      "explanation": "A buy limit order at $48 protects the purchase price, but it may never execute.",
+      "detail": "A buy limit sets the highest acceptable purchase price. It can execute at $48 or less if a counterparty is available. A market order prioritizes execution and can fill at an unexpectedly high price. Price protection and certainty of execution are different things.",
+      "misconception": "Setting a limit is not a reservation guaranteeing that someone will sell you shares at that price.",
+      "source": {
+        "file": "Lec15_Capital_Markets_Intro_core.tex",
+        "section": "Equity Markets: Where and How Stocks Trade",
+        "kind": "original-application"
+      }
+    },
+    {
+      "id": "lec15-market-claims",
+      "type": "matching",
+      "topic": "What markets trade",
+      "prompt": "Match each instrument to the claim it represents.",
+      "pairs": [
+        {
+          "id": "equity",
+          "left": "Common stock",
+          "right": "Residual ownership in a company"
+        },
+        {
+          "id": "debt",
+          "left": "Corporate bond",
+          "right": "Contractual payments from an issuer"
+        },
+        {
+          "id": "commodity",
+          "left": "Spot wheat",
+          "right": "A physical good for near-term delivery"
+        },
+        {
+          "id": "derivative",
+          "left": "Wheat futures",
+          "right": "A contract linked to an underlying price"
+        }
+      ],
+      "explanation": "Stocks represent ownership, bonds promise payments, commodities are physical goods, and derivatives link payoffs to an underlying price.",
+      "detail": "A common share is a residual ownership claim. A corporate bond promises contractual payments, which can still be subject to default. Spot wheat is a physical commodity. A wheat futures contract is a derivative tied to wheat: it transfers price risk without being the wheat itself.",
+      "misconception": "A promised bond payment is not the same as a risk-free payment. A commodity and a derivative on that commodity are different instruments.",
+      "source": {
+        "file": "Lec15_Capital_Markets_Intro_core.tex",
+        "section": "Multiplitude of Financial Markets",
+        "kind": "original-application"
+      }
+    },
+    {
+      "id": "lec15-dealer",
+      "type": "multiple-choice",
+      "topic": "Brokers and dealers",
+      "prompt": "A firm quotes bid and ask prices and sells shares from its own inventory. In this trade, it acts as a…",
+      "options": [
+        {
+          "id": "dealer",
+          "text": "Dealer"
+        },
+        {
+          "id": "broker",
+          "text": "Broker acting only as an agent"
+        },
+        {
+          "id": "issuer",
+          "text": "Company issuing new shares"
+        },
+        {
+          "id": "clearing",
+          "text": "Clearinghouse only settling the trade"
+        }
+      ],
+      "answer": "dealer",
+      "explanation": "Dealer. It trades as a principal using its own inventory.",
+      "detail": "A broker arranges a trade on a customer’s behalf. A dealer stands ready to buy at its bid or sell at its ask and can hold inventory. One institution may perform both roles, so identify what it is doing in the particular transaction.",
+      "misconception": "An electronic trade can still involve a dealer. The trading role depends on how the transaction is carried out.",
+      "source": {
+        "file": "Lec15_Capital_Markets_Intro_core.tex",
+        "section": "Equity Markets: Where and How Stocks Trade",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §8.3, The Stock Markets — Dealers and Brokers"
+      }
+    },
+    {
+      "id": "lec15-volatility",
+      "type": "true-false",
+      "topic": "Measuring risk",
+      "prompt": "Volatility counts unusually high returns as well as unusually low returns.",
+      "answer": true,
+      "explanation": "True. Standard deviation measures dispersion on both sides of the mean.",
+      "detail": "Volatility is the standard deviation of percentage returns. Positive and negative deviations from the mean are squared, so both contribute to measured risk. Volatility describes the spread of returns; it is neither the average return nor simply the probability of losing money.",
+      "misconception": "Focusing only on losses confuses volatility with a downside-risk measure.",
+      "source": {
+        "file": "Lec15_Capital_Markets_Intro_core.tex",
+        "section": "Return and Risk Measurement",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §12.4, The Variability of Returns: The Second Lesson"
+      }
+    }
+  ]
+}

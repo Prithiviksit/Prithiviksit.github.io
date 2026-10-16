@@ -17,6 +17,7 @@ export function emptyProgress() {
     history: [],
     completedSessions: [],
     legacyTotals: null,
+    archivedContent: { sessions: [], review: [] },
   };
 }
 
@@ -111,7 +112,53 @@ export function decodeProgress(raw) {
     );
   }
   for (const session of Object.values(value.paused)) validateSession(session);
+  if (value.archivedContent) {
+    if (
+      !Array.isArray(value.archivedContent.sessions) ||
+      !Array.isArray(value.archivedContent.review)
+    )
+      throw new Error("Saved content archive has an unsupported format.");
+    for (const session of value.archivedContent.sessions)
+      validateSession(session);
+  }
   return value;
+}
+
+// Content IDs are never reused for replacement questions. Preserve retired attempts
+// verbatim for export/sync, while keeping only current questions in the live queue.
+// Aggregate XP, answer events, completed lessons and completion records are untouched.
+export function reconcileContent(progress, lessons) {
+  const owners = new Map(
+    lessons.flatMap((l) => l.questions.map((q) => [q.id, l.id])),
+  );
+  const available = (session) =>
+    session.cards.every(
+      (card) =>
+        owners.has(card.id) &&
+        (session.mode === "review" || owners.get(card.id) === session.lessonId),
+    );
+  const retired = [
+    ...(progress.active && !available(progress.active)
+      ? [progress.active]
+      : []),
+    ...Object.values(progress.paused).filter((s) => !available(s)),
+  ];
+  const review = progress.review.filter((id) => !owners.has(id));
+  if (!retired.length && !review.length) return false;
+  progress.archivedContent ??= { sessions: [], review: [] };
+  for (const session of retired) {
+    if (!progress.archivedContent.sessions.some((s) => s.id === session.id))
+      progress.archivedContent.sessions.push(structuredClone(session));
+  }
+  progress.archivedContent.review = [
+    ...new Set([...progress.archivedContent.review, ...review]),
+  ];
+  if (progress.active && !available(progress.active)) progress.active = null;
+  progress.paused = Object.fromEntries(
+    Object.entries(progress.paused).filter(([, s]) => available(s)),
+  );
+  progress.review = progress.review.filter((id) => owners.has(id));
+  return true;
 }
 
 // Only this adapter knows about localStorage and browser storage events.

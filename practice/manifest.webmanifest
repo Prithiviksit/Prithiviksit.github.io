@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "Finpath · Finance Practice",
+  "name": "Finpath \u00b7 Finance Practice",
   "short_name": "Finpath",
-  "description": "Build financial intuition, one short lesson at a time. Practice risk and return at your own pace, online or offline.",
+  "description": "Five-question Corporate Finance practice for Lectures 15\u201318, with saved progress and offline lessons.",
   "lang": "en",
   "start_url": "./",
   "scope": "./",

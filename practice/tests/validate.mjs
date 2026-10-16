@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import Ajv from "ajv";
+import assert from "node:assert/strict";
 import { validateCourse } from "../js/logic.js";
 import { createContentLoader } from "../js/content.js";
 
@@ -27,6 +28,22 @@ for (const [file, values] of [
   }
 }
 validateCourse(course, lessons);
+assert.equal(course.units.length, 4, "Four lecture topics");
+for (const [i, unit] of course.units.entries()) {
+  assert.equal(unit.lessons.length, 1, "One short lesson per lecture topic");
+  const lesson = lessons[i];
+  assert.equal(lesson.questions.length, 5);
+  assert.ok(lesson.minutes >= 3 && lesson.minutes <= 5);
+  for (const q of lesson.questions) {
+    assert.ok(q.id.startsWith(`lec${15 + i}-`), q.id);
+    assert.ok(q.source.file.startsWith(`Lec${15 + i}_`), q.source.file);
+    assert.ok(!/module/i.test(JSON.stringify(q.source)), "Only Lec sources");
+  }
+}
+assert.equal(
+  new Set(lessons.flatMap((l) => l.questions.map((q) => q.type))).size,
+  5,
+);
 const loader = createContentLoader(
   course,
   new URL("../courses/corporate-finance/", import.meta.url),

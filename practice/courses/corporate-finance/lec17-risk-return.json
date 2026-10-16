@@ -1,0 +1,155 @@
+{
+  "id": "lec17-risk-return",
+  "title": "Risk & diversification",
+  "description": "Separate shared shocks from risks that can cancel.",
+  "minutes": 4,
+  "icon": "layers",
+  "questions": [
+    {
+      "id": "lec17-risk-types",
+      "type": "matching",
+      "topic": "Two types of risk",
+      "prompt": "Match each shock to the kind of risk it mainly illustrates.",
+      "pairs": [
+        {
+          "id": "systematic",
+          "left": "An unexpected economy-wide recession",
+          "right": "Systematic risk"
+        },
+        {
+          "id": "specific",
+          "left": "An isolated accident at one firm’s factory",
+          "right": "Idiosyncratic risk"
+        }
+      ],
+      "explanation": "An economy-wide recession is systematic; an isolated factory accident is firm-specific.",
+      "detail": "Systematic shocks affect many businesses through common economic forces. Idiosyncratic shocks are concentrated in a firm or a small group. Broad diversification can reduce the second kind as unrelated surprises offset, while exposure to shared market shocks remains.",
+      "misconception": "Systematic does not mean predictable. An unexpected recession can affect many firms at once.",
+      "source": {
+        "file": "Lec17_Risk_and_Return_core.tex",
+        "section": "Two Types of Risk: Systematic vs. Idiosyncratic",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.4, Risk: Systematic and Unsystematic"
+      }
+    },
+    {
+      "id": "lec17-insurance-pool",
+      "type": "multiple-choice",
+      "topic": "When pooling helps",
+      "prompt": "Which pool benefits more from adding similar policies?",
+      "context": "Compare equally sized policies. Bike thefts are independent across policyholders; all insured buildings are exposed to the same citywide earthquake.",
+      "options": [
+        {
+          "id": "bikes",
+          "text": "The bike-theft pool, because individual losses can average out."
+        },
+        {
+          "id": "buildings",
+          "text": "The earthquake pool, because one event settles all claims."
+        },
+        {
+          "id": "both",
+          "text": "Both pools become completely risk-free at the same rate."
+        },
+        {
+          "id": "neither",
+          "text": "Neither pool benefits from adding policies."
+        }
+      ],
+      "answer": "bikes",
+      "explanation": "Independent bike-theft losses. Their average becomes more stable as the pool grows.",
+      "detail": "When losses are independent, a large pool can average out individual surprises. An earthquake can damage many buildings in the same city together, so adding more buildings there leaves the common exposure. This is an analogy about correlated losses: a local earthquake is not automatically systematic relative to global financial markets.",
+      "misconception": "A large number of contracts alone does not remove risk. How their losses move together matters.",
+      "source": {
+        "file": "Lec17_Risk_and_Return_core.tex",
+        "section": "The Intuition: Earthquake vs. Bike Theft Insurance",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.5, Diversification and Portfolio Risk"
+      }
+    },
+    {
+      "id": "lec17-volatility-premium",
+      "type": "true-false",
+      "topic": "Which risk earns a premium?",
+      "prompt": "Under the systematic-risk principle, a stock with twice the total volatility must offer twice the risk premium.",
+      "answer": false,
+      "explanation": "False. The premium compensates systematic exposure, not all standalone volatility.",
+      "detail": "A stock’s total volatility can be high because of firm-specific uncertainty. Diversified investors can reduce that risk without needing the company to eliminate it. In the systematic-risk benchmark, expected compensation depends on exposure to common risks; total volatility alone does not determine the premium or guarantee a realized return.",
+      "misconception": "“Riskier” is incomplete unless we specify the risk. More diversifiable uncertainty does not automatically earn more expected return.",
+      "source": {
+        "file": "Lec17_Risk_and_Return_core.tex",
+        "section": "Three Common Fallacies",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.6, Systematic Risk and Beta — The Systematic Risk Principle"
+      }
+    },
+    {
+      "id": "lec17-airline-basket",
+      "type": "multiple-choice",
+      "topic": "Look beneath the labels",
+      "prompt": "An investor holds 20 airline stocks. What is the main remaining diversification concern?",
+      "options": [
+        {
+          "id": "shared",
+          "text": "The airlines share fuel-price and travel-demand exposure."
+        },
+        {
+          "id": "count",
+          "text": "Twenty stocks is a guaranteed threshold for eliminating all risk."
+        },
+        {
+          "id": "identical",
+          "text": "All airline stocks must have identical returns every day."
+        },
+        {
+          "id": "none",
+          "text": "Owning more than one company removes recession exposure."
+        }
+      ],
+      "answer": "shared",
+      "explanation": "The companies still share industry and economic exposures.",
+      "detail": "More airline names can reduce some firm-specific surprises, but fuel-price shocks and changes in travel demand can affect many of them together. Diversification depends on the mix of exposures, not simply the number of holdings. Adding other businesses can reduce industry concentration, although broad market risk still remains.",
+      "misconception": "Twenty ticker symbols do not necessarily represent twenty independent sources of risk.",
+      "source": {
+        "file": "Lec17_Risk_and_Return_core.tex",
+        "section": "Three Common Fallacies",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.5, Diversification and Portfolio Risk"
+      }
+    },
+    {
+      "id": "lec17-corporate-diversification",
+      "type": "multiple-choice",
+      "topic": "Who should diversify?",
+      "prompt": "A software company proposes buying hotels only to diversify shareholders’ portfolios. What is the best response?",
+      "options": [
+        {
+          "id": "portfolio",
+          "text": "Shareholders can diversify themselves; assess the deal’s value creation."
+        },
+        {
+          "id": "automatic",
+          "text": "Accept: any reduction in firm volatility guarantees positive NPV."
+        },
+        {
+          "id": "impossible",
+          "text": "Accept: shareholders cannot own shares in different industries."
+        },
+        {
+          "id": "always",
+          "text": "Reject: all acquisitions in other industries destroy value."
+        }
+      ],
+      "answer": "portfolio",
+      "explanation": "Shareholders can diversify directly; the acquisition still needs a value-creating reason.",
+      "detail": "Investors can hold software and hotel shares themselves. Combining the firms does not automatically create value merely because their cash flows differ. An acquisition should be justified by positive NPV, such as credible operating gains net of its costs, rather than by shareholder diversification alone.",
+      "misconception": "Lower volatility for the combined firm is not by itself proof of value creation. This does not mean every acquisition across industries is bad.",
+      "source": {
+        "file": "Lec17_Risk_and_Return_core.tex",
+        "section": "Three Common Fallacies",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.5, Diversification and Portfolio Risk"
+      }
+    }
+  ]
+}

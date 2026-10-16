@@ -51,7 +51,7 @@ try {
   assert.ok(!initial.some((u) => /katex/.test(u)), "No initial math download");
   assert.ok(
     !initial.some((u) =>
-      /\/(risk-return|risk-radar|diversification|leverage-beta)\.json$/.test(
+      /\/(lec15-capital-markets|lec16-market-efficiency|lec17-risk-return|lec18-capm)\.json$/.test(
         new URL(u).pathname,
       ),
     ),
@@ -75,21 +75,21 @@ try {
   });
   await page.setViewportSize({ width: 390, height: 844 });
   // Skip straight to lesson four, independent of all other topics.
-  await start(page, "leverage-beta");
+  await start(page, "lec18-capm");
   const files = requests.filter((r) =>
-    /\/(risk-return|risk-radar|diversification|leverage-beta)\.json$/.test(
+    /\/(lec15-capital-markets|lec16-market-efficiency|lec17-risk-return|lec18-capm)\.json$/.test(
       new URL(r.url).pathname,
     ),
   );
   assert.deepEqual(
     [...new Set(files.map((r) => new URL(r.url).pathname.split("/").at(-1)))],
-    ["leverage-beta.json"],
+    ["lec18-capm.json"],
   );
   const count = requests.length;
-  await page.locator("#number-answer").fill("-20");
+  await page.locator("#number-answer").fill("11.4");
   await page.locator("#check-button").click();
   await page.locator("#continue-button").click();
-  await page.locator(".options").waitFor();
+  await page.locator("#number-answer").waitFor();
   assert.equal(
     requests.length,
     count,
@@ -98,27 +98,25 @@ try {
   const saved = await read(page);
   assert.equal(saved.xp, 10);
   assert.equal(saved.history.length, 1);
-  assert.equal(saved.history[0].submittedAnswer, "-20");
+  assert.equal(saved.history[0].submittedAnswer, "11.4");
   assert.equal(saved.active.index, 1);
   await exit(page);
-  await start(page, "returns");
+  await start(page, "lec15-capital-markets");
   await page.locator("#number-answer").fill("7.5");
   await exit(page);
-  await start(page, "leverage-beta");
+  await start(page, "lec18-capm");
   assert.equal((await read(page)).active.index, 1);
   assert.equal(
-    (await read(page)).paused["lesson:returns"].cards[0].draft,
+    (await read(page)).paused["lesson:lec15-capital-markets"].cards[0].draft,
     "7.5",
   );
   assert.equal((await read(page)).xp, 10);
   await page.reload();
-  await page.locator(".options").waitFor();
+  await page.locator("#number-answer").waitFor();
   assert.equal((await read(page)).active.index, 1);
   assert.equal((await read(page)).history.length, 1);
   // Cache math fonts once, then reload and answer entirely offline.
-  const state = await read(page);
-  const index = state.active.cards[1].order.indexOf("twenty");
-  await page.keyboard.press(String(index + 1));
+  await page.locator("#number-answer").fill("2");
   await page.locator("#check-button").click();
   await page.locator('[data-action="why"]').click();
   await page.evaluate(() => document.fonts.ready);
@@ -132,22 +130,22 @@ try {
   await page.locator("#continue-button").click();
   await page.locator(".matching").waitFor();
   await exit(page);
-  await start(page, "returns");
+  await start(page, "lec15-capital-markets");
   assert.equal(await page.locator("#number-answer").inputValue(), "7.5");
-  await page.locator("#number-answer").fill("8");
+  await page.locator("#number-answer").fill("12.25");
   await page.locator("#check-button").click();
   assert.equal((await read(page)).history.length, 3);
   await exit(page);
   // An unvisited lesson gets a clear retry message and cannot erase either saved attempt.
-  await page.locator('.lesson-node[data-id="risk-radar"]').click();
+  await page.locator('.lesson-node[data-id="lec16-market-efficiency"]').click();
   await page
     .getByRole("heading", { name: "This lesson could not load" })
     .waitFor();
-  assert.equal((await read(page)).active.lessonId, "returns");
-  assert.ok((await read(page)).paused["lesson:leverage-beta"]);
+  assert.equal((await read(page)).active.lessonId, "lec15-capital-markets");
+  assert.ok((await read(page)).paused["lesson:lec18-capm"]);
   await page.locator('#dialog [data-action="close-dialog"]').last().click();
   await context.setOffline(false);
-  await start(page, "risk-radar");
+  await start(page, "lec16-market-efficiency");
   await page.locator(".matching").waitFor();
   assert.ok(
     requests.every((r) => r.method === "GET"),
@@ -168,7 +166,9 @@ try {
   const legacy = {
     version: 1,
     xp: 68,
-    lessons: { "risk-radar": { completed: true, best: 100, attempts: 1 } },
+    lessons: {
+      "lec16-market-efficiency": { completed: true, best: 100, attempts: 1 },
+    },
     questions: {},
     review: [],
     active: session,
@@ -183,17 +183,80 @@ try {
   assert.equal(await old.locator("#number-answer").inputValue(), "8");
   assert.equal((await read(old)).xp, 68);
   assert.equal((await read(old)).version, 2);
-  assert.equal((await read(old)).lessons["risk-radar"].best, 100);
+  assert.equal((await read(old)).lessons["lec16-market-efficiency"].best, 100);
   await migration.close();
   console.log(
     "PASS browser migration of existing XP, scores and unfinished lesson.",
+  );
+
+  const curriculum = await browser.newContext();
+  const previous = JSON.parse(
+    await fs.readFile(
+      new URL("fixtures/previous-curriculum-progress.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  const updated = await curriculum.newPage();
+  await updated.goto(url);
+  await updated.locator(".hero").waitFor();
+  await updated.evaluate(
+    ({ key, value }) => localStorage.setItem(key, JSON.stringify(value)),
+    { key: STORAGE_KEY, value: previous },
+  );
+  await updated.reload();
+  await updated.locator(".hero").waitFor();
+  const migrated = await read(updated);
+  assert.equal(migrated.active, null);
+  assert.equal(migrated.archivedContent.sessions.length, 2);
+  for (const key of [
+    "xp",
+    "lessons",
+    "questions",
+    "history",
+    "completedSessions",
+  ])
+    assert.deepEqual(migrated[key], previous[key]);
+  assert.equal(
+    await updated.locator(".section-count").textContent(),
+    "0 of 4 complete",
+  );
+  assert.equal(
+    await updated
+      .locator(".stat-pair div")
+      .last()
+      .locator("strong")
+      .textContent(),
+    "0/20",
+  );
+  await updated.locator('.sidebar [data-view="progress"]').click();
+  assert.ok(
+    await updated
+      .getByText(
+        /Earlier XP, scores, answers, and saved attempts are preserved/,
+      )
+      .isVisible(),
+  );
+  await updated.reload();
+  await updated.locator(".hero").waitFor();
+  assert.deepEqual(
+    await read(updated),
+    migrated,
+    "Reload does not repeat the content migration",
+  );
+  await start(updated, lessons[0].id);
+  await updated.locator("#number-answer").fill("12.25");
+  await updated.locator("#check-button").click();
+  assert.equal((await read(updated)).xp, previous.xp + 10);
+  await curriculum.close();
+  console.log(
+    "PASS previous curriculum retains XP/history/scores/attempts and opens all four new topics without a reset.",
   );
 
   const reviewContext = await browser.newContext();
   const reviewPage = await reviewContext.newPage();
   await reviewPage.goto(url);
   await reviewPage.locator(".hero").waitFor();
-  await start(reviewPage, "returns");
+  await start(reviewPage, "lec15-capital-markets");
   await reviewPage.locator("#number-answer").fill("0");
   await reviewPage.locator("#check-button").click();
   await exit(reviewPage);
@@ -202,11 +265,11 @@ try {
     .click();
   await reviewPage.locator('[data-action="start-review"]').click();
   await reviewPage.locator("#number-answer").waitFor();
-  await reviewPage.locator("#number-answer").fill("8");
+  await reviewPage.locator("#number-answer").fill("12.25");
   await reviewPage.locator("#check-button").click();
   await exit(reviewPage);
   assert.equal((await read(reviewPage)).review.length, 0);
-  await start(reviewPage, "leverage-beta");
+  await start(reviewPage, "lec18-capm");
   await exit(reviewPage);
   await reviewPage
     .locator('[data-action="nav"][data-view="review"]:visible')
@@ -225,7 +288,7 @@ try {
   const first = await tabs.newPage();
   await first.goto(url);
   await first.locator(".hero").waitFor();
-  await start(first, "returns");
+  await start(first, "lec15-capital-markets");
   await first.locator("#number-answer").fill("7");
   const revision = (await read(first)).revision;
   const second = await tabs.newPage();
@@ -237,9 +300,9 @@ try {
     revision,
     "Opening a saved attempt must not write again or trigger a tab reload loop",
   );
-  await second.locator("#number-answer").fill("8");
+  await second.locator("#number-answer").fill("12.25");
   await first.waitForFunction(
-    () => document.querySelector("#number-answer")?.value === "8",
+    () => document.querySelector("#number-answer")?.value === "12.25",
   );
   await first.waitForTimeout(400);
   assert.equal((await read(first)).revision, revision + 1);
@@ -259,7 +322,7 @@ try {
   let page = await persistent.newPage();
   await page.goto(url);
   await page.locator(".hero").waitFor();
-  await start(page, "diversification");
+  await start(page, "lec15-capital-markets");
   await page.locator("#number-answer").fill("10");
   await ready(page);
   await persistent.close();
@@ -269,7 +332,7 @@ try {
   await page.goto(url);
   await page.locator("#number-answer").waitFor();
   assert.equal(await page.locator("#number-answer").inputValue(), "10");
-  assert.equal((await read(page)).active.lessonId, "diversification");
+  assert.equal((await read(page)).active.lessonId, "lec15-capital-markets");
   console.log(
     "PASS browser-process restart resumes the same draft in the same local profile.",
   );

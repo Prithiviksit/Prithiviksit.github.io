@@ -127,11 +127,11 @@ try {
   assert.equal(await page.locator("#number-answer").inputValue(), "20");
   await page.locator("#number-answer").fill("8oops");
   assert.equal(await page.locator("#check-button").isDisabled(), true);
-  const first = questionMap.get("expected-return");
+  const first = questionMap.get("lec15-compound-return");
   await check(page, first, false);
   assert.equal((await state(page)).active.hearts, 4);
   await action(page, "why").click();
-  await page.locator("dialog[open] .katex").waitFor();
+  await page.locator("dialog[open] .katex").first().waitFor();
   await page.keyboard.press("Escape");
   await page.reload();
   await page.locator(".feedback").waitFor();
@@ -139,7 +139,7 @@ try {
   assert.equal((await state(page)).xp, 0);
   await page.keyboard.press("Enter");
   // Persist an unsubmitted shuffled choice across exit and reload.
-  const second = questionMap.get("expected-not-promised");
+  const second = questionMap.get("lec15-limit-order");
   await fillAnswer(page, second);
   const order = (await state(page)).active.cards[1].order;
   await action(page, "exit").click();
@@ -156,7 +156,7 @@ try {
     await check(page, q);
     await action(page, "continue").click();
   }
-  assert.equal((await state(page)).lessons.returns.best, 80);
+  assert.equal((await state(page)).lessons["lec15-capital-markets"].best, 80);
   assert.equal((await state(page)).review.length, 1);
   await shot(page, "lesson-complete");
   await action(page, "nav").click();
@@ -252,17 +252,17 @@ try {
   }
   assert.equal((await state(m)).review.length, 0);
   assert.equal(
-    (await state(m)).lessons.returns.best,
+    (await state(m)).lessons["lec15-capital-markets"].best,
     0,
     "Review does not alter first-pass lesson scores",
   );
   await action(m, "nav").click();
-  await m.locator('.lesson-node[data-id="risk-radar"]').click();
+  await m.locator('.lesson-node[data-id="lec16-market-efficiency"]').click();
   await m.locator(".matching").waitFor();
   await noOverflow(m);
   await accessible(m);
   await shot(m, "mobile-matching");
-  const match = questionMap.get("risk-matching");
+  const match = questionMap.get("lec16-efficiency-forms");
   await check(m, match, false);
   assert.equal((await state(m)).active.hearts, 4);
   await noOverflow(m);

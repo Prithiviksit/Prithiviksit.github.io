@@ -189,7 +189,7 @@ try {
     activateSession(state, lessons[1], lessons[1].questions);
     state.active.cards[0].draft = {};
     activateSession(state, lessons[3], lessons[3].questions);
-    state.active.cards[0].draft = "-20";
+    state.active.cards[0].draft = "11.4";
     submit(state, lessons[3].questions[0]);
     state.active.index = 1;
     await page.evaluate(
@@ -197,7 +197,7 @@ try {
       { key: STORAGE_KEY, state },
     );
     await page.reload();
-    await page.locator(".options").waitFor();
+    await page.locator("#number-answer").waitFor();
     const before = await storage(page);
     await page.evaluate(async () => {
       await (
@@ -239,7 +239,7 @@ try {
       async () => !(await caches.keys()).some((k) => k.endsWith("pwa-test-1")),
     );
     await page.goto(url);
-    await page.locator(".options").waitFor();
+    await page.locator("#number-answer").waitFor();
     await ready(page);
     assert.equal(await storage(page), beforeClose);
     assert.ok((await page.title()).includes("v3"));
@@ -315,8 +315,8 @@ try {
         path: path.join(root, "test-results", "pwa-ios.png"),
       });
       await close(page);
-      await start(page, "leverage-beta");
-      await page.locator("#number-answer").fill("-20");
+      await start(page, "lec18-capm");
+      await page.locator("#number-answer").fill("11.4");
       await page.locator("#check-button").click();
       const before = await storage(page);
       await ctx.setOffline(true);
