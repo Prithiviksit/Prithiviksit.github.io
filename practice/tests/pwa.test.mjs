@@ -38,7 +38,16 @@ test("release index matches all shipped files and excludes lesson bodies from th
   vm.runInNewContext(read("sw-assets.js").toString(), context);
   const { files, html } = context.self.FINPATH_ASSETS;
   assert.equal(html, read("index.html").toString());
-  assert.match(html, /<script data-cfasync="false" type="module" src=/);
+  const release = html.match(
+    /name="finpath-release" content="([a-f0-9]{16})"/,
+  )[1];
+  assert.equal(release, context.self.FINPATH_ASSETS.release);
+  assert.match(
+    html,
+    /<script\s+data-cfasync="false"\s+type="module"\s+src="js\/start\.js/,
+  );
+  assert.ok(html.includes(`js/start.js?release=${release}`));
+  assert.ok(html.includes(`css/style.css?release=${release}`));
   for (const entry of files)
     assert.equal(
       createHash("sha256").update(read(entry.path)).digest("hex"),

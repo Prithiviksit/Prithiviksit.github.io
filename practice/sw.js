@@ -1,6 +1,9 @@
 /* Static files only. This worker never reads, writes, or resets student progress. */
-importScripts("./sw-assets.js");
-const { version, files, html } = self.FINPATH_ASSETS;
+const release = new URL(self.location.href).searchParams.get("release");
+const assetIndex = new URL("./sw-assets.js", self.location.href);
+if (release) assetIndex.searchParams.set("release", release);
+importScripts(assetIndex.href);
+const { version, files, html, release: assetRelease } = self.FINPATH_ASSETS;
 const ROOT = new URL("./", self.location.href);
 const PREFIX = `finpath-static:${ROOT.pathname}:`;
 const CACHE = `${PREFIX}pwa-${version}`;
@@ -127,6 +130,12 @@ self.addEventListener("fetch", (event) => {
     url.pathname = ROOT.pathname + "index.html";
     url.search = "";
   }
+  if (
+    assetRelease &&
+    url.searchParams.size === 1 &&
+    url.searchParams.get("release") === assetRelease
+  )
+    url.search = "";
   if (url.search || !entries.has(url.href)) return;
   event.respondWith(
     (async () => {

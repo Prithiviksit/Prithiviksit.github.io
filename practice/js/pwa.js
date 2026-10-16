@@ -37,8 +37,13 @@ async function register() {
       "Offline saving is unavailable in this browser. You can still practice online.",
     );
   if (!registration) {
+    const worker = new URL("../sw.js", import.meta.url);
+    const release = document.querySelector(
+      'meta[name="finpath-release"]',
+    )?.content;
+    if (release) worker.searchParams.set("release", release);
     registration = navigator.serviceWorker
-      .register(new URL("../sw.js", import.meta.url), {
+      .register(worker, {
         updateViaCache: "none",
       })
       .then((reg) => {

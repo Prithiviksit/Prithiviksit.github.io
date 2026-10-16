@@ -29,6 +29,10 @@ let generation = 1,
   requests = [];
 function release() {
   const served = new Map(source);
+  const assetRelease =
+    generation === 1
+      ? original.release
+      : generation.toString(16).padStart(16, "0");
   if (generation > 1)
     served.set(
       "index.html",
@@ -36,6 +40,7 @@ function release() {
         source
           .get("index.html")
           .toString()
+          .replaceAll(original.release, assetRelease)
           .replace(
             "Finpath · Corporate",
             "Finpath v" + generation + " · Corporate",
@@ -53,6 +58,7 @@ function release() {
       "self.FINPATH_ASSETS = " +
         JSON.stringify({
           version,
+          release: assetRelease,
           files,
           html: served.get("index.html").toString(),
         }) +
@@ -80,6 +86,15 @@ const server = http.createServer((req, res) => {
     return;
   }
   const file = url.pathname.slice(prefix.length) || "index.html";
+  // An edge cache can retain a broken older deployment at unversioned URLs.
+  if (
+    ["sw.js", "sw-assets.js"].includes(file) &&
+    !url.searchParams.has("release")
+  ) {
+    res.writeHead(200, { "Content-Type": "text/javascript" });
+    res.end('throw new Error("Stale CDN copy");');
+    return;
+  }
   let body = release().get(file);
   if (!body || (broken && file === "css/style.css")) {
     res.writeHead(503);
