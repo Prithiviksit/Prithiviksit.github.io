@@ -51,14 +51,14 @@ try {
   assert.ok(!initial.some((u) => /katex/.test(u)), "No initial math download");
   assert.ok(
     !initial.some((u) =>
-      /\/(exam-prep-[123]|lec15-capital-markets|lec16-market-efficiency|lec17-risk-return|lec18-capm)\.json$/.test(
+      /\/(exam-prep-[123]|lec15-capital-markets|lec16-market-efficiency|lec17-risk-return|lec18-capm|lec19-capital-structure|lec20-debt-taxes)\.json$/.test(
         new URL(u).pathname,
       ),
     ),
     "No initial question files",
   );
   assert.equal(await page.locator(".lesson-node:disabled").count(), 0);
-  assert.equal(await page.locator(".market-node").count(), 4);
+  assert.equal(await page.locator(".market-node").count(), lectureLessons.length);
   const initialBytes = (await Promise.all(sizes)).reduce((a, b) => a + b, 0);
   console.log(
     `Initial uncompressed response bodies including service-worker shell caching: ${initialBytes} bytes; no questions or KaTeX.`,
@@ -77,7 +77,7 @@ try {
   // Skip straight to lesson four, independent of all other topics.
   await start(page, "lec18-capm");
   const files = requests.filter((r) =>
-    /\/(exam-prep-[123]|lec15-capital-markets|lec16-market-efficiency|lec17-risk-return|lec18-capm)\.json$/.test(
+    /\/(exam-prep-[123]|lec15-capital-markets|lec16-market-efficiency|lec17-risk-return|lec18-capm|lec19-capital-structure|lec20-debt-taxes)\.json$/.test(
       new URL(r.url).pathname,
     ),
   );
@@ -220,7 +220,7 @@ try {
     await updated
       .locator('[aria-labelledby="lecture-practice-title"] .section-count')
       .textContent(),
-    "0 of 4 complete",
+    `0 of ${lectureLessons.length} complete`,
   );
   assert.equal(
     await updated
@@ -228,7 +228,7 @@ try {
       .last()
       .locator("strong")
       .textContent(),
-    "0/35",
+    `0/${lessons.flatMap((l) => l.questions).length}`,
   );
   await updated.locator('.sidebar [data-view="progress"]').click();
   assert.ok(
@@ -251,7 +251,7 @@ try {
   assert.equal((await read(updated)).xp, previous.xp + 10);
   await curriculum.close();
   console.log(
-    "PASS previous curriculum retains XP/history/scores/attempts and opens all seven topics without a reset.",
+    "PASS previous curriculum retains XP/history/scores/attempts and opens all nine topics without a reset.",
   );
 
   const reviewContext = await browser.newContext();

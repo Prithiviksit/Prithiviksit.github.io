@@ -35,7 +35,11 @@
       "source": {
         "file": "mock_quiz_b_core.tex",
         "section": "Mock Quiz 2B · Question 6",
-        "kind": "original-application"
+        "kind": "original-application",
+        "lecture": 17,
+        "chapters": [
+          13
+        ]
       }
     },
     {
@@ -68,7 +72,11 @@
       "source": {
         "file": "mock_quiz_b_core.tex",
         "section": "Mock Quiz 2B · Question 8",
-        "kind": "original-application"
+        "kind": "original-application",
+        "lecture": 18,
+        "chapters": [
+          14
+        ]
       }
     },
     {
@@ -101,7 +109,11 @@
       "source": {
         "file": "mock_quiz_b_core.tex",
         "section": "Mock Quiz 2B · Question 10",
-        "kind": "original-application"
+        "kind": "original-application",
+        "lecture": 20,
+        "chapters": [
+          16
+        ]
       }
     },
     {
@@ -120,7 +132,12 @@
       "source": {
         "file": "mock_quiz_b_core.tex",
         "section": "Mock Quiz 2B · Question 14",
-        "kind": "original-application"
+        "kind": "original-application",
+        "lecture": 20,
+        "chapters": [
+          14,
+          16
+        ]
       }
     },
     {
@@ -139,7 +156,11 @@
       "source": {
         "file": "mock_quiz_b_core.tex",
         "section": "Mock Quiz 2B · Question 15",
-        "kind": "original-application"
+        "kind": "original-application",
+        "lecture": 20,
+        "chapters": [
+          16
+        ]
       }
     }
   ]

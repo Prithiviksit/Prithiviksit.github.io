@@ -1,0 +1,149 @@
+{
+  "id": "lec20-debt-taxes",
+  "title": "Debt, taxes & firm value",
+  "description": "Interest tax shields, WACC, and debt-funded buybacks.",
+  "minutes": 5,
+  "icon": "bolt",
+  "questions": [
+    {
+      "id": "lec20-annual-shield",
+      "type": "numerical",
+      "topic": "Annual interest tax shield",
+      "prompt": "How much does interest reduce annual corporate taxes, in millions of dollars?",
+      "context": "A firm has $100 million of debt at 8% annual interest and a 25% corporate tax rate. Interest is fully deductible, and the firm has enough taxable income to use the deduction. Enter the number of millions.",
+      "answer": 2,
+      "unit": "million dollars",
+      "absoluteTolerance": 0.01,
+      "relativeTolerance": 0,
+      "explanation": "$2 million: annual interest is $8 million, and 25% of that is saved in taxes.",
+      "detail": "The annual interest tax shield is \\(T_C r_D D\\). Interest is \\(0.08(100)=8\\) million dollars, so the annual tax saving is \\(0.25(8)=2\\) million. Operating income is unchanged; total cash available to debt and equity rises because less goes to taxes.",
+      "misconception": "The deduction does not reimburse the full interest bill. The annual tax saving is also different from the present value of all future tax savings.",
+      "source": {
+        "file": "Lec20_Capital_Structure_Taxes.tex",
+        "section": "The Income Statement Secret: Where Does the Cash Go?; The Value of the Interest Tax Shield",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — Chapter 16",
+        "lecture": 20,
+        "chapters": [
+          16
+        ],
+        "exercise": "Exercise_Lec20.tex · Question 1"
+      }
+    },
+    {
+      "id": "lec20-levered-value",
+      "type": "numerical",
+      "topic": "MM Proposition I with taxes",
+      "prompt": "What is the levered firm value, in millions of dollars?",
+      "context": "An unlevered firm is worth $360 million. It issues $160 million of permanent debt and pays all proceeds to shareholders. The corporate tax rate is 25%. Operations stay unchanged; deductions are fully usable, tax-shield risk equals debt risk, and there are no other financing costs. Enter the number of millions.",
+      "answer": 400,
+      "unit": "million dollars",
+      "absoluteTolerance": 0.01,
+      "relativeTolerance": 0,
+      "explanation": "$400 million: the $360 million operating value plus a $40 million tax shield.",
+      "detail": "Under these permanent-debt assumptions, \\(PV(\\text{tax shield})=T_C D=0.25(160)=40\\) million dollars. Thus \\(V_L=V_U+T_C D=360+40=400\\) million. After the payout, equity is worth \\(E=400-160=240\\) million; debt and equity together are worth 400 million.",
+      "misconception": "The $160 million borrowed is not free wealth. It creates a debt claim and is paid out; the value gain here is the $40 million tax shield.",
+      "source": {
+        "file": "Lec20_Capital_Structure_Taxes.tex",
+        "section": "MM Proposition I with Taxes: Expanding the Pie",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — Chapter 16",
+        "lecture": 20,
+        "chapters": [
+          16
+        ],
+        "exercise": "Exercise_Lec20.tex · Question 2"
+      }
+    },
+    {
+      "id": "lec20-after-tax-wacc",
+      "type": "numerical",
+      "topic": "After-tax WACC",
+      "prompt": "What is the firm’s after-tax WACC?",
+      "context": "Market values are $200 million of equity and $200 million of debt. Equity requires 18%, debt requires 8%, and the corporate tax rate is 25%. Assume the interest deduction is fully usable. Enter a percentage.",
+      "answer": 12,
+      "unit": "%",
+      "absoluteTolerance": 0.01,
+      "relativeTolerance": 0,
+      "explanation": "12%: the weighted equity cost is 9%, and the weighted after-tax debt cost is 3%.",
+      "detail": "Both market-value weights are one-half. The after-tax debt cost is \\(8\\%(1-0.25)=6\\%\\). Therefore \\(\\mathrm{WACC}=0.5(18\\%)+0.5(6\\%)=12\\%\\). Apply this rate to unlevered free cash flow; adding the tax shield to that cash flow again would double-count the tax benefit.",
+      "misconception": "Apply the tax adjustment to debt, not equity. Use D/(D+E) for the debt weight, not D/E.",
+      "source": {
+        "file": "Lec20_Capital_Structure_Taxes.tex",
+        "section": "After-Tax WACC: Lowering the Hurdle Rate",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — Chapter 16",
+        "lecture": 20,
+        "chapters": [
+          16
+        ],
+        "exercise": "Exercise_Lec20.tex · Question 3"
+      }
+    },
+    {
+      "id": "lec20-buyback-price",
+      "type": "numerical",
+      "topic": "The announcement effect",
+      "prompt": "What is the share price immediately after the announcement, in dollars?",
+      "context": "An all-equity firm worth $480 million has 12 million shares. It unexpectedly announces a credible $120 million permanent-debt buyback. The tax rate is 20%; operations are unchanged, deductions are fully usable, tax-shield risk equals debt risk, and there are no other financing costs. Prices immediately reflect the plan, before any debt is issued or shares repurchased.",
+      "answer": 42,
+      "unit": "dollars",
+      "absoluteTolerance": 0.01,
+      "relativeTolerance": 0,
+      "explanation": "$42: the original $40 price rises by $2 per share as the $24 million tax shield is priced in.",
+      "detail": "The tax shield is \\(0.20(120)=24\\) million dollars. Before debt issuance or repurchase, all 12 million original shares share the gain: \\(P=(480+24)/12=42\\) dollars. Sellers and continuing shareholders both benefit when the later repurchase takes place at the fair post-announcement price.",
+      "misconception": "Use the original share count for the announcement gain. The debt proceeds themselves are not an additional $120 million of shareholder wealth.",
+      "source": {
+        "file": "Lec20_Capital_Structure_Taxes.tex",
+        "section": "Leveraged Recapitalization: Borrowing to Buy Back Stock",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — Chapter 16",
+        "lecture": 20,
+        "chapters": [
+          16
+        ],
+        "exercise": "Exercise_Lec20.tex · Question 4"
+      }
+    },
+    {
+      "id": "lec20-debt-limits",
+      "type": "multiple-choice",
+      "topic": "Where the tax-only model stops",
+      "prompt": "Why does the tax benefit not justify unlimited real-world borrowing?",
+      "context": "The tax-only MM model gives permanent debt a value benefit when interest deductions are fully usable.",
+      "options": [
+        {
+          "id": "costs",
+          "text": "Expected distress costs and unusable tax deductions can offset the benefit."
+        },
+        {
+          "id": "no-risk",
+          "text": "Debt eliminates the firm’s operating risk."
+        },
+        {
+          "id": "free-cash",
+          "text": "Each borrowed dollar is a free dollar of firm value."
+        },
+        {
+          "id": "tax-credit",
+          "text": "Interest always reduces taxes dollar for dollar."
+        }
+      ],
+      "answer": "costs",
+      "explanation": "Tax shields are only part of the decision. Distress costs and limited taxable income can reduce the net benefit.",
+      "detail": "The formula \\(V_L=V_U+T_C D\\) assumes usable interest deductions and no offsetting financing costs. More debt can make costly distress more likely, while a firm without enough taxable income may not use deductions when expected. These departures can make additional borrowing unattractive.",
+      "misconception": "A model’s prediction is conditional on its assumptions. The tax-only benchmark does not establish an unlimited borrowing policy for actual firms.",
+      "source": {
+        "file": "Lec20_Capital_Structure_Taxes.tex",
+        "section": "The Extreme Implication: 100% Debt Financing?",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — Chapter 16",
+        "lecture": 20,
+        "chapters": [
+          16
+        ],
+        "exercise": "Exercise_Lec20.tex · Question 4(c)"
+      }
+    }
+  ]
+}

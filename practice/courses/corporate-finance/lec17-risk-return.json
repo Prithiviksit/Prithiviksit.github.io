@@ -29,7 +29,11 @@
         "file": "Lec17_Risk_and_Return_core.tex",
         "section": "Two Types of Risk: Systematic vs. Idiosyncratic",
         "kind": "original-application",
-        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.4, Risk: Systematic and Unsystematic"
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.4, Risk: Systematic and Unsystematic",
+        "lecture": 17,
+        "chapters": [
+          13
+        ]
       }
     },
     {
@@ -64,7 +68,11 @@
         "file": "Lec17_Risk_and_Return_core.tex",
         "section": "The Intuition: Earthquake vs. Bike Theft Insurance",
         "kind": "original-application",
-        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.5, Diversification and Portfolio Risk"
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.5, Diversification and Portfolio Risk",
+        "lecture": 17,
+        "chapters": [
+          13
+        ]
       }
     },
     {
@@ -80,7 +88,11 @@
         "file": "Lec17_Risk_and_Return_core.tex",
         "section": "Three Common Fallacies",
         "kind": "original-application",
-        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.6, Systematic Risk and Beta — The Systematic Risk Principle"
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.6, Systematic Risk and Beta — The Systematic Risk Principle",
+        "lecture": 17,
+        "chapters": [
+          13
+        ]
       }
     },
     {
@@ -114,7 +126,11 @@
         "file": "Lec17_Risk_and_Return_core.tex",
         "section": "Three Common Fallacies",
         "kind": "original-application",
-        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.5, Diversification and Portfolio Risk"
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.5, Diversification and Portfolio Risk",
+        "lecture": 17,
+        "chapters": [
+          13
+        ]
       }
     },
     {
@@ -148,7 +164,11 @@
         "file": "Lec17_Risk_and_Return_core.tex",
         "section": "Three Common Fallacies",
         "kind": "original-application",
-        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.5, Diversification and Portfolio Risk"
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.5, Diversification and Portfolio Risk",
+        "lecture": 17,
+        "chapters": [
+          13
+        ]
       }
     }
   ]

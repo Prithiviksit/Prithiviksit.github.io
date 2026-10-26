@@ -2,7 +2,7 @@
   "id": "corporate-finance",
   "title": "Corporate Finance",
   "topic": "Exam prep & lecture practice",
-  "description": "Three exam-prep sets, then four lecture topics. Five questions at a time.",
+  "description": "Three exam-prep sets, then six lecture topics. Five questions at a time.",
   "units": [
     {
       "id": "exam-prep",
@@ -254,6 +254,82 @@
         }
       ],
       "kind": "lecture"
+    },
+    {
+      "id": "lecture-19",
+      "kind": "lecture",
+      "title": "Lecture 19 · Capital structure & leverage",
+      "description": "MM, the cost of equity, and what borrowing changes.",
+      "lessons": [
+        {
+          "id": "lec19-capital-structure",
+          "title": "Capital structure & leverage",
+          "description": "MM, the cost of equity, and what borrowing changes.",
+          "minutes": 5,
+          "icon": "layers",
+          "file": "lec19-capital-structure.json",
+          "questions": [
+            {
+              "id": "lec19-mm-value",
+              "topic": "MM Proposition I"
+            },
+            {
+              "id": "lec19-equity-return",
+              "topic": "MM Proposition II"
+            },
+            {
+              "id": "lec19-wacc",
+              "topic": "WACC without taxes"
+            },
+            {
+              "id": "lec19-unlever-beta",
+              "topic": "Removing financial leverage"
+            },
+            {
+              "id": "lec19-eps-value",
+              "topic": "The EPS fallacy"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lecture-20",
+      "kind": "lecture",
+      "title": "Lecture 20 · Debt, taxes & firm value",
+      "description": "Interest tax shields, WACC, and debt-funded buybacks.",
+      "lessons": [
+        {
+          "id": "lec20-debt-taxes",
+          "title": "Debt, taxes & firm value",
+          "description": "Interest tax shields, WACC, and debt-funded buybacks.",
+          "minutes": 5,
+          "icon": "bolt",
+          "file": "lec20-debt-taxes.json",
+          "questions": [
+            {
+              "id": "lec20-annual-shield",
+              "topic": "Annual interest tax shield"
+            },
+            {
+              "id": "lec20-levered-value",
+              "topic": "MM Proposition I with taxes"
+            },
+            {
+              "id": "lec20-after-tax-wacc",
+              "topic": "After-tax WACC"
+            },
+            {
+              "id": "lec20-buyback-price",
+              "topic": "The announcement effect"
+            },
+            {
+              "id": "lec20-debt-limits",
+              "topic": "Where the tax-only model stops"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -1,12 +1,12 @@
 # Source and verification record
 
-The app is published at `https://xiaobo-yu.com/practice/`. This record includes the exam-prep expansion.
+The app is published at `https://xiaobo-yu.com/practice/`. This record includes the exam-prep expansion and Lectures 19–20.
 
 ## Teaching sources
 
-The curriculum begins with three exam-prep sets of five questions, followed by one five-question topic for each of Lectures 15–18. Exam prep is mapped to Homework 3 and Mock Quizzes 2A/2B in [exam-prep.md](exam-prep.md). The remaining source notes below describe the lecture section. The `Lec*_core.tex` decks determine the core coverage; the full `Lec*.tex` decks and associated sections of Ross, Westerfield & Jordan, _Fundamentals of Corporate Finance_, 13th edition (`textbook.pdf`) were checked. No `Module` deck contributes to this question set. Slides and textbook pages are not redistributed.
+The curriculum begins with three exam-prep sets of five questions, followed by one five-question topic for each of Lectures 15–20. Exam prep is mapped to Homework 3 and Mock Quizzes 2A/2B in [exam-prep.md](exam-prep.md). The remaining source notes below describe the lecture section. The `Lec*_core.tex` decks determine coverage where available; Lecture 20 uses the core financing concepts in its full `Lec20` deck and its corresponding exercise sheet. the full `Lec*.tex` decks and associated sections of Ross, Westerfield & Jordan, _Fundamentals of Corporate Finance_, 13th edition (`textbook.pdf`) were checked. No `Module` deck contributes to this question set. Slides and textbook pages are not redistributed.
 
-Each exercise is newly written and labeled `original-application`. Lecture-question sources name the exact core deck and frame; exam-prep sources name the practice sheet and question number. Textbook references name the associated section where relevant. Prediction-market replication and the detailed trading/arbitrage examples are lecture-specific extensions, not falsely attributed to the textbook.
+Each exercise is newly written and labeled `original-application`. Authoring records retain the lecture deck/frame or practice sheet/question. Student-facing Related reading shows only the lecture number and textbook chapter(s) for every question, including exam prep. Textbook references name the associated section where relevant. Prediction-market replication and the detailed trading/arbitrage examples are lecture-specific extensions, not falsely attributed to the textbook.
 
 | Lecture                    | Core frames used                                                                                                                                        | Associated textbook reading                                                                                 |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
@@ -29,10 +29,13 @@ dbe930b01a5593aad0483bc22f91cd0e6a967ea7d40b6649b0d0660d4426fe5b  Lec16_Market_E
 a5813ce416957a7e8b09422f1cb0376d021c5ca9e416294a43115a0fc244b1f8  textbook.pdf
 ```
 
-The instructor workspace has existing edits in the full Lectures 16 and 18. All source decks were read only; those edits are preserved.
+The current update reads the edited Lecture 19 full/core decks and Lecture 20 deck without changing them. All instructor source files remain untouched.
+
+The new topics, exercise links, assumptions, and source checksums appear in [Lectures 19–20](lectures-19-20.md).
 
 ## Content choices
 
+- Adding Lectures 19–20 preserves completed exam-prep records and unfinished lecture drafts exactly; the new topics are independently accessible. All 35 prior prompts, answers, and IDs are unchanged.
 - Adding exam prep preserves all lecture IDs, completed scores, XP, submitted answers, and unfinished sessions; a regression test compares the saved record before and after reconciling the expanded course.
 - Exam prep includes ten multiple-choice concept checks and five numerical questions, all with integer answers and independently checked formulas. The visible scope notice distinguishes broader lecture practice from exam preparation.
 - Five focused questions per lesson target approximately 3–5 minutes, including short feedback. The optional detailed explanations may take longer.
@@ -45,15 +48,15 @@ The instructor workspace has existing edits in the full Lectures 16 and 18. All 
 
 ## Checks performed
 
-`npm test`: 18 tests pass, covering every authored answer, incorrect answers, numerical parsing and tolerance boundaries, permutations, heart deductions, review scheduling, duplicate-submission protection, combos, best scores, reset isolation, invalid content, v1 migration, multiple saved attempts, immutable answer events, adapter boundaries, failed writes, on-demand content loading, platform icon/manifest validity, and PWA resource integrity.
+`npm test`: 19 tests pass, covering every authored answer, incorrect answers, numerical parsing and tolerance boundaries, permutations, heart deductions, review scheduling, duplicate-submission protection, combos, best scores, reset isolation, invalid content, v1 migration, multiple saved attempts, immutable answer events, adapter boundaries, failed writes, on-demand content loading, platform icon/manifest validity, and PWA resource integrity.
 
-`npm run validate`: the manifest and all seven lesson files pass JSON Schema and semantic validation; 35 unique questions cover all five types.
+`npm run validate`: the manifest and all nine lesson files pass JSON Schema and semantic validation; 45 unique questions cover all five types.
 
-`python3 tests/verify_math.py`: independently verifies all ten numerical question answers, compound versus arithmetic returns, arbitrage profit, both payoff-replication states, CAPM premiums, and project hurdle comparisons.
+`python3 tests/verify_math.py`: independently verifies all seventeen numerical question answers, compound versus arithmetic returns, arbitrage profit, both payoff-replication states, CAPM premiums, and project hurdle comparisons.
 
-`npm run test:browser`: passes in headless Microsoft Edge on macOS. The suite completes the whole course using UI controls and checks:
+`npm run test:browser`: passes in Playwright Chromium on macOS. The suite completes the whole course using UI controls and checks:
 
-- Correct and incorrect feedback, explanations, and local KaTeX rendering.
+- Correct and incorrect feedback, explanations, and local KaTeX rendering. Related reading labels use only lecture and chapter numbers, with no filenames or section-title boilerplate.
 - Randomized choices retaining order across reload; unsubmitted choices and numerical drafts resuming after exit, reload, or closing and reopening a tab.
 - Exact cumulative XP, combo bonuses, hearts, zero-heart practice, first-pass scores, and independent lesson access.
 - Five-question lessons without mandatory repetitions, persistent optional review, correct answers clearing the queue, and review not changing lesson best scores.
@@ -66,16 +69,16 @@ The instructor workspace has existing edits in the full Lectures 16 and 18. All 
 - Changes from another open tab refresh once; resuming does not create a save/reload loop.
 - v1 browser storage migrates without losing XP, scores, or the unfinished draft. Replacing the prior curriculum preserves historical records, archives retired attempts, avoids inflated current mastery/completion counts, and remains stable after reload.
 - A paused review remains resumable after its last correct answer clears the review queue.
-- Cold homepage requests contain no lesson question files or KaTeX. The local test measured approximately 269 KB of uncompressed response bodies including service-worker shell and icon caching; deployment compression and headers can change transfer size.
+- Cold homepage requests contain no lesson question files or KaTeX. The local test measured approximately 272 KB of uncompressed response bodies including service-worker shell and icon caching; deployment compression and headers can change transfer size.
 - Checking and continuing an answer issue zero network requests in the tested flow. All observed application requests are same-origin GETs.
 - Previously opened lessons resume and accept answers after an offline reload. Attempting an unvisited lesson offline shows a retry message, preserves other attempts, and succeeds after reconnection.
 - A separate smoke check at `/site/practice/` verifies nested base paths, JSON fetching, and KaTeX assets.
 - PWA manifest/installability validation in a normal Chromium profile; full-course offline download, failed update recovery, waiting/activation handoff, exact progress preservation, and isolation of other apps’ caches.
-- iPhone WebKit checks for install guidance, full offline download, saved feedback/XP, and offline math. The generated native web bundle runs the same quiz and disables worker registration/install controls.
-- A targeted Android Chromium and narrow iPhone WebKit check completes all 15 exam-prep questions offline, opens every explanation, and verifies exact saved progress after reloading each submitted answer. All three prep sets complete with 100% scores, without math errors or horizontal overflow.
+- Earlier-release iPhone WebKit checks covered install guidance, full offline download, saved feedback/XP, and offline math; see the current-run limitation below. The generated native web bundle runs the same quiz and disables worker registration/install controls.
+- The exam-prep release included a targeted Android Chromium and narrow iPhone WebKit pass for all 15 prep questions. The current expansion additionally completes Lectures 19–20 offline in Chromium, checks every new explanation and reading label, and preserves exact saved answers after reload.
 - axe-core WCAG A/AA checks on the desktop path and mobile path, question, feedback, explanation, and matching screens, with no detected violations.
 
-The recorded screenshots were visually inspected. Automated accessibility checks are not a full accessibility audit. Physical iOS/Android installation, the Safari application, and Firefox were not tested. The PWA suite also exercises Playwright WebKit with an iPhone viewport; see [PWA verification](pwa-and-packaging.md#verification). Student completion times and learning outcomes have not been measured.
+The recorded screenshots were visually inspected. Automated accessibility checks are not a full accessibility audit. Physical iOS/Android installation, the Safari application, and Firefox were not tested. Earlier releases exercised Playwright WebKit with an iPhone viewport. For this Lectures 19–20 update, WebKit stalled before opening a page; a bounded startup diagnostic timed out, so no new iPhone-engine pass is claimed. Chromium verified phone layouts, both new lessons offline, and exact progress after each answer reload. See [PWA verification](pwa-and-packaging.md#verification). Student completion times and learning outcomes have not been measured.
 
 ## Publication boundary
 
