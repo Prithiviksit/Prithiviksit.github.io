@@ -30,14 +30,14 @@ for (const [file, values] of [
 validateCourse(course, lessons);
 export const prepLessons = lessons.filter((l) => l.id.startsWith("exam-prep-"));
 export const lectureLessons = lessons.filter((l) => l.id.startsWith("lec"));
-assert.equal(course.units.length, 5);
+assert.equal(course.units.length, 7);
 assert.equal(course.units[0].kind, "exam-prep", "Exam prep precedes lectures");
 assert.equal(course.units[0].lessons.length, 3);
 assert.match(
   course.units[0].notice,
   /Not every lecture question or topic will be on the exam/,
 );
-assert.equal(lectureLessons.length, 4, "Preserve four lecture topics");
+assert.equal(lectureLessons.length, 6, "Lectures 15 through 20");
 for (const lesson of lessons) {
   assert.equal(lesson.questions.length, 5);
   assert.ok(lesson.minutes >= 3 && lesson.minutes <= 5);
@@ -45,6 +45,12 @@ for (const lesson of lessons) {
 for (const [i, lesson] of lectureLessons.entries()) {
   for (const q of lesson.questions) {
     assert.ok(q.id.startsWith(`lec${15 + i}-`), q.id);
+    assert.equal(q.source.lecture, 15 + i);
+    if (i >= 4) {
+      assert.deepEqual(q.source.chapters, [16]);
+      assert.ok(q.source.exercise);
+      if (q.type === "numerical") assert.ok(Number.isInteger(q.answer));
+    }
     assert.ok(q.source.file.startsWith(`Lec${15 + i}_`), q.source.file);
     assert.ok(
       !/module/i.test(JSON.stringify(q.source)),

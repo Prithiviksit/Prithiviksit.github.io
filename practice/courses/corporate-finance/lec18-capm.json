@@ -22,7 +22,12 @@
         "file": "Lec18_CAPM_Cost_of_Capital_core.tex",
         "section": "Beta and CAPM",
         "kind": "original-application",
-        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.7, The Security Market Line; §14.2, The Cost of Equity"
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.7, The Security Market Line; §14.2, The Cost of Equity",
+        "lecture": 18,
+        "chapters": [
+          13,
+          14
+        ]
       }
     },
     {
@@ -42,7 +47,11 @@
         "file": "Lec18_CAPM_Cost_of_Capital_core.tex",
         "section": "Alpha: Return Relative to the CAPM Benchmark",
         "kind": "original-application",
-        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.7, The Security Market Line"
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.7, The Security Market Line",
+        "lecture": 18,
+        "chapters": [
+          13
+        ]
       }
     },
     {
@@ -79,7 +88,11 @@
         "file": "Lec18_CAPM_Cost_of_Capital_core.tex",
         "section": "Beta and CAPM",
         "kind": "original-application",
-        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.6, Systematic Risk and Beta"
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §13.6, Systematic Risk and Beta",
+        "lecture": 18,
+        "chapters": [
+          13
+        ]
       }
     },
     {
@@ -112,7 +125,12 @@
       "source": {
         "file": "Lec18_CAPM_Cost_of_Capital_core.tex",
         "section": "What Drives Beta?",
-        "kind": "original-application"
+        "kind": "original-application",
+        "lecture": 18,
+        "chapters": [
+          13,
+          16
+        ]
       }
     },
     {
@@ -147,7 +165,11 @@
         "file": "Lec18_CAPM_Cost_of_Capital_core.tex",
         "section": "The Divisional Hurdle Rate Trap",
         "kind": "original-application",
-        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §14.5, Divisional and Project Costs of Capital"
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §14.5, Divisional and Project Costs of Capital",
+        "lecture": 18,
+        "chapters": [
+          14
+        ]
       }
     }
   ]

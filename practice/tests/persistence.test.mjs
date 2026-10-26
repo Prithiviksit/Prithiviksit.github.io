@@ -249,3 +249,25 @@ test("adding exam prep preserves completed lectures and unfinished attempts exac
     assert.deepEqual(p[key], before[key]);
   assert.ok(prepLessons.every((l) => !p.lessons[l.id]));
 });
+
+
+test("adding lectures 19 and 20 preserves exam prep and an unfinished lecture", () => {
+  const p = emptyProgress();
+  activateSession(p, prepLessons[0], prepLessons[0].questions);
+  p.active.cards[0].draft = prepLessons[0].questions[0].answer;
+  submit(p, prepLessons[0].questions[0]);
+  finish(p);
+  activateSession(p, lessons[3], lessons[3].questions);
+  p.active.cards[0].draft = "15";
+  submit(p, lessons[3].questions[0]);
+  p.active.index = 1;
+  p.active.cards[1].draft = "2";
+  const before = structuredClone(p);
+  assert.equal(reconcileContent(p, allLessons), false);
+  assert.deepEqual(p, before);
+  activateSession(p, lessons[4], lessons[4].questions);
+  assert.deepEqual(p.paused["lesson:lec18-capm"], before.active);
+  for (const key of ["xp", "lessons", "history", "completedSessions", "questions"])
+    assert.deepEqual(p[key], before[key]);
+  assert.ok(lessons.slice(4).every((l) => !p.lessons[l.id]));
+});

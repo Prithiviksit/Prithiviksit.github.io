@@ -35,7 +35,11 @@
       "source": {
         "file": "mock_quiz_a_core.tex",
         "section": "Mock Quiz 2A · Question 3",
-        "kind": "original-application"
+        "kind": "original-application",
+        "lecture": 16,
+        "chapters": [
+          12
+        ]
       }
     },
     {
@@ -68,7 +72,11 @@
       "source": {
         "file": "mock_quiz_a_core.tex",
         "section": "Mock Quiz 2A · Question 4",
-        "kind": "original-application"
+        "kind": "original-application",
+        "lecture": 16,
+        "chapters": [
+          12
+        ]
       }
     },
     {
@@ -101,7 +109,11 @@
       "source": {
         "file": "mock_quiz_a_core.tex",
         "section": "Mock Quiz 2A · Question 7",
-        "kind": "original-application"
+        "kind": "original-application",
+        "lecture": 18,
+        "chapters": [
+          13
+        ]
       }
     },
     {
@@ -134,7 +146,11 @@
       "source": {
         "file": "mock_quiz_a_core.tex",
         "section": "Mock Quiz 2A · Question 9",
-        "kind": "original-application"
+        "kind": "original-application",
+        "lecture": 19,
+        "chapters": [
+          16
+        ]
       },
       "context": "Assume perfect capital markets without taxes, and hold the firm’s investment policy and operating cash flows fixed."
     },
@@ -154,7 +170,11 @@
       "source": {
         "file": "mock_quiz_a_core.tex",
         "section": "Mock Quiz 2A · Question 13",
-        "kind": "original-application"
+        "kind": "original-application",
+        "lecture": 19,
+        "chapters": [
+          16
+        ]
       }
     }
   ]

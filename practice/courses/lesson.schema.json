@@ -88,7 +88,13 @@
         },
         "source": {
           "type": "object",
-          "required": ["file", "section", "kind"],
+          "required": [
+            "file",
+            "section",
+            "kind",
+            "lecture",
+            "chapters"
+          ],
           "additionalProperties": false,
           "properties": {
             "file": {
@@ -100,9 +106,29 @@
               "minLength": 1
             },
             "kind": {
-              "enum": ["adapted", "original-application"]
+              "enum": [
+                "adapted",
+                "original-application"
+              ]
             },
             "textbook": {
+              "type": "string",
+              "minLength": 1
+            },
+            "lecture": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "chapters": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "exercise": {
               "type": "string",
               "minLength": 1
             }

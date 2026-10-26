@@ -192,6 +192,10 @@ try {
       assert.ok(
         (await page.locator("#dialog").textContent()).includes(q.misconception),
       );
+      await page.locator(".source-note summary").click();
+      const reading = await page.locator(".source-note p").textContent();
+      assert.equal(reading, `Lecture ${q.source.lecture} · ${q.source.chapters.length === 1 ? "Chapter" : "Chapters"} ${q.source.chapters.join(", ")}`);
+      assert.doesNotMatch(await page.locator("#dialog").textContent(), /\.(tex|pdf)|Ross,|original practice application/i);
       await page.keyboard.press("Escape");
       await action(page, "continue").click();
     }
@@ -199,13 +203,13 @@ try {
     await action(page, "nav").click();
   }
   assert.equal((await state(page)).xp, 52 + (lessons.length - 1) * 68);
-  assert.equal((await state(page)).history.length, 35);
-  assert.equal(Object.keys((await state(page)).lessons).length, 7);
+  assert.equal((await state(page)).history.length, questionMap.size);
+  assert.equal(Object.keys((await state(page)).lessons).length, lessons.length);
   await page.reload();
   await page.locator(".hero").waitFor();
   assert.equal((await state(page)).xp, 52 + (lessons.length - 1) * 68);
   await page.locator('.sidebar [data-view="progress"]').click();
-  assert.equal(await page.locator(".record").count(), 7);
+  assert.equal(await page.locator(".record").count(), lessons.length);
   await action(page, "settings").click();
   await action(page, "reset-step").click();
   await page.keyboard.press("Escape");

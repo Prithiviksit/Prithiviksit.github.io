@@ -34,7 +34,11 @@
         "file": "Lec16_Market_Efficiency_core.tex",
         "section": "The 3 Forms of Market Efficiency",
         "kind": "original-application",
-        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §12.6, Capital Market Efficiency"
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §12.6, Capital Market Efficiency",
+        "lecture": 16,
+        "chapters": [
+          12
+        ]
       }
     },
     {
@@ -61,14 +65,23 @@
           "text": "Repay $0.85 and keep the remaining $0.15."
         }
       ],
-      "answer": ["borrow", "buy", "redeem", "repay"],
+      "answer": [
+        "borrow",
+        "buy",
+        "redeem",
+        "repay"
+      ],
       "explanation": "Borrow $0.85, buy the token, redeem it for $1, then repay $0.85 and keep $0.15.",
       "detail": "Under the stated assumptions, redemption fixes the payoff before the trade begins. Borrowing finances the purchase, and immediate redemption provides enough cash to repay the loan and retain $0.15. Buying pressure tends to push the token price toward its $1 redemption value. This conclusion depends on certain redemption, executable prices, and access to funding.",
       "misconception": "Buying an apparently cheap stock and hoping its price recovers is risky. Here the redemption mechanism locks in the proceeds.",
       "source": {
         "file": "Lec16_Market_Efficiency_core.tex",
         "section": "Arbitrage: One Smart Guy vs. the Meme Crowd",
-        "kind": "original-application"
+        "kind": "original-application",
+        "lecture": 16,
+        "chapters": [
+          12
+        ]
       }
     },
     {
@@ -84,7 +97,11 @@
         "file": "Lec16_Market_Efficiency_core.tex",
         "section": "Why Efficiency Has Limits",
         "kind": "original-application",
-        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §12.6, Capital Market Efficiency — what efficiency does and does not imply"
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §12.6, Capital Market Efficiency — what efficiency does and does not imply",
+        "lecture": 16,
+        "chapters": [
+          12
+        ]
       }
     },
     {
@@ -103,7 +120,11 @@
       "source": {
         "file": "Lec16_Market_Efficiency_core.tex",
         "section": "Prediction Markets: Price by Matching Payoffs",
-        "kind": "original-application"
+        "kind": "original-application",
+        "lecture": 16,
+        "chapters": [
+          12
+        ]
       }
     },
     {
@@ -122,7 +143,11 @@
       "source": {
         "file": "Lec16_Market_Efficiency_core.tex",
         "section": "Prediction Markets: Price by Matching Payoffs",
-        "kind": "original-application"
+        "kind": "original-application",
+        "lecture": 16,
+        "chapters": [
+          12
+        ]
       }
     }
   ]

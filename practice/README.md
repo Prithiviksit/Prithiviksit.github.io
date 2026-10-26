@@ -1,6 +1,6 @@
 # Finpath — Corporate Finance Practice
 
-An installable, static, mobile-friendly Corporate Finance practice app with three exam-prep sets followed by Lectures 15–18: seven short lessons, 35 source-grounded questions, and a reusable exercise engine. It lives entirely under `/practice/` and does not change the academic website’s navigation, theme, or deployment configuration.
+An installable, static, mobile-friendly Corporate Finance practice app with three exam-prep sets followed by Lectures 15–20: nine short lessons, 45 source-grounded questions, and a reusable exercise engine. It lives entirely under `/practice/` and does not change the academic website’s navigation, theme, or deployment configuration.
 
 ## Preview
 
@@ -24,11 +24,11 @@ GitHub Pages can serve this directory unchanged. All application resources use r
 
 Three five-question sets appear before the lecture path. They use only multiple choice and numerical input, with five whole-number calculation answers using the same formulas as Homework 3 and Mock Quizzes 2A/2B. The three sets collectively cover the ten concept checks and five calculation formulas in those practice materials. See [the question/source map](docs/exam-prep.md).
 
-The visible scope notice explains that the lecture practice covers a broader range: not every lecture question or topic will be on the exam. Exam prep is voluntary, open from the start, and saved independently using the existing progress store. All existing lecture IDs and questions remain unchanged.
+The visible scope notice explains that the lecture practice covers a broader range: not every lecture question or topic will be on the exam. Exam prep is voluntary, open from the start, and saved independently using the existing progress store. Existing question IDs, prompts, and answers remain unchanged when updating reading labels.
 
 ## Lecture topics
 
-Each topic has five questions, selected from its `Lec` core deck and checked against the full lecture and associated textbook sections. No `Module` slide content is used.
+Each topic has five questions selected from its `Lec` core material and associated textbook sections. Lectures 19–20 also follow their corresponding exercise sheets; Lecture 20 uses the core concepts in the full `Lec20` deck because no separate core deck exists. No `Module` slide content is used.
 
 | Lecture | Topic                  | Five question focuses                                                                                            |
 | ------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------- |
@@ -36,17 +36,21 @@ Each topic has five questions, selected from its `Lec` core deck and checked aga
 | 16      | Market efficiency      | Efficiency forms; arbitrage sequence; limits to arbitrage; YES/NO pricing; payoff replication                    |
 | 17      | Risk & diversification | Risk types; independent versus correlated losses; priced risk; industry concentration; corporate diversification |
 | 18      | CAPM & cost of equity  | CAPM return; alpha; beta interpretation; beta drivers; project hurdle rates                                      |
+| 19      | Capital structure & leverage | MM I / homemade leverage; MM II; no-tax WACC; delevering beta; the EPS fallacy |
+| 20      | Debt, taxes & firm value | Annual tax shield; levered value; after-tax WACC; buyback announcement price; limits to debt |
+
+See [Lectures 19–20 sources and answer map](docs/lectures-19-20.md).
 
 ## Learning behavior
 
-- Seven lessons, five questions each, targeting approximately 3–5 minutes per lesson. Timing is an estimate, not a measured student outcome.
+- Nine lessons, five questions each, targeting approximately 3–5 minutes per lesson. Timing is an estimate, not a measured student outcome.
 - Multiple choice, true/false, matching, sequence, and numerical questions. Choices and matching definitions are shuffled once per question visit and retain their order on reload.
 - A correct first-pass answer earns 10 XP. Review answers earn 5 XP. Consecutive correct answers add 2, 4, then at most 6 bonus XP. Errors break the combo. Repeated practice can earn more XP.
 - Incorrect submissions cost one heart, reveal the answer, and enter the review queue. Lessons stay at five questions. Review is optional and separate; review sessions contain up to five questions.
 - Five hearts reset for each session. At zero, practice continues with no further penalty. Earned XP and completed lessons are retained.
 - Every lesson is open from the beginning. Students can skip ahead, revisit completed lessons, or switch between unfinished attempts. The upward-trending path includes dips and suggests a journey without enforcing prerequisites. Coin icons represent XP. Best scores measure accuracy on each five-question attempt; review sessions do not change lesson scores.
 - “Practiced correctly” counts distinct questions answered correctly at least once. It is an activity indicator, not a claim of permanent mastery. Full marks means a 100% best first-pass score.
-- “Why?” opens prewritten intuition, a common misconception, and the relevant source section. No generated tutoring or external calls occur.
+- “Why?” opens prewritten intuition, a common misconception, and only the lecture number and textbook chapter(s) under Related reading. No generated tutoring or external calls occur.
 
 ## Persistence and controls
 

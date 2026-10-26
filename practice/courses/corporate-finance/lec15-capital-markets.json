@@ -22,7 +22,11 @@
         "file": "Lec15_Capital_Markets_Intro_core.tex",
         "section": "Return and Risk Measurement",
         "kind": "original-application",
-        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §12.5, More about Average Returns"
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §12.5, More about Average Returns",
+        "lecture": 15,
+        "chapters": [
+          12
+        ]
       }
     },
     {
@@ -55,7 +59,11 @@
       "source": {
         "file": "Lec15_Capital_Markets_Intro_core.tex",
         "section": "Equity Markets: Where and How Stocks Trade",
-        "kind": "original-application"
+        "kind": "original-application",
+        "lecture": 15,
+        "chapters": [
+          8
+        ]
       }
     },
     {
@@ -91,7 +99,13 @@
       "source": {
         "file": "Lec15_Capital_Markets_Intro_core.tex",
         "section": "Multiplitude of Financial Markets",
-        "kind": "original-application"
+        "kind": "original-application",
+        "lecture": 15,
+        "chapters": [
+          7,
+          8,
+          23
+        ]
       }
     },
     {
@@ -125,7 +139,11 @@
         "file": "Lec15_Capital_Markets_Intro_core.tex",
         "section": "Equity Markets: Where and How Stocks Trade",
         "kind": "original-application",
-        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §8.3, The Stock Markets — Dealers and Brokers"
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §8.3, The Stock Markets — Dealers and Brokers",
+        "lecture": 15,
+        "chapters": [
+          8
+        ]
       }
     },
     {
@@ -141,7 +159,11 @@
         "file": "Lec15_Capital_Markets_Intro_core.tex",
         "section": "Return and Risk Measurement",
         "kind": "original-application",
-        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §12.4, The Variability of Returns: The Second Lesson"
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — §12.4, The Variability of Returns: The Second Lesson",
+        "lecture": 15,
+        "chapters": [
+          12
+        ]
       }
     }
   ]

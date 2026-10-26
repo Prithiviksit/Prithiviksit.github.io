@@ -1,0 +1,164 @@
+{
+  "id": "lec19-capital-structure",
+  "title": "Capital structure & leverage",
+  "description": "MM, the cost of equity, and what borrowing changes.",
+  "minutes": 5,
+  "icon": "layers",
+  "questions": [
+    {
+      "id": "lec19-mm-value",
+      "type": "multiple-choice",
+      "topic": "MM Proposition I",
+      "prompt": "Why must the two firms have the same total value?",
+      "context": "Two firms have identical operating assets and cash flows in every state. Only their debt–equity mix differs. Assume perfect capital markets: no taxes, distress or transaction costs, equal borrowing terms, and fixed investment policy.",
+      "options": [
+        {
+          "id": "replicate",
+          "text": "Investors can replicate or undo leverage themselves."
+        },
+        {
+          "id": "cheap-debt",
+          "text": "Debt is cheaper, so borrowing must create value."
+        },
+        {
+          "id": "safe-equity",
+          "text": "Shareholders face the same risk at every debt level."
+        },
+        {
+          "id": "higher-income",
+          "text": "Borrowing automatically increases operating cash flows."
+        }
+      ],
+      "answer": "replicate",
+      "explanation": "Financing divides the same operating cash flows. Homemade leverage makes equivalent claims have equal value.",
+      "detail": "An investor can borrow personally to lever an unlevered equity investment. To undo corporate leverage, the investor can hold the same fraction of the firm’s debt and equity. Together those claims reproduce the unlevered cash flows. Under the stated assumptions, the law of one price gives \\(V_L=D+E=V_U\\).",
+      "misconception": "Debt and equity are pieces of the same firm. A cheaper required return on debt does not make the operating assets more valuable.",
+      "source": {
+        "file": "Lec19_Capital_Structure_Intro_core.tex",
+        "section": "MM Assumptions: Perfect Capital Markets; MM Proposition I: Financing Does Not Create Value",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — Chapter 16",
+        "lecture": 19,
+        "chapters": [
+          16
+        ],
+        "exercise": "Exercise_Lec19.tex · Question 4"
+      }
+    },
+    {
+      "id": "lec19-equity-return",
+      "type": "numerical",
+      "topic": "MM Proposition II",
+      "prompt": "What required return on equity does MM imply?",
+      "context": "Assume perfect capital markets without taxes and unchanged operating assets. The unlevered cost of capital is 12%, the cost of debt is 4%, and the market-value debt-to-equity ratio D/E is 1. Enter a percentage.",
+      "answer": 20,
+      "unit": "%",
+      "absoluteTolerance": 0.01,
+      "relativeTolerance": 0,
+      "explanation": "20%: 12% plus one times the 8-percentage-point spread between the asset return and debt return.",
+      "detail": "Without taxes, \\(r_E=r_U+(D/E)(r_U-r_D)\\). Substituting gives \\(12\\%+1(12\\%-4\\%)=20\\%\\). Debt holders have a prior claim, concentrating the unchanged operating risk in the remaining equity. Shareholders therefore require a higher return.",
+      "misconception": "D/E is debt divided by equity, not debt divided by total firm value. Here D/E = 1 means debt finances half the firm.",
+      "source": {
+        "file": "Lec19_Capital_Structure_Intro_core.tex",
+        "section": "MM Proposition II: Leverage Raises the Cost of Equity",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — Chapter 16",
+        "lecture": 19,
+        "chapters": [
+          16
+        ],
+        "exercise": "Exercise_Lec19.tex · Question 1"
+      }
+    },
+    {
+      "id": "lec19-wacc",
+      "type": "numerical",
+      "topic": "WACC without taxes",
+      "prompt": "What is the firm’s WACC?",
+      "context": "In the no-tax MM benchmark, market values are $50 million of debt and $100 million of equity. Debt requires 8% and equity requires 14%. Enter a percentage.",
+      "answer": 12,
+      "unit": "%",
+      "absoluteTolerance": 0.01,
+      "relativeTolerance": 0,
+      "explanation": "12%: equity has a two-thirds weight and debt has a one-third weight.",
+      "detail": "Total value is \\(50+100=150\\) million dollars. Use market-value weights: \\(\\mathrm{WACC}=(100/150)(14\\%)+(50/150)(8\\%)=12\\%\\). In the no-tax MM benchmark, this equals the unlevered cost of capital. More debt is offset by a higher required equity return.",
+      "misconception": "A debt-to-equity ratio of 0.5 does not mean a 50% debt weight. Debt is one-third of total value here.",
+      "source": {
+        "file": "Lec19_Capital_Structure_Intro_core.tex",
+        "section": "MM Proposition II: Leverage Raises the Cost of Equity",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — Chapter 16",
+        "lecture": 19,
+        "chapters": [
+          16
+        ],
+        "exercise": "Exercise_Lec19.tex · Question 2"
+      }
+    },
+    {
+      "id": "lec19-unlever-beta",
+      "type": "numerical",
+      "topic": "Removing financial leverage",
+      "prompt": "What is the unlevered asset beta?",
+      "context": "Assume the no-tax benchmark. Equity beta is 3, the market-value debt-to-equity ratio D/E is 2, and debt beta is zero. Enter the beta as a number.",
+      "answer": 1,
+      "unit": "beta",
+      "absoluteTolerance": 0.01,
+      "relativeTolerance": 0,
+      "explanation": "1. Dividing equity beta 3 by 1 + D/E = 3 removes financial leverage.",
+      "detail": "With zero debt beta and no taxes, \\(\\beta_U=\\beta_E/(1+D/E)=3/(1+2)=1\\). Debt finances two-thirds of total value, leaving one-third in equity. The asset beta is therefore \\((1/3)(3)+(2/3)(0)=1\\).",
+      "misconception": "Delevering removes financing risk from equity beta. It does not remove the operating assets’ systematic risk.",
+      "source": {
+        "file": "Lec19_Capital_Structure_Intro_core.tex",
+        "section": "Delevering Beta: From Equity Risk to Asset Risk",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — Chapter 16",
+        "lecture": 19,
+        "chapters": [
+          16
+        ],
+        "exercise": "Textbook Chapter 16 · Questions and Problems, Q23: Business and Financial Risk"
+      }
+    },
+    {
+      "id": "lec19-eps-value",
+      "type": "multiple-choice",
+      "topic": "The EPS fallacy",
+      "prompt": "Does higher EPS prove that the repurchase created shareholder wealth?",
+      "context": "In perfect capital markets without taxes, a firm borrows to repurchase shares at fair value. Its operating assets are unchanged, but earnings per share increase.",
+      "options": [
+        {
+          "id": "no-value",
+          "text": "No. Equity becomes riskier, and higher EPS alone does not create value."
+        },
+        {
+          "id": "always-value",
+          "text": "Yes. Any rise in EPS must raise the share price."
+        },
+        {
+          "id": "less-risk",
+          "text": "Yes. Borrowing makes the remaining shares safer."
+        },
+        {
+          "id": "new-operations",
+          "text": "Yes. Fewer shares automatically increase total operating earnings."
+        }
+      ],
+      "answer": "no-value",
+      "explanation": "No. A smaller share count can raise EPS while greater financial risk raises the required equity return.",
+      "detail": "EPS divides earnings after interest by the remaining shares. A buyback can reduce the denominator proportionately more than earnings fall. That accounting increase does not change operating cash flows. Under no-tax MM, a fair-price repurchase leaves shareholder wealth unchanged; a lower P/E can offset higher EPS.",
+      "misconception": "An increase in EPS or realized ROE is not, by itself, evidence of value creation. Leverage also magnifies equity’s exposure to operating outcomes.",
+      "source": {
+        "file": "Lec19_Capital_Structure_Intro_core.tex",
+        "section": "The EPS Fallacy: Higher EPS Does Not Mean More Value",
+        "kind": "original-application",
+        "textbook": "Ross, Westerfield & Jordan, Fundamentals of Corporate Finance, 13th ed. — Chapter 16",
+        "lecture": 19,
+        "chapters": [
+          16
+        ],
+        "exercise": "Exercise_Lec19.tex · Questions 3–4; textbook Chapter 16 · The Effect of Financial Leverage"
+      }
+    }
+  ]
+}
