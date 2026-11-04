@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 390" role="img" aria-labelledby="title desc">
+<title id="title">Equal volume does not ensure scissors congruence</title><desc id="desc">Cube: twelve right-angle edges give Dehn invariant zero. Regular tetrahedron: six edges with angle arccos one third give nonzero Dehn invariant.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8" fill="#63666a"/></marker></defs>
+<style>text{font-family:Arial,sans-serif;fill:#292b2e;text-anchor:middle;font-size:19px}.heading{font-size:22px;font-weight:600}.small{font-size:16px;fill:#63666a}.math{font-family:Georgia,serif;font-size:25px}.edge{fill:none;stroke:#292b2e;stroke-width:2.5;stroke-linejoin:round}.hidden{fill:none;stroke:#63666a;stroke-width:2;stroke-dasharray:6 5}.gold{fill:#dfc987;stroke:#292b2e;stroke-width:2}.blue{fill:#a9cbd5;stroke:#292b2e;stroke-width:2}.rose{fill:#dfb3a6;stroke:#292b2e;stroke-width:2}</style>
+<rect width="800" height="390" rx="16" fill="#f0ece2"/>
+
+<text x="200" y="40" class="heading">Cube</text><text x="600" y="40" class="heading">Regular tetrahedron</text>
+<polygon points="110,125 230,125 280,85 160,85" fill="#e8d7a7"/>
+<polygon points="230,125 280,85 280,205 230,245" fill="#bfa66b"/>
+<polygon points="110,125 230,125 230,245 110,245" fill="#dfc987"/>
+<path d="M110 125H230V245H110Z M110 125 160 85H280V205L230 245 M230 125 280 85" class="edge"/>
+<path d="M160 85V205H280 M160 205 110 245" class="hidden"/>
+<text x="170" y="270" class="small">edge a</text>
+<polygon points="600,75 490,240 640,260" fill="#a9cbd5"/>
+<polygon points="600,75 640,260 725,210" fill="#7da8b7"/>
+<path d="M600 75 490 240 640 260 725 210Z M600 75 640 260" class="edge"/>
+<path d="M490 240 725 210" class="hidden"/>
+<text x="555" y="275" class="small">edge b</text>
+<path d="M330 175H445" stroke="#63666a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M376 160 399 189 M399 160 376 189" stroke="#9d4c3c" stroke-width="4"/>
+<text x="200" y="317" class="math">D = 0</text><text x="600" y="317" class="math">D = 6b ⊗ [α] ≠ 0</text>
+<text x="400" y="365">Equal volume: a³ = b³ / (6√2)</text>
+
+</svg>

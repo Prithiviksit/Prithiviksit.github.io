@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 410" role="img" aria-labelledby="title desc">
+<title id="title">A triangle becomes a rectangle</title><desc id="desc">Three pieces: a lower trapezoid and two upper triangles. Rotate each small triangle by 180 degrees around its side midpoint to fill a rectangular corner.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8" fill="#63666a"/></marker></defs>
+<style>text{font-family:Arial,sans-serif;fill:#292b2e;text-anchor:middle;font-size:19px}.heading{font-size:22px;font-weight:600}.small{font-size:16px;fill:#63666a}.math{font-family:Georgia,serif;font-size:25px}.edge{fill:none;stroke:#292b2e;stroke-width:2.5;stroke-linejoin:round}.hidden{fill:none;stroke:#63666a;stroke-width:2;stroke-dasharray:6 5}.gold{fill:#dfc987;stroke:#292b2e;stroke-width:2}.blue{fill:#a9cbd5;stroke:#292b2e;stroke-width:2}.rose{fill:#dfb3a6;stroke:#292b2e;stroke-width:2}</style>
+<rect width="800" height="410" rx="16" fill="#f0ece2"/>
+
+<text x="200" y="40" class="heading">1. Cut into three pieces</text>
+<text x="600" y="40" class="heading">2. Rotate the two top pieces</text>
+<polygon points="60,285 340,285 270,185 130,185" class="gold"/>
+<polygon points="130,185 200,85 200,185" class="blue"/>
+<polygon points="200,85 270,185 200,185" class="rose"/>
+<path d="M130 185H270 M200 85V185" stroke="#292b2e" stroke-width="3" stroke-dasharray="6 5"/>
+<text x="200" y="250">A</text><text x="177" y="166">B</text><text x="224" y="166">C</text>
+<circle cx="130" cy="185" r="5" fill="#292b2e"/><circle cx="270" cy="185" r="5" fill="#292b2e"/>
+<path d="M365 215H430" stroke="#63666a" stroke-width="2" marker-end="url(#arrow)"/>
+<polygon points="460,285 740,285 670,185 530,185" class="gold"/>
+<polygon points="460,285 460,185 530,185" class="blue"/>
+<polygon points="670,185 740,185 740,285" class="rose"/>
+<text x="600" y="250">A</text><text x="483" y="218">B</text><text x="717" y="218">C</text>
+<circle cx="530" cy="185" r="5" fill="#292b2e"/><circle cx="670" cy="185" r="5" fill="#292b2e"/>
+<path d="M530 165C505 110 450 120 452 167" fill="none" stroke="#63666a" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M670 165C695 110 750 120 748 167" fill="none" stroke="#63666a" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="480" y="105" class="small">180°</text><text x="720" y="105" class="small">180°</text>
+<text x="200" y="323" class="small">Base × height ÷ 2</text><text x="600" y="323" class="small">Base × half-height</text>
+<text x="400" y="376" class="heading">Same pieces. Same area.</text>
+
+</svg>

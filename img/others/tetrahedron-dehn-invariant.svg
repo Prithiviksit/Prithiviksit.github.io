@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" aria-labelledby="title desc">
+<title id="title">Calculate the Dehn invariant of a regular tetrahedron</title><desc id="desc">Each of six edges has length b and interior dihedral angle alpha. The perpendicular section through the midpoint M of an edge and the opposite vertices C and D has angle alpha at M. Six identical contributions sum to 6b tensor alpha, which is nonzero.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8" fill="#63666a"/></marker></defs>
+<style>text{font-family:Arial,sans-serif;fill:#292b2e;text-anchor:middle;font-size:19px}.heading{font-size:22px;font-weight:600}.small{font-size:16px;fill:#63666a}.math{font-family:Georgia,serif;font-size:25px}.edge{fill:none;stroke:#292b2e;stroke-width:2.5;stroke-linejoin:round}.hidden{fill:none;stroke:#63666a;stroke-width:2;stroke-dasharray:6 5}.gold{fill:#dfc987;stroke:#292b2e;stroke-width:2}.blue{fill:#a9cbd5;stroke:#292b2e;stroke-width:2}.rose{fill:#dfb3a6;stroke:#292b2e;stroke-width:2}</style>
+<rect width="800" height="560" rx="16" fill="#f0ece2"/>
+
+<text x="200" y="39" class="heading">Six identical edge contributions</text>
+<text x="600" y="39" class="heading">Measure the interior angle</text>
+<polygon points="190,75 70,255 240,280" fill="#a9cbd5"/>
+<polygon points="190,75 240,280 330,220" fill="#dfc987"/>
+<path d="M190 75 70 255 240 280 330 220Z M190 75 240 280" class="edge"/>
+<path d="M70 255 330 220" class="hidden"/>
+<path d="M190 75 240 280" stroke="#9d4c3c" stroke-width="5"/>
+<text x="235" y="162" class="math">b</text>
+<circle cx="215" cy="177.5" r="5" fill="#292b2e"/><text x="195" y="194" class="small">M</text>
+<text x="55" y="260" class="small">C</text><text x="345" y="224" class="small">D</text>
+<text x="200" y="320" class="small">Six edges, each of length b.</text>
+<polygon points="600,95 500,236.421 700,236.421" fill="#faf9f6"/>
+<path d="M500 236.421 600 95 700 236.421" fill="none" stroke="#9d4c3c" stroke-width="3"/>
+<path d="M500 236.421H700" class="edge"/>
+<path d="M575.75 129.29 A42 42 0 0 0 624.25 129.29" fill="none" stroke="#68521f" stroke-width="2"/>
+<text x="600" y="160" class="math">α</text>
+<text x="600" y="80" class="small">M</text><text x="483" y="244" class="small">C</text><text x="717" y="244" class="small">D</text>
+<text x="600" y="272" class="small">Perpendicular section through M</text>
+<text x="600" y="320" class="math">α = arccos(1/3) ≈ 70.53°</text>
+<path d="M40 349H760" stroke="#d8d4ca"/>
+<text x="400" y="391" class="math">D = b ⊗ [α] + ⋯ + b ⊗ [α]</text>
+<text x="400" y="421" class="small">six edges → six equal terms</text>
+<text x="400" y="467" class="math">D = 6b ⊗ [α] ≠ 0</text>
+<text x="400" y="511">α / π is irrational, so [α] ≠ 0.</text>
+<text x="400" y="538" class="small">Angle classes are taken modulo rational multiples of π.</text>
+
+</svg>
