@@ -31,7 +31,6 @@ A clock carried along the path keeps advancing; the difficulty appears when we t
 
 This possibility did not originate with Novikov.
 Gödel's [1949 rotating-universe solution](https://doi.org/10.1103/RevModPhys.21.447) showed that Einstein's equations admit geometries containing CTCs.
-That establishes a mathematical possibility within the equations, not a description of our observed universe.
 
 Science fiction did help stimulate a later, more concrete research program.
 Carl Sagan's work on *Contact* prompted discussions with Kip Thorne about interstellar travel through wormholes, reflected in Morris and Thorne's [1988 paper on traversable wormholes](https://doi.org/10.1119/1.15620).
@@ -39,8 +38,7 @@ A wormhole is a hypothetical connection between regions of spacetime whose route
 
 Morris, Thorne, and Yurtsever then argued that, **if a traversable wormhole could be created and maintained**, a time offset between its mouths could turn it into a time machine.
 Differential aging of the mouths supplies the basic idea: entering one mouth can lead to an exit that external clocks label as earlier.
-Their [1988 time-machine paper](https://doi.org/10.1103/PhysRevLett.61.1446) makes the conditional nature of this construction essential.
-The existence and stability of the required wormholes are separate physical questions.
+Their [1988 time-machine paper](https://doi.org/10.1103/PhysRevLett.61.1446) turned a question about shortcuts through space into a question about causality.
 
 Novikov discussed the need for consistent histories in his [1989 analysis of a time machine](https://www.jetp.ras.ru/cgi-bin/dn/e_068_03_0439.pdf).
 Friedman, Morris, Novikov, Echeverria, Klinkhammer, Thorne, and Yurtsever gave an explicit global formulation in [1990](https://doi.org/10.1103/PhysRevD.42.1915).
@@ -86,9 +84,9 @@ $$
 $$
 
 The second line means that the global field agrees with the local field we started with.
-This is a mathematical illustration of the [global-extension principle](https://doi.org/10.1103/PhysRevD.42.1915); a theory with interacting matter and dynamical gravity would require the full coupled equations as well.
+This expresses the [global-extension principle](https://doi.org/10.1103/PhysRevD.42.1915) for a field in a prescribed spacetime geometry.
 
-Neither the existence nor the uniqueness of such an extension is guaranteed in this statment. 
+Neither the existence nor the uniqueness of such an extension is guaranteed by this statement.
 
 ## History as a fixed point
 
@@ -125,8 +123,6 @@ The solution $$x=1/2$$ is unavailable because a classical bit is either 0 or 1.
 Assigning equal probabilities to the two values does not make an individual history satisfy the equation.
 
 Novikov's principle excludes the complete, perfectly functioning bit-flipping loop as described.
-It, however, does not tell us whether a real attempt would fail because the machine cannot be built, the device does not implement the assumed rule, or some other premise fails.
-
 
 ## A billiard ball meets its younger self
 
@@ -140,7 +136,6 @@ A valid solution must determine the arrival and collision together.
 
 Echeverria, Klinkhammer, and Thorne's [1991 billiard-ball paper](https://doi.org/10.1103/PhysRevD.44.1077) did just that.
 For a broad class of apparently dangerous incoming trajectories, they found infinitely many self-consistent solutions.
-Their result concerns a specified model and class of trajectories; it is not a theorem that every conceivable time machine has a solution.
 
 We can check one self-consistent collision explicitly without reproducing their full geometry.
 The following construction is an elementary illustration, with a prescribed wormhole connection and Newtonian motion outside it.
@@ -291,11 +286,56 @@ Likewise, a traveler's warning might be the reason someone survives; it must the
 Whether such a picture allows the kind of free will we care about is a further philosophical question.
 The consistency equation alone does not settle it.
 
-A **bootstrap loop** raises a related but different puzzle.
-Suppose an older traveler gives a younger traveler a proof, which the younger traveler later carries back and hands over.
-If the proof is copied exactly, the information matches around the loop, but there may be no first act of discovery.
-That is an explanatory puzzle rather than the contradiction in $$x=1-x$$ for a bit.
-Any complete physical model must also account for the carrier's energy, wear, and other state variables; copying an abstract string is not a complete model of a book aging around a loop.
+## Who wrote the proof?
+
+Suppose your older self hands you a beautiful mathematical proof.
+You check every step, keep a copy, and eventually travel back to give it to your younger self.
+You learned it by reading it, and your older self remembered it because you had read it.
+Nobody independently worked it out.
+This is a **bootstrap loop**: information circulates through a chain of causes with no act of invention at its beginning.
+
+The physical age of the paper leaves this puzzle untouched.
+You can copy the proof onto fresh paper before taking it back; the text is what circulates.
+The question is why that particular argument exists in the history at all.
+
+There are two levels of explanation here.
+We can explain each person's possession of the proof by pointing to a transmission elsewhere in the loop.
+But following those transmissions brings us back to where we started, without identifying an independent source of the content.
+An explanation of each link can leave a question about the whole chain unanswered.
+
+The fixed-point formulation makes the gap precise.
+Encode the text as a string $$x$$ of $$n$$ bits.
+If the entire operation is faithful copying, its return map is
+
+$$
+F(x)=x,\qquad x\in\{0,1\}^n.
+$$
+
+Every one of the $$2^n$$ strings is a fixed point.
+A brilliant proof, a shopping list, and meaningless symbols all satisfy the same consistency condition.
+**The copying rule preserves content; it supplies no reason for one content rather than another.**
+Requiring the text to be a valid proof would restrict the candidates, but that is an additional condition.
+The consistency requirement by itself also supplies no probabilities over the candidates.
+
+Checking the proof does answer a different question: why should we believe the theorem?
+Its logical steps can justify the conclusion regardless of how we acquired the text.
+The puzzling absence is an independent discovery of those steps.
+Logical justification, causal transmission, and historical invention come apart.
+
+Further dynamics or boundary conditions might select a particular text.
+For example, if the traveler independently derives a proof before sending it back, that derivation contributes an explanation of its content.
+In the pure copying story, however, treating the realized text as part of the global history leaves its selection unexplained by the copying dynamics.
+This resembles the familiar need to supplement equations of motion with data, although here the unspecified information is distributed around a causal loop.
+
+David Lewis addressed this issue in [*The Paradoxes of Time Travel* (1976), pp. 148–149](https://pages.jh.edu/rrynasi1/spacetime/eprints/Lewis_David1976TheParadoxesOfTimeTravel.pdf#page=5).
+He allowed that events within a loop can have causal explanations while the loop as a whole remains unexplained.
+His response was to accept that as a possible brute fact, much as explanations elsewhere eventually reach facts taken as given.
+This is a philosophical position about where explanation may end.
+Someone who requires information to have an origin outside its own transmission cycle will find it unsatisfying.
+
+Novikov's principle therefore leaves the explanatory puzzle open.
+It tells us how the proof's appearances must agree with one another.
+In a pure bootstrap loop, the answer to “Who first discovered it?” is “No one”; the question “Why this proof?” still calls for something beyond self-consistency.
 
 ## The idea in fiction—and fiction in the idea
 
@@ -307,35 +347,30 @@ In a [2019 interview](https://www.manifold1.com/episodes/ted-chiang-on-free-will
 He wanted to explore a fixed past without making the result inevitably despairing.
 Understanding, regret, and reconciliation can change even when the events being understood cannot.
 
-The following are useful ways to read several stories through the principle, rather than claims that every work implements the same physical theory.
-The descriptions mention their time-travel structure while avoiding their central plot revelations.
+Several stories explore the human consequences of this structure:
 
 | Work | Connection to self-consistency |
 | --- | --- |
 | *La Jetée* and *Twelve Monkeys* | Memory and later experience fit into a single causal history. The latter's [production notes](https://www.gilliamdreams.com/12-monkeys-prod) explicitly trace its inspiration to the former. The tension is discovering how the pieces fit. |
 | *All You Zombies* and *Predestination* | Personal identity becomes entangled with causal loops. [The film adapts Heinlein's story](https://www.sonypictures.com/movies/predestination). The bootstrap question becomes a question about a person's own origin. |
 | *Los cronocrímenes* (*Timecrimes*) | Attempts to escape a predicament help produce it. Its [distributor's account](https://magpictures.com/profile.aspx?id=c249edca-6e66-4d7d-b085-f7bac8cb827d) emphasizes the protagonist's increasing involvement in the events he tries to fix. |
-| *Dark* | Interlocking generations and encounters across time make causal loops central to its mystery. Its later use of multiple worlds complicates a strict single-history reading; it is not a pure illustration of one Novikov model. [Series page](https://www.netflix.com/title/80100172). |
+| *Dark* | Interlocking generations and encounters across time make causal loops central to its mystery. Its later use of multiple worlds complicates a strict single-history reading. [Series page](https://www.netflix.com/title/80100172). |
 | *The Merchant and the Alchemist's Gate* | Visiting the past changes the traveler's understanding of it. The scientific connection is documented by Chiang's own account, and the emotional possibilities extend beyond fatalism. |
 
 Stories about rewriting a timeline or moving between alternative histories ask a different question.
 If a traveler prevents an event in another branch while the original branch still exists, the story has changed the relationship between the histories.
-It has not shown that contradictory descriptions can hold at the same event in one history.
 
 The appeal of the fixed-history story is that a familiar scene can acquire a new explanation without any of its events being replaced.
 The audience experiences a revision in knowledge rather than a revision in the world.
 There is a thematic connection to the [forty cheating husbands puzzle](/fun-stuff/logics/forty-cheating-husbands.html): what someone can infer changes even when an underlying fact was already true.
 The mechanisms are different—public information in one case, causal loops in the other—but both reward asking what was known, as distinct from what happened.
 
-## Consistency is not a time-machine construction manual
+## Must causal loops be consistent—or absent?
 
 Novikov's proposal asks how histories must fit together **if** backward time travel is available.
 Hawking's [chronology protection conjecture](https://doi.org/10.1103/PhysRevD.46.603) instead proposes that physical laws prevent the formation of closed timelike curves.
 His work investigates whether quantum effects and their gravitational backreaction obstruct the creation of a time machine.
-This is a different proposed resolution of the problem, not a consequence of the fixed-point equation.
-
-The billiard-ball calculation establishes something narrower and useful: ordinary collision mechanics can coexist with a prescribed backward-time connection in a globally consistent model.
-It does not establish that nature provides that connection, that every incoming state can be accommodated, or that the resulting history is unique.
+The two proposals address different questions: Novikov constrains the histories within a spacetime containing causal loops; chronology protection concerns whether such loops can form.
 
 The original breathing question therefore has a precise answer within Novikov's picture.
 A traveler does interact with the past, down to the air molecules.
@@ -344,6 +379,7 @@ The mathematical task is to find a complete history in which the departure, arri
 
 ## Further reading
 
+- David Lewis (1976), [*The Paradoxes of Time Travel*](https://pages.jh.edu/rrynasi1/spacetime/eprints/Lewis_David1976TheParadoxesOfTimeTravel.pdf). Causal loops, the origins of information, and the distinction between explaining each event and explaining a whole history.
 - Michael S. Morris and Kip S. Thorne (1988), [*Wormholes in spacetime and their use for interstellar travel: A tool for teaching general relativity*](https://doi.org/10.1119/1.15620). The traversable-wormhole framework and its connection to *Contact*.
 - Michael S. Morris, Kip S. Thorne, and Ulvi Yurtsever (1988), [*Wormholes, Time Machines, and the Weak Energy Condition*](https://doi.org/10.1103/PhysRevLett.61.1446). The conditional conversion of a traversable wormhole into a time machine.
 - Igor D. Novikov (1989), [*An analysis of the operation of a time machine*](https://www.jetp.ras.ru/cgi-bin/dn/e_068_03_0439.pdf). An early discussion of global consistency and restrictions on initial data.
