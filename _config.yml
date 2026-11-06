@@ -23,6 +23,8 @@ plugins:
 relative_links:
   enabled: true
   collections: true
+exclude:
+  - AGENTS.md
 include:
   - CONTRIBUTING.md
   - README.md
