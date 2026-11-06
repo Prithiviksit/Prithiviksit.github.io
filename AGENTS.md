@@ -14,7 +14,7 @@ Write for the site's actual renderer; a GitHub Markdown preview or a server poin
 ## Article structure
 
 Put articles in `fun-stuff/<category>/<lowercase-hyphenated-slug>.md`.
-The existing categories are `economics`, `logics`, and `mathematics`.
+The existing categories are `economics`, `logics`, `mathematics`, and `physics`.
 Start the file with YAML front matter:
 
 ```yaml
@@ -30,7 +30,7 @@ published: false
 ---
 ```
 
-- Match the permalink and group to the article's category; use `Economics`, `Logics`, or `Mathematics` for the group.
+- Match the permalink and group to the article's category; use `Economics`, `Logics`, `Mathematics`, or `Physics` for the group.
 - Quote metadata containing colons or other YAML punctuation. Keep metadata plain text; put equations and Markdown formatting in the body.
 - The layout supplies the title as an `h1`; start body sections with `##`.
 - Use blank lines between paragraphs and around headings, lists, tables, and display equations.

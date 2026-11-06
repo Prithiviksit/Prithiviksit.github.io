@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="640" viewBox="0 0 520 640" role="img" aria-labelledby="title desc">
+  <title id="title">A self-consistent billiard-ball collision</title>
+  <desc id="desc">At time zero the younger ball at (0,0) touches its older self at (1,1). It turns downward, entering B at time 2. The wormhole returns it to A at time minus 2, preserving downward velocity. It reaches the collision as the older ball, then leaves to the right.</desc>
+  <defs>
+    <marker id="blue-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#266b87"/></marker>
+    <marker id="gold-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#9a6a15"/></marker>
+    <marker id="purple-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#806582"/></marker>
+  </defs>
+  <rect x="1" y="1" width="518" height="638" rx="12" fill="#f6f3eb" stroke="#d8d4ca"/>
+  <g font-family="system-ui, -apple-system, sans-serif" fill="#292b2e">
+    <text x="26" y="38" font-size="24" font-weight="600">One ball, two ages</text>
+    <text x="26" y="66" font-size="18" fill="#63666a">Positions at the collision: t = 0</text>
+
+    <path d="M 190 490 C 510 600, 530 85, 283 140" fill="none" stroke="#806582" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#purple-arrow)"/>
+    <rect x="327" y="378" width="161" height="60" rx="6" fill="#f6f3eb"/>
+    <text x="338" y="401" font-size="18" fill="#715173">Wormhole</text>
+    <text x="338" y="426" font-size="18" fill="#715173">t = 2 → t = −2</text>
+
+    <circle cx="190" cy="350" r="49.49747468" fill="#d7e7ec" stroke="#266b87" stroke-width="2.5"/>
+    <circle cx="260" cy="280" r="49.49747468" fill="#eee0bd" stroke="#9a6a15" stroke-width="2.5"/>
+    <path d="M 32 350 H 190 V 488" fill="none" stroke="#266b87" stroke-width="3.5"/>
+    <path d="M 260 142 V 280 H 455" fill="none" stroke="#9a6a15" stroke-width="3.5"/>
+    <path d="M 70 350 H 125" fill="none" stroke="#266b87" stroke-width="3.5" marker-end="url(#blue-arrow)"/>
+    <path d="M 190 397 V 453" fill="none" stroke="#266b87" stroke-width="3.5" marker-end="url(#blue-arrow)"/>
+    <path d="M 260 168 V 221" fill="none" stroke="#9a6a15" stroke-width="3.5" marker-end="url(#gold-arrow)"/>
+    <path d="M 354 280 H 423" fill="none" stroke="#9a6a15" stroke-width="3.5" marker-end="url(#gold-arrow)"/>
+    <path d="M 190 350 L 260 280" stroke="#777" stroke-width="1.5" stroke-dasharray="4 4"/>
+    <circle cx="190" cy="350" r="4" fill="#266b87"/>
+    <circle cx="260" cy="280" r="4" fill="#9a6a15"/>
+
+    <path d="M 202 140 H 318" stroke="#715173" stroke-width="8" stroke-linecap="round"/>
+    <path d="M 132 490 H 248" stroke="#715173" stroke-width="8" stroke-linecap="round"/>
+    <text x="40" y="119" font-size="20" font-weight="600">A: exit, t = −2</text>
+    <path d="M 202 123 L 240 136" fill="none" stroke="#aaa397" stroke-width="1.5"/>
+    <text x="52" y="530" font-size="20" font-weight="600">B: entrance, t = 2</text>
+    <text x="33" y="326" font-size="18" fill="#266b87">Incoming</text>
+    <text x="340" y="260" font-size="18" fill="#8c5f11">Outgoing</text>
+    <text x="91" y="405" font-size="18" fill="#266b87">Younger</text>
+    <text x="278" y="225" font-size="18" fill="#8c5f11">Older</text>
+
+    <path d="M 26 558 H 494" stroke="#d8d4ca"/>
+    <text x="26" y="588" font-size="18">Collision → entrance → earlier exit</text>
+    <text x="26" y="615" font-size="18">→ same collision → departure</text>
+  </g>
+</svg>
