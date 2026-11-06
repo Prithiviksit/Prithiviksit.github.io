@@ -21,7 +21,6 @@ There is no earlier version of history in which the traveler was absent, followe
 
 That sounds like a rule for writing science fiction.
 It is also a serious proposal about how to formulate physics in a spacetime where causes can loop back on themselves.
-It is not an experimentally established law or evidence that time machines exist.
 Its mathematical content is easiest to see by separating three questions: what the local laws allow, whether their solutions fit together globally, and whether that fit is unique.
 
 ## How a science-fiction problem became a physics problem
@@ -89,9 +88,7 @@ $$
 The second line means that the global field agrees with the local field we started with.
 This is a mathematical illustration of the [global-extension principle](https://doi.org/10.1103/PhysRevD.42.1915); a theory with interacting matter and dynamical gravity would require the full coupled equations as well.
 
-There is no guarantee in this statement that every locally specified configuration has such an extension.
-Nor does it say that an extension, when one exists, is unique.
-Those are questions to prove for the particular equations, geometry, and data under consideration.
+Neither the existence nor the uniqueness of such an extension is guaranteed in this statment. 
 
 ## History as a fixed point
 
@@ -126,14 +123,10 @@ Let $$x\in\{0,1\}$$ be the received bit, and let a device send $$F(x)$$ back to 
 The last row is a contradiction within the stipulated classical model.
 The solution $$x=1/2$$ is unavailable because a classical bit is either 0 or 1.
 Assigning equal probabilities to the two values does not make an individual history satisfy the equation.
-A different probabilistic or quantum model would need its own assumptions.
 
 Novikov's principle excludes the complete, perfectly functioning bit-flipping loop as described.
-It does not tell us whether a real attempt would fail because the machine cannot be built, the device does not implement the assumed rule, or some other premise fails.
+It, however, does not tell us whether a real attempt would fail because the machine cannot be built, the device does not implement the assumed rule, or some other premise fails.
 
-Also, a fixed point need not be attracting.
-The equation does not describe the universe repeatedly revising its history until it settles down.
-It describes the compatibility of events within one history.
 
 ## A billiard ball meets its younger self
 
@@ -151,12 +144,11 @@ Their result concerns a specified model and class of trajectories; it is not a t
 
 We can check one self-consistent collision explicitly without reproducing their full geometry.
 The following construction is an elementary illustration, with a prescribed wormhole connection and Newtonian motion outside it.
-It proves consistency for this toy model, not the physical realizability of the wormhole.
 
 ### An exactly solvable loop
 
 Represent the ball in a plane as a perfectly elastic, frictionless disk with radius $$1/\sqrt2$$ and mass $$m$$.
-Choose units in which its speed is 1; this is an ordinary nonrelativistic speed, not the speed of light.
+Choose units in which its nonrelativistic speed is 1.
 The wormhole connects an entrance at $$B=(0,-2)$$ to an exit at $$A=(1,3)$$.
 Our idealized boundary rule maps the disk's center at $$B$$ to $$A$$, four time units earlier, preserving its velocity.
 We neglect the thickness and transit duration of the connection and any forces away from collisions.
