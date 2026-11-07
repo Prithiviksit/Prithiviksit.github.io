@@ -9,14 +9,56 @@ permalink: /fun-stuff/logics/surprise-exam.html
 published: false
 ---
 
-## 1. Three choices hidden in one story
+## 1. The puzzle and its conditional variation
 
-Friday seems impossible: if no exam has occurred by Friday morning, the students will know it must happen that day.
-But once Friday is ruled out, Thursday becomes the last possible day, so the same argument seems to rule out Thursday.
-Continue backward, and no date remains.
+### The Surprise Exam Paradox
 
-This is a compelling calculation.
-Understanding what it establishes requires separating three questions:
+James Simpson opens [*A new epistemic solution to the Surprise Exam Paradox*](https://doi.org/10.1080/0020174X.2025.2495659) (2025, pp. 1–2) with the familiar story:
+
+> A trustworthy teacher tells her students that this week’s only exam will be a surprise exam.
+> A surprise exam is an exam such that the students won’t have a justified belief the morning the exam occurs that they’ll be having an exam that day.
+
+A clever student argues that the teacher cannot keep this promise.
+Suppose no exam has occurred by Friday morning.
+Since an exam must occur during the week, it must occur on Friday, so the student will expect it.
+Friday therefore cannot be the date of a surprise exam.
+
+Now suppose no exam has occurred by Thursday morning.
+Friday has already been ruled out, so the exam must occur on Thursday.
+But then Thursday’s exam will also be expected.
+Repeat the same argument for Wednesday, Tuesday, and Monday: no day seems capable of accommodating the promised exam.
+
+Yet a teacher appears perfectly capable of announcing a surprise exam and then giving one on Wednesday, when the students do not expect it.
+The puzzle is the conflict between the apparently valid backward argument and this apparently possible outcome.
+Here “surprise” concerns the student's grounds for expecting an exam, rather than an emotional reaction or a low probability assigned to it.
+
+### The Conditionally Expected Exam Paradox
+
+The variation changes what the student must expect.
+Simpson states it as follows (§2.1, p. 6):
+
+> The teacher announces that this week’s only exam won’t be a conditionally expected exam.
+> An exam is conditionally expected iff, on the morning of the exam, a student has a justified belief that if there is an exam at all this week, then it is today.
+
+The student need not expect an exam to occur at all.
+They need only be justified in the conditional judgment: *if there is an exam this week, it must be today*.
+
+Friday is again ruled out: if no exam has occurred before Friday, any exam that occurs during the week must occur on Friday.
+This conditional remains true even if there might be no exam.
+Once Friday is excluded, an exam on Thursday would also be conditionally expected if none had occurred earlier.
+The same backward argument eliminates Wednesday, Tuesday, and Monday.
+Yet an exam on Thursday seems capable of being conditionally unexpected when the student still regards Friday as possible.
+
+Simpson also discusses Williamson’s version (p. 7), in which the teacher makes only the conditional promise: **if an exam occurs, it will not be conditionally expected**.
+This version does not guarantee an exam.
+That difference will matter: a promise about any exam that occurs can be fulfilled by giving no exam, whereas a promise that an exam will occur cannot.
+
+The quotations use Simpson’s language of **justified belief**.
+Our formal model below first studies **deductive knowledge**; Section 6 returns to his treatment of justification and fallible testimony.
+
+### Three choices hidden in the stories
+
+Understanding what the backward calculation establishes requires separating three questions:
 
 1. **Is an exam guaranteed, or is no exam also possible?**
 2. **Does surprise mean not knowing that an exam is today, or not knowing that an exam, if there is one, must be today?**
