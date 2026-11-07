@@ -28,6 +28,13 @@
     .lead { font-size: 22px; }
     .note, blockquote { padding: 20px 24px; background: #f0ece2; border-left: 4px solid var(--gold); margin: 26px 0; }
     .note p:last-child, blockquote p:last-child { margin-bottom: 0; }
+    article details { margin: 26px 0; padding: 0 22px; background: #f3f0e8; border: 1px solid #ded8ca; border-radius: 12px; }
+    article details > summary { padding: 16px 0; cursor: pointer; font-weight: 600; line-height: 1.5; }
+    article details > summary::marker { color: #8d7138; }
+    article details > summary:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; border-radius: 3px; }
+    article details[open] { padding-bottom: 20px; }
+    article details[open] > summary { margin-bottom: 18px; border-bottom: 1px solid #ded8ca; }
+    article details > :last-child { margin-bottom: 0; }
     .equation { overflow-x: auto; padding: 6px 0; }
     li { margin-bottom: 12px; }
     .table-wrap { overflow-x: auto; }
@@ -36,8 +43,8 @@
     th { font-family: system-ui, sans-serif; font-size: 14px; }
     footer { padding: 25px 0 40px; border-top: 1px solid #ddd8cc; font: 14px/1.6 system-ui, sans-serif; }
     mjx-container[display="true"] { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
-    article > table { display: block; overflow-x: auto; }
-    @media (max-width: 480px) { body { font-size: 17px; } .note, blockquote { padding: 16px; } header { flex-wrap: wrap; } }
+    article > table, article details > table { display: block; overflow-x: auto; }
+    @media (max-width: 480px) { body { font-size: 17px; } .note, blockquote { padding: 16px; } article details { padding-inline: 16px; } article details[open] { padding-bottom: 16px; } header { flex-wrap: wrap; } }
     @media print { body { background: white; font-size: 12pt; } header, footer { display: none; } main { width: 100%; } .note, blockquote { break-inside: avoid; } }
   </style>
   <script>
