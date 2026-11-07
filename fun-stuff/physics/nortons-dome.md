@@ -9,17 +9,16 @@ permalink: /fun-stuff/physics/nortons-dome.html
 published: false
 ---
 
-I first encountered Norton's dome as a challenge to something that often goes unstated in introductory mechanics: once we know the present state and the forces, the future is fixed.
-The example made me wonder whether that conclusion follows from Newton's laws, or whether we quietly add assumptions when solving them.
-Then I read [Gruff Davies's objections](https://blog.gruffdavies.com/2017/12/24/newtonian-physics-is-deterministic-sorry-norton/).
-Some identify real limitations of the model; others seem to miss what makes the example work.
+Norton's dome challenges a familiar expectation in introductory mechanics: once a system's present state and forces are specified, its future is fixed.
+The example invites a closer look at whether that conclusion follows from Newton's laws themselves or from additional assumptions used to solve them.
+[Gruff Davies's objections](https://blog.gruffdavies.com/2017/12/24/newtonian-physics-is-deterministic-sorry-norton/) identify several limitations of the model, but their force depends on whether they address the source of its nonuniqueness.
 
-My own hesitation concerns the first law.
-I was taught that it precedes the second law conceptually: a body continues at rest or in uniform straight-line motion unless a force compels a change.
+A more fundamental concern is the role of the first law.
+Taking it as conceptually prior to the second gives independent weight to its requirement that a body continue at rest or in uniform straight-line motion unless a force compels a change.
 Even if the second-law equation allows the particle to depart, does the first law forbid it?
 
 There are three questions here: whether the proposed trajectory solves the equation, whether the dome is an admissible mechanical model, and whether that equation captures everything Newton's laws require.
-Keeping them separate makes the disagreement much more interesting.
+A valid solution settles the first; the other two require an account of what counts as a Newtonian system and an admissible history.
 
 ## Norton's original argument
 
