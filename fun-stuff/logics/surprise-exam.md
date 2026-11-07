@@ -6,7 +6,7 @@ group: Logics
 subtitle: "Possible worlds · Public announcements · Fixed points · The topology of surprise"
 lead: "A teacher promises a surprise exam next week. The students rule out Friday, then Thursday, and eventually every day. On Wednesday, the teacher gives the exam. Where did the reasoning go wrong?"
 permalink: /fun-stuff/logics/surprise-exam.html
-published: false
+published: true
 ---
 
 ## 1. The puzzle and its conditional variation
