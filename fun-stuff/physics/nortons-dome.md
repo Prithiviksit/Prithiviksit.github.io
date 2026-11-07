@@ -9,7 +9,8 @@ permalink: /fun-stuff/physics/nortons-dome.html
 published: false
 ---
 
-Norton's dome challenges a familiar expectation in introductory mechanics: once a system's present state and forces are specified, its future is fixed.
+
+One might have the impression from high-school Newtonian physics: once a system's present state and forces are specified, its future is fixed. The system just evolves according to Newton's law with no rooms for free will. Norton's dome challenges this familiar impression. 
 The example invites a closer look at whether that conclusion follows from Newton's laws themselves or from additional assumptions used to solve them.
 [Gruff Davies's objections](https://blog.gruffdavies.com/2017/12/24/newtonian-physics-is-deterministic-sorry-norton/) identify several limitations of the model, but their force depends on whether they address the source of its nonuniqueness.
 
@@ -18,7 +19,7 @@ Taking it as conceptually prior to the second gives independent weight to its re
 Even if the second-law equation allows the particle to depart, does the first law forbid it?
 
 There are three questions here: whether the proposed trajectory solves the equation, whether the dome is an admissible mechanical model, and whether that equation captures everything Newton's laws require.
-A valid solution settles the first; the other two require an account of what counts as a Newtonian system and an admissible history.
+The first can be settled with a valid solution while the other two require an account of what counts as a Newtonian system and an admissible history.
 
 ## Norton's original argument
 
