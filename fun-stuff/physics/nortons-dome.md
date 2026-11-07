@@ -6,7 +6,7 @@ group: Physics
 subtitle: "A particle at rest, a singular summit, and the gap between satisfying an equation and specifying a physical theory."
 lead: "Put a particle exactly at the top of a frictionless dome. With no push, can it wait for a minute and then slide away? One surprisingly simple equation says yes."
 permalink: /fun-stuff/physics/nortons-dome.html
-published: false
+published: true
 ---
 
 
