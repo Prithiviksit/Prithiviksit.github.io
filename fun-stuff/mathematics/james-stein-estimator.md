@@ -6,7 +6,7 @@ group: Mathematics
 subtitle: "What better means, where the gain comes from, and how to improve James–Stein further."
 lead: "You estimate several quantities by taking their sample averages. Someone pulls all your estimates toward zero—and can guarantee a smaller total expected error. How can that work?"
 permalink: /fun-stuff/mathematics/james-stein-estimator.html
-published: false
+published: true
 ---
 
 ## 1. A strange way to improve an average
@@ -379,4 +379,3 @@ A carefully chosen amount of bias lowers total risk across the unknown means.
 
 - [UC Berkeley, *The James–Stein Estimator*, Stat 210A, Fall 2024](https://stat210a.berkeley.edu/fall-2024/reader/jamesstein.html): empirical Bayes intuition, the bias–variance tradeoff, and Stein's risk identity.
 - [Yuzo Maruyama, *Some Notes on Improving upon the James–Stein Estimator* (2007)](https://arxiv.org/pdf/math/0701206): positive-part shrinkage, admissibility, and the smooth family in Theorem 3.2.
-- [My working note, *James–Stein Estimators* (Obsidian)](obsidian://open?vault=Obsidian&file=Misc%2FNotes%2FJames-Stein%20Estimators): the starting risk calculation. This link opens in the local vault; the article is self-contained.
