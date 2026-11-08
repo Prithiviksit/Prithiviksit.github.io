@@ -1,0 +1,14 @@
+<section class="js-explorer" id="js-dominance" aria-label="Interactive risk dominance explorer">
+  <div class="js-controls">
+    <label>Number of means p<select id="js-dimension"><option value="3">3 means</option><option value="5" selected>5 means</option><option value="10">10 means</option></select></label>
+    <label>Fixed multiplier b: <output id="js-fixed-value">0.70</output><input id="js-fixed" type="range" min="0" max="1" step="0.01" value="0.7"></label>
+    <label>Inspect signal size ‖θ‖: <output id="js-signal-value">2.00</output><input id="js-signal" type="range" min="0" max="8" step="0.1" value="2"></label>
+  </div>
+  <div class="js-legend"><span class="js-gray js-dashed">Sample averages</span><span class="js-gold js-dotted">Fixed bX</span><span class="js-blue">James–Stein</span><span class="js-green">Positive part</span></div>
+  <div id="js-dominance-chart" class="js-chart"></div>
+  <div class="table-wrap"><table class="js-risk-table"><caption id="js-risk-caption">Risk at the selected signal size</caption><thead><tr><th scope="col">Estimator</th><th scope="col">Total risk</th></tr></thead><tbody id="js-risk-rows"></tbody></table></div>
+  <p id="js-dominance-readout" class="js-readout" aria-live="polite"></p>
+  <p class="js-caption">Independent normal coordinates; sampling variance v = 1. James–Stein risks are evaluated numerically from noncentral chi-squared expectations. The plotted range is 0 ≤ ‖θ‖ ≤ 8; the article's proofs establish dominance over the full parameter space.</p>
+  <noscript>Enable JavaScript to inspect the curves. With five means and θ = 0, sample averages have risk 5, ordinary James–Stein has risk 2, and the positive-part rule has still lower risk.</noscript>
+</section>
+<script defer src="/js/james-stein.js"></script>

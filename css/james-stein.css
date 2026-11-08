@@ -1,0 +1,29 @@
+.js-explorer { margin: 30px 0; padding: 24px 0; border-top: 1px solid #d8d4ca; border-bottom: 1px solid #d8d4ca; font: 15px/1.55 system-ui, sans-serif; }
+.js-explorer h4 { margin: 24px 0 12px; font-size: 18px; }
+.js-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 24px; }
+.js-controls label { display: block; font-weight: 600; }
+.js-controls output { font-variant-numeric: tabular-nums; font-weight: 400; }
+.js-controls select { display: block; width: 100%; margin-top: 7px; padding: 9px; border: 1px solid #9c978b; border-radius: 4px; background: #fff; color: #292b2e; font: inherit; }
+.js-controls input[type="range"] { display: block; width: 100%; min-height: 32px; margin: 5px 0 0; accent-color: #68521f; }
+.js-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0 !important; }
+.js-actions button { padding: 9px 14px; border: 1px solid #8a754c; border-radius: 4px; background: #f0ece2; color: #292b2e; font: inherit; cursor: pointer; }
+.js-explorer :is(input,select,button):focus-visible { outline: 3px solid #cfb87c; outline-offset: 3px; }
+.js-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 12px 0; font-size: 14px; }
+.js-legend span::before { content: ''; display: inline-block; width: 23px; margin-right: 6px; vertical-align: middle; border-top: 3px solid var(--line-color); }
+.js-blue { --line-color: #286898; }
+.js-gold { --line-color: #a46516; }
+.js-purple { --line-color: #78508f; }
+.js-green { --line-color: #26734c; }
+.js-gray { --line-color: #55585c; }
+.js-legend .js-dashed::before { border-top-style: dashed; }
+.js-legend .js-dotted::before { border-top-style: dotted; }
+.js-chart { width: 100%; min-width: 0; }
+.js-chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.js-chart text { fill: #45474a; font: 13px system-ui, sans-serif; }
+.js-chart .js-axis-title { font-size: 14px; }
+.js-explorer .js-caption { margin: 12px 0; color: #63666a; font-size: 14px; }
+.js-explorer .js-readout { margin: 16px 0; line-height: 1.8; font-variant-numeric: tabular-nums; }
+.js-risk-table { margin: 16px 0; font-size: 15px; }
+.js-risk-table caption { text-align: left; font-weight: 600; margin-bottom: 5px; }
+.js-risk-table td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+@media (max-width: 480px) { .js-controls { grid-template-columns: 1fr; gap: 12px; } .js-explorer { padding-top: 18px; } }

@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="/css/james-stein.css">
+<section class="js-explorer" id="js-tradeoff" aria-label="Interactive bias and variance explorer">
+  <div class="js-controls">
+    <label>Noise distribution<select id="js-family"><option value="normal">Normal</option><option value="laplace">Laplace</option><option value="uniform">Uniform</option></select></label>
+    <label>Distribution view<select id="js-view"><option value="density">Density</option><option value="cdf">CDF</option></select></label>
+    <label>True mean θ: <output id="js-mean-value">2.00</output><input id="js-mean" type="range" min="0" max="4" step="0.1" value="2"></label>
+    <label>Sampling variance v: <output id="js-variance-value">1.00</output><input id="js-variance" type="range" min="0.25" max="4" step="0.25" value="1"></label>
+    <label>Multiplier b: <output id="js-multiplier-value">0.70</output><input id="js-multiplier" type="range" min="0" max="1" step="0.01" value="0.7"></label>
+    <label>Squared-bias weight λ: <output id="js-weight-value">1.00</output><input id="js-weight" type="range" min="0.25" max="4" step="0.25" value="1"></label>
+  </div>
+  <p class="js-actions"><button id="js-optimize" type="button">Use minimizing b</button><button id="js-reset" type="button">Reset</button></p>
+  <h4>Where the estimates land</h4>
+  <div class="js-legend"><span class="js-blue js-dashed">Sample average X</span><span class="js-gold">Shrunk estimate bX</span><span class="js-gray js-dotted">True mean θ</span></div>
+  <div id="js-distribution-chart" class="js-chart"></div>
+  <p id="js-distribution-note" class="js-caption"></p>
+  <h4>Choose the balance</h4>
+  <div class="js-legend"><span class="js-gold js-dashed">λ × squared bias</span><span class="js-blue js-dotted">Variance</span><span class="js-purple">Their sum</span></div>
+  <div id="js-tradeoff-chart" class="js-chart"></div>
+  <p id="js-tradeoff-readout" class="js-readout" aria-live="polite"></p>
+  <p class="js-caption">The curves are exact for fixed linear shrinkage. At λ = 1, their sum is mean squared error (MSE). Moving λ changes the chosen objective. “Use minimizing b” uses the true mean supplied here.</p>
+  <noscript>Enable JavaScript to change distributions and multipliers. For θ = 2 and v = 1, squared-error risk is minimized at b = 0.8, giving squared bias 0.16, variance 0.64, and MSE 0.8.</noscript>
+</section>
