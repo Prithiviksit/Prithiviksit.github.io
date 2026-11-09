@@ -1,0 +1,26 @@
+{% assign fun_articles = site.pages | where: 'layout', 'fun-article' | where_exp: 'article', 'article.published != false' | where_exp: 'article', 'article.group != nil' | where_exp: 'article', 'article.group != empty' | sort_natural: 'title' %}
+{% assign discovered_groups = fun_articles | map: 'group' | uniq | sort_natural %}
+{% assign group_order = site.fun_stuff_group_order | concat: discovered_groups | uniq %}
+<div class="fun-tabs" aria-label="Fun Stuff groups">
+    {% for group in group_order %}
+        {% assign group_articles = fun_articles | where: 'group', group %}
+        {% if group_articles.size > 0 %}
+            {% assign group_slug = group | slugify %}
+            <a href="#fun-{{ group_slug }}" id="tab-{{ group_slug }}" class="fun-tab">{{ group | escape }}</a>
+        {% endif %}
+    {% endfor %}
+</div>
+{% for group in group_order %}
+    {% assign group_articles = fun_articles | where: 'group', group %}
+    {% if group_articles.size > 0 %}
+        {% assign group_slug = group | slugify %}
+        <div id="fun-{{ group_slug }}" class="fun-panel">
+            <h2 class="fun-group-heading">{{ group | escape }}</h2>
+            <ul class="fun-article-list">
+                {% for article in group_articles %}
+                    <li><a href="{{ article.url | relative_url | escape }}">{{ article.title | escape }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endfor %}

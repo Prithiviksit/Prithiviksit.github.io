@@ -14,7 +14,7 @@ Write for the site's actual renderer; a GitHub Markdown preview or a server poin
 ## Article structure
 
 Put articles in `fun-stuff/<category>/<lowercase-hyphenated-slug>.md`.
-The existing categories are `economics`, `logics`, `mathematics`, and `physics`.
+The existing categories are `economics`, `logics`, `mathematics`, and `physics`; new categories are supported automatically.
 Start the file with YAML front matter:
 
 ```yaml
@@ -30,7 +30,8 @@ published: false
 ---
 ```
 
-- Match the permalink and group to the article's category; use `Economics`, `Logics`, `Mathematics`, or `Physics` for the group.
+- Match the permalink and group to the article's category; use `Economics`, `Logics`, `Mathematics`, or `Physics` for existing groups, or a consistent display name for a new group.
+- Give distinct groups distinct URL slugs (for example, `Computer Science` becomes `computer-science`) so their homepage tab IDs remain unique.
 - Quote metadata containing colons or other YAML punctuation. Keep metadata plain text; put equations and Markdown formatting in the body.
 - The layout supplies the title as an `h1`; start body sections with `##`.
 - Use blank lines between paragraphs and around headings, lists, tables, and display equations.
@@ -137,7 +138,13 @@ Keep SVG sources valid XML and remove trailing whitespace from generated assets.
 
 Link to generated article URLs, for example `/fun-stuff/economics/aumann-agreement.html`, rather than source `.md` paths.
 Use root-relative asset paths such as `/img/others/article-diagram.svg` so links work from nested article URLs.
-On publication, set `published: true`, add the article to its category in `index.html`, and check cross-links between companion articles.
+On publication, set `published: true` and check cross-links between companion articles.
+Jekyll generates the homepage tabs and article lists through `_includes/fun-stuff-index.html` at build time, using pages with `layout: fun-article`, a nonempty `group`, and `published` other than `false`.
+The link text comes from `title`, and its target comes from the generated page URL (`permalink` when supplied).
+Do not add article links or categories manually to `index.html`.
+Articles are sorted alphabetically by title within each group.
+`fun_stuff_group_order` in `_config.yml` sets the preferred tab order; additional groups appear alphabetically afterward, and groups without published articles are omitted.
+Drafts remain absent from the homepage even in a local build using `--unpublished`.
 Keep this instruction file excluded from the generated site through `_config.yml`.
 
 ## Rendering checks
