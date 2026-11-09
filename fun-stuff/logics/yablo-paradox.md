@@ -62,40 +62,36 @@ Yet if we take the pointwise limit of these finite solutions and declare *every*
 Why does the limit fail?
 In every finite list, the earlier sentences are held false by a single counterexample—the true sentence at the very end.
 As the cutoff recedes toward infinity, that counterexample is pushed past every fixed position and vanishes.
-Because the positive integers have no last member, there is no final sentence “at infinity” to anchor the falsity of the ones before it.
+With no last positive integer, no final sentence remains to anchor the falsity of the ones before it.
 
-Moving to an infinite list also breaks the order in which truth values are determined.
+Moving to an infinite list also changes how truth values are grounded.
 In a finite list where each sentence points only forward, we can start at the end and work backward step by step.
 In Yablo's infinite list, the chain of dependence runs on forever without either terminating or looping back.
-**Avoiding circularity does not guarantee a starting point from which truth values can be grounded.**
+**Eliminating circularity removes loops, but an infinite sequence can still lack a starting point from which truth values can be grounded.**
 
-Even so, an endless forward chain does not automatically breed contradiction.
+What turns that ungrounded chain into a paradox is how much each sentence demands.
 If each sentence said only “The very next sentence is false,” we could happily alternate true and false forever.
-Yablo's paradox relies on a stronger demand covering **every** later sentence: a single true sentence forces the entire remainder of the list to be false, which immediately makes the very next sentence true as well.
-The paradox is driven by the combination of no endpoint and this whole-tail condition.
+Yablo's sentences instead quantify over **every** later sentence: a single true sentence forces the entire remainder of the list to be false, which immediately makes the very next sentence true as well.
+The contradiction comes from pairing an endless chain with claims that sweep across the entire tail.
 
 ## How philosophers react
 
-Philosophers generally split over whether Yablo has genuinely banished circularity or merely disguised it.
+Philosophers divide over whether Yablo has genuinely banished circularity or merely relocated it.
 
 One camp takes the construction at face value: semantic paradoxes do not require circularity after all, and blaming the Liar paradox solely on self-reference was a mistake.
-[Roy Sorensen (1998)](https://doi.org/10.1093/mind/107.425.137) champions this view and develops a family of related infinite paradoxes.
-From this perspective, the strictly forward-looking references are the heart of its appeal.
+[Roy Sorensen (1998)](https://doi.org/10.1093/mind/107.425.137) champions this view and develops a family of related infinite paradoxes built on strictly forward-looking chains.
 
 The opposing camp argues that self-reference has simply moved into the rule that defines the sequence.
 Graham Priest contends that the uniform predicate used to generate the infinite list contains a hidden self-referential fixed point.
 [Jc Beall (2001, §§2–3)](https://entailments.net/papers/yablo.pdf) sharpens this objection and argues that Sorensen's replies do not escape it.
-Even though the displayed references never form a loop, we still have to ask how we specify what all these infinitely many sentences say.
+Even though the displayed references never form a loop, we still have to specify what all these infinitely many sentences say through a single defining rule.
 
-It helps to keep those two questions separate: **a circular description and a circular pattern of references are different claims**.
-The philosophical dispute is over whether the former is essential here, and whether it undercuts Yablo's advertised escape from self-reference.
-Simply pointing out the absence of backward arrows does not, by itself, settle that debate.
+The dispute turns on a distinction between **a circular description** and **a circular pattern of references**.
+No sentence in the list points backward, so the reference graph has no cycles; the open question is whether defining the infinite sequence still relies on a covert fixed point.
 
-A further temptation is to drop classical bivalence and say that the sentences have no truth values at all.
-Stepping outside ordinary true-or-false assignments is a familiar response to semantic paradoxes, but it requires a formal theory of truth to back it up.
-Notice that Yablo formulates each claim using *untrue* rather than *false*: if “neither true nor false” still counts as not true, then declaring every sentence truth-valueless makes every later sentence untrue—which seems to make every sentence's claim hold all over again.
-Resolving the paradox semantics-first takes more than attaching an “undefined” label.
+What if we drop classical bivalence and say that the sentences are neither true nor false?
+Here Yablo's wording—*untrue* rather than *false*—creates an immediate hurdle: if a sentence with no truth value still counts as not true, then declaring every sentence truth-valueless makes every later sentence untrue, which makes every sentence's claim hold all over again.
+Avoiding the contradiction through truth-value gaps requires a formal semantics that explains how “untrue” behaves when bivalence fails.
 
-Whatever stance one takes on hidden circularity, the core structural lesson survives.
-The contradiction rules out a classical truth assignment satisfying these particular conditions; it does not show that infinity itself is inconsistent.
+Whatever stance one takes on hidden circularity, the mechanism behind the paradox is clear.
 Infinity makes room for an endless, forward-only chain of dependence, and the whole-tail claims make that dependence impossible to satisfy.
