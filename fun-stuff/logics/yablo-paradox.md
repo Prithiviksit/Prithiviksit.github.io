@@ -7,7 +7,7 @@ subtitle: "An infinite list of sentences, each looking only ahead."
 lead: "The liar says, ‘This sentence is not true.’ What happens if we forbid sentences from talking about themselves—and let them talk only about what comes later?"
 permalink: /fun-stuff/logics/yablo-paradox.html
 date: 2026-11-09T09:23:56-07:00
-published: false
+published: true
 ---
 
 ## The list
