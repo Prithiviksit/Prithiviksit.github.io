@@ -12,166 +12,179 @@ published: true
 
 ## 0. The gap between possible and actual knowledge
 
-Imagine a sealed box containing a red ball. Nobody has opened it. The ball’s color is unknown, but discovering it seems perfectly possible. “Every truth can be known” sounds compatible with a world full of unopened boxes.
+Imagine a sealed box containing a red ball.
+Nobody has opened it.
+The ball’s color is unknown, yet discovering it seems perfectly possible.
+“Every truth can be known” sounds completely compatible with a world full of unopened boxes.
 
-Fitch’s paradox asks whether that compatibility survives when “every truth” includes truths about _ignorance_ itself.  It shows that a seemingly modest philosophical claim
+Fitch’s paradox asks whether that compatibility survives when “every truth” includes truths about _ignorance_ itself.
+It shows that a modest-sounding philosophical claim—
+
 > Every truth could, in principle, be known.
 
-logically implies a much stronger and implausible claim:
+—logically implies an extravagant one:
+
 > Every truth is already known.
 
-Fitch's paradox of knowability is probably one of the most surprising results in epistemic logic. Remarkably, it does not rely on self-reference, unlike the Liar paradox or Gödel's incompleteness theorem. 
-
-
+Published by Frederic Fitch in 1963, this is one of the most startling results in epistemic logic.
+Unlike the Liar paradox or Gödel's incompleteness theorem, the proof uses no self-reference at all.
 
 ### The philosophical motivation
 
-The idea stems from the difference between the two positions about the relationship between truth and knowledge.
+The puzzle grows out of an old debate over how truth relates to our capacity to know.
 
-*Realism:* Some facts may be true even if no one could ever discover them.
+*Realism* holds that truth is independent of what anyone can establish: some facts may hold even if no one could ever discover them.
 
-*Anti-realism (verificationism):* Truth is fundamentally connected to our capacity to verify it. If a statement is true, it must at least be possible for someone to know it.
+*Anti-realism (verificationism)* ties truth to verification: if a statement is true, it must at least be possible, in principle, for someone to come to know it.
 Everything true is knowable.
 
-### Let's add some "math"
+### Putting the principle in symbols
 
-
-Let $$Kp$$ mean that $$p$$ is known and $$\Diamond Kp$$ that it is possible for $$p$$ to be known. The unrestricted knowability principle is the schema
+Let $$Kp$$ mean that $$p$$ is known (by someone, at some time) and $$\Diamond Kp$$ mean that it is possible for $$p$$ to be known.
+The unrestricted knowability principle is the schema
 
 $$
 p \longrightarrow \Diamond Kp. \tag{KP}
 $$
 
-This is the anti-realist's knowability principle--seemingly much weaker than its counterpart of classical consequence, _omniscience_:
+To an anti-realist, this looks far more modest than _omniscience_, the claim that every truth is already known:
 
 $$
 p \longrightarrow Kp.
 $$
 
-
+Fitch's proof collapses the gap between the two.
 
 ## 1. The proof in a few steps
 
-
-
-
-
-Use two elementary principles: knowledge is factive, and knowing a conjunction entails knowing each conjunct.
+The argument relies on just two elementary rules about knowledge: knowledge is factive (only truths can be known), and knowing a conjunction entails knowing each conjunct.
 
 $$
 Kq \longrightarrow q, \qquad K(q\land r)\longrightarrow (Kq\land Kr).
 $$
 
-Let's consider a proposition $$p$$ that is true but unknown. Think of something like "there is a buried Roman coin at a certain location, but nobody knows it exists". Then another proposition is true:
+Suppose some proposition $$p$$ is true but never known—for instance, “there is a Roman coin buried at this spot, and nobody ever learns of it.”
+Then the compound proposition
 
 $$
-q := p\land\neg Kp.
+q := p\land\neg Kp
 $$
 
+is also true.
 In words:
-> "The coin is buried there, and nobody knows that it is buried there."
 
-Universal knowability says that this whole conjunction $$q$$ can be known. But suppose it were known:
+> “The coin is buried there, and nobody knows that it is buried there.”
+
+Could anyone ever know this conjunction $$q$$?
+Suppose someone did:
 
 $$
 K(p\land\neg Kp).
 $$
 
-Conjunction elimination gives both $$Kp$$ and $$K\neg Kp$$. Factivity applied to the latter gives $$\neg Kp$$. We obtain
+Distributing knowledge across the conjunction gives both $$Kp$$ and $$K\neg Kp$$.
+Applying factivity to the second conjunct gives $$\neg Kp$$.
+Together, we get
 
 $$
 Kp\land\neg Kp,
 $$
 
-a contradiction. Consequently,
+a contradiction.
+Consequently, $$q$$ can never be known:
 
 $$
 \boxed{\neg\Diamond K(p\land\neg Kp)}.
 $$
 
-It is impossible to know that a particular truth is unknown.
+No one can know that a specific truth is unknown.
 
-
-Recall that KP applies to _every_ true proposition.
-Therefore, it must also apply to $$q=p\land\neg Kp$$ :
+Now bring in the knowability principle.
+Because KP applies to _every_ true proposition, it applies in particular to $$q=p\land\neg Kp$$:
 
 $$
 (p\land\neg Kp)\rightarrow
 \Diamond K(p\land\neg Kp).
 $$
 
-But we just proved that its consequent is impossible.
-Hence,
+We just proved that the right-hand side is impossible.
+By modus tollens, the left-hand side must be false:
 
 $$
 \boxed{\neg(p\land\neg Kp)}.
 $$
 
-In classical propositional logic, this is equivalent to
+In classical propositional logic, $$\neg(p\land\neg Kp)$$ is equivalent to
 
 $$
 \boxed{p\rightarrow Kp}.
 $$
 
-Since $p$ was arbitrary:
+Since $$p$$ was arbitrary,
 
 $$
 \boxed{\forall p\,(p\rightarrow Kp)}.
 $$
 
-Every truth is known!
+Every truth is known.
 
-
-> **The crucial distinction:** $$p\land\neg Kp$$ can be true. What cannot be true is that this entire conjunction is known. Consistency of a proposition does not guarantee consistency of knowing it.
-
+> **The crucial distinction:** $$p\land\neg Kp$$ can easily be true. What is impossible is *knowing* that entire conjunction at once: the act of knowing $$p$$ falsifies the second conjunct $$\neg Kp$$.
 
 ## 2. Tennant: restrict which truths must be knowable
-Neil Tennant wants to preserve anti-realism without accepting that everything is known.
 
-His proposed solution is ingenious: the knowability principle should apply only to propositions whose being known is logically consistent.
+To rescue anti-realism from omniscience, Neil Tennant proposes restricting which propositions the knowability principle covers.
+Why demand that a proposition be knowable when knowing it is logically self-defeating?
 
-He calls these *Cartesian propositions*.
-
-Neil Tennant proposes applying knowability only to *Cartesian* propositions: those for which assuming knowledge does not yield inconsistency. Schematically,
+Tennant calls a proposition $$p$$ *Cartesian* if assuming $$Kp$$ is logically consistent, and restricts KP to Cartesian propositions:
 
 $$
 p\longrightarrow\Diamond Kp \quad\text{only when } Kp\nvdash\bot.
 $$
 
-This blocks the original substitution: $$p\land\neg Kp$$ fails the eligibility test. The issue then becomes whether the restriction has an independent philosophical justification and how its consistency test treats necessary background truths.
+Because $$K(p\land\neg Kp)$$ entails a contradiction using only the basic laws of knowledge, Fitch's conjunction $$p\land\neg Kp$$ is not Cartesian and falls outside the scope of the principle.
+Whether this restriction solves the problem depends on whether complex truths can still smuggle in an unknowable conjunction without failing the consistency test.
 
 ## 3. Williamson: can ignorance be hidden inside an eligible truth?
 
-In *Tennant on Knowable Truth* (2000), Timothy Williamson challenges the ad-hoc restriction with a modified construction. 
+In *Tennant on Knowable Truth* (2000), Timothy Williamson argues that restricting KP to Cartesian propositions is not enough.
 
+Let $$n$$ rigidly designate the actual number of books on a shelf, and let $$E(n)$$ mean that $$n$$ is even.
+Because $$n$$ fixes that number across possible worlds, either $$E(n)$$ is necessarily true or $$\neg E(n)$$ is necessarily true—even if we have not counted the books and do not know which holds.
 
-Let $$n$$ rigidly name an actual number of books, and let $$E(n)$$ mean that this number is even. Since the number of books is fixed, in the relevant modal interpretation, either $$E(n)$$ is necessarily true or $$\neg E(n)$$ is necessarily true. But we may not know which.
-
-
-Consider
+Now take a true but unknown proposition $$p$$ and form the compound
 
 $$
 r:=p\land(Kp\to E(n)).
 $$
 
-This is much less obviously problematic than Fitch's original proposition $$q$$.
+Unlike Fitch's conjunction $$q$$, knowing $$r$$ does not look immediately self-contradictory.
+Because $$p$$ is true and $$Kp$$ is false, the conditional $$Kp\to E(n)$$ has a false antecedent, making $$r$$ true.
 
-If $$p$$ is true but unknown, $$r$$ is true because the conditional has a false antecedent. If $$r$$ is known, conjunction elimination and factivity yield $$Kp$$ and $$Kp\to E(n)$$, hence $$E(n)$$. Knowability of $$r$$ would therefore imply possible evenness; rigid numerical parity makes that actual evenness. Repeating with oddness produces a contradiction—*if both constructed propositions qualify as Cartesian*.
+What happens if someone comes to know $$r$$?
+Conjunction elimination and factivity yield $$Kp$$ and $$Kp\to E(n)$$, hence $$E(n)$$.
+So if $$r$$ is knowable, it is possible that $$E(n)$$ holds; and because numerical parity is rigid, possible evenness implies actual evenness.
+Running the exact same construction with $$\neg E(n)$$ in place of $$E(n)$$ implies that $$n$$ is also odd—provided both constructed propositions qualify as Cartesian.
 
-That qualification is disputed. Tennant’s 2001 reply counts necessary truths in the consistency test: if $$n$$ is necessarily odd, knowledge of the evenness construction is inconsistent, and conversely. On that reading, the restriction blocks one application. 
+Tennant (2001) replies that they do not both qualify.
+If the consistency test $$Kp\nvdash\bot$$ is allowed to draw on necessary mathematical truths, then when $$n$$ is actually odd, $$E(n)$$ is necessarily false, so assuming $$Kr$$ is inconsistent after all.
+On that reading, only one of the two constructions is Cartesian, and Williamson's pincer argument is blocked.
 
-## 4. Why this is different from a self-referential paradox
+## 4. Epistemic blindspots vs. self-reference
 
-The liar sentence says, “This sentence is false.” It refers to itself, producing a feedback loop between its own content and its truth status. Fitch needs no sentence that names itself and no diagonal construction. Start with any ordinary $$p$$—a ball’s color, for example—and form a new statement about $$p$$’s epistemic status.
+The Liar sentence—“This sentence is false”—creates a paradox by referring to itself, tying its content directly to its own truth value.
+Fitch's proof needs no self-reference and no diagonalization.
+Start with an ordinary fact $$p$$, such as the color of a ball in a closed box, and conjoin it with the fact that $$p$$ is unknown.
 
-Fitch is closer to a Moore-style puzzle: “It is raining, but I do not know that it is raining” may describe reality correctly even though knowing its entire content is impossible. The obstruction is epistemic structure rather than semantic self-reference.
+The mechanism is what Roy Sorensen calls an *epistemic blindspot*, familiar from G. E. Moore's paradox: “It is raining, but I do not know that it is raining.”
+The state of affairs can easily obtain, yet no one can coherently know the whole conjunction at once.
+The barrier is built into the logic of knowledge rather than semantic circularity.
 
-## 5. What the paradox leaves open
+## 5. Other ways out
 
-The result exposes how demanding the word “every” is. An assurance about discovering ordinary facts becomes a much stronger claim when it covers arbitrary compounds involving knowledge.
-
-One can restrict knowability, revise its modal or temporal interpretation, or reconsider the logic. In intuitionistic logic the argument yields $$p\to\neg\neg Kp$$, without generally licensing the final step to $$p\to Kp$$. 
-
+Besides restricting which propositions count as knowable, philosophers have explored several ways to block the collapse into omniscience.
+One option is to change the background logic: the final step from $$\neg(p\land\neg Kp)$$ to $$p\to Kp$$ relies on double-negation elimination, which intuitionistic logic rejects.
+In intuitionistic logic the argument yields $$p\to\neg\neg Kp$$—no truth is forever unknowable—without licensing the final step to $$p\to Kp$$.
+Other approaches revise the modal or temporal interpretation of knowability, distinguishing what is true *now* from what can be learned *later* after the state of ignorance has passed.
 
 ## Further reading
 

@@ -167,69 +167,62 @@ F_O(A)=G\cap T_O(A),
 \qquad F_C(A)=G\cap T_C(A).
 $$
 
-Each operator removes possibilities; each is monotone under set inclusion.
-Adding possible worlds preserves existing alternatives and can supply new ones that make an exam surprising.
+Each operator removes states where an exam would be predictable, and each is monotone under set inclusion: enlarging the set of possible worlds preserves existing alternatives and can only make surprise easier to achieve.
 
-These operators describe the content of the announcement relative to $$A$$.
-Whether they should be applied once or iterated is a separate question.
+Applying one of these operators once captures a single evaluation of surprise relative to $$A$$; iterating it captures an announcement whose truth must survive its own uptake.
 
 ## 4. Interpretation A: evaluate once, then announce
 
 Suppose an exam is already known to occur, so initially $$A_0=G$$.
-The teacher evaluates surprise using these initial possibilities and announces that the actual date belongs to $$T_O(A_0)$$.
-Since ordinary and conditional surprise coincide here, either operator gives
+The teacher evaluates surprise against these initial possibilities and announces that the actual date belongs to $$T_O(A_0)$$.
+Since ordinary and conditional surprise coincide when $$0$$ is absent, either operator gives
 
 $$
 A_1=T_O(G)=T_C(G)=\{1,2,3,4\}.
 $$
 
-Friday is excluded.
-The original claim concerned surprise relative to $$A_0$$.
+Friday is ruled out.
+Now suppose the exam is held on Thursday.
+The teacher's original statement was true when evaluated against $$A_0$$: before the announcement, Friday would still have been open on Thursday morning.
+Once the students learn the announcement and update to $$A_1$$, however, Thursday becomes the last remaining date and is completely predictable by Thursday morning.
+Learning an epistemic claim changes the information state against which surprise is measured.
 
-If the actual date is Thursday, the original claim was true: without the announcement, Friday would have remained possible on Thursday morning.
-After the announcement, Thursday becomes predictable if no earlier exam occurs.
-Learning an epistemic claim can change the epistemic condition it describes.
+On this one-step reading, the teacher's promise means only: *the exam would have been surprising without the information conveyed by this announcement*.
+Eliminating Thursday, Wednesday, and the rest of the week requires a stronger premise—that the exam will still be surprising *after* the students incorporate the announcement itself.
 
-This gives a precise reading of the teacher's words: *the exam would have been surprising without the information conveyed by this announcement*.
-It is coherent, but weaker than the natural promise that the exam **will** surprise students who have heard the promise.
-Reapplying the operator requires an additional premise that the same surprise condition continues to hold in the updated model.
-
-The baseline also matters.
-If $$A_0=\Omega$$ and the guarantee and ordinary-surprise claim arrive together, then
+Even the first elimination step depends on what is already in the baseline $$A_0$$.
+If $$A_0=\Omega$$ and the exam guarantee arrives together with an ordinary-surprise claim, then
 
 $$
 F_O(\Omega)=G,
 \qquad F_O(G)=\{1,2,3,4\}.
 $$
 
-Before the first announcement, even Friday is ordinarily surprising because giving no exam remains possible.
-Thus “the first update eliminates Friday” presupposes that the exam guarantee is already incorporated, or uses conditional surprise.
+Against $$\Omega$$, even a Friday exam counts as ordinarily surprising because no exam ($$0$$) is still on the table; only after the guarantee restricts the state space to $$G$$ does Friday drop out.
 
 ## 5. Interpretation B: include the announcement's own consequences
 
-Now take the stronger promise:
+Now take the stronger, self-referential promise:
 
 > After learning this announcement and reasoning through its consequences, you will still be surprised if an exam occurs.
 
-Let $$A^*$$ be the possibilities retained after this information is fully incorporated.
-Every retained state must satisfy the promise when surprise is evaluated using $$A^*$$ itself.
-For the optional-exam promise, this means
+Let $$A^*$$ be the possibilities retained once this announcement is fully incorporated.
+Every state in $$A^*$$ must satisfy the promise when surprise is evaluated relative to $$A^*$$ itself.
+For the optional-exam promise, this requires a fixed point:
 
 $$
 \boxed{A^*=T_O(A^*)\quad\text{or}\quad A^*=T_C(A^*).}
 $$
 
 For a guaranteed exam, replace $$T_O,T_C$$ by $$F_O,F_C$$.
-Because these operators always return subsets of their inputs, the requirement that every retained state satisfy the promise already yields the fixed-point equality.
+Because each operator returns a subset of its input, requiring every retained state to satisfy the promise is already equivalent to the fixed-point equation.
 
-There may be several fixed points.
-If the announcement conveys no additional restriction on the date, select the **greatest fixed point**: the largest set compatible with the promise.
-In this finite model, obtain it by starting from all initially available possibilities and repeatedly applying the chosen operator until the set stops changing.
-The iteration computes one strong announcement's meaning.
+When multiple fixed points exist and the announcement places no further restriction on the date, the natural candidate is the **greatest fixed point**—the largest set of states compatible with the promise.
+In our finite five-day model, we find it by starting from all initially available possibilities and applying the operator repeatedly until the set stabilizes.
 
 ### Guaranteed exam: no state survives
 
-Starting from $$G$$, both definitions give the familiar calculation:
+Starting from $$G$$, both definitions produce the classic five-step elimination:
 
 | Round | Remaining exam dates |
 | --- | --- |
@@ -240,26 +233,22 @@ Starting from $$G$$, both definitions give the familiar calculation:
 | 4 | Monday |
 | 5 | None |
 
-Every nonempty finite set of dates has a last date.
-That date is predictable if no earlier exam occurs, so it cannot survive.
-The only fixed point is $$\varnothing$$.
-
-**The conclusion is an impossible guarantee.**
-The no-exam state was excluded by the guarantee.
-An empty information set represents inconsistency among the maintained requirements; $$\{0\}$$ represents the information that no exam occurs.
+Every nonempty finite set of dates has a latest date.
+If no exam has occurred before that morning, the exam must occur that day, so the latest date is eliminated in the next round.
+The only fixed point is $$\varnothing$$: **a guaranteed exam cannot be self-referentially surprising.**
 
 ### Optional exam: the definitions separate
 
-Under ordinary surprise, retaining $$0$$ protects every exam date from certainty:
+When the teacher does not guarantee an exam ($$0\in\Omega$$), ordinary and conditional surprise part ways.
+Under ordinary surprise, the continuing possibility of no exam prevents certainty on every morning of the week:
 
 $$
 T_O(\Omega)=\Omega.
 $$
 
-So the greatest fixed point is the full state space.
-Learning the promise leaves every possibility open.
+The greatest fixed point is the entire state space $$\Omega$$, and the announcement rules out nothing.
 
-Under conditional surprise, the last possible exam date is removed at each round:
+Under conditional surprise, however, the latest remaining exam date is still conditionally expected on that morning and gets eliminated at each round:
 
 $$
 \begin{aligned}
@@ -271,16 +260,14 @@ $$
 \end{aligned}
 $$
 
-The set $$\{0\}$$ is the greatest fixed point and the only **nonempty** fixed point.
-The empty set is also a fixed point.
+All five exam dates vanish one by one, leaving $$\{0\}$$ as the greatest fixed point (and the only **nonempty** fixed point).
 
 | Strong announcement | Ordinary surprise | Conditional surprise |
 | --- | --- | --- |
 | Any exam will be surprising | $$\Omega$$ | $$\{0\}$$ |
 | An exam will occur and be surprising | $$\varnothing$$ | $$\varnothing$$ |
 
-The entries are greatest fixed points starting from $$\Omega$$.
-They distinguish a no-exam outcome, an inconsistent guarantee, and an unchanged information set.
+These greatest fixed points (starting from $$\Omega$$) cleanly separate three outcomes: an uninformative promise ($$\Omega$$), a promise that forces no exam ($$\{0\}$$), and an inconsistent guarantee ($$\varnothing$$).
 
 <details markdown="1">
 <summary>Proof: all fixed points in the finite model</summary>
@@ -305,71 +292,55 @@ It is the greatest one.
 
 ## 6. Simpson: what happens when trust is defeasible?
 
-James Simpson's [*A new epistemic solution to the Surprise Exam Paradox*](https://doi.org/10.1080/0020174X.2025.2495659) (2025, §§2–2.1) studies **justified belief**, with a reliable but fallible teacher.
-His diagnosis is that the student's reasoning undermines the justification on which it depends.
-In the ordinary puzzle, the teacher's testimony may be the student's only reason to expect any exam.
-Rejecting that testimony can remove the reason for expecting a Friday exam.
-For conditional surprise, his Thursday argument restores Friday as a possible exam date once the restriction on which exams the teacher may give loses credibility.
+In [*A new epistemic solution to the Surprise Exam Paradox*](https://doi.org/10.1080/0020174X.2025.2495659) (2025, §§2–2.1), James Simpson shifts from deductive certainty to **justified belief** in the testimony of a reliable but fallible teacher.
+His diagnosis is that the student's backward induction undercuts the very testimony it relies on.
+Once the student concludes that the teacher cannot fulfill her promise, trusting the teacher's word is no longer justified.
 
-We can express these changes in terms of the student's remaining possibilities.
-If ordinary surprise is considered on Friday and the student's possibilities become $$\{0,5\}$$, then
+In the ordinary puzzle, losing trust in the announcement means the student can no longer be sure an exam will happen at all; on Friday morning, the live possibilities reopen to $$\{0,5\}$$, so
 
 $$
 \neg K_5^{\{0,5\}}E_5,
 \qquad K_5^{\{0,5\}}(G\Rightarrow E_5).
 $$
 
-Losing certainty that an exam occurs restores ordinary surprise.
-Friday's exam remains conditionally expected.
-Conditional surprise requires a later exam alternative, as on Thursday:
+Doubting whether an exam will occur restores ordinary surprise on Friday, though a Friday exam remains conditionally expected.
+In the conditional-surprise puzzle, losing trust in the teacher's promise on Thursday morning reopens Friday as a possible exam date ($$\{0,4,5\}$$), which makes a Thursday exam conditionally surprising after all:
 
 $$
 \neg K_4^{\{0,4,5\}}(G\Rightarrow E_4).
 $$
 
-The substantive move is reopening possibilities previously excluded using the teacher's testimony.
-That is belief revision, whereas our fixed-point calculation keeps the strong announcement as a hard constraint throughout.
-
-Our strong interpretation gives a different conclusion for the promise “if there is an exam, it will not be conditionally expected.”
-At $$\{0\}$$, the promise is vacuously true.
-Deducing that no exam occurs is therefore consistent with accepting the testimony.
-
-I find it useful to separate the questions.
-The fixed-point model asks whether a guarantee can be true and accepted under specified information rules.
-Simpson asks what justification remains when a student's argument calls the teacher's testimony into question.
+In short, where our fixed-point model treats the announcement as an indefeasible constraint and asks which states survive, Simpson's model asks how a student revises beliefs when the deduction itself erodes trust in the speaker.
+Note also that for the purely conditional promise (“if there is an exam, it will not be conditionally expected”), our fixed-point calculation lands on $$\{0\}$$: the student can continue to trust the teacher completely and simply conclude that there will be no exam.
 
 ## 7. Baltag and coauthors: the same operator in a broader language
 
-Alexandru Baltag, Nick Bezhanishvili, and David Fernández-Duque's [*The Topology of Surprise*](https://proceedings.kr.org/2022/4/kr2022-0004-baltag-et-al.pdf) (2022, §§4–5) develops a topological treatment.
-For the guaranteed five-day exam, its elimination operator is exactly ours.
-Their self-referential formulation is
+Alexandru Baltag, Nick Bezhanishvili, and David Fernández-Duque develop a general topological semantics for surprise in [*The Topology of Surprise*](https://proceedings.kr.org/2022/4/kr2022-0004-baltag-et-al.pdf) (2022, §§4–5).
+In their modal language, the self-referential announcement is written as the fixed-point equation
 
 $$
 P=\langle P\rangle\Diamond\top.
 $$
 
-Here $$\langle P\rangle$$ means that $$P$$ is true and, after publicly learning it, the following condition holds; $$\Diamond\top$$ says the actual state cannot be isolated by available observations.
-They select the greatest fixed point, called the **perfect core**.
-An empty core makes the strong announcement impossible; a nonempty core allows it to be truthful.
+Here $$\langle P\rangle$$ is the public-announcement modality (“$$P$$ is true, and after $$P$$ is announced...”) and $$\Diamond\top$$ says that the actual state is not isolated by the agent's observation.
+The greatest fixed point of this operator is the **perfect core** of the space: if it is nonempty, the self-referential announcement can be truthfully made; if it is empty, the announcement is self-defeating.
 
-To see the equivalence directly, return to $$X=G$$ and let the observable sets be
+For a guaranteed exam in a five-day week ($$X=G$$), their topological elimination operator coincides with ours.
+Take the morning observations (no exam prior to day $$i$$) as the open sets:
 
 $$
 O_i=\{i,i+1,\ldots,5\},
 \qquad \mathcal T=\{\varnothing,O_1,\ldots,O_5\}.
 $$
 
-These observations record days passing without an exam, up to the exam morning.
-
-For $$A\subseteq X$$, define its derivative by
+For any subset $$A\subseteq X$$, its topological derivative—the set of limit points of $$A$$—is
 
 $$
 d(A)=\{x\in X:\text{every open neighborhood of }x
 \text{ meets }A\setminus\{x\}\}.
 $$
 
-At $$i$$, the smallest open neighborhood is $$O_i$$.
-Hence, for $$i\in A$$,
+Because the smallest open neighborhood of day $$i$$ is $$O_i$$, a date $$i\in A$$ is a limit point of $$A$$ if and only if some later date also lies in $$A$$:
 
 $$
 i\in d(A)
@@ -377,51 +348,42 @@ i\in d(A)
 \iff\exists j\in A:\ j>i.
 $$
 
-Therefore
+Consequently, on $$A\subseteq G$$,
 
 $$
 \boxed{T_O(A)=T_C(A)=A\cap d(A),\qquad A\subseteq G.}
 $$
 
-The equivalence concerns this information structure and the strong guaranteed-exam model.
-Our inclusion of the no-exam state and distinction between the two surprise predicates makes those variants explicit.
+Iterating $$F_O$$ or $$F_C$$ is literally Cantor–Bendixson derivative pruning—peeling away isolated points until only the perfect core remains.
 
 ## 8. What changes on a continuum?
 
-The finite definition “there is a later possible date” uses the order of the week.
-The more general definition “no permitted observation isolates the actual state” works even when observations have no such order.
-This is where topology becomes useful.
-
-The following examples apply that criterion to identifying a hidden number.
+Recasting “there is a later possible date” as “no permitted observation isolates the actual state” lets us ask what happens when the set of possibilities is infinite or continuous.
+Consider a hidden number $$x\in X$$ instead of an exam day.
 
 ### Arbitrarily accurate measurements and exact identification
 
-Suppose a hidden number lies in $$X=[0,1]$$.
-Observations are neighborhoods in the usual relative topology: measurements locate the number within intervals of positive, arbitrarily small width.
-Every neighborhood of every $$x\in[0,1]$$ contains another possible value, including at the endpoints.
-Thus
+Suppose the hidden number lies in $$X=[0,1]$$ equipped with the standard Euclidean topology: any measurement locates $$x$$ within an open interval of positive, arbitrarily small width.
+Because every open neighborhood of every $$x\in[0,1]$$ contains other points of $$[0,1]$$ (including at the endpoints), no point is isolated:
 
 $$
 d(X)=X,
 \qquad X\cap d(X)=X.
 $$
 
-The strong announcement that the exact value will remain unidentified through these observations is consistent.
-Learning it leaves all values possible, preserving the uncertainty it describes.
-
-The available evidence consists of finite-precision measurements and their finite combinations.
+Here the strong, self-referential announcement—“you will never pinpoint the exact value of $$x$$ from finite-precision measurements, even after hearing this announcement”—is completely consistent and leaves every value in $$[0,1]$$ open.
 
 ### An informative announcement with a nonempty survivor set
 
-For a slightly richer example, take
+Now take a space that mixes isolated points with a continuum:
 
 $$
 X=\{0\}\cup\{1/n:n=1,2,\ldots\}\cup[2,3]
 $$
 
-with the usual relative topology.
-Every $$1/n$$ is isolated, whereas $$0$$ is approached by the sequence and every point in $$[2,3]$$ has neighboring interval points.
-The successive survivor sets are
+under the usual subspace topology.
+Each point $$1/n$$ is isolated; $$0$$ is a limit point of the sequence $$\{1/n\}$$; and every point of $$[2,3]$$ is surrounded by other points of the interval.
+Iterating the elimination operator peels away the discrete part in two rounds:
 
 $$
 \begin{aligned}
@@ -432,19 +394,17 @@ A_3&=[2,3].
 \end{aligned}
 $$
 
-The first round removes the isolated sequence points.
-Once they disappear, $$0$$ becomes isolated too and is removed in the second round.
-The interval remains forever.
-The strong announcement is informative: the student learns that the number lies in $$[2,3]$$, while its exact value remains unidentified.
+Round 1 eliminates every $$1/n$$ because each can be isolated by a sufficiently narrow interval.
+Once the sequence $$\{1/n\}$$ is gone, $$0$$ is left isolated and drops out in Round 2.
+The interval $$[2,3]$$ is its own derivative and survives every subsequent round.
+In this space, the self-referential announcement is both **consistent** and **informative**: hearing that the number cannot be pinned down allows the student to deduce that $$x\in[2,3]$$, while the exact value inside $$[2,3]$$ remains unidentifiable.
 
-### The role of the observation structure
+### Why the observation topology is what matters
 
-A continuum equipped with the discrete topology has singleton observations.
-Then $$d(X)=\varnothing$$, and the strong announcement fails immediately despite the uncountably many states.
-Conversely, even a two-point space with only the observations $$\varnothing$$ and $$X$$ has no isolated points.
-
-What matters is which states observations can distinguish.
-The five-day impossibility relies on a last remaining distinguishable date.
+Cardinality alone does not save the announcement.
+If $$[0,1]$$ is given the discrete topology—where observations can test singletons $$\{x\}$$ directly—then $$d(X)=\varnothing$$ and the announcement fails in a single round despite uncountably many states.
+Conversely, even a two-point space equipped with the indiscrete topology $$\{\varnothing,X\}$$ has $$d(X)=X$$.
+The five-day exam paradox collapses because each passing day isolates the earliest remaining date and the finite week has a final day.
 
 <details markdown="1">
 <summary>Technical note: iteration beyond finitely many rounds</summary>
@@ -471,25 +431,18 @@ Thus the derivative and contracting formulations yield the same greatest fixed p
 
 </details>
 
-## 9. What I take the paradox to show
+## 9. Putting the pieces together
 
-Under the strong interpretation, the backward calculation tests whether the teacher's promise can survive its own dissemination.
-With a guaranteed exam in a finite week, it cannot.
-With only a conditional-surprise restriction, it can survive by implying no exam.
-With imperfect observations on a continuum, it can survive while leaving many states possible.
+Each resolution of the surprise exam paradox answers a distinct question about how announcements interact with knowledge:
 
-Under the one-step interpretation, further elimination requires a renewed guarantee of surprise in the updated model.
-Under a fallible-testimony interpretation, an argument that undermines trust must also reconsider the exclusions that depended on that trust.
-These are different diagnoses because they answer different formal questions.
+- **One-step evaluation (Interpretation A):** If the teacher asserts only that the exam date is surprising relative to the students' *prior* information, Friday is ruled out, and the backward induction stops after step one.
+- **Self-referential fixed point (Interpretation B):** If the promise must remain true *after* its own consequences are deduced, a guaranteed five-day exam has no fixed point ($$\varnothing$$), an optional conditionally surprising exam forces no exam ($$\{0\}$$), and a continuum with interval observations can leave a rich perfect core such as $$[2,3]$$.
+- **Defeasible testimony (Simpson):** If the student treats the teacher as fallible, deducing that the promise is untenable undercuts trust in the announcement itself and reopens the eliminated days.
 
-The comparison with the [forty cheating husbands puzzle](/fun-stuff/logics/forty-cheating-husbands.html) helps locate the difference.
-There, subsequent publicly observed inaction, combined with the known decision rule, supplies new information each day.
-Here, the backward rounds can all be performed before Monday: they compute the proposed guarantee's fixed point.
-The interpretation of the message determines whether those rounds are licensed.
-
-For me, the most interesting lesson is that a self-referential announcement can be both informative and true.
-A statement can refer to what will remain unknown after it is learned.
-Whether it can be true depends on the possibilities and observations that remain.
+Compare this with the [forty cheating husbands puzzle](/fun-stuff/logics/forty-cheating-husbands.html).
+There, the wives cannot run the elimination in their heads on day one because each step requires observing an actual silent midnight.
+In the surprise exam, by contrast, the students do not wait for Monday morning to eliminate Friday: the entire backward induction is a prior calculation of which states can belong to the announcement's fixed point.
+And as the continuum examples show, a self-referential announcement about future ignorance is not inherently paradoxical—whether it collapses or succeeds depends on whether the observation structure leaves a nonempty perfect core.
 
 ## Further reading
 

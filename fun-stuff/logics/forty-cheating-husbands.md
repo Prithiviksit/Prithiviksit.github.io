@@ -36,27 +36,21 @@ Here we can see it working without probabilities or preferences.
 ## The rules that make the puzzle work
 
 There are $$N\geq 40$$ couples, and each husband's fidelity is fixed throughout the story.
-The number of couples is known.
-Initially, a wife can distinguish every husband's status except her own husband's.
-She has no additional information that settles his status.
+The total number of couples is known, and each wife can see the status of every husband except her own.
+Wait: if there are forty unfaithful husbands, doesn't a wife who sees thirty-nine already know about the fortieth?
+No—**forty is given only to us, the readers.**
+The queen never announces the number forty; she announces only that *at least one* husband is unfaithful.
 
-**Forty is information given to us, the readers.**
-The queen never announces that number.
-If she did, a wife who saw thirty-nine unfaithful husbands would immediately identify her own as the fortieth.
+To make the deduction exact, we assume the following common-knowledge rules:
 
-We also need the following rules:
+- Every wife reasons flawlessly and obeys the queen's decree to the letter: she shoots her husband at the first midnight after she knows he is unfaithful, and never otherwise.
+- Everyone hears the queen's truthful announcement together and knows that everyone hears it.
+- Each midnight decision is simultaneous: no wife can wait to hear whether another shot goes off that same night before acting.
+- Everyone can hear whether a night was silent and keeps track of how many nights have passed since the announcement.
+- No one communicates or receives outside information about fidelity in any other way.
 
-- Every wife reasons correctly and follows the queen's instruction exactly: she acts at the first midnight after learning that her husband is unfaithful, and only then.
-- Everyone hears the queen's truthful announcement together and understands that everyone hears it.
-- Every midnight is a simultaneous decision: nobody can react to another shot during that same midnight.
-- Everyone can reliably tell whether a night was silent. They remember the previous nights and count them from the announcement.
-- There are no other messages, disclosures, or sources of information about fidelity.
-
-The information structure, the reasoning, the obedience, and these observation rules are all common knowledge.
-Everyone knows them, everyone knows that everyone knows them, and so on.
-
-Hearing whether any shots occurred is enough.
-The proof does not require counting shots or identifying who fired them.
+These rules—along with the observation structure and everyone's rationality—are common knowledge: everyone knows them, everyone knows that everyone knows them, and so on.
+Notice that the wives only need to detect whether *any* shot was fired on a given night, not how many shots rang out or who fired them.
 
 ## Start with one husband
 
@@ -81,14 +75,14 @@ If her own husband were faithful, those other two wives would face the two-husba
 When the second night is silent, she rules out that possibility.
 All three act on the third night.
 
-The pattern suggests the answer, but a complete proof must establish both parts: everyone who should act eventually does, and nobody acts earlier.
+Stepping through one, two, and three husbands shows the induction at work; we can make the general argument precise by tracking which possible worlds survive each silent night.
 
 ## A proof by eliminating possible worlds
 
 **Claim.** If exactly $$k\geq 1$$ husbands are unfaithful, the first $$k-1$$ nights are silent, and all $$k$$ are shot on night $$k$$.
 No faithful husband is ever shot.
 
-Represent a possible world by a set
+Represent a possible world by the set of unfaithful husbands,
 
 $$
 H\subseteq\{1,\ldots,N\},
@@ -96,12 +90,11 @@ $$
 
 where $$i\in H$$ means that husband $$i$$ is unfaithful.
 Before the announcement, every subset is possible in the model.
-Wife $$i$$ observes the status of everyone except husband $$i$$.
-Her two initially possible worlds therefore differ only in whether $$i$$ belongs to $$H$$.
+Wife $$i$$ observes the status of everyone except husband $$i$$, so the two worlds she initially considers possible differ only in whether $$i$$ belongs to $$H$$.
 
-The public announcement removes the empty set: there must be at least one unfaithful husband.
-After that, each silent night removes more possibilities.
-We will prove that, after the announcement and $$t$$ silent nights, the worlds consistent with the public history are exactly
+The public announcement removes the empty set: there is at least one unfaithful husband.
+Each silent night then eliminates the smallest remaining worlds.
+Specifically, after the announcement and $$t$$ silent nights, the worlds consistent with the public history are
 
 $$
 \boxed{
@@ -110,47 +103,43 @@ $$
 }
 $$
 
-Here $$t=0$$ means that the announcement has occurred but the first midnight has not.
-Each wife combines this public set with her own observation of the other husbands.
+Here $$t=0$$ marks the moment after the announcement but before the first midnight.
+Each wife intersects this public set $$\Omega_t$$ with what she personally sees of the other husbands.
 
-The formula is true at $$t=0$$ because the announcement excludes exactly the world with no unfaithful husbands.
+At $$t=0$$, the formula holds because the queen's announcement rules out only $$H=\varnothing$$.
 
-Suppose it is true after $$t$$ silent nights, and consider a world $$H\in\Omega_t$$.
-For a wife whose husband is unfaithful, there are two possibilities to examine:
+Now suppose the formula holds after $$t$$ silent nights, and consider a world $$H\in\Omega_t$$.
+A wife whose husband is unfaithful has two candidate worlds that match what she sees of the other husbands:
 
 1. Her husband is unfaithful, so the world is $$H$$.
 2. Her husband is faithful, so the world is $$H\setminus\{i\}$$.
 
-These worlds agree on everything she sees about the other husbands.
-The second remains consistent with the public history precisely when
+The second candidate survives in $$\Omega_t$$ if and only if
 
 $$
 |H|-1\geq t+1.
 $$
 
-Consequently, she knows her own husband is unfaithful precisely when
+Consequently, she can rule out her husband's fidelity—and therefore knows he is unfaithful—precisely when
 
 $$
 |H|=t+1.
 $$
 
-If there are exactly $$t+1$$ unfaithful husbands, every affected wife therefore acts on the next night, night $$t+1$$.
-If there are more, none does: each still has a possible world in which her own husband is faithful.
-A wife with a faithful husband never knows him to be unfaithful, since the true world remains consistent with all her information.
+If the true world has exactly $$t+1$$ unfaithful husbands, every affected wife learns the truth after $$t$$ silent nights and shoots on night $$t+1$$.
+If more than $$t+1$$ husbands are unfaithful, no affected wife can yet rule out $$H\setminus\{i\}$$, and wives of faithful husbands never rule out the true world $$H$$, so night $$t+1$$ passes in silence.
 
-Thus the next night contains shots exactly in the worlds with $$|H|=t+1$$.
-If it is silent, those worlds are eliminated, leaving
+Shots therefore ring out on night $$t+1$$ in and only in the worlds with $$|H|=t+1$$.
+When night $$t+1$$ is silent, those worlds are eliminated, leaving
 
 $$
 \Omega_{t+1}
 =\left\{H\subseteq\{1,\ldots,N\}:|H|\geq t+2\right\}.
 $$
 
-This proves the formula by induction for every possible silent history.
-In a world with exactly $$k$$ unfaithful husbands, the first $$k-1$$ nights are therefore silent, and all the affected wives act on night $$k$$.
-This proves the claim.
+By induction, in a world with $$k$$ unfaithful husbands, the first $$k-1$$ nights are silent and all $$k$$ affected wives act together on night $$k$$.
 
-For forty husbands, the public information evolves as follows:
+For forty husbands, the common knowledge builds night by night:
 
 | Observation | What becomes common knowledge |
 | --- | --- |
@@ -161,23 +150,20 @@ For forty husbands, the public information evolves as follows:
 | Thirty-nine silent nights | At least forty are unfaithful. |
 
 A wife who sees thirty-nine unfaithful husbands initially considers two totals possible: thirty-nine and forty.
-After thirty-eight silent nights, both remain possible.
-After the thirty-ninth silent night, thirty-nine is ruled out.
-Her husband must be the fortieth.
+After thirty-eight silent nights, both remain open.
+When the thirty-ninth night passes in silence, thirty-nine is ruled out—and she knows her husband is the fortieth.
 
 ## What did the queen actually add?
 
-At the actual world, every wife already knows that at least one husband is unfaithful.
-The announcement does not change that first-level fact.
+In the actual world, every wife already sees at least thirty-nine unfaithful husbands, so everyone already knows that at least one husband is unfaithful.
+The queen's announcement adds no first-order fact.
 
-But knowing a fact is different from knowing that someone else knows it, and from knowing that someone else knows that someone else knows it.
-The queen's announcement changes this hierarchy.
+What it changes is higher-order knowledge: knowing that others know, knowing that others know that others know, and so on.
 
-To see the difference, start from a world with forty unfaithful husbands.
-Choose one affected wife.
-She cannot initially distinguish that world from a world in which her husband is faithful and only thirty-nine are unfaithful.
-In that second world, another affected wife cannot distinguish it from a world with thirty-eight.
-Continue:
+To see how, start at the actual world with forty unfaithful husbands and pick an affected wife, say Wife 1.
+Before the announcement, she considers it possible that her husband is faithful and only the other thirty-nine are unfaithful.
+In that 39-husband world, Wife 2 considers it possible that her own husband is faithful too, leaving thirty-eight.
+Following this chain of hypothetical worlds one wife at a time reaches all the way down to zero:
 
 $$
 40\;\longleftrightarrow\;39
@@ -187,118 +173,70 @@ $$
 \;\longleftrightarrow\;0.
 $$
 
-Each arrow changes one husband's status and represents an uncertainty of his wife at that hypothetical world.
-It need not represent the same wife's uncertainty at successive steps.
-No wife in the actual forty-husband world thinks that there might be zero unfaithful husbands.
-The chain describes uncertainty about other people's uncertainty, repeated many times.
+Each step swaps the status of a single husband and reflects his wife's uncertainty at that hypothetical world.
+No wife in the forty-husband world thinks all husbands might be faithful, yet Wife 1 considers it possible that Wife 2 considers it possible ... that Wife 40 considers it possible that no husband is unfaithful.
 
-As explained in the [Aumann article](/fun-stuff/economics/aumann-agreement.html#what-common-knowledge-adds), an assertion is common knowledge if it holds at every world reachable through such a chain of individual possibilities.
-Before the announcement, the zero-husband world is reachable.
-The existence of an unfaithful husband is therefore not common knowledge.
+As discussed in the [Aumann agreement article](/fun-stuff/economics/aumann-agreement.html#what-common-knowledge-adds), a proposition is common knowledge only if it holds at every world reachable through such a chain.
+Before the announcement, the zero-husband world is reachable in forty steps, so the existence of an unfaithful husband is not common knowledge.
 
-The public announcement removes the zero-husband world from everyone's model, including their models of one another's information.
-The existence claim now holds everywhere that remains, making it common knowledge.
-That supplies the base case for the entire induction.
-
-The announcement can therefore leave everyone's direct knowledge of the existence claim unchanged while transforming what they can deduce about one another.
-Each subsequent public silence supplies the next step.
+The queen's public announcement severs the end of the chain by deleting the zero-husband world from everyone's model at once.
+Now the existence of an unfaithful husband holds at every reachable world, making it common knowledge and launching the thirty-nine-step induction.
 
 ## Why perfect reasoners still have to wait
 
-It may seem strange that people who can carry out the entire induction immediately need forty days to finish it.
-Why not think through all forty cases on the first afternoon?
+If every wife can work through the entire induction in her head on the afternoon of the announcement, why does it still take forty days for anything to happen?
 
-They can.
-What they cannot do is observe a future silence before it happens.
+Because deducing a conditional is not the same as observing whether its antecedent holds.
+On the first afternoon, an affected wife already knows both conditionals:
 
-An affected wife knows on the first day that, if her husband is faithful, the other thirty-nine affected wives will act on night thirty-nine.
-She also knows that, if he is unfaithful, nobody will act before night forty.
-Both hypotheses predict exactly the same observations through night thirty-eight.
-Logical skill cannot distinguish hypotheses that have produced the same information.
+- *If* my husband is faithful, the thirty-nine affected wives I see will shoot on night thirty-nine.
+- *If* my husband is unfaithful, no one will shoot until night forty.
 
-The wait is a consequence of the communication rules.
-The wives are allowed to reveal information only through the prescribed actions and their absence.
-If they could simply tell one another what they see, this forty-night process would be unnecessary.
+Through night thirty-eight, both hypotheses predict the exact same observation: silence.
+Only the silence of the thirty-ninth night distinguishes them.
+Because the rules forbid the wives from talking and allow information to flow only through public actions (or their absence) at midnight, thirty-nine nights must actually pass before the decisive observation arrives.
 
 ## Replace the public announcement with private letters
 
-One of the paper's most instructive variations keeps the queen's message but changes its delivery.
+One of the paper's most illuminating variations keeps the queen's message word for word but changes how it is delivered.
 
-Suppose each wife receives a private letter containing the same truthful announcement and instruction.
-Delivery is reliable: every letter eventually arrives.
-But there is no known finite upper bound on the delay, no receipt acknowledgments, and no information about the order or timing of other wives' deliveries.
-Before receiving her own letter, a wife gets no new information from the queen.
-These delivery rules are commonly understood.
+Suppose each wife receives a private letter containing the queen's announcement and instruction.
+Delivery is guaranteed—every letter eventually arrives—but with an unpredictable delay: there is no known upper bound on transit time, no receipt confirmation, and no information about when other wives' letters arrive.
+These delivery rules are common knowledge.
 
-In the version with one unfaithful husband, his wife still acts at the first midnight after receiving her letter.
-She sees no other unfaithful husband and can identify her own directly.
+When there is only one unfaithful husband, his wife still shoots at the first midnight after her letter arrives: she sees no other unfaithful husbands, so her letter alone settles the matter.
 
-Now consider two unfaithful husbands.
-Alice has received her letter and sees that Beatrice's husband is unfaithful.
-The next midnight is silent.
-Can Alice conclude that her own husband is unfaithful?
+Now suppose there are two unfaithful husbands, married to Alice and Beatrice.
+Alice receives her letter, sees that Beatrice's husband is unfaithful, and waits through a silent midnight.
+Can she conclude that her own husband is unfaithful?
 
 No.
-She has another explanation: her husband is faithful, Beatrice is the only affected wife, and Beatrice's letter has not arrived yet.
+She can explain the silence by supposing that her husband is faithful, Beatrice is the only affected wife, and Beatrice's letter is still in the mail.
+Ten silent nights later—or a thousand silent nights later—that explanation remains open: guaranteed eventual delivery rules out an infinite delay, but it is compatible with any finite delay.
+Neither Alice nor Beatrice can ever rule out her husband's fidelity.
 
-After ten silent nights, the same explanation remains possible.
-After a thousand, it remains possible.
-Eventual delivery rules out a letter that never arrives, but it does not rule out arrival after any particular finite date.
-Alice cannot eliminate this explanation at any finite time.
-Beatrice faces the same problem.
-Neither acts.
+By induction, the same paralysis holds for any $$k\geq 2$$ unfaithful husbands.
+In a world with $$k$$ unfaithful husbands, each affected wife considers it possible that her husband is faithful and only the other $$k-1$$ are unfaithful; by the induction hypothesis, that $$k-1$$ world is permanently silent no matter when its letters arrive, so it matches everything she ever observes.
 
-The reasoning extends by induction to any number greater than two.
-If there are $$k\geq 3$$ unfaithful husbands, an affected wife can consider the world in which her own husband is faithful and only the other $$k-1$$ are unfaithful.
-By the preceding case of the induction, that world also produces silence regardless of when its letters arrive.
-It can therefore match her own letter's arrival and every finite silent history she observes.
-She never learns that her husband is unfaithful.
+Under asynchronous private letters, **with two or more unfaithful husbands, nobody ever acts**—even if all forty letters happen to be delivered at the exact same moment.
+Without common knowledge of the timing, simultaneous arrival cannot start the clock.
 
-Under this private-letter protocol, **with two or more unfaithful husbands, nobody ever acts**.
-This remains true even if all the letters happen to arrive simultaneously: the actual coincidence of delivery times does not make simultaneous receipt known.
+To restore action, the communication protocol must re-establish a shared reference point.
+For instance, if the letters arrive before a commonly known deadline on a shared clock and the wives are instructed to begin counting nights only after that deadline, the induction runs just as it did after the public announcement.
+What about sending return receipts—acknowledging the letter, then acknowledging the acknowledgment, and so on?
+The [Rubinstein email game](/fun-stuff/economics/rubinstein-email-game.html) analyzes precisely that protocol, showing how any finite number of back-and-forth confirmations still stops short of common knowledge.
 
-The conclusion is specific to the information supplied by this protocol.
-It does not say that every system with delayed messages makes action impossible.
-The paper also studies delivery bounds, clocks, and known delivery orders, and shows that these details can change the outcome.
+## Connections to agreement and no-trade theorems
 
-For example, a stronger protocol could specify a commonly known delivery deadline, a shared clock, and a common starting time after that deadline, with no actions allowed before the start.
-If the guarantee of delivery and these rules are common knowledge, the wives can begin the original induction together at that starting time.
-Merely knowing that one's own letter arrived does not provide the same foundation.
+The husbands puzzle is a pure-logic cousin of two classic results in information economics:
 
-What if the recipients could acknowledge their messages, then acknowledge the acknowledgments?
-The [Rubinstein email game](/fun-stuff/economics/rubinstein-email-game.html) studies exactly that kind of exchange.
-It replaces the wives' mandatory action rule with an explicit coordination game and shows why even many reliable confirmations can leave uncertainty that matters for incentives.
+- **[Aumann's agreement theorem](/fun-stuff/economics/aumann-agreement.html)** shows that agents with a common prior cannot “agree to disagree” when their posterior beliefs become common knowledge. The husbands puzzle strips away probabilities and priors to exhibit the underlying partition mechanics: how public events shrink the set of reachable worlds.
+- **[Milgrom and Stokey's no-trade theorem](/fun-stuff/economics/milgrom-stokey.html)** shows how willingness to trade reveals private information, just as a wife's silence at midnight reveals that she does not yet know her husband is unfaithful.
 
-## The connection to agreement and no trade
-
-The [Aumann article](/fun-stuff/economics/aumann-agreement.html) asks what happens when different posterior beliefs become common knowledge.
-Under a common prior, those posteriors must agree.
-The proof works by identifying a common-knowledge event and averaging beliefs over it.
-
-The husbands puzzle isolates the informational part of the story.
-A public announcement changes the set of possible worlds, and observed behavior changes it again.
-It requires no common prior because it uses certainty and possibility, rather than numerical probabilities.
-
-The connection to [Milgrom–Stokey's no-trade theorem](/fun-stuff/economics/milgrom-stokey.html) concerns what we learn from other people's actions.
-A trader's willingness to transact can reveal something about the information behind that willingness.
-Here, a wife's failure to act reveals something about what she has been able to establish.
-
-That inference depends on knowing the rule connecting information to action.
-Silence is informative because a wife who knew her husband was unfaithful would certainly act at the prescribed time.
-If she could choose to wait, or if others were uncertain about her obedience, the inference would need to change.
-Similarly, interpreting a trade requires understanding the trader's information, incentives, and alternatives.
-
-The theorems draw different conclusions from this reasoning.
-Aumann restricts commonly known beliefs.
-Milgrom–Stokey combines common knowledge of a trade's acceptability with an initially efficient allocation to restrict mutually beneficial trade.
-The husbands puzzle describes how a specified sequence of public observations turns uncertainty into knowledge and triggers action.
-
-The queen's announcement starts the process by changing what everyone knows about everyone else's knowledge.
-The thirty-nine silences then become thirty-nine further pieces of public information.
+In all three settings, observing what others do—or refrain from doing—under a commonly known decision rule is itself a public message.
+The queen's announcement supplies the base case by changing what everyone knows about everyone else's knowledge; each silent midnight then broadcasts the next step of the proof.
 
 ## Further reading
 
 The journal article is Yoram Moses, Danny Dolev, and Joseph Y. Halpern, [“Cheating Husbands and Other Stories: A Case Study of Knowledge, Action, and Communication,” *Distributed Computing* 1, 167–176 (1986)](https://link.springer.com/article/10.1007/BF01661170).
-An [author-hosted preliminary conference version from 1985](https://www.cs.cornell.edu/home/halpern/papers/cheathus.pdf) is freely available.
-Sections 2 and 3 of that version present the public-announcement and asynchronous-letter cases used here; later sections explore further communication rules.
-The story itself predates the paper, whose contribution is to use its variants to study knowledge and distributed communication systematically.
+An [author-hosted preliminary conference version from 1985](https://www.cs.cornell.edu/home/halpern/papers/cheathus.pdf) is freely available; Sections 2 and 3 present the public-announcement and asynchronous-letter cases discussed here, and later sections explore bounded delays and shared clocks.
