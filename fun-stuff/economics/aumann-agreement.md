@@ -6,6 +6,7 @@ group: Economics
 subtitle: "Different information can produce different beliefs. Common knowledge of those beliefs changes the problem."
 lead: "You think an event has a fifty percent chance. I think it has a one-third chance. Can we understand each other's assessments, trust each other's reasoning, and leave it there?"
 permalink: /fun-stuff/economics/aumann-agreement.html
+date: 2026-11-05T19:03:52-07:00
 published: true
 ---
 

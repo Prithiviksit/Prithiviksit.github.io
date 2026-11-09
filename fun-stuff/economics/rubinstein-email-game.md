@@ -6,6 +6,7 @@ group: Economics
 subtitle: "Reliable messages, unreliable coordination, and the importance of knowing what someone else knows."
 lead: "You receive good news and tell your partner. They confirm receipt. You confirm their confirmation. After a hundred messages, what could still prevent you from acting together?"
 permalink: /fun-stuff/economics/rubinstein-email-game.html
+date: 2026-11-05T19:03:52-07:00
 published: true
 ---
 

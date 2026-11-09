@@ -26,6 +26,7 @@ group: Economics
 subtitle: "A short explanation of the question or mechanism."
 lead: "An approachable opening question or example."
 permalink: /fun-stuff/economics/article-slug.html
+date: 2026-11-09T09:00:00-07:00
 published: false
 ---
 ```
@@ -38,6 +39,8 @@ published: false
 - Keep source line breaks logical, normally after each sentence. Do not hard-wrap prose to a fixed column width.
 - Preserve established notation. Keep primitives and useful shorthand; avoid unnecessary aliases for short expressions.
 - Preserve an existing article's publication status unless the task changes it. New drafts use `published: false` until publication is authorized.
+- Every article must explicitly include `published: true` or `published: false`, a nonempty `group`, and a `date`.
+- Write `date` as an unquoted ISO 8601 timestamp with an explicit UTC offset, as above, so YAML parses it as a timestamp rather than a string. Use the article's creation date; preserve it during ordinary edits. Historical dates were backfilled from the earliest Git addition of each article, including earlier HTML versions.
 
 ## Math delimiters and TeX
 
@@ -139,10 +142,10 @@ Keep SVG sources valid XML and remove trailing whitespace from generated assets.
 Link to generated article URLs, for example `/fun-stuff/economics/aumann-agreement.html`, rather than source `.md` paths.
 Use root-relative asset paths such as `/img/others/article-diagram.svg` so links work from nested article URLs.
 On publication, set `published: true` and check cross-links between companion articles.
-Jekyll generates the homepage tabs and article lists through `_includes/fun-stuff-index.html` at build time, using pages with `layout: fun-article`, a nonempty `group`, and `published` other than `false`.
+Jekyll generates the homepage tabs and article lists through `_includes/fun-stuff-index.html` at build time, using pages with `layout: fun-article` and `published: true`.
 The link text comes from `title`, and its target comes from the generated page URL (`permalink` when supplied).
 Do not add article links or categories manually to `index.html`.
-Articles are sorted alphabetically by title within each group.
+Articles are sorted by `date`, newest first within each group.
 `fun_stuff_group_order` in `_config.yml` sets the preferred tab order; additional groups appear alphabetically afterward, and groups without published articles are omitted.
 Drafts remain absent from the homepage even in a local build using `--unpublished`.
 Keep this instruction file excluded from the generated site through `_config.yml`.

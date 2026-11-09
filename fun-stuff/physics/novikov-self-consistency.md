@@ -6,6 +6,7 @@ group: Physics
 subtitle: "A wormhole, a collision with your younger self, and the difference between influencing history and rewriting it."
 lead: "A time traveler is told not to change the past. But even breathing moves air molecules. How could visiting the past possibly leave it untouched?"
 permalink: /fun-stuff/physics/novikov-self-consistency.html
+date: 2026-11-05T23:10:05-07:00
 published: true
 ---
 

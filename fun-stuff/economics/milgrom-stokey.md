@@ -6,6 +6,7 @@ group: Economics
 subtitle: "Why a willing counterparty is information, and why speculation needs more than different private signals."
 lead: "You have good news about an asset and want to buy. Someone else is willing to sell. Before celebrating, ask what their willingness to sell tells you."
 permalink: /fun-stuff/economics/milgrom-stokey.html
+date: 2026-11-05T19:03:52-07:00
 published: true
 ---
 

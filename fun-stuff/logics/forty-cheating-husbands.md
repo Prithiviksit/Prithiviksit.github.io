@@ -6,6 +6,7 @@ group: Logics
 subtitle: "A public announcement, thirty-nine silent nights, and the difference between knowing and knowing that others know."
 lead: "Everyone already knows that somebody is unfaithful. Then the queen announces exactly that, and everything changes. What did she tell them that they did not already know?"
 permalink: /fun-stuff/logics/forty-cheating-husbands.html
+date: 2026-11-05T19:03:52-07:00
 published: true
 ---
 

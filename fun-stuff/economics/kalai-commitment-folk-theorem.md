@@ -6,6 +6,7 @@ group: Economics
 subtitle: "How binding conditional choices can support cooperation in a game played only once."
 lead: "Defection is dominant in the Prisoner's Dilemma. But what if the choice made first is which binding rule will play on your behalf?"
 permalink: /fun-stuff/economics/kalai-commitment-folk-theorem.html
+date: 2026-11-05T19:03:52-07:00
 published: true
 ---
 

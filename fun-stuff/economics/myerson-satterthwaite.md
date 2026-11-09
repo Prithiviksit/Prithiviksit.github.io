@@ -6,6 +6,7 @@ group: Economics
 subtitle: "One buyer, one seller, and a conflict between honest reporting, voluntary participation, and paying the bills."
 lead: "A buyer values something more than its owner does. There is money to be made by trading. Why can no bargaining rule reliably make every such trade happen?"
 permalink: /fun-stuff/economics/myerson-satterthwaite.html
+date: 2026-11-05T19:03:52-07:00
 published: true
 ---
 

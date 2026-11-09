@@ -6,6 +6,7 @@ group: Mathematics
 subtitle: "What better means, where the gain comes from, and how to improve James–Stein further."
 lead: "You estimate several quantities by taking their sample averages. Someone pulls all your estimates toward zero—and can guarantee a smaller total expected error. How can that work?"
 permalink: /fun-stuff/mathematics/james-stein-estimator.html
+date: 2026-11-08T11:19:53-07:00
 published: true
 ---
 

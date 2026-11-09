@@ -4,6 +4,8 @@ title: "Can You Cut a Tetrahedron into a Cube? Hilbert's Third Problem"
 description: "Why equal volume is not enough to rearrange solids, and how the Dehn invariant and Sydler's theorem characterize scissors congruence."
 group: Mathematics
 permalink: /fun-stuff/mathematics/hilbert-third-problem-dehn-sydler.html
+date: 2026-11-03T20:30:34-07:00
+published: true
 ---
 
 Imagine two solid objects made of the same amount of material. You are allowed to cut one into finitely many polyhedral pieces, then rotate and move the pieces—but not stretch, bend, or discard anything. Can you always reassemble them into the other?

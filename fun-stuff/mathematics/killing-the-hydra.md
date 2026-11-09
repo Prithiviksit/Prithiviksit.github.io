@@ -6,6 +6,8 @@ group: Mathematics
 subtitle: "From counting infinity to ordering infinity, and from a children's game to Gödel's incompleteness theorem."
 lead: "A creature that becomes more complicated every time you attack it can nevertheless always be defeated. Proving this elementary fact requires mathematics that goes beyond ordinary arithmetic."
 permalink: /fun-stuff/mathematics/killing-the-hydra.html
+date: 2026-10-10T23:33:52-06:00
+published: true
 ---
 
 Hercules had already survived the Nemean Lion when King Eurystheus sent him to the swamps of Lerna. There he found the Hydra, a many-headed serpent, and did what any hero would do: he cut off a head. Two grew back.

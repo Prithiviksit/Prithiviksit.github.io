@@ -6,6 +6,8 @@ group: Logics
 subtitle: "Fitch’s paradox of knowability · Tennant’s restriction · Williamson’s challenge"
 lead: "A modest hope—that no truth is forever beyond discovery—has a startling logical consequence: every truth is already known."
 permalink: /fun-stuff/logics/fitch-knowability.html
+date: 2026-10-08T20:37:03-06:00
+published: true
 ---
 
 ## 0. The gap between possible and actual knowledge
