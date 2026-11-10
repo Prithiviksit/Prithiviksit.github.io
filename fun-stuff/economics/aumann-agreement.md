@@ -180,43 +180,38 @@ $$
 \boxed{p_A=p_B.}
 $$
 
-That is the proof.
-If Alice reports the same probability on every one of her cells inside $$C$$, averaging across those cells must preserve that probability.
-Bob's different partition gives another way of averaging over exactly the same event under exactly the same prior.
-The two averages cannot differ.
-
-Neither person needs to know which of the other's information cells has occurred.
-The proof requires common knowledge of the posterior numbers, not disclosure of the underlying signals.
+That completes the proof.
+Because Alice assigns the same probability $$p_A$$ to $$E$$ on every one of her information cells inside $$C$$, averaging across those cells preserves $$p_A$$.
+Bob's partition divides the very same event $$C$$ into his own cells, so averaging his posterior across them preserves $$p_B$$.
+Both averages equal $$\mathbb P(E\mid C)$$, and therefore $$p_A=p_B$$.
+Notice that neither person needs to learn *which* cell the other observed—only the resulting posterior numbers need to be common knowledge.
 
 ## Why announcing old probabilities need not produce immediate agreement
 
-A subtlety matters when we turn the theorem into a conversation.
-Announcing a probability reveals a calculation made *before* the announcement.
-The listener's response may change what each person should believe now.
-Common knowledge of yesterday's opinions is not common knowledge of today's posteriors.
+Turning the static theorem into a back-and-forth conversation introduces a dynamic twist.
+When Alice announces her probability, she is reporting the assessment she held *before* hearing Bob's announcement.
+Once both speak, the public announcement itself provides new evidence, so each may need to revise that number.
 
 Return to actual state $$1$$ in our four-state example.
-Suppose Alice and Bob simultaneously announce their current probabilities, publicly and truthfully, and this protocol is understood by both.
-They then update before the next round.
+Suppose Alice and Bob simultaneously and truthfully announce their current probabilities round by round, updating after each exchange.
 
 **First round.** They announce $$1/2$$ and $$1/3$$.
-Alice's announcement excludes nothing: her initial posterior was $$1/2$$ everywhere.
-Bob's announcement excludes state $$4$$.
-The public set of possible states becomes $$\{1,2,3\}$$.
+Alice's announcement rules out nothing, since her initial posterior was $$1/2$$ in every state.
+Bob's announcement of $$1/3$$ rules out state $$4$$, where he would have announced $$1$$.
+The publicly possible states shrink to $$\{1,2,3\}$$.
 
-At the actual state, Alice still considers $$\{1,2\}$$ possible, so her updated probability remains $$1/2$$.
-Bob still considers $$\{1,2,3\}$$ possible, so his remains $$1/3$$.
-They have publicly announced their probabilities and still disagree.
+At the actual state $$1$$, Alice's cell $$\{1,2\}$$ is untouched, so her updated probability stays $$1/2$$.
+Bob's cell $$\{1,2,3\}$$ is also untouched, so his updated probability stays $$1/3$$.
+Even after announcing their probabilities in public, they still disagree!
 
-There is no contradiction.
-At state $$3$$, Alice would now know the state is $$3$$, because the public announcement has removed $$4$$ from her cell.
-Her updated probability there would be zero.
-Bob cannot exclude that possibility, so Alice's *current* probability is not common knowledge.
+Why doesn't Aumann's theorem apply yet?
+Because after the first round, Alice's *updated* probability is no longer $$1/2$$ at every remaining state.
+If the true state were $$3$$, ruling out state $$4$$ would narrow Alice's cell from $$\{3,4\}$$ down to $$\{3\}$$ alone, dropping her updated probability to $$0$$.
+Since Bob considers state $$3$$ possible, he does not yet know whether Alice's updated probability is $$1/2$$ or $$0$$.
 
-**Second round.** At actual state $$1$$, they again announce $$1/2$$ and $$1/3$$.
-This time Alice's announcement excludes state $$3$$, where she would have announced zero.
-The public set shrinks to $$\{1,2\}$$.
-Both now assign probability $$1/2$$ to $$E$$.
+**Second round.** At state $$1$$, Alice and Bob again announce $$1/2$$ and $$1/3$$.
+Now Alice's announcement of $$1/2$$ rules out state $$3$$, where she would have announced $$0$$.
+The public set shrinks to $$\{1,2\}$$, and Bob updates his probability to $$1/2$$, matching Alice:
 
 | Information available | Publicly possible states | Alice's current posterior at state 1 | Bob's current posterior at state 1 |
 | --- | --- | --- | --- |
@@ -224,26 +219,19 @@ Both now assign probability $$1/2$$ to $$E$$.
 | After the first round | $$\{1,2,3\}$$ | $$1/2$$ | $$1/3$$ |
 | After the second round | $$\{1,2\}$$ | $$1/2$$ | $$1/2$$ |
 
-The second announcement repeats the same numbers but conveys new information because the public information has changed what Alice would say in another state.
-No one reveals the exact state: $$1$$ and $$2$$ remain possible.
-Agreement does not require complete information.
-The theorem itself is a restriction on commonly known current beliefs; this example supplies a particular communication process that reaches them.
+Repeating the exact same numbers in Round 2 conveys fresh information because Round 1 changed what Alice *would* have said in state $$3$$.
+Notice too that Alice and Bob reach agreement without learning the exact state: both $$1$$ and $$2$$ remain open.
 
 ## From agreement to the logic of no trade
 
-Imagine a claim that pays one dollar if $$E$$ occurs and zero otherwise.
-Let $$X=\mathbf 1_E$$ denote its payoff.
-Two risk-neutral traders value it at their respective conditional expectations of $$X$$.
+Now turn the probability assessment into a bet.
+Suppose a contract pays one dollar if $$E$$ occurs and zero otherwise, with payoff $$X=\mathbf 1_E$$.
+Two risk-neutral traders value the contract at their conditional expectations of $$X$$.
+If Alice assigned probability $$0.7$$ and Bob assigned $$0.3$$, trading at a price of $$0.5$$ would seem to give both a strict expected profit—until Aumann's theorem reminds us that two unequal posteriors cannot be common knowledge under a common prior.
 
-If one assigns probability $$0.7$$ and the other $$0.3$$, a price of $$0.5$$ appears to offer both a strict gain.
-But if those two *current* probabilities were common knowledge under a common prior, Aumann's theorem would require them to be equal.
-That particular explanation for a knowingly mutually profitable bet cannot hold.
-
-The link goes further.
-We can rule out strict gains from this fixed-price bet without requiring the exact posterior probabilities to be common knowledge.
-Suppose a fixed price $$p$$ and both traders' willingness to trade one unit are common knowledge on a positive-probability component $$C$$.
-Write $$\mathcal I_B$$ and $$\mathcal I_S$$ for the buyer's and seller's information.
-Willingness to participate requires, throughout $$C$$,
+In fact, ruling out a mutually profitable fixed-price bet does not even require the traders' exact posteriors to become common knowledge; common knowledge that both are *willing to trade* at price $$p$$ is already enough.
+Suppose the price $$p$$ and both traders' willingness to trade one unit are common knowledge on a positive-probability component $$C$$.
+Writing $$\mathcal I_B$$ and $$\mathcal I_S$$ for the buyer's and seller's information partitions, willingness to trade requires, throughout $$C$$,
 
 $$
 \mathbb E[X\mid\mathcal I_B]\geq p,
@@ -251,7 +239,7 @@ $$
 \mathbb E[X\mid\mathcal I_S]\leq p.
 $$
 
-Because $$C$$ is known to each trader, averaging either conditional expectation over $$C$$ gives the same number:
+Because $$C$$ is a union of cells for each trader, the law of iterated expectations gives
 
 $$
 \begin{aligned}
@@ -262,41 +250,21 @@ $$
 \end{aligned}
 $$
 
-The buyer's inequality implies $$\mathbb E[X\mid C]\geq p$$, while the seller's implies $$\mathbb E[X\mid C]\leq p$$.
-Thus $$\mathbb E[X\mid C]=p$$.
-Neither participation inequality can be strict at any state in $$C$$: with positive state probabilities, that would make its average strict too.
-Both traders must be indifferent throughout $$C$$.
+The buyer's inequality implies $$\mathbb E[X\mid C]\geq p$$, while the seller's implies $$\mathbb E[X\mid C]\leq p$$, forcing $$\mathbb E[X\mid C]=p$$.
+Since every state has positive probability, neither trader's conditional expectation can beat $$p$$ strictly at any state in $$C$$: both traders must be indifferent throughout $$C$$.
 
-This is the simple betting version of the no-trade logic.
-It uses common knowledge of acceptance, which is a weaker informational requirement than common knowledge of the exact posterior numbers.
-Risk neutrality still permits trades that leave both sides indifferent.
+The companion [Milgrom–Stokey article](/fun-stuff/economics/milgrom-stokey.html) generalizes this argument to arbitrary state-contingent allocations and risk-averse traders.
+Starting from an ex ante Pareto-efficient allocation, averaging conditional utility gains over $$C$$ turns any interim speculative gain into an ex ante Pareto improvement—a contradiction.
+When traders are strictly risk averse, strict concavity also rules out nonzero consumption trades that would leave everyone indifferent in expected utility.
 
-The [Milgrom–Stokey article](/fun-stuff/economics/milgrom-stokey.html) extends the argument to general reallocations and risk-averse traders.
-It assumes the initial allocation is ex ante Pareto efficient and uses common knowledge of the proposed trade's acceptability.
-Averaging the conditional utility gains on $$C$$ would turn any strict gain into an ex ante Pareto improvement, contradicting that initial efficiency.
-Strict concavity also rules out changes in consumption that would otherwise leave everyone indifferent.
+## Where the assumptions bite
 
-The shared step is averaging over a commonly known event.
-Aumann applies it to beliefs and obtains agreement.
-Milgrom–Stokey applies it to utility gains and combines it with initial efficiency to obtain no trade.
-The latter does not require every posterior belief to become common knowledge or every private signal to become public.
+Two ingredients drive Aumann's result:
 
-## What the theorem does and does not demand
+- **The common prior.** If Alice and Bob start with different prior distributions over $$\Omega$$, they can openly disagree even without private signals—say, $$0.7$$ versus $$0.3$$—and that disagreement can be full common knowledge.
+- **Common knowledge of current beliefs about the same event.** Two people who agree on the probability of $$E$$ can still make opposite choices because their payoffs, outside options, or attitudes toward risk differ.
 
-The common prior is substantive.
-If Alice and Bob begin with different priors, publicly known disagreement can persist even without private information.
-For example, with no signals at all, one can assign $$E$$ probability $$0.7$$ and the other $$0.3$$; both numbers can be common knowledge because the distributions they condition are different.
+Aumann's theorem shows that under a shared prior, another person's posterior belief works just like a piece of data: once both sides fully absorb what each other's conclusions reveal, different private signals cannot sustain a commonly known disagreement.
+The [Milgrom–Stokey no-trade theorem](/fun-stuff/economics/milgrom-stokey.html) applies the exact same logic to a counterparty's willingness to buy or sell.
 
-Agreement also concerns the same event.
-Two people can agree completely about a project's chances and disagree about whether it is worth pursuing because they have different costs, preferences, or risk tolerance.
-The theorem does not identify a common probability with a common decision.
-
-Finally, ordinary conversation rarely supplies the exact assumptions in the theorem.
-The participants may not share a probability model, know how the other's evidence was selected, report precise current probabilities, or carry out all the required updates.
-Nothing here turns every unresolved argument into proof of irrationality.
-
-Aumann's result asks us to treat someone else's considered belief as information.
-Under a common prior and the common-knowledge conditions, different current probabilities cannot form a settled, commonly understood disagreement.
-The [no-trade theorem](/fun-stuff/economics/milgrom-stokey.html) asks us to apply the same discipline to a counterparty's willingness to buy or sell.
-
-For the original statement, proof, and distinction between mutual and common knowledge, see [Aumann (1976), *Agreeing to Disagree*, pages 1236–1238](https://www.haverford.edu/sites/default/files/Aumann1976.pdf).
+For the original statement, proof, and four-state example, see [Aumann (1976), *Agreeing to Disagree*, pages 1236–1238](https://www.haverford.edu/sites/default/files/Aumann1976.pdf).

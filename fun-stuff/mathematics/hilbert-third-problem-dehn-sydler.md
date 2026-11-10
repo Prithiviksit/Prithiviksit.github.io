@@ -8,70 +8,74 @@ date: 2026-11-03T20:30:34-07:00
 published: true
 ---
 
-Imagine two solid objects made of the same amount of material. You are allowed to cut one into finitely many polyhedral pieces, then rotate and move the pieces—but not stretch, bend, or discard anything. Can you always reassemble them into the other?
+Imagine two solid objects made of the same amount of material.
+You are allowed to cut one into finitely many polyhedral pieces, then rotate and translate the pieces—without stretching, bending, or discarding anything.
+Can you always reassemble them into the other?
 
-In two dimensions, the answer is yes: **any two polygons with the same area can be cut into finitely many polygonal pieces and rearranged into one another.** This is the Wallace–Bolyai–Gerwien theorem. A triangle can become a rectangle; a square can become a triangle. A simple three-piece example shows how this works.
+In two dimensions, the answer is yes: **any two polygons with the same area can be cut into finitely many polygonal pieces and rearranged into one another.**
+This is the Wallace–Bolyai–Gerwien theorem.
+A triangle can become a rectangle; a square can become a triangle.
+A simple three-piece dissection shows how:
 
 <figure class="math-figure">
   <img src="{{ '/img/others/triangle-rectangle-dissection.svg' | relative_url }}" alt="An isosceles triangle cut into a trapezoid and two small triangles, which rotate into a rectangle." loading="lazy">
   <figcaption>Cut the isosceles triangle halfway up, then split its top along the altitude. Rotate each small triangle 180° about the midpoint of the corresponding sloping side. The three pieces form a rectangle with the same base and half the height.</figcaption>
 </figure>
 
-It is tempting to expect the same of solids. After all, if two solids have equal volume, they contain the same amount of space. Yet in 1900, Hilbert made the failure of this intuition the subject of his **third problem**. Max Dehn solved it almost immediately: a cube and a regular tetrahedron of equal volume cannot be cut and reassembled into each other by finitely many straight cuts.
+It is natural to expect the same in three dimensions: if two solids have equal volume, they enclose the same amount of space.
+Yet in 1900, David Hilbert made the failure of this intuition the subject of his **third problem**.
+His student Max Dehn solved it within the year: a cube and a regular tetrahedron of equal volume cannot be cut into finitely many polyhedral pieces and reassembled into one another.
 
-The remarkable part is what happened later. Dehn discovered an obstruction beyond volume. In a 1965 paper, **Jean-Pierre Sydler** proved that there are *no further obstructions*: volume and Dehn's invariant completely characterize when two polyhedra can be cut and rearranged into each other.
+What happened six decades later is equally striking.
+Dehn had discovered a second quantity—beyond volume—that every straight-cut dissection must preserve.
+In 1965, **Jean-Pierre Sydler** proved that there are *no further obstructions*: volume and Dehn's invariant completely determine when two polyhedra in three-dimensional Euclidean space are scissors congruent.
 
 ## 1. The rules of the game: scissors congruence
 
-Two polyhedra are **scissors congruent** if we can partition one into finitely many polyhedra and rearrange those pieces by rigid motions to form the other. Pieces may be translated or rotated, but not scaled. Their interiors must not overlap.
+Two polyhedra $$P$$ and $$Q$$ are **scissors congruent** if $$P$$ can be partitioned into finitely many smaller polyhedra (with flat faces and non-overlapping interiors) that can be moved by rigid motions—translations and rotations—to form $$Q$$.
 
-Each dissection uses finitely many polyhedral pieces with flat faces.
-
-Volume is obviously preserved:
+Volume is clearly preserved:
 
 $$
 V(P)=\sum_i V(P_i)=V(Q).
 $$
 
-But is volume the **only** quantity that survives the operation?
-
-In the plane it is. In three dimensions it is not. The reason comes from a feature polygons do not possess: **dihedral angles**—the angles between two faces meeting along an edge.
+Why is equal volume not enough in three dimensions when equal area suffices in the plane?
+Because three-dimensional polyhedra have a geometric feature that polygons lack: **dihedral angles**—the interior angles where two faces meet along an edge.
 
 ## 2. The hidden information in an edge
 
-Think of a wedge-shaped block. Its geometry depends on two things: how long its edge is, and how widely its two faces open. The Dehn invariant records a particular combination of these lengths and angles.
+Think of a wedge-shaped block.
+Its geometry along an edge depends on two numbers: the edge's length and the angle at which its two faces meet.
+The Dehn invariant packages these pairs of lengths and angles in a way that survives arbitrary straight cuts.
 
 For each edge $$e$$ of a polyhedron $$P$$, let
 
 - $$\ell_e$$ be the edge's length;
 - $$\theta_e$$ be its interior dihedral angle.
 
-Informally, the Dehn invariant is the sum of **edge length multiplied by angle**, with a crucial twist: angles are considered *modulo rational multiples of* $$\pi$$.
-
-Its compact mathematical definition is
+The Dehn invariant sums **edge length tensored with dihedral angle**, with angles measured *modulo rational multiples of* $$\pi$$:
 
 $$
 \boxed{D(P)=\sum_{e}\ell_e\otimes[\theta_e]
 \quad\in\quad \mathbb R\otimes_{\mathbb Q}(\mathbb R/\pi\mathbb Q).}
 $$
 
-The tensor product encodes three bookkeeping rules:
+The tensor product $$\mathbb R\otimes_{\mathbb Q}(\mathbb R/\pi\mathbb Q)$$ enforces three natural bookkeeping rules:
 
-1. We want to keep track of which edge lengths are paired with which angles.
-2. The bookkeeping should be **additive** in both the length and the angle, with rational coefficients.
-3. Every rational multiple of $$\pi$$ counts as zero in the angular bookkeeping.
+1. **Lengths stay paired with their angles:** splitting an edge into segments of the same dihedral angle adds their lengths in the first factor.
+2. **Angles along a shared edge add:** slicing along an edge splits its dihedral angle into parts that add in the second factor, with rational coefficients.
+3. **Rational multiples of $$\pi$$ vanish:** whenever a cut creates a brand-new edge inside the solid, the dihedral angles of the pieces meeting around that interior edge sum to $$2\pi$$ (or to $$\pi$$ if the new edge lies on an existing face). Modulo rational multiples of $$\pi$$, those newly created angles sum to zero and cancel out completely.
 
-This choice makes the invariant additive under cutting. When we cut a solid, new edges appear. Around an edge created inside the solid, the angles of all the pieces add to $$2\pi$$; at a cut through a face, they add to $$\pi$$. Such contributions should cancel when we add up the pieces' invariants. Working modulo rational multiples of $$\pi$$ makes precisely these artificial contributions disappear.
-
-Thus the invariant obeys the key rule
+Because every straight cut preserves the sum of piece invariants,
 
 $$
-D(P)=\sum_i D(P_i).
+D(P)=\sum_i D(P_i),
 $$
 
-Rigidly moving pieces does not change their lengths or angles. Consequently, **scissors-congruent solids must have the same Dehn invariant**, just as they must have the same volume.
+and rigid motions leave lengths and angles unchanged, **any two scissors-congruent polyhedra must have the same Dehn invariant**.
 
-> The tensor product keeps lengths paired with angle classes. Reducing angles modulo rational multiples of $$\pi$$ is what makes the contributions from newly created edges cancel.
+> The tensor product keeps edge lengths paired with their dihedral angle classes, while reducing angles modulo rational multiples of $$\pi$$ guarantees that all newly cut edges cancel out.
 
 ## 3. Why the cube and the tetrahedron differ
 
@@ -80,19 +84,22 @@ Rigidly moving pieces does not change their lengths or angles. Consequently, **s
   <figcaption>Equal volume, different Dehn invariants: the cube and regular tetrahedron cannot be reassembled into one another.</figcaption>
 </figure>
 
-Consider a cube with side length $$a$$. It has twelve edges, all with dihedral angle $$\pi/2$$. Because $$\pi/2$$ is a rational multiple of $$\pi$$, its angular contribution is zero. Hence
+Take a cube of side length $$a$$.
+Every one of its twelve edges has dihedral angle $$\pi/2$$.
+Since $$\pi/2$$ is a rational multiple of $$\pi$$, its angular class is zero, and therefore
 
 $$
 D(\text{cube})=0.
 $$
 
-Now consider a regular tetrahedron with edge length $$b$$. It has six edges, each with the same dihedral angle
+Now take a regular tetrahedron of edge length $$b$$.
+All six of its edges share the dihedral angle
 
 $$
-\alpha=\arccos(1/3)\approx70.53^\circ.
+\alpha=\arccos(1/3)\approx70.53^\circ,
 $$
 
-Its invariant is
+so its Dehn invariant is
 
 $$
 D(\text{tetrahedron})=6b\otimes[\alpha].
@@ -103,75 +110,61 @@ $$
   <figcaption>A section perpendicular to an edge measures the angle between its two adjacent faces. Each of the six edges contributes the same tensor, so their contributions add.</figcaption>
 </figure>
 
-Unlike the cube's right angle, $$\alpha$$ is **not** a rational multiple of $$\pi$$. One way to see this is that a rational multiple of $$\pi$$ whose cosine is rational can have cosine only $$0,\pm 1/2,\pm1$$; here the cosine is $$1/3$$. Therefore $$[\alpha]\ne0$$, and the tetrahedron's Dehn invariant is nonzero.
+By Niven's theorem, the only rational multiples of $$\pi$$ with a rational cosine have cosine $$0,\pm 1/2,\pm1$$.
+Because the cosine here is $$1/3$$, $$\alpha$$ is **not** a rational multiple of $$\pi$$.
+Thus $$[\alpha]\ne0$$, and the tetrahedron's Dehn invariant is nonzero.
 
-We can choose $$a$$ and $$b$$ so the two solids have exactly the same volume:
+Even when we choose $$a$$ and $$b$$ so that the cube and the regular tetrahedron have identical volume,
 
 $$
-a^3=\frac{b^3}{6\sqrt2}.
+a^3=\frac{b^3}{6\sqrt2},
 $$
 
-Yet their Dehn invariants disagree. **No finite scissors dissection can transform one into the other.** Dehn had answered Hilbert's question.
-
-The obstruction is precise: every permissible cut-and-reassembly preserves the Dehn invariant, and these two solids have different values of it.
+their Dehn invariants remain unequal.
+**No finite dissection can turn the regular tetrahedron into a cube.**
 
 ## 4. Was Dehn's obstruction the whole story?
 
-Dehn gave a **necessary** condition:
+Dehn proved that equal volume and equal Dehn invariant are **necessary** for scissors congruence ($$P\sim Q$$):
 
 $$
 P\sim Q\quad\Longrightarrow\quad
-V(P)=V(Q)\ \text{and}\ D(P)=D(Q),
+V(P)=V(Q)\ \text{and}\ D(P)=D(Q).
 $$
 
-where $$P\sim Q$$ denotes scissors congruence.
-
-But the converse was not obvious. Perhaps volume and the Dehn invariant agree for some pair of solids, yet some third, undiscovered geometric obstruction prevents rearrangement. Discovering an invariant is usually much easier than proving that it is *complete*.
-
-Sydler's paper, *Conditions nécessaires et suffisantes pour l'équivalence des polyèdres de l'espace euclidien à trois dimensions*, supplies exactly this missing converse. Its main theorem says:
+For more than sixty years, it remained open whether they are also **sufficient**—or whether some third, hidden geometric invariant could still block reassembly when both volume and $$D$$ match.
+In 1965, Jean-Pierre Sydler proved the converse:
 
 $$
 \boxed{P\sim Q\quad\Longleftrightarrow\quad
 V(P)=V(Q)\ \text{and}\ D(P)=D(Q).}
 $$
 
-In words: **two polyhedra in ordinary three-dimensional Euclidean space can be cut into finitely many pieces and rearranged into one another if and only if they have the same volume and the same Dehn invariant.**
+In words: **two polyhedra in three-dimensional Euclidean space are scissors congruent if and only if they have the same volume and the same Dehn invariant.**
 
-This is the **Dehn–Sydler theorem**: volume and the Dehn invariant together give a complete classification.
+For instance, every rectangular prism has right dihedral angles and therefore Dehn invariant zero.
+The Dehn–Sydler theorem immediately implies that **any two rectangular boxes of equal volume can be cut into finitely many polyhedral pieces and reassembled into one another**, no matter what ratios their side lengths have.
 
-For example, every rectangular box has Dehn invariant zero because all its dihedral angles are right angles. Therefore, **any two rectangular boxes of equal volume are scissors congruent**, even if one is long and thin and the other is a cube. The theorem guarantees that a finite dissection exists.
+## 5. How Sydler's proof works
 
-## 5. What is Sydler's proof doing?
+Sydler's strategy is to **reduce every polyhedron to a prism while tracking its Dehn invariant**:
 
-Sydler’s strategy is to **simplify the geometry while preserving scissors equivalence**.
+1. **Decompose into orthoschemes.** Any polyhedron can be triangulated into tetrahedra, and each tetrahedron can be dissected into special right-angled tetrahedra called *orthoschemes* (plus prisms, whose Dehn invariant is zero).
+2. **Isolate two families of building blocks.** Sydler studies two parametrized families of tetrahedra whose dihedral angle relations mirror the algebraic identities inside $$\mathbb R\otimes_{\mathbb Q}(\mathbb R/\pi\mathbb Q)$$.
+3. **Translate algebraic cancellation into geometric dissection.** Whenever a formal sum of edge-angle tensors cancels to zero in $$\mathbb R\otimes_{\mathbb Q}(\mathbb R/\pi\mathbb Q)$$, Sydler's geometric lemmas construct an explicit scissors congruence that cancels the corresponding tetrahedra modulo prisms.
+4. **Finish with prisms.** Once all non-right dihedral angles have been canceled out, the polyhedron is scissors congruent to a prism—and prisms of equal volume are scissors congruent to a cube.
 
-The broad route is:
+## 6. Two dimensions vs. three
 
-1. **Remove the difficult angles.** Under Dehn's conditions, a polyhedron can be replaced, through suitable geometric constructions, by one whose dihedral angles are rational multiples of $$\pi$$. Sydler sharpens these reductions toward polyhedra with right dihedral angles.
-2. **Break the remaining solids into controlled building blocks.** He studies two special families of tetrahedra, called *A* and *B*, whose angle relations make their contributions manageable.
-3. **Show the building blocks cancel in the right combinations.** Several intermediate theorems establish that collections of these pieces satisfying the Dehn conditions can be transformed into a cube.
-4. **Conclude that the reduced shape is scissors congruent to a cube.** This is the decisive sufficiency step. Restoring the reductions proves the statement for the original polyhedron.
-
-The ingenuity lies in the geometric constructions that make these reductions possible and the algebra that organizes them. **Sydler proves that matching volume and Dehn invariant guarantees a finite rearrangement.**
-
-## 6. A striking difference between two and three dimensions
-
-We can now summarize the situation:
-
-| Dimension | When are two polytopes scissors congruent? |
+| Dimension | Complete invariants for scissors congruence |
 |---|---|
-| Two | Exactly when their areas agree. |
-| Three | Exactly when both their volumes and Dehn invariants agree. |
+| Two (polygons) | Area |
+| Three (polyhedra) | Volume and Dehn invariant |
 
-Three-dimensional geometry remembers **angles along edges** as well as volume.
-
-There is a broader mathematical lesson here. To understand whether two objects can be transformed into one another by a set of allowed operations, first look for quantities preserved by those operations. Such quantities are *invariants*. But there is a second, harder question: **do the invariants classify the objects completely?**
-
-Dehn answered the first question for Hilbert's third problem. Sydler answered the second. Together they turned a puzzle about cutting solids into a beautiful classification theorem.
-
----
+In the plane, interior vertex angles around a cut always sum to $$\pi$$ or $$2\pi$$, which is a rational multiple of $$\pi$$, so the two-dimensional analog of the Dehn invariant vanishes identically—leaving area as the sole invariant.
+In three dimensions, irrational dihedral angles along edges cannot be cut away, and volume together with Dehn's tensor invariant tells the complete story.
 
 ### Further reading
 
-- J.-P. Sydler, *Conditions nécessaires et suffisantes pour l'équivalence des polyèdres de l'espace euclidien à trois dimensions*, **Commentarii Mathematici Helvetici** 40 (1965), 43–80. Its introduction (§0) and final statement (§6.2) give the context and main result.
+- J.-P. Sydler, *Conditions nécessaires et suffisantes pour l'équivalence des polyèdres de l'espace euclidien à trois dimensions*, **Commentarii Mathematici Helvetici** 40 (1965), 43–80.
 - M. Dehn, *Über den Rauminhalt*, **Mathematische Annalen** 55 (1902), 465–478.

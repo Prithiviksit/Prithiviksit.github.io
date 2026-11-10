@@ -279,33 +279,28 @@ $$
 There is only $$1/6$$ to divide, while the incentive and participation constraints require at least $$1/3$$.
 This contradiction proves the claim.
 
-The conflict comes from having to make the same rule work for *all* values.
-For a particular pair with $$v>c$$, there is always a price both would accept.
-But choosing prices using private reports changes the incentives to make those reports.
-Each side must be left enough expected gain to make honest reporting worthwhile, while even the least enthusiastic types must be willing to enter.
-Efficient trade does not generate enough surplus to satisfy both sides' constraints.
+The conflict comes from having to make a single pricing rule work across *all* possible types.
+For any specific pair of values with $$v>c$$, a price between $$c$$ and $$v$$ would satisfy both traders.
+Once the price depends on their private reports, however, each trader has an incentive to shade their report toward the middle.
+Countering that shading requires leaving both the buyer and the seller expected information rents that sum to $$1/3$$—twice the $$1/6$$ of total expected surplus that efficient trade generates.
 
-The [commitment folk theorem](/fun-stuff/economics/kalai-commitment-folk-theorem.html) provides a useful comparison: with known payoffs, suitable binding conditional devices can support every feasible individually rational payoff pair.
-Its complete-information construction does not resolve the private-reporting constraints responsible for the impossibility here.
+Compare this with the [commitment folk theorem](/fun-stuff/economics/kalai-commitment-folk-theorem.html), where players know each other's payoffs and can use binding conditional devices to achieve every feasible, individually rational outcome.
+Here the barrier is asymmetric information: neither party knows the other's valuation, and eliciting those valuations truthfully consumes more surplus than the trade creates.
 
 ## A simple compromise: post a price
 
-Choose a price $$p\in[0,1]$$ in advance.
-Trade at that price if both parties accept.
-The buyer accepts when $$v\geq p$$ and the seller when $$c\leq p$$.
+Instead of asking the traders to report their values, fix a take-it-or-leave-it price $$p\in[0,1]$$ in advance and trade if and only if both accept.
+The buyer accepts when $$v\geq p$$ and the seller accepts when $$c\leq p$$.
 
-This rule needs no subsidy: the buyer pays exactly what the seller receives.
-Every completed trade benefits both parties.
-Accepting precisely when the price is favorable is a best response regardless of the other person's action.
-
-But trade requires
+Posting a fixed price satisfies incentive compatibility, voluntary participation, and budget balance effortlessly: the buyer pays exactly what the seller receives, neither trader can influence the price by misreporting, and every completed trade leaves both at least as well off.
+The sacrifice is efficiency.
+Trade occurs only when
 
 $$
 c\leq p\leq v,
 $$
 
-which is more restrictive than $$c<v$$.
-At $$p=1/2$$, a seller with value $$0.2$$ and a buyer with value $$0.4$$ do not trade, despite a gain of $$0.2$$ being available.
+which is stricter than $$c<v$$: for instance, at $$p=1/2$$, a seller with cost $$0.2$$ and a buyer with value $$0.4$$ miss out on a mutually beneficial trade worth $$0.2$$.
 
 <figure class="math-figure">
   <picture>
@@ -315,7 +310,7 @@ At $$p=1/2$$, a seller with value $$0.2$$ and a buyer with value $$0.4$$ do not 
   <figcaption>Every point represents one possible pair of values. Efficiency requires the whole region above the diagonal. A fixed price of one half permits only the upper-left square. Areas measure probabilities; gains from trade also depend on the distance above the diagonal.</figcaption>
 </figure>
 
-The expected gain from a fixed price is
+The expected surplus captured by a posted price $$p$$ is
 
 $$
 \begin{aligned}
@@ -326,23 +321,20 @@ $$
 \end{aligned}
 $$
 
-Thus $$p=1/2$$ is the best *fixed* price, delivering $$1/8$$ rather than the efficient benchmark $$1/6$$.
-It captures
+Choosing $$p=1/2$$ maximizes this expected surplus over all posted prices, achieving $$1/8$$ compared with the first-best benchmark $$1/6$$—that is,
 
 $$
 \frac{1/8}{1/6}=\frac34
 $$
 
-of the available expected gains from trade.
-This calculation optimizes only over fixed-price rules; it does not establish the best performance among all feasible mechanisms.
-The impossibility theorem says perfect efficiency is unattainable under the four requirements; it does not say every workable institution performs equally well.
+of the total available gains from trade.
+Allowing more general second-best mechanisms, such as the Chatterjee–Samuelson double auction, raises the captured fraction slightly—to twenty-seven thirty-seconds, or about eighty-four percent—while still falling short of full efficiency.
 
-## How much money would restore efficiency?
+## How much outside funding would restore efficiency?
 
-The proof also gives an exact answer to a different question.
-If we allow outside funding, how large must the expected subsidy be to support efficient, truthful, voluntary trade?
+Our envelope calculation also answers the quantitative question: if an outside sponsor is willing to subsidize the market, how much expected subsidy is needed to achieve full efficiency?
 
-The accounting identity and the two payoff formulas imply
+Combining the accounting identity with the two information-rent formulas gives
 
 $$
 \mathbb E[t_S-t_B]
@@ -350,11 +342,8 @@ $$
 \geq\frac16.
 $$
 
-This lower bound is attainable.
-Ask both parties for their values.
-When the reported buyer value is at least the reported seller value, transfer the object, charge the buyer the seller's reported value, and pay the seller the buyer's reported value.
-Otherwise, make no transfer of either the object or money.
-At truthful reports,
+An expected subsidy of $$1/6$$ is not only necessary; it is sufficient.
+Ask both parties for their values, transfer the object whenever $$v\geq c$$, charge the buyer the seller's reported cost $$c$$, and pay the seller the buyer's reported value $$v$$:
 
 $$
 q(v,c)=\mathbf 1\{v\geq c\},\qquad
@@ -362,46 +351,24 @@ t_B(v,c)=c\,q(v,c),\qquad
 t_S(v,c)=v\,q(v,c).
 $$
 
-To verify incentives, fix any seller report $$s$$.
-The buyer can choose whether to trade, but pays $$s$$ whenever trade occurs.
-Reporting their true value $$v$$ selects trade exactly when $$v\geq s$$, which maximizes their payoff.
-Now fix any buyer report $$b$$.
-The seller receives $$b$$ whenever trade occurs, so reporting their true value $$c$$ selects trade exactly when $$b\geq c$$, also maximizing their payoff.
-Truthful reporting is therefore a best response even without assuming the other side reports honestly.
-
-At truthful reports, both parties receive $$v-c\geq0$$ whenever trade occurs, and zero otherwise.
-Participation is worthwhile in every realization.
-The mechanism is efficient, and its subsidy is $$v-c$$ for each completed trade.
-Hence its expected subsidy is
+This is the two-sided **Vickrey–Clarke–Groves (VCG)** mechanism.
+Facing any seller report $$s$$, the buyer pays $$s$$ if they buy, so reporting their true value $$v$$ buys if and only if $$v\geq s$$; facing any buyer report $$b$$, the seller receives $$b$$ if they sell, so reporting $$c$$ sells if and only if $$b\geq c$$.
+Truthful reporting is a dominant strategy for both parties, participation yields $$v-c\geq0$$ in every trade, and the outside sponsor pays a deficit of $$v-c$$ whenever trade occurs—an expected subsidy of
 
 $$
 \int_0^1\int_0^v(v-c)\,dc\,dv=\frac16,
 $$
 
-exactly the lower bound.
-The extra payments do not create extra social surplus: the outsiders financing them lose what the traders receive.
-They make it possible to give both traders the payoffs needed for truthful, voluntary participation.
+matching the lower bound.
 
 ## What the theorem tells us about markets
 
-Uniform distributions make the arithmetic transparent, but they are not essential to the theorem.
-In the standard general version, values are independent, privately known, and have continuous, strictly positive densities on bounded intervals whose interiors overlap; utility is quasilinear.
-Under these assumptions, efficient trade is incompatible with Bayesian incentive compatibility, interim individual rationality, and no outside subsidy.
-The general result appears in Section 3 of the [original paper](https://bpb-us-e1.wpmucdn.com/campuspress-test.yale.edu/dist/3/352/files/2011/01/1983-bilateral-trade.pdf).
+While uniform distributions make the integrals elementary, the theorem holds generally: whenever the buyer's and seller's independent private values are drawn from continuous, strictly positive densities on bounded intervals whose interiors overlap (with quasilinear utilities), no mechanism can simultaneously achieve ex post efficiency, Bayesian incentive compatibility, interim individual rationality, and expected budget balance.
+See Section 3 of [Myerson and Satterthwaite (1983)](https://bpb-us-e1.wpmucdn.com/campuspress-test.yale.edu/dist/3/352/files/2011/01/1983-bilateral-trade.pdf) for the general proof and the second-best double auction.
 
-The assumptions matter.
-If the seller's value is always below the buyer's, a fixed price between their two supports can implement efficient trade.
-And participation after learning one's value is a substantive constraint: the proof specifically uses the right of even the lowest-value buyer and highest-value seller to walk away.
+Both hypotheses—overlapping supports and interim participation—are essential:
 
-The theorem leaves plenty of room for useful markets and good bargaining institutions.
-Our fixed-price rule already realizes three quarters of the possible expected gains.
-What it rules out is a universal promise: every beneficial trade, honest incentives, voluntary participation, and no outside funding, all at once.
+- **Overlapping valuations:** If the buyer's minimum possible value exceeds the seller's maximum possible cost, posting any fixed price between the two intervals achieves full efficiency without a subsidy.
+- **Interim vs. ex ante participation:** If the buyer and seller could sign a binding contract *before* learning their own valuations $$v$$ and $$c$$, they could agree up front to pay an equal lump-sum entry fee to fund the VCG subsidy. The impossibility arises because each party already knows their valuation when deciding whether to participate, so the lowest-value buyer and highest-cost seller will refuse any positive entry fee.
 
-This differs from [Milgrom–Stokey's no-trade theorem](/fun-stuff/economics/milgrom-stokey.html).
-Here, the buyer and seller can have genuinely different uses for the object, and the initial allocation leaves gains from trade available.
-Milgrom–Stokey begins from an allocation that is already efficient before new private information arrives, and asks whether that information alone can support mutually acceptable speculation.
-Its no-trade conclusion concerns that different starting point; Myerson–Satterthwaite permits substantial trade while ruling out full efficiency.
-
-Even with only two people and no physical cost of trading, private information can prevent some mutually beneficial exchanges.
-Better rules can reduce that loss.
-Under these assumptions, they cannot eliminate it.
+Together with the [Milgrom–Stokey no-trade theorem](/fun-stuff/economics/milgrom-stokey.html), Myerson–Satterthwaite maps out the two fundamental limits of trade under private information: Milgrom–Stokey shows why private signals about a common value cannot generate new speculative gains starting from an efficient allocation, while Myerson–Satterthwaite shows why private valuations prevent bargaining from capturing every genuine gain from trade.

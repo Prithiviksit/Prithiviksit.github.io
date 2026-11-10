@@ -11,38 +11,32 @@ published: true
 ---
 
 
-One might have the impression from high-school Newtonian physics: once a system's present state and forces are specified, its future is fixed. The system just evolves according to Newton's law with no rooms for free will. Norton's dome challenges this familiar impression. 
-The example invites a closer look at whether that conclusion follows from Newton's laws themselves or from additional assumptions used to solve them.
-[Gruff Davies's objections](https://blog.gruffdavies.com/2017/12/24/newtonian-physics-is-deterministic-sorry-norton/) identify several limitations of the model, but their force depends on whether they address the source of its nonuniqueness.
+Textbook Newtonian mechanics looks like the archetype of determinism: specify every particle's initial position and velocity along with the forces acting on it, and Newton's second law fixes a unique trajectory for all future time.
+In 2003, philosopher of science John D. Norton introduced a strikingly simple counterexample—a frictionless dome on which a point particle sitting motionless at the apex can remain at rest forever or spontaneously slide off at any time $$T\geq0$$ in any radial direction, while obeying $$F=ma$$ at every instant.
 
-A more fundamental concern is the role of the first law.
-Taking it as conceptually prior to the second gives independent weight to its requirement that a body continue at rest or in uniform straight-line motion unless a force compels a change.
-Even if the second-law equation allows the particle to depart, does the first law forbid it?
+Evaluating what Norton's dome actually shows requires separating three questions:
 
-There are three questions here: whether the proposed trajectory solves the equation, whether the dome is an admissible mechanical model, and whether that equation captures everything Newton's laws require.
-The first can be settled with a valid solution while the other two require an account of what counts as a Newtonian system and an admissible history.
+1. **Does the delayed slide solve the equation of motion?** (Yes—it is a smooth $$C^3$$ solution.)
+2. **Where does the nonuniqueness come from geometrically and dynamically?** (From the failure of local Lipschitz continuity and unbounded curvature at the apex, as analyzed by [David Malament](https://sites.socsci.uci.edu/~dmalamen/bio/papers/NortonDome.pdf), [Samuel Fletcher](https://philsci-archive.pitt.edu/8833/4/dome_100711.pdf), and [Gruff Davies](https://blog.gruffdavies.com/2017/12/24/newtonian-physics-is-deterministic-sorry-norton/).)
+3. **Does $$F=ma$$ exhaust the content of Newton's laws, or does Newton's first law independently rule out spontaneous departure from a force-free equilibrium?**
 
 ## Norton's original argument
 
-In [Norton's presentation](https://sites.pitt.edu/~jdnorton/Goodies/Dome/), a point particle slides without friction on a fixed, rotationally symmetric dome in uniform downward gravity.
-Let $$r$$ be distance **along the surface** from the apex and $$h$$ the vertical drop below it.
-The profile is
+In [Norton's setup](https://sites.pitt.edu/~jdnorton/Goodies/Dome/), a point mass $$m$$ rests without friction on a rigid, rotationally symmetric dome in a uniform downward gravitational field $$g$$.
+Let $$r$$ measure arc length **along the surface** from the apex and $$h$$ measure the vertical drop below the apex:
 
 $$
-h(r)=\frac{2k}{3g}r^{3/2},\qquad k>0.
+h(r)=\frac{2k}{3g}r^{3/2},\qquad k>0,
 $$
 
-Here $$g$$ is gravitational acceleration; $$k$$ fixes the dome's shape and has units of length to the power $$1/2$$ divided by time squared.
-Norton sets this dimensional coefficient to one in the chosen units.
-Keeping it visible avoids a distraction about dimensions.
+where the dimensional constant $$k$$ has units of $$\text{length}^{1/2}/\text{time}^2$$ (Norton sets $$k=1$$ by choosing units).
 
 <figure class="math-figure">
   <img src="/img/others/nortons-dome.svg" width="640" height="780" style="max-width: 640px; margin-inline: auto;" alt="A regenerated surface of revolution of Norton's dome, with a point particle at its apex. A meridional cross-section below distinguishes surface distance r, horizontal distance x, and vertical drop h. The highlighted arc follows the actual dome profile rather than treating r as a horizontal coordinate.">
   <figcaption>The dome and a vertical cross-section, regenerated from its arc-length parametrization. The gold arc measures r; the dashed horizontal and vertical segments measure x and h. The dot represents a point particle, not a ball with a finite radius. The illustrated dome is truncated before its profile becomes vertical.</figcaption>
 </figure>
 
-For a radial slide, write $$\theta$$ for the downward angle of the tangent to the horizontal.
-Since $$r$$ measures arc length, $$\sin\theta=dh/dr$$.
+Along any radial meridian, the downward tangent angle $$\theta$$ satisfies $$\sin\theta=dh/dr$$ because $$r$$ is arc length.
 The tangential component of gravity therefore gives
 
 $$
@@ -52,22 +46,19 @@ F_{\parallel}&=mg\frac{dh}{dr}=mk\sqrt r,\\
 \end{aligned}
 $$
 
-This is the tangential equation; maintaining contact with the dome requires a separate check below.
-Initially, $$r(0)=\dot r(0)=0$$.
-One solution is permanent rest, $$r(t)=0$$.
-But for every $$T\geq0$$ there is also
+With initial condition $$r(0)=\dot r(0)=0$$, one obvious solution is permanent rest, $$r(t)=0$$.
+Yet for every waiting time $$T\geq0$$, the family
 
 $$
 r(t)=
 \begin{cases}
 0,&t\leq T,\\
-\displaystyle\frac{k^2}{144}(t-T)^4,&t>T.
+\displaystyle\frac{k^2}{144}(t-T)^4,&t>T
 \end{cases}
 $$
 
-The particle waits until $$T$$ and then departs along any chosen radial direction.
-These are distinct futures with exactly the same initial position and velocity, even the same entire stationary past.
-The equation supplies no rule selecting a departure time or direction, and no probability law over them.
+also satisfies $$\ddot r=k\sqrt r$$ at every instant $$t\geq0$$, including $$t=T$$!
+The particle sits motionless at the apex until time $$T$$ and then slides down along an arbitrary radial direction—with no external push, no noise, and no rule assigning probabilities to different waiting times $$T$$ or directions.
 
 <details markdown="1">
 <summary>Check the trajectory at the joining time</summary>
@@ -93,22 +84,18 @@ A classical solution of this second-order equation needs two derivatives, not fo
 
 </details>
 
-This is nonuniqueness, not merely sensitivity to small disturbances.
-An unstable but deterministic equilibrium can amplify a tiny displacement while still prescribing rest for exactly zero displacement and velocity.
-Norton's equation permits departure from those exact data.
+Notice how this differs from an ordinary unstable equilibrium, such as a ball balanced on top of a spherical hill.
+On a sphere, tiny perturbations grow exponentially, yet the *exact* initial state $$r(0)=\dot r(0)=0$$ has only one solution: permanent rest.
+On Norton's dome, the exact initial state $$r(0)=\dot r(0)=0$$ itself branches into infinitely many solutions.
 
-## Davies's objections: the outer edge and the apex
+## Davies's objections: the outer rim and the apex
 
-Two issues in [Davies's discussion](https://blog.gruffdavies.com/2017/12/24/newtonian-physics-is-deterministic-sorry-norton/) deserve separate treatment.
-First, his “infinite force” objection observes that the formula cannot describe a gravity-driven dome at arbitrarily large $$r$$.
-Second, he treats the curvature and Lipschitz issue at the apex as incidental, claiming that smooth domes can behave similarly.
-The first point correctly limits the model's domain.
-The second needs a distinction between instability and nonuniqueness.
+In a widely read critique, [Gruff Davies](https://blog.gruffdavies.com/2017/12/24/newtonian-physics-is-deterministic-sorry-norton/) raises two objections to the dome: first, that the profile $$h(r)\propto r^{3/2}$$ becomes unphysical at large $$r$$; second, that the non-Lipschitz singularity at $$r=0$$ is a mathematical technicality shared with ordinary smooth domes.
+Let us examine each in turn.
 
-### The gravitational force cannot grow without bound
+### Truncating the dome before its rim turns vertical
 
-An arc-length parametrization must satisfy $$|dh/dr|\leq1$$.
-Here that requires
+Because $$r$$ measures arc length along the surface, Euclidean geometry requires $$|dh/dr|=|\sin\theta|\leq1$$, which bounds how far the dome can extend:
 
 $$
 \frac{k\sqrt r}{g}\leq1,
@@ -116,51 +103,32 @@ $$
 r\leq\frac{g^2}{k^2}.
 $$
 
-At the upper endpoint the profile becomes vertical.
-Beyond it, the formula cannot represent the stated Euclidean surface: its vertical drop would increase faster than distance traveled along it.
-Equivalently, the tangential gravitational force cannot exceed $$mg$$.
+At $$r=g^2/k^2$$, the dome wall becomes vertical ($$\theta=\pi/2$$); beyond that radius, a real surface cannot satisfy $$dh/dr=k\sqrt r/g$$ because vertical drop cannot grow faster than arc length.
 
-We can therefore choose a finite rim strictly inside this bound.
-Every delayed trajectory still exists for a positive interval after departure, within an arbitrarily small neighborhood of the apex.
-Nonuniqueness of that local motion already defeats uniqueness of the initial-value problem.
-No infinite force is needed.
+Truncating the dome at any finite rim strictly inside $$g^2/k^2$$ eliminates that global issue completely while leaving the nonuniqueness at the apex untouched: every delayed solution $$r(t)$$ still exists on a positive time interval after $$t=T$$ inside an arbitrarily small neighborhood of $$r=0$$.
 
-### Lipschitz continuity concerns the force field
+### Why local Lipschitz continuity fails at the apex
 
-For an equation $$\ddot r=f(r)$$, a useful uniqueness condition is **local Lipschitz continuity**:
-near each relevant position there must be some finite $$L$$ such that
+By the Picard–Lindelöf theorem, an initial-value problem $$\ddot r=f(r)$$ has a unique local solution whenever $$f$$ is **locally Lipschitz continuous**—meaning that near each point there is a finite constant $$L$$ such that
 
 $$
 |f(r_1)-f(r_2)|\leq L|r_1-r_2|.
 $$
 
-The condition bounds how fast the force per unit mass can change with position.
-For Norton's equation,
+For Norton's dome, $$f(r)=k\sqrt r$$, and the difference quotient at $$r=0$$ blows up:
 
 $$
 \frac{|k\sqrt r-k\sqrt0|}{|r-0|}
 =\frac{k}{\sqrt r}\longrightarrow\infty.
 $$
 
-The force is continuous at zero and vanishes there, but it is not locally Lipschitz there.
-At every strictly positive $$r$$ it is locally Lipschitz.
-The problem is therefore neither an infinite force at the apex nor a discontinuity of that force.
-It is an unbounded ratio of force change to displacement.
+Thus the tangential force $$mk\sqrt r$$ is continuous at the apex (and equals zero there), and locally Lipschitz at every $$r>0$$, yet fails to be locally Lipschitz at $$r=0$$.
+As [Samuel Fletcher (2012, §2.1, §3.1)](https://philsci-archive.pitt.edu/8833/4/dome_100711.pdf) emphasizes, local Lipschitz continuity of the force field is a sufficient condition for uniqueness, and its failure right at $$r=0$$ is what opens the door to multiple trajectories emerging from rest.
 
-[Fletcher's formulation, §2.1](https://philsci-archive.pitt.edu/8833/4/dome_100711.pdf), makes the locality explicit.
-Local Lipschitz regularity of the dynamical field guarantees local uniqueness; it need not hold with one common bound across the entire system.
-It is also sufficient, not necessary.
-Failure of the condition does not by itself prove indeterminism; the distinct trajectories above do that work.
-Fletcher also cautions against imposing it on every classical idealization: even a ball leaving a table encounters an abrupt change in support force.
-Such models need rules for transitions, rather than one regularity demand applied indiscriminately. [Fletcher, §3.1](https://philsci-archive.pitt.edu/8833/4/dome_100711.pdf)
+## Malament's $$C^1$$ vs. $$C^2$$ distinction
 
-## Malament's C1 versus C2 distinction
-
-[Malament (2008), especially §§4–5](https://sites.socsci.uci.edu/~dmalamen/bio/papers/NortonDome.pdf), connects the dynamics to the geometry: the dome is $$C^1$$ but not $$C^2$$ at its summit.
-It has a continuous tangent plane there, but its curvature diverges.
-For the radial sliding problem on an everywhere $$C^2$$ ramp, his uniqueness argument applies.
-
-We can see the connection directly:
+[David Malament (2008, §§4–5)](https://sites.socsci.uci.edu/~dmalamen/bio/papers/NortonDome.pdf) traces this failure of Lipschitz continuity directly to the dome's surface geometry: at the apex, the dome is $$C^1$$ (smooth tangent plane) but **not $$C^2$$** (infinite curvature).
+Differentiating the profile gives
 
 $$
 h'(r)=\frac{k}{g}\sqrt r,
@@ -168,36 +136,23 @@ h'(r)=\frac{k}{g}\sqrt r,
 h''(r)=\frac{k}{2g\sqrt r}\quad(r>0).
 $$
 
-The slope tends to zero, so the top looks flat rather than pointed.
-But the slope changes too sharply near zero to have a finite second derivative there.
-A picture can hide this: a continuous tangent does not imply bounded curvature.
+Because $$h'(0)=0$$, the apex has a horizontal tangent plane rather than a sharp cone point; because $$h''(r)\to\infty$$ as $$r\downarrow0$$, the curvature diverges there.
+On any surface whose profile $$h(r)$$ is $$C^2$$ near the apex, the tangential force $$mg\,h'(r)$$ is $$C^1$$ and therefore locally Lipschitz, guaranteeing a unique solution.
 
-For a general radial profile, the equation is $$\ddot r=gh'(r)$$.
-If $$h$$ is $$C^2$$ near the apex, then $$gh'$$ is $$C^1$$, hence locally Lipschitz.
-The initial position and velocity then determine a unique local radial slide, within the regime where contact is maintained.
-This explains how Malament's geometric condition and Fletcher's dynamical condition fit together.
-The $$C^2$$ requirement is a convenient sufficient condition in this ramp problem, not a universal definition of allowable classical geometry.
+Keep the smoothness of the **surface** distinct from the smoothness of the **trajectory**:
 
-There are also two different objects whose smoothness we must not confuse.
-The **surface** is $$C^1$$ but not $$C^2$$ at its apex.
-The **delayed trajectory** is $$C^3$$ but not $$C^4$$ at departure.
-Neither statement says that the acceleration along that trajectory is infinite.
+- The **dome surface** $$h(r)\propto r^{3/2}$$ is $$C^1$$ but not $$C^2$$ at $$r=0$$.
+- The **departing trajectory** $$r(t)\propto(t-T)^4$$ is $$C^3$$ (continuous position, velocity, acceleration, and jerk) at $$t=T$$.
 
-An ordinary smooth unstable equilibrium illustrates the difference.
-For the linear equation $$\ddot x=\omega^2x$$, the unique solution starting at $$x=\dot x=0$$ is permanent rest.
-An incoming solution $$x(t)=Ae^{-\omega t}$$ approaches zero only as $$t\to\infty$$.
-Reversing time therefore does not produce a departure from rest at a finite time.
-The claim that every smooth unstable summit has Norton's behavior overlooks this distinction.
+Compare this with an ordinary $$C^2$$ hilltop, where $$h(r)\approx -\omega^2 r^2/(2g)$$ and the linearized equation of motion is $$\ddot r=\omega^2 r$$.
+There, a particle approaching the summit along the time-reversed trajectory $$r(t)=Ae^{-\omega t}$$ takes **infinite** time ($$t\to\infty$$) to come to rest at the top; running the movie backward never produces a finite-time departure from rest.
+Norton's $$r^{3/2}$$ profile is special precisely because a particle sliding *up* the dome with just the right energy reaches the apex and comes to a complete stop in **finite** time—and the departing solution is simply the time reversal of that finite-time arrival.
 
 ## What is pathological about the apex?
 
-The surface can push outward on the particle; an ordinary frictionless support cannot pull it inward.
-Following a curved path requires inward normal acceleration, supplied here by the inward component of gravity after allowing for the outward support force.
-Sufficiently fast motion therefore loses contact.
-
-Malament's striking observation is that **any nonzero tangential launch speed at the apex causes immediate loss of contact**.
-The allowable sliding speeds shrink to zero there.
-Nevertheless, the delayed departure passes the contact test locally, because its speed vanishes sufficiently rapidly. [Malament, §§5–6](https://sites.socsci.uci.edu/~dmalamen/bio/papers/NortonDome.pdf)
+A rigid dome can push outward on the particle (normal force $$N\geq0$$), but cannot glue the particle down if it moves too fast to stay on the curve.
+[Malament (§§5–6)](https://sites.socsci.uci.edu/~dmalamen/bio/papers/NortonDome.pdf) uncovered a striking physical symptom of the infinite curvature at $$r=0$$: **if the particle is given any nonzero initial velocity $$\dot r(0)>0$$ at the apex, it flies off the surface instantaneously!**
+Only because the delayed slide starts from $$\dot r(T)=0$$ and accelerates gradually ($$v^2\propto r^{3/2}$$) does it remain in contact with the dome on $$0\leq r<3g^2/(5k^2)$$.
 
 <details markdown="1">
 <summary>Calculate curvature, support force, and loss of contact</summary>
@@ -266,77 +221,40 @@ Choosing an earlier rim leaves the entire illustrated slide in contact.
 
 </details>
 
-The distinction is between a singular surface and a singular motion.
-An arbitrarily small kick from the apex requires an entirely different continuation—free flight—from the possible zero-speed departures.
-That makes an appeal to “what happens after a tiny push” a poor substitute for analyzing the exact initial state.
+## Sliding on the dome vs. sitting on a golf tee
 
-## Sliding on the dome versus sitting on a golf tee
+Because every positive launch speed $$\dot r(0)>0$$ detaches immediately into free flight, [Malament (§7)](https://sites.socsci.uci.edu/~dmalamen/bio/papers/NortonDome.pdf) contrasts two ways of viewing the state $$r(0)=\dot r(0)=0$$:
 
-Malament compares two descriptions at the exceptional state. [See §7](https://sites.socsci.uci.edu/~dmalamen/bio/papers/NortonDome.pdf)
-
-| | Sliding-on-the-dome model | Golf-tee model |
+| | Sliding-on-the-dome model | Golf-tee (free-flight limit) model |
 | --- | --- | --- |
-| Starting description | Motion follows the surface while contact is possible. | The summit supports the particle; a horizontal launch leads to free flight. |
-| Governing equation | $$\ddot r=k\sqrt r$$, with the contact condition. | During flight, $$\ddot x=0$$ and vertical acceleration is $$-g$$. |
-| Apex, zero velocity | Permanent rest and delayed slides are admitted. | The zero-launch limit is taken to select rest. |
-| Apex, nonzero tangential velocity | No interval of surface sliding is possible. | A ballistic arc initially leaves the surface. |
+| Starting description | Constrained surface slide while $$N\geq0$$. | Horizontal launch from the summit into ballistic free flight. |
+| Governing equation | $$\ddot r=k\sqrt r$$ (with $$N\geq0$$). | Free flight $$\ddot x=0,\ \ddot y=-g$$ for $$v_0>0$$. |
+| Apex with $$v_0>0$$ | Immediate loss of contact ($$N<0$$). | Unique parabolic trajectory above the dome. |
+| Apex with $$v_0=0$$ | Admits both $$r(t)=0$$ and the delayed slides. | Limit as $$v_0\downarrow0$$ selects permanent rest. |
 
-His concern is **boundary consistency**: two otherwise useful descriptions meet at a state where their prescriptions disagree.
+Both models are internally consistent: along Norton's delayed slide, $$N>0$$ holds on $$0\leq r<3g^2/(5k^2)$$, so the dome's normal force genuinely guides the particle along the surface; conversely, for any $$v_0>0$$, the particle leaves the surface immediately and follows a unique parabola.
+The clash at $$v_0=0$$ shows that the apex sits on a singular boundary where the constrained sliding family and the positive-speed launch family do not join continuously.
 
-This comparison needs care.
-The flight equation is justified while the particle is detached.
-The delayed solution remains supported for a positive interval, during which the normal reaction can have a horizontal component.
-One cannot simply apply $$\ddot x=0$$ to that slide.
-Likewise, at zero launch speed, the golf-tee description is not a particle falling vertically through the dome: support balances gravity.
+## What does Newton's first law add?
 
-So the comparison does not establish a contradiction within one fully specified contact model.
-It exposes the work done by the choice of how to extend a description to its singular boundary.
-Demanding agreement with a chosen limiting family may be sensible, but it is a further modeling requirement that should be stated.
+Even granting that the delayed slide satisfies $$F=ma$$ at every instant, a deeper question remains: **what about Newton's first law?**
+At the apex, net force is zero and the particle is at rest.
+Does the law of inertia independently require the particle to *stay* at rest until an external change disturbs it?
 
-## My objection: what does the first law add?
+[Henrik Zinkernagel (2010, §§2–3)](https://philsci-archive.pitt.edu/4690/1/CausalFundam.pdf) argues that it does: if Newton's first law is more than a redundant special case of $$F=ma$$ at $$F=0$$, it asserts a causal principle—a body in a force-free state of rest remains at rest unless an independent cause initiates a change.
+To see what is at stake, distinguish two readings of inertia:
 
-My initial reaction was that the first law should settle the matter.
-There is no net force at the apex, and the particle is at rest.
-It should continue at rest until something changes that situation.
-Solving $$F=ma$$ cannot by itself establish that every solution respects an independently meaningful law of inertia.
+1. **Instantaneous reading (built into $$F=ma$$):** Whenever $$F(t)=0$$ throughout an interval, velocity $$\dot r(t)$$ is constant on that interval.
+2. **Causal-initiation reading:** A particle sitting at a force-free equilibrium point ($$F(r_0)=0,\ \dot r=0$$) cannot leave $$r_0$$ unless an external force or time-dependent change in the environment initiates the motion.
 
-That concern has a close counterpart in [Henrik Zinkernagel's *Causal Fundamentalism in Physics*](https://philsci-archive.pitt.edu/4690/1/CausalFundam.pdf), §§2–3.
-He emphasizes the first law's temporal language and its role in the interpretation of inertial frames and time.
-On his reading, a force must initiate a change; zero instantaneous acceleration is too weak to constitute a continuing state of rest.
-The dome should therefore remain stationary.
+Norton's delayed trajectory satisfies the instantaneous reading effortlessly: for $$t\leq T$$, both $$F$$ and $$\ddot r$$ are zero; for every $$t>T$$, the particle has already moved to $$r(t)>0$$, where $$F(r(t))=mk\sqrt{r(t)}>0$$ matches $$m\ddot r(t)>0$$.
+As [Norton points out](https://sites.pitt.edu/~jdnorton/Goodies/Dome/), $$t=T$$ is the **last instant of rest**, not a “first instant of motion”—because the open interval $$(T,\infty)$$ has no earliest instant, there is never a moment where the particle is still at $$r=0$$ while experiencing $$\ddot r>0$$.
 
-I think this identifies the central interpretive issue.
-It does not, however, follow just from observing that the force vanishes at one instant.
-Consider two claims:
+### Poisson (1806), Fletcher, and time-reversal symmetry
 
-1. **Zero force throughout an interval preserves velocity throughout that interval.**
-2. **A particle at a force-free equilibrium cannot leave it unless an independently initiated change supplies a cause.**
+As [Fletcher (2012, §3.2)](https://philsci-archive.pitt.edu/8833/4/dome_100711.pdf) notes, this exact debate goes back to Siméon Denis Poisson in 1806, who studied non-Lipschitz differential equations of the same form and invoked the law of inertia to select permanent rest when velocity and force vanish together.
 
-The first is already implied by the second-law equation in an inertial frame.
-The second imposes a stronger requirement on the allowed history.
-Whether the first law includes that requirement is precisely what must be argued.
-
-For the delayed trajectory, force and velocity are zero through $$T$$.
-At every later instant, displacement, force, and velocity are positive.
-The equation never asks a nonzero acceleration to coexist with zero force.
-What it leaves unexplained is the selection of a history in which those quantities become positive at all.
-
-Norton's response is that $$T$$ is the **last instant of rest**, not a first instant of motion.
-The set $$t>T$$ has no earliest member: between $$T$$ and any proposed first moving instant lies another moving instant.
-That answers the search for an instantaneous violation of $$F=ma$$.
-It does not compel someone to accept that the equation exhausts the physical content of inertia. [Norton's first-law discussion](https://sites.pitt.edu/~jdnorton/Goodies/Dome/)
-
-### Fletcher's response, and the history behind the objection
-
-[Fletcher, §3.2](https://philsci-archive.pitt.edu/8833/4/dome_100711.pdf), connects Zinkernagel's reasoning to Poisson's 1806 treatment of nonunique differential equations: Poisson selected continued rest when both velocity and force vanished.
-This is an old dispute about selecting physical motions, not a newly discovered algebraic mistake.
-
-Fletcher objects that ordinary forces can turn on continuously without a first instant at which they are nonzero.
-He also proposes a saddle-like ridge: a particle already oscillating along it can depart sideways indeterministically.
-A first-law argument framed solely around total rest or uniform straight-line motion does not directly address that example; extending it component by component requires further interpretation.
-
-Here is a simple illustration of the first objection.
-Prescribe an external force per unit mass
+To test the causal-initiation reading, compare the autonomous dome force $$F(r)=mk\sqrt r$$ with an explicitly time-dependent external force that turns on smoothly at $$t=0$$:
 
 $$
 \frac{F(t)}m=
@@ -344,10 +262,10 @@ $$
 0,&t\leq0,\\
 \alpha t^2,&t>0,
 \end{cases}
-\qquad \alpha>0.
+\qquad \alpha>0,
 $$
 
-From rest at the origin, the uniquely determined trajectory is
+which drives a particle from rest at $$x(0)=\dot x(0)=0$$ along the unique trajectory
 
 $$
 x(t)=
@@ -357,29 +275,18 @@ x(t)=
 \end{cases}
 $$
 
-Force and acceleration vanish at zero, but motion occurs for every positive time.
-The force turns on continuously, with a continuous first derivative.
-A blanket rule requiring a positive interval of rest whenever instantaneous force and velocity vanish would exclude this ordinary forced motion too.
+Here too $$F(0)=\ddot x(0)=0$$ with no “first instant of nonzero force,” yet the motion for $$t>0$$ is completely deterministic because the external force $$F(t)$$ is prescribed as a function of time.
+On Norton's dome, by contrast, the force law $$F(r)=mk\sqrt r$$ is **time-independent**: nothing in the environment changes at $$t=T$$, and the force grows only *because* the particle has already left $$r=0$$.
 
-There is a meaningful reply: here the external force changes independently of the particle, whereas on the dome the environment is fixed and the force changes because the particle changes position.
-That is the strongest version of my concern.
-The missing ingredient would be a principle requiring an independent initiating change before a force-free equilibrium can be left.
-It would select rest for the dome without denying that a prescribed external force can turn on continuously.
+Adopting the causal-initiation rule—that a particle cannot leave a time-independent force-free equilibrium $$F(r_0)=0$$ from rest—cleanly rules out Norton's delayed slides while permitting smoothly turned-on external forces $$F(t)$$.
+It carries a striking physical consequence of its own, however: **it breaks time-reversal symmetry.**
+Everyone agrees that a particle launched upward from the side of the dome with the critical energy $$E=0$$ reaches the apex in finite time $$T$$ and comes to rest there forever; forbidding the time-reversed history means the admissible trajectories of a conservative Newtonian system are no longer closed under $$t\mapsto -t$$.
 
-But this principle must be formulated as part of the dynamics or the admissibility of histories.
-It is not proved by the equality $$F(T)=0$$.
-It also has a consequence: if an incoming particle may reach the apex in finite time and remain there, but its reversed history is forbidden, the permitted histories no longer have the usual time-reversal symmetry of this conservative equation.
+## Three quick sanity checks
 
-Fletcher's broader conclusion is that historical readings of Newton and modern differential-equation formulations can specify different theories.
-The determinism question becomes precise only after the admissible models and motions have been specified. [Fletcher, §§3.2 and 4](https://philsci-archive.pitt.edu/8833/4/dome_100711.pdf)
+### 1. Energy is conserved along every delayed slide
 
-## Three further checks
-
-### Energy is conserved
-
-Set gravitational potential energy to zero at the apex.
-Because $$r$$ is arc length, $$\dot r$$ is the particle's full speed during a radial slide.
-Thus
+Setting gravitational potential energy to zero at the apex and noting that $$\dot r$$ is the full speed along the surface, total mechanical energy is
 
 $$
 \begin{aligned}
@@ -388,52 +295,33 @@ E&=\frac12m\dot r^2-mgh(r)\\
 \end{aligned}
 $$
 
-Along the departing branch, $$\dot r^2=(4k/3)r^{3/2}$$, so $$E=0$$, just as on the stationary branch.
-Gravity supplies the kinetic energy through the loss of height.
-Energy conservation does not select a departure time.
+Along the departing branch, $$\dot r^2=(4k/3)r^{3/2}$$, so $$E=0$$ at every instant $$t>T$$, matching $$E=0$$ at rest.
+(Note that because $$r$$ is arc length along the surface, $$\frac12 m\dot r^2=\frac12 m(\dot x^2+\dot h^2)$$ already includes both horizontal and vertical kinetic energy.)
 
-Davies suggests that horizontal kinetic energy has been omitted and questions the joining of the trajectories because their fourth derivatives differ. [His energy and “stitch” sections](https://blog.gruffdavies.com/2017/12/24/newtonian-physics-is-deterministic-sorry-norton/)
-But the expression $$m\dot r^2/2$$ already includes both horizontal and vertical motion.
-Adding horizontal kinetic energy again would count it twice.
-Moreover, the surface-sliding solution must cease to describe a freely supported particle once contact is lost; extrapolating it to the vertical rim is not a valid energy test.
+### 2. The join at $$t=T$$ involves no hidden impulse
 
-### The join does not hide a kick
+At $$t=T$$, position $$r$$, velocity $$\dot r$$, acceleration $$\ddot r$$, and the third derivative (jerk) are all continuous and equal to zero; only the fourth derivative (snap) jumps from $$0$$ to $$k^2/6$$.
+Because Newton's second law is a second-order differential equation, a $$C^3$$ trajectory satisfies it classically at every point without any hidden impulse at $$t=T$$.
 
-Joining a stationary trajectory to uniform motion at nonzero speed creates a velocity jump and requires an impulse.
-Joining the two dome branches does neither.
-Position, velocity, acceleration, and jerk all match.
+### 3. Non-Lipschitz forces without a contact surface
 
-The fourth derivative, sometimes called snap, is not an independently specified state variable in this second-order model.
-Demanding its continuity would change the class of allowed solutions.
-That may be proposed as an additional rule, but it does not identify a failure to satisfy the given equation.
-It also would not distinguish different future departure times while the particle is still in the interior of its stationary waiting period: there, every time derivative is zero.
+The same $$\sqrt r$$ nonuniqueness can be constructed without a rigid surface at all: [Fletcher (§3.4)](https://philsci-archive.pitt.edu/8833/4/dome_100711.pdf) exhibits a spherically symmetric charge distribution with density $$\rho(r)\propto r^{-1/2}$$ (integrable at the origin) whose outward electrostatic field obeys $$E_r(r)\propto\sqrt r$$, yielding $$\ddot r=k\sqrt r$$ in three-dimensional space.
 
-### The singular surface is not the only route
+## What the dome teaches us
 
-Fletcher also gives an electrostatic construction with $$\rho(r)\propto r^{-1/2}$$ near the center, producing an outward field $$E_r(r)\propto\sqrt r$$.
-It reproduces the same nonuniqueness without a contact surface, although the charge density diverges integrably at the center. [Fletcher, §3.4](https://philsci-archive.pitt.edu/8833/4/dome_100711.pdf)
+Norton's dome shows that **“Newtonian mechanics is deterministic” is not a theorem that follows from $$F=ma$$ alone.**
+Making a Newtonian theory deterministic requires specifying at least one additional commitment beyond the second-law differential equation:
 
-Rejecting singular domes therefore does not settle every version of the question.
-One must also say which force fields, material distributions, and idealizations the intended formulation permits.
-Conversely, reproducing the equation in another idealization does not show that a laboratory system will spontaneously move.
+- **Geometric/dynamical regularity (Malament, Fletcher):** Require constraint surfaces to be $$C^2$$ and force fields to be locally Lipschitz, ruling out the $$r^{3/2}$$ apex as an inadmissible idealization; or
+- **Causal inertia (Poisson, Zinkernagel):** Treat Newton's first law as an independent selection rule that forbids leaving a time-independent force-free equilibrium from rest, at the cost of breaking time-reversal invariance at non-Lipschitz equilibria.
 
-## What I take from the dome
-
-The mathematical result is secure: the specified initial-value problem has multiple solutions, including locally admissible supported departures.
-The larger claim about Newtonian mechanics depends on what belongs to the theory beyond that equation.
-
-My first-law objection remains useful because it asks whether a solution must also satisfy a temporal or causal requirement that the differential equation does not express.
-It becomes a resolution only when that requirement is stated precisely and its consequences are accepted.
-Malament's boundary problem asks a parallel question about contact; Fletcher asks which formulation serves the purpose at hand.
-
-For me, the dome's value is that it makes these usually hidden choices visible.
-If determinism is meant to be a conclusion, the assumptions that deliver uniqueness must be part of the argument.
+Either way, the dome forces into the open the background assumptions—about smoothness, contact boundaries, or causal initiation—that ordinary textbook problems quietly take for granted.
 
 ## Sources and further reading
 
 - John D. Norton, [*The Dome: A Simple Violation of Determinism in Newtonian Mechanics*](https://sites.pitt.edu/~jdnorton/Goodies/Dome/). The original accessible presentation, based on his 2003 paper *Causation as Folk Science*.
-- John D. Norton (2008), [*The Dome: An Unexpectedly Simple Failure of Determinism*](https://sites.pitt.edu/~jdnorton/papers/DomePSA2006_short.pdf), *Philosophy of Science* 75: 786–798. Defense of the example and discussion of admissible idealizations; link to the author's manuscript.
-- David B. Malament (2008), [*Norton's Slippery Slope*](https://sites.socsci.uci.edu/~dmalamen/bio/papers/NortonDome.pdf), *Philosophy of Science* 75: 799–816. Geometry, contact, phase space, and the competing descriptions at the apex.
-- Henrik Zinkernagel (2010), [*Causal Fundamentalism in Physics*](https://philsci-archive.pitt.edu/4690/1/CausalFundam.pdf), in *EPSA Philosophical Issues in the Sciences*, pp. 311–322. The independent role and temporal interpretation of Newton's first law; link to a preprint.
-- Samuel C. Fletcher (2012), [*What Counts as a Newtonian System? The View from Norton's Dome*](https://philsci-archive.pitt.edu/8833/4/dome_100711.pdf), *European Journal for Philosophy of Science* 2: 275–297. Sections 2.1, 3.1, 3.2, and 3.4 address local Lipschitz continuity, regularity restrictions, the first law and Poisson, and alternative constructions. The historical account here follows Fletcher; link to the accepted manuscript.
-- Gruff Davies (2017, updated 2020), [*Newtonian physics IS deterministic (sorry Norton)*](https://blog.gruffdavies.com/2017/12/24/newtonian-physics-is-deterministic-sorry-norton/). The critical essay that prompted this comparison.
+- John D. Norton (2008), [*The Dome: An Unexpectedly Simple Failure of Determinism*](https://sites.pitt.edu/~jdnorton/papers/DomePSA2006_short.pdf), *Philosophy of Science* 75: 786–798.
+- David B. Malament (2008), [*Norton's Slippery Slope*](https://sites.socsci.uci.edu/~dmalamen/bio/papers/NortonDome.pdf), *Philosophy of Science* 75: 799–816.
+- Henrik Zinkernagel (2010), [*Causal Fundamentalism in Physics*](https://philsci-archive.pitt.edu/4690/1/CausalFundam.pdf), in *EPSA Philosophical Issues in the Sciences*, pp. 311–322.
+- Samuel C. Fletcher (2012), [*What Counts as a Newtonian System? The View from Norton's Dome*](https://philsci-archive.pitt.edu/8833/4/dome_100711.pdf), *European Journal for Philosophy of Science* 2: 275–297.
+- Gruff Davies (2017, updated 2020), [*Newtonian physics IS deterministic (sorry Norton)*](https://blog.gruffdavies.com/2017/12/24/newtonian-physics-is-deterministic-sorry-norton/).

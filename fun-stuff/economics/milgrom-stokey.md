@@ -74,14 +74,11 @@ Every positive offer loses money on average.
 At $$p=0$$, trade has probability zero.
 Randomizing over such offers cannot help, because it only averages nonpositive expected payoffs.
 
-The mistake would be to compare the price with the unconditional mean dividend, $$1/2$$.
-A price of $$0.4$$ looks attractive against that mean.
-But when the informed seller accepts, the conditional mean is only $$0.2$$.
-The buyer purchases precisely in the states where the asset is least valuable.
+The mistake is comparing the offer price $$p$$ with the unconditional mean dividend, $$1/2$$.
+A price of $$0.4$$ looks attractive against $$1/2$$, yet conditional on the informed seller accepting, the expected dividend drops to $$0.2$$.
+Because the seller accepts only when $$\theta\leq p$$, the buyer acquires the asset exclusively in the states where it is worth less than the price.
 
-This calculation proves a no-trade result for this particular posted-price game.
-It illustrates the inference behind the broader theorem; it does not by itself cover every bargaining institution.
-For that, we need to state what the theorem assumes about the initial allocation and what traders know when they agree.
+To generalize this adverse-selection insight beyond a single posted-price offer to arbitrary trading mechanisms, Milgrom and Stokey isolate two structural conditions: properties of the initial allocation and what traders know when they agree to trade.
 
 ## Two assumptions that do the work
 
@@ -89,74 +86,56 @@ The first is **efficiency before the new information arrives**.
 An allocation is *ex ante Pareto efficient* if no feasible alternative can make everyone at least as well off in expected utility, and someone strictly better off, when evaluated before the private signals arrive.
 
 This assumption removes pre-existing motives to trade.
-A farmer who wants insurance and an investor who can bear crop risk may both benefit from a contract even without different information.
-That is a gain from risk sharing.
-Milgrom–Stokey starts after such gains have been exhausted.
+A farmer who wants insurance and an investor who can bear crop risk may both benefit from a contract even without different information; that is a gain from risk sharing.
+Milgrom–Stokey starts after all such gains from risk sharing and reallocation have been exhausted.
 
-For a concrete efficient allocation, imagine two people with the same strictly concave utility function sharing a risky total endowment equally in every state.
-For any alternative division $$x_1+x_2=2e$$, concavity gives
+For a concrete efficient benchmark, imagine two people with the same strictly concave utility function $$u$$ sharing a risky total endowment $$2e$$ equally in every state.
+For any feasible division $$x_1+x_2=2e$$, concavity gives
 
 $$
-u(x_1)+u(x_2)\leq2u(e).
+u(x_1)+u(x_2)\leq2u(e)
 $$
 
-This inequality holds in each state, hence also in expectation under a common prior.
-No alternative division can raise one person's expected utility without lowering the other's.
-Equal sharing is therefore ex ante efficient, even though the total endowment may be uncertain.
+state by state, and therefore in expectation under a common prior.
+No feasible reallocation can raise one person's ex ante expected utility without lowering the other's, so equal sharing is ex ante Pareto efficient.
 
-The second assumption concerns **common knowledge of willingness to trade**.
-Everyone knows the proposed trade is feasible and acceptable to everyone; everyone knows that everyone knows this; and so on.
-The relevant information includes what people infer from offers, acceptances, prices, and other observed trading behavior.
+The second assumption is **common knowledge of willingness to trade**.
+At the moment the trade is agreed upon, everyone knows the trade is feasible and acceptable to all parties, everyone knows that everyone knows this, and so on—after incorporating everything learned from prices, offers, and acceptances.
+Notice that traders do not need to reveal their private signals or converge to identical posterior beliefs; only their mutual willingness to carry out the trade needs to become common knowledge.
 
-This is stronger than two people separately finding a trade attractive before hearing from each other.
-Their willingness must survive the information conveyed by the trading process itself.
-It does not require them to reveal their signals or end up with identical posterior beliefs.
-
-We will prove a version with a **common prior**: everyone begins with the same probability distribution over states and updates using their own information.
-Different signals can still produce different posterior beliefs.
-The common prior is a sufficient belief restriction for the version below; the original paper also allows a more general restriction called *concordant beliefs*.
+Below we prove the theorem under a **common prior** (every trader starts with the same prior probability distribution over states and updates by Bayes' rule); the original paper shows that the same argument goes through under a slightly broader condition called *concordant beliefs*.
 
 ## A precise no-trade statement
 
 Consider finitely many states $$\omega\in\Omega$$, each assigned positive probability by the common prior.
 There are finitely many traders, indexed by $$i$$, and one consumption good in each state.
-Trader $$i$$ initially receives $$e_i(\omega)$$ and has an increasing, concave utility function $$u_i$$.
-The initial allocation is ex ante Pareto efficient among all feasible state-contingent allocations.
-This is a strong efficiency benchmark, not merely efficiency within a restricted set of securities.
+Trader $$i$$ starts with an endowment $$e_i(\omega)$$ and has an increasing, concave utility function $$u_i$$.
+Assume the initial allocation $$e$$ is ex ante Pareto efficient across all feasible state-contingent allocations.
 
-Let $$x_i(\omega)$$ describe a proposed allocation after trading.
-Feasibility means nonnegative consumption and
+Let $$x_i(\omega)$$ denote a proposed post-trade allocation, satisfying nonnegative consumption and market clearing in every state:
 
 $$
 \sum_i x_i(\omega)=\sum_i e_i(\omega)
 \qquad\text{in every state}.
 $$
 
-No outside resources are added.
-Let $$\mathcal I_i$$ denote trader $$i$$'s information at the time of agreement, including inferences from observed trading behavior.
-In a finite state space, an information set tells the trader which collection of states remains possible.
+Let $$\mathcal I_i$$ denote trader $$i$$'s information partition at the time of agreement, after absorbing any information conveyed by the trading process itself.
 
-Finally, let $$C$$ be a nonempty event on which the trade's acceptability is common knowledge.
-Formally, $$C$$ is a union of information sets for every trader, and throughout $$C$$,
+Finally, let $$C$$ be a nonempty event on which the trade's acceptability is common knowledge: $$C$$ is a union of information cells for every trader, and throughout $$C$$,
 
 $$
 \mathbb E\!\left[u_i(x_i)-u_i(e_i)\mid\mathcal I_i\right]\geq0
 \qquad\text{for every }i.
 $$
 
-The union-of-information-sets condition means that each trader can tell whether $$C$$ has occurred, and that this fact survives every level of reasoning about what others know.
-At a state where acceptability is common knowledge, one can take $$C$$ to be the corresponding common-knowledge component.
+Because $$C$$ is a union of cells for every trader, each trader knows whether $$C$$ has occurred.
 
-**Claim.** On $$C$$, every trader must be indifferent between the proposed allocation and the initial allocation, given their information.
-If all utilities are strictly concave, then $$x_i(\omega)=e_i(\omega)$$ for every trader and every state in $$C$$.
-
-The first conclusion rules out a mutually acceptable trade with a strict expected gain for someone.
-The second rules out changes in consumption even when everyone would otherwise be indifferent.
-It does not rule out swapping two financial portfolios that deliver exactly the same consumption in every state.
+**Claim.** Throughout $$C$$, every trader is indifferent between $$x$$ and $$e$$ given their information: $$\mathbb E[u_i(x_i)-u_i(e_i)\mid\mathcal I_i]=0$$.
+Moreover, if every $$u_i$$ is strictly concave, then $$x_i(\omega)=e_i(\omega)$$ for every trader $$i$$ and every state $$\omega\in C$$.
 
 ## The proof: an agreed improvement would already be an improvement before the news
 
-Construct an alternative allocation $$y$$ that carries out the proposed trade on $$C$$ and keeps the initial allocation everywhere else:
+Define an auxiliary state-contingent allocation $$y$$ that implements the trade $$x$$ when $$C$$ occurs and leaves the endowment $$e$$ untouched otherwise:
 
 $$
 y_i(\omega)=
@@ -166,11 +145,10 @@ e_i(\omega),&\omega\notin C.
 \end{cases}
 $$
 
-This allocation is feasible state by state.
-We use it as a welfare comparison; it need not itself be a contract available in the trading institution.
+Because $$x$$ and $$e$$ both clear the market in every state, $$y$$ is feasible state by state.
 
-Write $$\mathbf 1_C$$ for the indicator that $$C$$ occurs.
-The ex ante expected utility gain from $$y$$ is
+Write $$\mathbf 1_C$$ for the indicator of $$C$$.
+Trader $$i$$'s ex ante expected utility gain from moving to $$y$$ is
 
 $$
 \begin{aligned}
@@ -182,118 +160,70 @@ $$
 \end{aligned}
 $$
 
-The middle equality is the law of iterated expectations.
-Crucially, $$C$$ is known given each trader's information, so its indicator can be taken outside that trader's conditional expectation.
-The last inequality is voluntary participation on $$C$$.
+The middle step applies the law of iterated expectations: because $$C$$ is measurable with respect to each trader's information $$\mathcal I_i$$, the indicator $$\mathbf 1_C$$ factors inside the conditional expectation.
+The final inequality uses acceptability on $$C$$.
 
-If any trader's conditional gain were strictly positive at a state in $$C$$, that trader's ex ante gain from $$y$$ would also be strictly positive: every state has positive prior probability.
-Everyone else would weakly gain.
-That would contradict the ex ante Pareto efficiency of the initial allocation.
+Suppose some trader had a strictly positive conditional gain at some state in $$C$$.
+Because every state has positive prior probability, that trader would enjoy a strictly positive ex ante expected gain from $$y$$, while every other trader would do at least as well—contradicting the ex ante Pareto efficiency of $$e$$.
+Hence every trader's conditional expected gain must be zero throughout $$C$$.
 
-Therefore every conditional gain must equal zero throughout $$C$$.
-This proves the first conclusion.
-
-To obtain the stronger conclusion, suppose all utilities are strictly concave and $$y$$ differs from $$e$$ for some trader in some state.
-Consider the feasible allocation halfway between them, $$(e+y)/2$$.
-Concavity gives
+Now suppose each $$u_i$$ is strictly concave and $$y$$ differs from $$e$$ for some trader at some state in $$C$$.
+The fifty-fifty mixture $$(e+y)/2$$ is also feasible, and concavity gives
 
 $$
 \mathbb E\!\left[u_i\!\left(\frac{e_i+y_i}{2}\right)\right]
 \geq\frac12\mathbb E[u_i(e_i)]+
 \frac12\mathbb E[u_i(y_i)]
-\geq\mathbb E[u_i(e_i)].
+\geq\mathbb E[u_i(e_i)],
 $$
 
-Strict concavity makes the first inequality strict for a trader whose consumption changes in a positive-probability state.
-Again, everyone weakly gains and someone strictly gains, contradicting initial efficiency.
-Hence $$y=e$$, which means $$x=e$$ throughout $$C$$.
-This proves the no-trade conclusion.
-
-The argument is short because initial efficiency is doing substantial work.
-If a new allocation were knowingly acceptable after the news, we could apply it only on that commonly known event and construct an improvement evaluated before the news.
-Initial efficiency rules that out.
+with a strict first inequality for any trader whose consumption changes on a positive-probability state.
+That again produces an ex ante Pareto improvement over $$e$$, a contradiction.
+Therefore $$x_i(\omega)=e_i(\omega)$$ for every trader and every state in $$C$$.
 
 ## Why “both want to trade” is not enough
 
-Suppose two people independently calculate that they would benefit from a bet using only their private signals.
-It does not follow that they will still want it after learning that the other person agrees.
-The uniform example showed the simplest version of this problem: the seller's acceptance changed the buyer's conditional expectation.
+The proof pinpoints why mutual willingness to trade based on private signals alone is fragile.
+If the event on which both parties want to trade is not common knowledge, the indicator $$\mathbf 1_C$$ cannot be pulled across every trader's conditional expectation simultaneously, and interim gains cannot be stitched into an ex ante improvement.
+Once both parties condition on the fact that the counterparty is also willing to trade—as in our uniform posted-price example—the apparent gains vanish.
 
-The proof identifies the exact mathematical role of common knowledge.
-If the event on which trade looks mutually attractive is not known to each person, its indicator cannot simply be pulled out of both conditional expectations.
-The proposed conversion of interim gains into an ex ante Pareto improvement then fails.
-
-So the theorem does not assume everyone has the same information.
-It requires that willingness to trade withstand the information revealed by the agreement process.
-Nor does the theorem require prices to reveal every private signal.
-Traders can retain different private information without being able to sustain a mutually acceptable speculative gain.
-
-Risk neutrality also requires care.
-If an asset's dividend is publicly known to be $$\theta$$, two risk-neutral traders can exchange it for exactly $$\theta$$ and both be indifferent.
-There can be positive trading volume without a strict gain.
-The strict-risk-aversion part of the theorem closes the corresponding indifference loophole for net consumption trades.
+Notice also the role of strict concavity.
+Under risk neutrality, if an asset's payoff $$\theta$$ were publicly known, two traders could swap it at price $$\theta$$ with zero expected gain for both.
+Strict risk aversion rules out even these zero-surplus consumption swaps, because any state-contingent transfer introduces risk that a fifty-fifty blend would strictly improve upon.
 
 ## The connection to Aumann's agreement theorem
 
-[Aumann's theorem](/fun-stuff/economics/aumann-agreement.html) says that two Bayesian agents with a common prior must assign the same probability to an event if their current posterior probabilities are common knowledge.
-Its proof uses the same conditional-expectation step as the no-trade proof above.
-On a commonly known event $$C$$, averaging either person's posterior gives the common prior conditioned on $$C$$.
-Two different posterior numbers cannot both be constant on that event.
+[Aumann's agreement theorem](/fun-stuff/economics/aumann-agreement.html) proves that two Bayesian agents with a common prior must assign the same probability to an event whenever their posterior probabilities are common knowledge.
+Both proofs turn on the exact same step: conditioning on a common-knowledge component $$C$$ that is a union of cells for every agent.
 
-This helps explain why two informed traders cannot sustain a publicly understood speculative opportunity merely by pointing to different beliefs.
-For a risk-neutral bet on the same event, commonly known posterior probabilities must agree, leaving no price that gives both a strict expected gain.
-
-Milgrom–Stokey asks less of the information revealed by an agreement: the exact posterior probabilities need not be common knowledge.
-Common knowledge that the trade is acceptable is enough, given the initial-efficiency assumptions.
-The proof averages conditional utility gains over $$C$$ and shows that any strict improvement would already improve on the initial allocation ex ante.
-
-Thus the two results share a proof idea while drawing different conclusions.
-Aumann rules out commonly known differences in posterior probabilities.
-Milgrom–Stokey combines common knowledge of willingness to trade with initial efficiency to rule out speculative gains; it does not conclude that all private beliefs must become identical.
+Where Aumann averages posterior probabilities over $$C$$ to force agreement on beliefs, Milgrom and Stokey average conditional utility gains over $$C$$ to rule out speculative gains.
+Importantly, Milgrom–Stokey requires less information to become public: traders never need to learn each other's exact posterior probabilities, only that everyone finds the proposed trade acceptable.
 
 ## The connection to Myerson–Satterthwaite
 
-Both results make the counterparty's private information part of the problem.
-You cannot evaluate a trade while treating the other person's participation as unrelated to what they know.
-Both also use the right to refuse a trade.
-But they identify different limits.
+Both Milgrom–Stokey and [Myerson–Satterthwaite](/fun-stuff/economics/myerson-satterthwaite.html) study bilateral trade under private information, yet they start from opposite benchmarks:
 
-| | Myerson–Satterthwaite | Milgrom–Stokey, in the version above |
+| | Myerson–Satterthwaite | Milgrom–Stokey |
 | --- | --- | --- |
-| Starting point | The initial allocation leaves genuine gains from trade. | The initial allocation is ex ante Pareto efficient. |
-| Private information | The buyer's and seller's different valuations. | Signals about an uncertain economic state. |
-| Central constraint | Truthful reporting and participation require information rents that efficient trade cannot finance. | Commonly known interim gains would imply an ex ante Pareto improvement. |
-| Conclusion | No truthful, voluntary, self-financing mechanism realizes every efficient trade. | No commonly acceptable speculative trade makes anyone strictly better off; strict concavity rules out changes in consumption. |
+| Starting point | The initial allocation leaves genuine gains from trade. | The initial allocation is already ex ante Pareto efficient. |
+| Private information | The buyer's and seller's private valuations $$v$$ and $$c$$. | Signals about an uncertain state of the world $$\omega$$. |
+| Central constraint | Truthful reporting and voluntary participation require information rents that exceed the efficient surplus. | Commonly known interim gains would imply an ex ante Pareto improvement. |
+| Conclusion | No truthful, voluntary, budget-balanced mechanism achieves 100% of the efficient trades (though a posted price captures 75% in the uniform case). | No commonly acceptable speculative trade gives anyone a strict expected gain; under strict risk aversion, no consumption trade occurs at all. |
 
-There is a particularly concrete way to see why the two theorems do not conflict.
-In the [uniform Myerson–Satterthwaite example](/fun-stuff/economics/myerson-satterthwaite.html), values $$v$$ and $$c$$ are independent and uniform on $$[0,1]$$.
-A fixed price of $$1/2$$ gives the buyer an expected gain of
+In the [uniform Myerson–Satterthwaite model](/fun-stuff/economics/myerson-satterthwaite.html), where $$v,c\sim U[0,1]$$ independently, posting a fixed price of $$1/2$$ gives the buyer an ex ante expected gain of
 
 $$
 \int_{1/2}^1\int_0^{1/2}\left(v-\frac12\right)dc\,dv
-=\frac1{16}.
+=\frac1{16},
 $$
 
-The seller receives the same expected gain by symmetry.
-Thus both prefer this trading opportunity to the original no-trade allocation, even before learning their own values.
-That original allocation is not ex ante Pareto efficient, so it fails a central premise of Milgrom–Stokey.
+and the seller the same $$1/16$$ by symmetry.
+Because both strictly prefer the posted-price market to never trading, the initial no-trade allocation is *not* ex ante Pareto efficient—which is why positive trade occurs there without violating Milgrom–Stokey.
 
-The difference is deeper than “bicycles versus stocks.”
-An asset can generate genuine gains from risk sharing or liquidity provision, and private information can interfere with realizing them.
-Conversely, a purely speculative bet can have no remaining gains to exploit before the arrival of signals.
-The economic starting point determines which theorem speaks to the problem.
+## What drives real-world trading volume?
 
-## What this leaves open
+Because the no-trade theorem is deductive, it doubles as a diagnostic tool: whenever informed parties trade in equilibrium, at least one premise of the theorem has been relaxed.
+Real markets generate volume through liquidity shocks and life-cycle consumption needs, unshared background risks (so the initial allocation is not ex ante Pareto efficient), or differences in prior beliefs.
+What Milgrom and Stokey show is that once pre-existing gains from risk sharing and reallocation are exhausted, *private signals alone* cannot generate mutually beneficial trade among rational Bayesian agents.
 
-Actual trading can reflect new consumption needs, changes in exposures, incomplete risk sharing, different preferences, or belief differences that do not come from a common prior.
-These possibilities change the premises rather than contradict the theorem.
-In particular, someone selling to meet a liquidity need is conveying different information from someone whose only reason to sell is a pessimistic signal.
-
-Milgrom–Stokey therefore gives a useful question to ask about a model of speculative trade: once existing gains from reallocating resources are exhausted, what allows both sides to remain willing to trade after interpreting each other's actions?
-Different private signals alone are not enough under the assumptions we have proved.
-
-The companion [Myerson–Satterthwaite article](/fun-stuff/economics/myerson-satterthwaite.html) starts one step earlier, when genuine gains remain, and asks how much a trading rule can achieve despite private information.
-Together, the two results separate the existence of gains from trade from our ability to realize them.
-
-The finite-state argument above presents a common-prior version of the no-trade logic.
-For the original theorem, including concordant beliefs and its distinction between weak and strict risk aversion, see Section 2, especially Theorem 1 on pages 21–22 of [Milgrom and Stokey (1982)](https://web.stanford.edu/~milgrom/publishedarticles/Information%20Trade%20and%20Common%20Knowledge.pdf).
+For the original theorem, including concordant beliefs and the distinction between weak and strict risk aversion, see Section 2 (Theorem 1, pages 21–22) of [Milgrom and Stokey (1982)](https://web.stanford.edu/~milgrom/publishedarticles/Information%20Trade%20and%20Common%20Knowledge.pdf).

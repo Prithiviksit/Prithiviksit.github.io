@@ -87,61 +87,48 @@ In particular, against $$F$$, staying with $$F$$ gives three, while switching to
 Thus neither player wants to change their chosen device at $$(F,F)$$.
 
 The tempting deviation in the original game was to defect while the opponent cooperated.
-Here, changing from $$F$$ to a defection option also changes the opponent's prescribed action from cooperation to defection.
-The attractive payoff of five is no longer available through that deviation.
-
-This supports cooperation, but does not eliminate every bad equilibrium.
-For example, $$(D^0,D^0)$$ remains an equilibrium: switching alone to $$F$$ still yields one.
-The theorem we are building toward concerns which payoffs can be supported, not a prediction that players must select the best equilibrium.
+Here, switching from $$F$$ to a defection option also switches the opponent's prescribed action from cooperation to defection, eliminating the payoff of five.
+Note that $$(D^0,D^0)$$ also remains a Nash equilibrium of the expanded game—if the opponent plays $$D^0$$, switching unilaterally to $$F$$ still yields one—so the delegate expansion adds the cooperative equilibrium $$(F,F)$$ alongside the original equilibrium rather than replacing it.
 
 ## Why conditioning on devices is well defined
 
-The flexible delegate does not attempt to solve the instruction “cooperate if the opponent cooperates.”
-That instruction would be ambiguous when both players use it: both cooperation and defection would satisfy it.
+The flexible delegate does not attempt to solve the circular instruction “cooperate if and only if the opponent cooperates,” which would leave both $$(C,C)$$ and $$(D,D)$$ consistent when both players adopt it.
+Instead, $$F$$ inspects the opponent's chosen **device**: against $$F$$ it outputs $$C$$, and against any other option it outputs $$D$$.
+Every pair of devices maps to a unique pair of actions without any circular evaluation.
 
-Instead, $$F$$ checks the opponent's selected **device**.
-Against $$F$$ it outputs $$C$$; against anything else it outputs $$D$$.
-Every pair of devices determines exactly one pair of actions.
-No circular calculation of the other device's eventual output is needed.
-
-This distinction is essential in the general model.
-A commitment space specifies permissible devices and a deterministic rule mapping each pair of devices into an action profile of the original game.
-A Nash equilibrium is then an equilibrium in the choice of those devices.
+In the general model, a commitment space specifies the set of permissible devices together with a deterministic resolution rule that maps each device profile into an action profile of the underlying game.
+A Nash equilibrium is then an equilibrium in the choice of devices.
 
 ## Why the general theorem needs a lottery
 
-The Prisoner's Dilemma has an attractive pure outcome, $$(C,C)$$.
+The Prisoner's Dilemma has a symmetric pure outcome, $$(C,C)$$, that improves on $$(D,D)$$ for both players.
 Other games require correlated randomization to share the gains from cooperation.
-Consider the paper's fight-or-relinquish example, writing “yield” for relinquishing:
+Consider the paper's fight-or-relinquish example (writing “yield” for relinquishing):
 
 | Row \ Column | Fight | Yield |
 | --- | --- | --- |
 | Fight | $$(2,2)$$ | $$(10,0)$$ |
 | Yield | $$(0,10)$$ | $$(0,0)$$ |
 
-Fighting strictly dominates yielding, and the unique Nash equilibrium gives $$(2,2)$$.
-No pure outcome gives both players more than two.
-But a fair lottery between the two outcomes with exactly one fighter gives
+Fighting strictly dominates yielding, so the unique Nash equilibrium of the original game is $$(2,2)$$.
+No pure outcome gives both players more than two, whereas a fifty-fifty lottery between the two asymmetric outcomes gives
 
 $$
 \frac12(10,0)+\frac12(0,10)=(5,5).
 $$
 
-Independent fifty-fifty choices do not implement this lottery.
-They also produce both fighting and both yielding, giving each player only
+Independent fifty-fifty randomization cannot achieve $$(5,5)$$ because it also puts weight on both fighting and both yielding, giving each player only
 
 $$
 \frac14(2)+\frac14(10)+\frac14(0)+\frac14(0)=3.
 $$
 
-More generally, achieving total expected payoff ten requires exactly one player to fight with probability one.
-Independent randomization can guarantee this only by assigning the roles deterministically, which gives one player zero.
-To give both five, the roles must be correlated.
+Achieving a total expected payoff of ten requires exactly one fighter in every realization; giving both players five requires correlating who fights and who yields.
 
 ## A fair coin controlled by two people
 
 Each player privately chooses a bit, zero or one, before seeing the other's choice.
-The devices use whether the bits agree to decide who fights:
+The devices use whether the bits match to assign roles:
 
 | First bit | Second bit | Assigned outcome |
 | --- | --- | --- |
@@ -150,41 +137,34 @@ The devices use whether the bits agree to decide who fights:
 | 1 | 0 | Row yields, column fights |
 | 1 | 1 | Row fights, column yields |
 
-If the column player chooses each bit with probability one-half, either fixed bit chosen by the row player produces each outcome with probability one-half.
-Any randomization by the row player simply averages these identical lotteries.
-The same argument applies with the players reversed.
+If the column player randomizes fifty-fifty between $$0$$ and $$1$$, then either bit chosen by the row player produces each outcome with probability one-half—and so does any mixture over the row player's bits.
+By symmetry, the same holds with the players reversed.
+This is a **jointly controlled lottery**: as long as one player randomizes uniformly, the other player cannot skew the outcome distribution.
 
-This is a **jointly controlled lottery**: either player's uniform randomization prevents the other from changing the outcome probabilities unilaterally.
-The players supply independent randomness, and the devices turn it into a correlated action profile.
+To turn this lottery into an equilibrium, let each player choose either a bit-carrying lottery device or direct play.
+When both choose lottery devices, the devices execute the table above; when either player chooses direct play, a lottery device fights.
+When both players randomize uniformly over their bits, each gets an expected payoff of five.
+Changing one's bit distribution leaves that payoff at five, while opting out to direct play faces a fighting opponent and yields at most two.
 
-To make the lottery an equilibrium, let each player choose either a lottery device carrying a bit or direct play.
-Two lottery devices execute the table; against direct play, a lottery device fights.
-With independent fair bits, each player gets five.
-Changing one's bit does not change that expected payoff.
-Switching to direct play faces an opponent who fights, so the deviator gets at most two.
-Thus the fair lottery is supported by an equilibrium of this expanded game.
-
-The commitment matters after the draw as well.
-If the devices merely recommended the actions, the player told to yield would prefer to fight and obtain two instead of zero.
-Binding devices execute the selected actions, so the relevant deviation is a change of device **before** the other player's random choice is observed.
-There is no later option to reject an unfavorable draw.
+Notice why the commitment must be binding *after* the coin flip as well as before it.
+If the lottery merely recommended actions, the player told to yield would defect to fighting and get two instead of zero.
+Because the devices execute the assigned actions automatically, a player can deviate only by choosing a different device **before** seeing the opponent's bit.
 
 ## The continuous lottery and its proof
 
-A fair coin covers a fifty-fifty split.
-To implement an arbitrary distribution over finitely many outcomes, use numbers in $$[0,1)$$.
-Each player supplies a number, $$r_1$$ or $$r_2$$, and define
+A binary coin handles a fifty-fifty split; to implement an arbitrary probability distribution over finitely many outcomes, replace the bit with a real number in $$[0,1)$$.
+Each player submits $$r_1,r_2\in[0,1)$$, and the devices compute
 
 $$
-z=(r_1+r_2)\bmod1.
+z=(r_1+r_2)\bmod1,
 $$
 
-In words, add the numbers and keep the fractional part.
+the fractional part of their sum.
 
-**Lottery lemma.** If either number is uniform on $$[0,1)$$ and independent of the other player's choice, then $$z$$ is uniform, regardless of that other choice.
+**Lottery lemma.** If either player's number is drawn uniformly from $$[0,1)$$ and independently of the other's, then $$z$$ is uniform on $$[0,1)$$ regardless of how the other number is chosen.
 
-To prove it, fix $$r_1=x\in[0,1)$$ and let $$r_2$$ be uniform.
-For $$0\leq t\leq1$$,
+To verify this, fix $$r_1=x\in[0,1)$$ and let $$r_2$$ be uniform on $$[0,1)$$.
+For any $$0\leq t\leq1$$,
 
 $$
 \begin{aligned}
@@ -196,35 +176,29 @@ $$
 \end{aligned}
 $$
 
-This is the uniform distribution function.
-The result holds for every fixed $$x$$, hence also for any independent randomized choice of $$x$$ by averaging.
-Symmetry proves the claim for either player.
+Because this holds for every fixed $$x$$, it also holds for any independent distribution over $$r_1$$, and by symmetry when the roles of the two players are swapped.
 
-For example, to implement probabilities $$1/5$$, $$3/10$$, and $$1/2$$ over three outcomes, assign them the intervals
+To implement target probabilities—say $$1/5$$, $$3/10$$, and $$1/2$$ across three outcomes—partition $$[0,1)$$ into subintervals of those lengths:
 
 $$
-[0,1/5),\qquad[1/5,1/2),\qquad[1/2,1).
+[0,1/5),\qquad[1/5,1/2),\qquad[1/2,1),
 $$
 
-The interval containing $$z$$ selects the outcome.
-Neither player can change these probabilities while the other supplies an independent uniform number.
-The numbers must be chosen before observing the other player's draw; otherwise one could deliberately choose the sum.
+and select the outcome whose interval contains $$z$$.
+So long as one player draws $$r_i$$ uniformly and independently, the other player cannot alter the resulting outcome probabilities.
 
 ## State the folk theorem precisely
 
-Let the original finite game have action sets $$S_1,S_2$$ and payoff functions $$u_1,u_2$$.
-The game, including its payoffs, and the rules of the commitment space are common knowledge.
-For a distribution $$\gamma$$ over action profiles, write
+Let the underlying finite game have action sets $$S_1,S_2$$ and payoff functions $$u_1,u_2$$.
+For any probability distribution $$\gamma$$ over pure action profiles $$S_1\times S_2$$, write
 
 $$
 u_i(\gamma)=\sum_{s\in S_1\times S_2}\gamma(s)u_i(s).
 $$
 
-A payoff pair is **feasible** if it equals $$u(\gamma)$$ for some such distribution.
-This is the convex hull of the pure-outcome payoff pairs.
-The distribution need not be a correlated equilibrium of the original game.
+A payoff pair is **feasible** if it equals $$u(\gamma)$$ for some distribution $$\gamma$$ (that is, lies in the convex hull of the pure-strategy payoff pairs).
 
-Player $$i$$'s minmax payoff is
+Player $$i$$'s **minmax payoff** is
 
 $$
 v_i
@@ -232,11 +206,10 @@ v_i
 \max_{s_i\in S_i}u_i(s_i,\sigma_{-i}),
 $$
 
-where $$\Delta(S_{-i})$$ denotes the opponent's mixed actions and payoffs against a mixed action are evaluated in expectation.
-This is the lowest payoff an opponent can hold player $$i$$ to when player $$i$$ best responds to that mixed action.
-By the finite minimax theorem applied to payoff function $$u_i$$, it also equals the payoff player $$i$$ can guarantee by choosing an appropriate mixed action.
+where $$\Delta(S_{-i})$$ is the set of the opponent's mixed strategies.
+This is the lowest expected payoff the opponent can hold player $$i$$ down to when player $$i$$ best-responds; by the minimax theorem, it is also the payoff player $$i$$ can guarantee on their own.
 
-A feasible distribution is **individually rational** when
+A feasible distribution $$\gamma$$ is **individually rational** when
 
 $$
 u_1(\gamma)\geq v_1,
@@ -244,34 +217,27 @@ u_1(\gamma)\geq v_1,
 u_2(\gamma)\geq v_2.
 $$
 
-In our Prisoner's Dilemma, both minmax payoffs are one.
-In the fight-or-yield game, both are two.
+In our Prisoner's Dilemma, $$v_1=v_2=1$$; in the fight-or-yield game, $$v_1=v_2=2$$.
 
-**Commitment folk theorem.** For every finite two-player game, there is one voluntary commitment space whose Nash-equilibrium payoff set is exactly the feasible, individually rational payoff set of the original game.
-Mixed strategies over devices are allowed.
+**Commitment folk theorem.** For every finite two-player game, there exists a single voluntary commitment space whose set of Nash-equilibrium payoffs is exactly the set of feasible, individually rational payoffs of the original game.
 
-“One” matters: the same menu of devices works for all the target distributions.
-The construction uses a continuum of devices, allowing arbitrary real-valued probabilities.
-We will prove both that every desired payoff is attainable and that equilibrium payoffs cannot fall outside the stated set.
+A single universal menu of devices works for every target distribution $$\gamma$$ at once.
+We now construct that menu and prove both inclusions.
 
 ## Build the universal commitment space
 
-Fix an ordering of all pure action profiles.
-For any distribution $$\gamma$$, partition $$[0,1)$$ into consecutive half-open intervals with lengths $$\gamma(s)$$ in that order.
-Let $$f_\gamma(z)$$ be the action profile assigned to the interval containing $$z$$.
-Zero-probability profiles receive empty intervals.
-Thus a uniform $$z$$ produces precisely distribution $$\gamma$$.
+Fix an ordering of the pure action profiles in $$S_1\times S_2$$.
+For any distribution $$\gamma$$, partition $$[0,1)$$ into consecutive half-open intervals of lengths $$\gamma(s)$$ in that order (assigning empty intervals to zero-probability profiles), and let $$f_\gamma(z)$$ denote the profile whose interval contains $$z$$.
+Whenever $$z$$ is uniform on $$[0,1)$$, $$f_\gamma(z)$$ has distribution $$\gamma$$.
 
-Each player chooses a device consisting of three entries:
+Each player selects a device specified by a triple
 
 $$
-d_i=(\gamma_i,r_i,s_i).
+d_i=(\gamma_i,r_i,s_i),
 $$
 
-The entries are a proposed distribution $$\gamma_i$$, a lottery number $$r_i\in[0,1)$$, and a fallback action $$s_i\in S_i$$.
-In place of a proposed distribution, the player may submit $$\bot$$, meaning “opt out.”
-
-The fixed rule for the resulting action profile is
+consisting of a proposed distribution $$\gamma_i$$ (or $$\bot$$ to opt out), a lottery number $$r_i\in[0,1)$$, and a fallback action $$s_i\in S_i$$.
+The resolution rule is
 
 $$
 R(d_1,d_2)=
@@ -282,76 +248,43 @@ f_{\gamma_1}\bigl((r_1+r_2)\bmod1\bigr),
 \end{cases}
 $$
 
-Matching proposals activate the jointly controlled lottery.
-Different proposals, or either player's opting out, activate the fallback actions.
-For each pair of chosen devices, the output is deterministic and uniquely defined.
-Randomness enters through the players' mixed choices of devices.
+When both players propose the same distribution, the jointly controlled lottery selects the action profile; when their proposals disagree or either player opts out with $$\bot$$, both devices fall back to playing $$(s_1,s_2)$$.
 
-This construction is voluntary in the precise sense used earlier.
-The neutral device $$(\bot,0,s_i)$$ always plays $$s_i$$.
-Moreover, the opponent's output is its own fallback action, regardless of which neutral action $$s_i$$ was selected.
-So the opponent can respond to opting out without conditioning on the private action chosen when opting out.
+Notice how opting out preserves voluntary participation: the neutral device $$(\bot,0,s_i)$$ unconditionally plays $$s_i$$, and the opponent's device responds with its fallback action $$s_{-i}$$ without being able to condition on *which* action $$s_i$$ the opting-out player chose.
 
 ## Prove that every individually rational distribution is supported
 
-Fix a target distribution $$\gamma$$ satisfying $$u_i(\gamma)\geq v_i$$ for both players.
-For each player $$i$$, choose a mixed action $$\psi_i$$ that minmaxes the other player.
-By definition, it satisfies
+Fix any target distribution $$\gamma$$ with $$u_i(\gamma)\geq v_i$$ for $$i=1,2$$.
+For each player $$i$$, let $$\psi_i\in\Delta(S_i)$$ be a minmax mixture against player $$-i$$, so that
 
 $$
 u_{-i}(s_{-i},\psi_i)\leq v_{-i}
-\qquad\text{for every }s_{-i}\in S_{-i},
+\qquad\text{for every }s_{-i}\in S_{-i}.
 $$
 
-where the arguments indicate the other player's action and player $$i$$'s punishment mixture.
-Such a mixture exists because the original action sets are finite.
+Now have each player $$i$$ randomize over devices as follows:
 
-Consider the following independent mixed device choices by the two players:
+- Propose $$\gamma_i=\gamma$$ with probability one.
+- Draw $$r_i$$ uniformly from $$[0,1)$$.
+- Independently draw the fallback action $$s_i$$ according to $$\psi_i$$.
 
-- Propose the target $$\gamma$$ with probability one.
-- Draw $$r_i$$ uniformly on $$[0,1)$$.
-- Independently draw the fallback action $$s_i$$ from $$\psi_i$$.
+On the equilibrium path, the proposals match and the lottery lemma produces $$\gamma$$, giving each player expected payoff $$u_i(\gamma)$$.
 
-Both proposals match, so the lottery lemma implies that the resulting action profile has distribution $$\gamma$$.
-Each player receives expected payoff $$u_i(\gamma)$$.
+Consider any pure deviation $$d_i'=(\gamma_i',r_i',s_i')$$ by player $$i$$:
 
-Now fix any alternative pure device chosen by player $$i$$.
-There are two cases.
+- **If $$\gamma_i'=\gamma$$**, the proposals still match. Because the opponent's lottery number $$r_{-i}$$ is uniform and independent, the lottery lemma keeps the outcome distribution equal to $$\gamma$$ for any choice of $$r_i'$$, and the fallback $$s_i'$$ is unused. Player $$i$$ still gets $$u_i(\gamma)$$.
+- **If $$\gamma_i'\neq\gamma$$ (including $$\gamma_i'=\bot$$)**, the mismatch triggers the fallback profile $$(s_i',s_{-i})$$. Since the opponent's fallback $$s_{-i}$$ is drawn from the minmax mixture $$\psi_{-i}$$, player $$i$$ gets at most $$v_i\leq u_i(\gamma)$$.
 
-**The alternative still proposes $$\gamma$$.**
-The opponent's lottery number remains independent and uniform.
-Whatever number the deviator chooses, the resulting distribution remains $$\gamma$$.
-Changing the fallback action has no effect because the proposals match.
-The deviation gives exactly $$u_i(\gamma)$$.
-
-**The alternative proposes something else, including opting out.**
-The mismatch activates the fallback actions.
-The deviator's selected action faces the opponent's punishment mixture $$\psi_{-i}$$, so the deviation gives at most
-
-$$
-v_i\leq u_i(\gamma).
-$$
-
-Every pure-device deviation is therefore unprofitable.
-An arbitrary randomized deviation, even one correlating its proposal, number, and fallback action, is an average of these pure-device payoffs and cannot do better.
-This establishes a Nash equilibrium with outcome distribution $$\gamma$$.
-
-Notice how the proof handles punishments that require randomization.
-The opponent draws its fallback action when choosing the device.
-The permitted response rule makes the deviator execute its own already-selected fallback action after a mismatch; it cannot switch to a new action conditional on the opponent's realized fallback draw.
-Allowing arbitrary additional response programs would change the game and could invalidate this bound.
-The theorem constructs a suitable menu of devices, rather than asserting that every possible menu works.
+Because no pure device can improve on $$u_i(\gamma)$$, no randomized deviation can either.
+Notice why pre-drawing the fallback action inside the device is essential when the minmax punishment $$\psi_{-i}$$ is mixed: after a mismatch, the deviator's device must play its pre-committed $$s_i'$$ rather than observing the realized draw from $$\psi_{-i}$$ and best-responding to it ex post.
 
 ## Why no other equilibrium payoffs are possible
 
-Feasibility follows immediately: whatever the devices do, their output is a pure action profile of the original game.
-Random device choices induce a distribution over those profiles.
+Every pair of devices outputs a pure action profile of the original game, so any equilibrium mixture over devices induces a feasible payoff pair.
 
-For individual rationality, fix an equilibrium and consider player $$i$$'s neutral options.
-Against the opponent's equilibrium device mixture, the opponent's response to a neutral device has some mixed-action distribution $$\sigma_{-i}$$.
-The privacy condition means this distribution is the same for every neutral action player $$i$$ might choose.
-
-Player $$i$$ can therefore choose the best neutral action and obtain
+To verify individual rationality, take any Nash equilibrium of the commitment game and consider player $$i$$'s neutral devices $$(\bot,0,s_i)$$.
+Against the opponent's equilibrium mixture over devices, opting out triggers the opponent's marginal fallback distribution, call it $$\sigma_{-i}\in\Delta(S_{-i})$$.
+Because the opponent's fallback cannot depend on which $$s_i$$ player $$i$$ pairs with $$\bot$$, player $$i$$ can pick the best response $$s_i\in S_i$$ against $$\sigma_{-i}$$ and secure at least
 
 $$
 \max_{s_i\in S_i}u_i(s_i,\sigma_{-i})
@@ -361,37 +294,17 @@ $$
 =v_i.
 $$
 
-An equilibrium must give at least as much as this available deviation.
-Thus its payoff is individually rational.
-Together with the construction, this proves the claimed equality of payoff sets, including the boundary where one or both players receive exactly their minmax payoff.
+Hence every equilibrium payoff pair is both feasible and individually rational.
 
 ## What commitment changes
 
-A correlated recommendation leaves the recipient free to change actions after seeing it.
-A binding device moves the strategic choice earlier: the player chooses a rule before the other player's random device is realized, and that rule subsequently determines the action.
-This is why the fight-or-yield lottery can give $$(5,5)$$ even though a recommendation to yield would not be obeyed in the original game.
+Compare the commitment folk theorem with three related frameworks:
 
-The result resembles a repeated-game folk theorem in the payoffs it makes available.
-Its incentives come from a different source.
-Instead of future punishment, a change of device activates a different response in the same play of the underlying game.
-The jointly controlled lottery supplies the correlation that repeated play could otherwise generate by alternating roles.
-
-The [Rubinstein email game](/fun-stuff/economics/rubinstein-email-game.html) makes the communication protocol central: a long exchange of confirmations can leave uncertainty that prevents coordination.
-Here the players choose binding conditional rules from a commonly understood menu.
-That is a change in the available strategic choices, not merely another exchange of messages.
-The [Aumann article](/fun-stuff/economics/aumann-agreement.html) supplies the distinction between shared information and common knowledge that helps keep these assumptions clear.
-
-Nor does the theorem overturn [Myerson–Satterthwaite](/fun-stuff/economics/myerson-satterthwaite.html).
-The theorem proved here concerns a complete-information game with known payoffs.
-Myerson–Satterthwaite concerns private valuations and the incentives to report them, alongside participation and budget constraints.
-A construction for known payoffs does not remove those reporting constraints.
-
-The commitment theorem identifies what a sufficiently rich, binding, voluntary institution can support.
-It leaves open which such devices are available in a particular setting and how players select among their equilibria.
-Its constructive insight is that conditional commitment, protected outside options, and jointly controlled randomness can support the entire feasible individually rational payoff set in a single play.
+- **Correlated equilibrium vs. commitment:** A correlated equilibrium of the original game sends private action recommendations that players must willingly obey *after* seeing their recommendation. A binding device shifts the decision *before* the lottery draw: in the fight-or-yield game, neither player can walk away from a “yield” outcome once the coin has been flipped, which is why $$(5,5)$$ becomes sustainable.
+- **Repeated games vs. one-shot commitment:** Classical folk theorems enforce cooperation by threatening punishment in future periods. Conditional commitment compresses action and reaction into a single play: deviating to another device immediately triggers the opponent's fallback punishment in the same round, while the jointly controlled lottery replaces role-alternation across time.
+- **Complete vs. incomplete information:** Unlike the [Rubinstein email game](/fun-stuff/economics/rubinstein-email-game.html) (where players communicate over a noisy channel) or the [Myerson–Satterthwaite theorem](/fun-stuff/economics/myerson-satterthwaite.html) (where traders hold private valuations and must be given incentives to report them), Kalai et al.'s theorem operates under complete information about payoffs: its contribution is showing that conditional rules, protected opt-outs, and jointly controlled randomness suffice to support the entire feasible, individually rational payoff set in a single shot.
 
 ## Further reading
 
 Adam Tauman Kalai, Ehud Kalai, Ehud Lehrer, and Dov Samet, [“A Commitment Folk Theorem,” *Games and Economic Behavior* 69(1), 127–137 (2010)](https://doi.org/10.1016/j.geb.2009.09.008).
-The [author-hosted published paper](https://www.tau.ac.il/~samet/papers/commitments.pdf) contains the delegate expansion in Example 2, the fight-or-relinquish game in Example 3, and the general construction in Section 4.2.
-The numerical Prisoner's Dilemma payoffs and the binary lottery walkthrough above provide explicit calculations for those mechanisms.
+The [author-hosted published paper](https://www.tau.ac.il/~samet/papers/commitments.pdf) presents the delegate expansion in Example 2, the fight-or-relinquish game in Example 3, and the universal commitment space in Section 4.2.

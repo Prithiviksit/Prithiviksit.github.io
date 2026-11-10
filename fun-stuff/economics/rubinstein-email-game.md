@@ -146,7 +146,7 @@ $$
 \end{aligned}
 $$
 
-Her last message is more likely to have failed than to have arrived.
+Her last message is slightly more likely to have failed in transit than to have arrived!
 For example, with a one-percent transmission failure rate,
 
 $$
@@ -154,13 +154,12 @@ $$
 =\frac1{1.99}\approx0.5025.
 $$
 
-There is no contradiction with messages being reliable.
-Alice is conditioning on a completed exchange in which her last outgoing message has no received confirmation.
-Either that message failed, or it arrived and the reply failed.
-Both explanations contain one failure, and the second also requires one additional successful transmission.
-Their relative likelihoods do not depend on how many earlier messages succeeded.
+Why does a ninety-nine-percent reliable channel leave Alice worse than fifty-fifty on whether her last message arrived?
+Because she is conditioning on the fact that the back-and-forth stopped after her $$n$$th outgoing message.
+Only two events can end the exchange there: either her $$n$$th message failed on the way to Bob, or it arrived and Bob's $$n$$th reply failed on the way back.
+Both explanations involve exactly one failure, and the second requires one extra successful transmission ($$1-\varepsilon$$), making the first slightly more probable regardless of how large $$n$$ is.
 
-For Bob, the corresponding calculation is
+For Bob, the symmetric calculation at count $$T_2=n\geq1$$ gives
 
 $$
 \begin{aligned}
@@ -172,22 +171,18 @@ $$
 \end{aligned}
 $$
 
-Bob is uncertain whether his last reply failed or Alice received it and her next message failed.
-These are the conditional probabilities that drive the equilibrium proof.
+Whenever Bob has sent $$n$$ confirmations and hears nothing back, he assigns probability $$1/(2-\varepsilon)>1/2$$ to his last confirmation having failed.
+These conditional probabilities drive the induction across all message counts.
 
 ## The equilibrium result
 
 A strategy specifies what a player does at every possible private count, allowing randomization.
-A **Bayesian Nash equilibrium** requires the action at each count to maximize expected payoff, given the conditional probabilities and the other player's strategy.
-Every finite count has positive probability here.
+A **Bayesian Nash equilibrium** requires the action at each count to maximize expected payoff given the conditional probabilities and the other player's strategy.
 
-**Claim.** Among Bayesian Nash equilibria in which Alice chooses $$A$$ when she observes state $$a$$, the only equilibrium has both players choose $$A$$ at every count.
+**Claim.** Among Bayesian Nash equilibria in which Alice chooses $$A$$ when she observes state $$a$$, the unique equilibrium has both players choose $$A$$ at every count.
 This holds for every $$\varepsilon\in(0,1)$$, however small.
 
-The qualification about Alice's behavior in state $$a$$ is part of Rubinstein's original proposition.
-We will return to why it matters after the proof.
-
-### First establish Bob's behavior with no messages
+### Step 1: Bob's behavior when he receives no message
 
 If $$T_2=0$$, either the state is $$a$$ or Alice's initial message in state $$b$$ failed.
 Bayes' rule gives
@@ -198,30 +193,26 @@ $$
 \Pr(b\mid T_2=0)=\frac{\varepsilon}{2+\varepsilon}.
 $$
 
-By the stated condition, Alice chooses $$A$$ in state $$a$$.
-Bob's payoff from $$A$$ is therefore
+Since Alice chooses $$A$$ in state $$a$$, playing $$A$$ gives Bob
 
 $$
-\frac{2}{2+\varepsilon}>0:
+\frac{2}{2+\varepsilon}>0
 $$
 
-he gets one in state $$a$$ and zero in state $$b$$, whatever Alice does there.
-His payoff from $$B$$ is at most
+(one in state $$a$$ and zero in state $$b$$), whereas playing $$B$$ gives at most
 
 $$
-\frac{-4+\varepsilon}{2+\varepsilon}<0.
+\frac{-4+\varepsilon}{2+\varepsilon}<0
 $$
 
-The bound gives Bob the best possible payoff of one in state $$b$$, while accounting for the loss of two against Alice's $$A$$ in state $$a$$.
+(losing two in state $$a$$ and gaining at most one in state $$b$$).
 Thus Bob strictly prefers $$A$$ when $$T_2=0$$.
 
-### Then work upward through the message counts
+### Step 2: Induction upward through all message counts
 
-Suppose we have established that Bob chooses $$A$$ at count $$n-1$$.
-Consider Alice at count $$n$$.
-She knows that the state is $$b$$, but assigns probability $$1/(2-\varepsilon)$$ to Bob having count $$n-1$$ and therefore choosing $$A$$.
-
-Even if Bob always chooses $$B$$ at his other possible count, $$n$$, Alice's payoff from $$B$$ is at most
+Suppose Bob chooses $$A$$ at count $$n-1$$, and consider Alice at count $$n\geq1$$.
+She knows the state is $$b$$, yet assigns probability $$1/(2-\varepsilon)$$ to Bob having count $$n-1$$ and therefore playing $$A$$.
+Even if Bob were certain to play $$B$$ at his other possible count $$n$$, Alice's expected payoff from playing $$B$$ is at most
 
 $$
 \frac{1}{2-\varepsilon}(-2)
@@ -229,52 +220,42 @@ $$
 =-\frac{1+\varepsilon}{2-\varepsilon}<0.
 $$
 
-Choosing $$A$$ gives zero, so Alice strictly chooses $$A$$ at count $$n$$.
+Playing $$A$$ guarantees zero, so Alice strictly prefers $$A$$ at count $$n$$.
 
 Now consider Bob at count $$n$$.
-He assigns probability $$1/(2-\varepsilon)$$ to Alice having count $$n$$, where we have just established that she chooses $$A$$.
-Even if Alice always switches at her other possible count, $$n+1$$, the same bound applies:
+He assigns probability $$1/(2-\varepsilon)$$ to Alice having count $$n$$, where she strictly plays $$A$$.
+Even if Alice were certain to play $$B$$ at count $$n+1$$, the identical calculation gives
 
 $$
 \text{Bob's expected payoff from }B
-\leq-\frac{1+\varepsilon}{2-\varepsilon}<0.
+\leq-\frac{1+\varepsilon}{2-\varepsilon}<0,
 $$
 
-Bob therefore strictly chooses $$A$$ at count $$n$$.
+so Bob strictly prefers $$A$$ at count $$n$$ as well.
 
-Starting from Bob's count zero, this establishes Alice's count one, then Bob's count one, then Alice's count two, and so on.
-Induction covers every finite count.
-The strict inequalities also rule out mixing with positive probability on $$B$$ at any of these counts.
+By induction—from $$T_2=0$$ to $$T_1=1$$, then $$T_2=1$$, then $$T_1=2$$, and so on—both players strictly play $$A$$ at every finite count.
+Finally, always playing $$A$$ is a Bayesian Nash equilibrium: against a partner who never switches, switching yields $$-2$$ while staying yields zero or one.
 
-Finally, always choosing $$A$$ is indeed an equilibrium: against a partner who always stays, switching gives $$-2$$, while staying gives either zero or one.
-This proves existence and uniqueness within the stated class.
+Notice what drives the unraveling after, say, a hundred messages.
+Alice does not doubt that Bob knows the state is $$b$$—she knows he knows it to ninety-nine levels.
+Rather, she worries that Bob sent only ninety-nine confirmations, worries that *he* worries she sent only ninety-nine, and so on all the way back to Bob at count zero.
 
-The proof does not require Alice to think that Bob is probably ignorant of the state after hundreds of messages.
-She knows that he knows it.
-The difficulty is that his information leaves room for a lower-count partner, whose incentives depend on a still lower count.
-The no-message behavior propagates through that entire chain.
+### Why we specify Alice's action in state $$a$$
 
-### Why the qualification matters
+In Rubinstein's payoff table for state $$a$$, if Bob plays $$B$$, Alice gets $$0$$ whether she plays $$A$$ or $$B$$.
+Because of that tie, “both players play $$B$$ at every count (even in state $$a$$)” is technically a degenerate Nash equilibrium of the game.
+Stipulating that Alice plays the status-quo action $$A$$ when she sees state $$a$$ rules out that degenerate equilibrium and anchors the induction at $$T_1=0$$.
 
-Under these payoff tables, both players always choosing $$B$$ is also a Bayesian Nash equilibrium.
-In state $$b$$, switching against a switching partner gives one.
-In state $$a$$, Alice gets zero whether she switches or stays when Bob switches, so she has no profitable deviation.
-Bob also prefers switching against Alice's always-switch strategy.
+## Deep mutual knowledge without common knowledge
 
-This equilibrium fails the proposition's condition that Alice choose $$A$$ in state $$a$$.
-The condition selects the natural status-quo behavior in the state favoring it; it cannot simply be omitted from a claim about Nash equilibrium.
+Each confirmation adds one more layer of mutual knowledge:
 
-## Lots of knowledge without common knowledge
+- $$T_2\geq1$$: Bob knows the state is $$b$$.
+- $$T_1\geq2$$: Alice knows that Bob knows the state is $$b$$.
+- $$T_2\geq2$$: Bob knows that Alice knows that Bob knows the state is $$b$$.
 
-Each successful confirmation adds a level of knowledge.
-Bob's receipt of the first message tells him that the state is $$b$$.
-Alice's receipt of his reply tells her that Bob knows it.
-Bob's receipt of her next message tells him that Alice knows that he knows it.
-The hierarchy can become arbitrarily deep.
-
-But it never becomes common knowledge at a finite count.
-To see why, describe a possible world by the state and both counts.
-The worlds are connected by the following chain:
+Yet at any finite count, the state is never common knowledge.
+Writing each possible world as $$(s,T_1,T_2)$$, the indistinguishability graph forms a single infinite chain:
 
 $$
 (a,0,0)
@@ -284,12 +265,11 @@ $$
 \;\longleftrightarrow\;\cdots.
 $$
 
-An edge labeled $$1$$ joins worlds Alice cannot distinguish; an edge labeled $$2$$ does the same for Bob.
-At any finite point, following these individual possibilities backward eventually reaches state $$a$$.
-The assertion that the state is $$b$$ therefore fails somewhere in the common-knowledge component.
-This is exactly the graph-based definition used in the [Aumann article](/fun-stuff/economics/aumann-agreement.html#what-common-knowledge-adds).
+Here an edge labeled $$1$$ connects two worlds Alice cannot distinguish, and an edge labeled $$2$$ connects two worlds Bob cannot distinguish.
+From any finite world $$(b,n,n)$$, walking $$2n$$ steps backward along this chain reaches $$(a,0,0)$$.
+Thus the common-knowledge component (in the sense of the [Aumann agreement article](/fun-stuff/economics/aumann-agreement.html#what-common-knowledge-adds)) always contains $$(a,0,0)$$.
 
-For any fixed number of successful transmissions $$m$$,
+As the channel becomes arbitrarily reliable ($$\varepsilon\downarrow0$$), any fixed depth $$m$$ of mutual knowledge becomes almost certain in state $$b$$:
 
 $$
 \Pr(\text{at least }m\text{ successes}\mid b)
@@ -297,75 +277,44 @@ $$
 \qquad\text{as }\varepsilon\downarrow0.
 $$
 
-Thus increasingly reliable communication makes any fixed finite depth of mutual knowledge increasingly likely.
-Yet the equilibrium established above still prescribes $$A$$ everywhere.
-The probability that an unconfirmed last message failed approaches one-half, rather than zero.
+Even so, because the protocol keeps running until a message is lost, whichever player sent the last successful message always faces a missing reply whose conditional probability of having been lost on the way out is $$1/(2-\varepsilon)>1/2$$.
 
-The relevant comparison is with a benchmark in which the state is publicly revealed and efficient coordination is available.
-We should not obtain that benchmark merely by substituting $$\varepsilon=0$$ into a protocol that stops only when a transmission fails: in state $$b$$, that literal protocol would never stop.
+## Stopping after one message restores coordination
 
-## A different protocol can support switching
+Paradoxically, the firms can coordinate in state $$b$$ if they **turn off the automatic confirmations** and send only a single message.
+Suppose it is common knowledge that Alice's computer sends one message in state $$b$$ (which fails with probability $$\varepsilon$$) and Bob's computer never replies.
 
-The absence of common knowledge alone does not prove that coordination is impossible.
-Payoffs and communication rules determine whether the remaining uncertainty is tolerable.
-Rubinstein's paper makes this point by considering a known finite stopping rule.
+Consider the strategy pair:
 
-The simplest version sends **one message and no acknowledgments**.
-Everyone knows in advance that this is the entire communication stage.
-Alice sends the message automatically in state $$b$$, and it fails with probability $$\varepsilon$$ as before.
-Bob now observes whether he received it.
+- Alice plays $$A$$ in state $$a$$ and $$B$$ in state $$b$$.
+- Bob plays $$B$$ if he receives the message, and $$A$$ if he receives nothing.
 
-Consider the following strategies:
-
-- Alice chooses $$A$$ in state $$a$$ and $$B$$ in state $$b$$.
-- Bob chooses $$B$$ if the message arrives, and $$A$$ otherwise.
-
-In state $$a$$, Alice faces Bob's $$A$$ and strictly prefers $$A$$.
-In state $$b$$, her expected payoff from $$B$$ is
+In state $$a$$, neither sends nor receives a message, and both play $$A$$.
+In state $$b$$, Alice's expected payoff from playing $$B$$ is
 
 $$
-(1-\varepsilon)(1)+\varepsilon(-2)=1-3\varepsilon.
+(1-\varepsilon)(1)+\varepsilon(-2)=1-3\varepsilon,
 $$
 
-This exceeds the zero payoff from $$A$$ when $$\varepsilon<1/3$$.
-If Bob receives the message, he knows both the state and Alice's prescribed action, so he strictly prefers $$B$$.
-If he receives nothing, the earlier no-message calculation makes $$A$$ strictly optimal.
+which beats playing $$A$$ (payoff $$0$$) whenever $$\varepsilon<1/3$$.
+When Bob receives the message, he knows the state is $$b$$ and knows Alice is playing $$B$$, so $$B$$ gives him $$1$$ against $$0$$.
+When Bob receives nothing, our earlier calculation at $$T_2=0$$ shows that $$A$$ is strictly optimal.
 
-These strategies therefore form a Bayesian Nash equilibrium for $$\varepsilon<1/3$$.
-Conditional on state $$b$$, successful coordination occurs with probability $$1-\varepsilon$$.
-Alice accepts a small risk of switching alone.
-
-There is still no common knowledge of state $$b$$ when the message arrives: Alice cannot distinguish receipt from loss, and a Bob who received nothing cannot distinguish loss from state $$a$$.
-Nevertheless, the incentives support switching.
-
-What changed is the meaning of an absent acknowledgment.
-In the one-message protocol, no acknowledgment is expected, and Alice evaluates the ordinary delivery probability $$1-\varepsilon$$.
-In the continuing-confirmation protocol, the final missing acknowledgment leaves two possible endings with probabilities close to one-half, sustaining the induction.
+Why does one unconfirmed message succeed where a hundred confirmations fail?
+Because changing the protocol changes the meaning of silence.
+Under the one-message rule, Alice expects no reply, so she assesses the chance that Bob got her message at the raw channel reliability $$1-\varepsilon$$.
+Under the unbounded-confirmation rule, silence always means a transmission failed on the very last round, resetting the sender's confidence to $$(1-\varepsilon)/(2-\varepsilon)<1/2$$.
 
 ## How the common-knowledge articles fit together
 
-The [forty cheating husbands puzzle](/fun-stuff/logics/forty-cheating-husbands.html) shows how a public announcement and successive public silences eliminate possible worlds.
-Its delayed-letter variant shows how uncertainty about other people's receipt can prevent the deduction from starting.
-The email game adds explicit payoffs: the players may act without certainty, but only when their beliefs make doing so worthwhile.
+Each article in this group isolates a different facet of higher-order knowledge:
 
-[Aumann's agreement theorem](/fun-stuff/economics/aumann-agreement.html) restricts beliefs that are common knowledge under a common prior.
-The email game gives a concrete communication process in which increasingly deep knowledge falls short of that condition.
-There is no contradiction with Aumann when both players know state $$b$$ at the actual world: their certainty is not common knowledge throughout the component.
-
-[Milgrom–Stokey's no-trade theorem](/fun-stuff/economics/milgrom-stokey.html) combines common knowledge of a proposed trade's acceptability with an initially efficient allocation.
-The email game has a different economic starting point.
-In state $$b$$, moving from $$(A,A)$$ to $$(B,B)$$ would give both players a strict gain.
-Those gains exist, but the continuing-confirmation protocol and the specified no-message behavior prevent that outcome in equilibrium.
-The result is not an application of the no-trade theorem.
-
-Across the articles, the useful question is what one person's information allows them to infer about another person's information and actions.
-Rubinstein's example shows why a long sequence of private confirmations need not provide the confidence that a coordination decision requires.
-
-The [commitment folk theorem](/fun-stuff/economics/kalai-commitment-folk-theorem.html) explores another way to change the strategic situation: players choose binding conditional rules before those rules act on their behalf.
-Its Prisoner's Dilemma expansion and jointly controlled lottery show what becomes possible with suitable commitment devices in a complete-information game.
-These devices change the available choices, so their cooperation result does not contradict the email game's equilibrium analysis.
+- **[Forty cheating husbands](/fun-stuff/logics/forty-cheating-husbands.html):** Public announcements and public silences trim the common-knowledge component step by step; replacing the public announcement with asynchronous private letters freezes action for the same graph-theoretic reason as the email game.
+- **[Aumann's agreement theorem](/fun-stuff/economics/aumann-agreement.html):** When posterior beliefs are constant across a common-knowledge component, a common prior forces them to agree.
+- **[Milgrom–Stokey's no-trade theorem](/fun-stuff/economics/milgrom-stokey.html):** Starting from an ex ante Pareto-efficient allocation, common knowledge of willingness to trade rules out speculative gains.
+- **[Kalai's commitment folk theorem](/fun-stuff/economics/kalai-commitment-folk-theorem.html):** Instead of exchanging messages over a noisy channel, players commit to binding conditional rules before play, supporting every feasible and individually rational payoff in one shot.
 
 ## Further reading
 
 Ariel Rubinstein, [“The Electronic Mail Game: Strategic Behavior Under ‘Almost Common Knowledge,’” *American Economic Review* 79(3), 385–391 (1989)](https://arielrubinstein.org/papers/32.pdf).
-The numerical example above specializes the original model; Section II gives the conditional equilibrium result, and Remark 1 considers a commonly known finite limit on transmissions.
+Section II proves the unique-equilibrium theorem for the unbounded protocol, and Remark 1 analyzes capping the exchange at a commonly known finite number of messages.

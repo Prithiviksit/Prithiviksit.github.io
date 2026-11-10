@@ -65,13 +65,11 @@ A rule **dominates** another if its risk is no larger at every parameter vector 
 A rule is **inadmissible** if another rule dominates it.
 
 For James–Stein, the improvement over $$X$$ is strict at every finite $$\theta$$.
-But three distinctions matter:
+Three features of this criterion are worth keeping in mind:
 
-- **Total error:** an individual coordinate can have higher expected squared error, while the sum is lower.
-- **Expected error:** the adjusted estimates can be worse on a particular realized dataset.
-- **Several unknown means:** $$p$$ counts unknown means; $$n$$ counts observations per mean.
-
-Equal variance, normal sampling, and the specified squared-error criterion are part of the theorem.
+- **Combined error across coordinates:** an individual coordinate $$\delta_i(X)$$ can have higher expected squared error than $$X_i$$, even while the sum across all $$p$$ coordinates is strictly smaller.
+- **Expected error over repeated sampling:** on any single dataset, the shrunk estimate can be farther from $$\theta$$ than $$X$$; the dominance guarantee holds in expectation.
+- **Dimension $$p$$ versus sample size $$n$$:** $$p\geq3$$ counts the number of means being estimated simultaneously, whereas $$n$$ simply scales the common variance $$v=\sigma^2/n$$.
 
 ## 3. The adjustment: trust a large signal more
 
@@ -80,20 +78,17 @@ For $$p\geq3$$, the James–Stein estimator is
 
 $$
 \boxed{\delta_{\mathrm{JS}}(X)
-=\left(1-\frac{(p-2)v}{\|X\|^2}\right)X.}
+=\left(1-\frac{(p-2)v}{\|X\|^2}\right)X,}
 $$
 
-Define its value at $$X=0$$ to be zero; that event has probability zero.
+with $$\delta_{\mathrm{JS}}(0)=0$$.
 
-The numerator measures the scale of sampling noise across the coordinates.
-The denominator measures the observed vector's total size.
-When the observed size is large relative to noise, the multiplier is close to one and the adjustment is small.
-When it is modest, the adjustment is stronger.
-There is also an awkward case: if $$\|X\|^2<(p-2)v$$, the multiplier becomes negative and sends the vector past zero.
-We will return to that defect.
+The numerator $$(p-2)v$$ measures the expected scale of sampling noise across the $$p$$ coordinates, while the denominator $$\|X\|^2$$ measures the observed vector's total squared magnitude.
+When $$\|X\|^2$$ is large relative to the noise level, the shrinkage factor sits close to $$1$$ and barely touches $$X$$; when $$\|X\|^2$$ is small, it pulls $$X$$ strongly toward the origin.
+Notice too what happens when $$\|X\|^2<(p-2)v$$: the multiplier turns negative and flips every coordinate's sign—an overshoot that Section 7 will fix.
 
-For example, take $$p=3$$, $$v=1$$, and observed averages $$X=(2,1,2)$$.
-Their squared length is nine, so James–Stein reports
+For a concrete numerical example, take $$p=3$$, $$v=1$$, and observed averages $$X=(2,1,2)$$.
+Since $$\|X\|^2=9$$, the shrinkage factor is $$1-1/9=8/9$$, and James–Stein reports
 
 $$
 \delta_{\mathrm{JS}}(X)
@@ -103,17 +98,16 @@ $$
 
 ## 4. Why moving toward zero can help
 
-Noise makes a vector look larger, on average:
+Random noise systematically inflates the squared length of the observed vector:
 
 $$
 \mathbb E_\theta\|X\|^2=\|\theta\|^2+pv.
 $$
 
-Even when every true effect is zero, the observed estimates typically spread away from zero.
-Treating their full observed magnitude as signal preserves that noise.
-Pulling inward can remove some of it.
+Even when every true effect is zero ($$\theta=0$$), $$\|X\|^2$$ has expected value $$pv>0$$.
+Taking the raw vector $$X$$ at face value mistakes that radial noise inflation for true signal; pulling the vector inward strips out part of the noise.
 
-The familiar bias–variance tradeoff makes this precise for a *fixed* multiplier $$b$$:
+We can see the tradeoff explicitly by considering a *fixed* shrinkage multiplier $$b$$:
 
 $$
 R(\theta,bX)
@@ -121,63 +115,53 @@ R(\theta,bX)
 +\underbrace{b^2pv}_{\text{variance}}.
 $$
 
-Near $$b=1$$, a small inward move reduces variance to first order, while squared bias grows only to second order.
-Here **best means minimizing expected squared error** over the rules $$bX$$, for the given true vector $$\theta$$.
-Squared bias and variance both measure squared error and enter this objective with coefficient one.
-Differentiating the displayed risk with respect to $$b$$ and setting the derivative to zero gives
+Starting at the unbiased choice $$b=1$$, nudging $$b$$ slightly below $$1$$ reduces the variance term $$b^2pv$$ to first order, while the squared-bias term $$(1-b)^2\|\theta\|^2$$ grows only to second order.
+Differentiating with respect to $$b$$ gives the ideal multiplier for a known $$\theta$$:
 
 $$
 b^*=\frac{\|\theta\|^2}{\|\theta\|^2+pv}.
 $$
 
-This is an **oracle choice**: calculating it requires the true vector's size.
-Small signals call for strong shrinkage; large signals call for little.
-For any fixed $$b<1$$, squared bias grows without bound as $$\|\theta\|$$ grows.
+This **oracle multiplier** depends on the unknown signal strength $$\|\theta\|^2$$: weak signals call for heavy shrinkage, and strong signals call for light shrinkage.
+Any fixed $$b<1$$ eventually loses to $$X$$ when $$\|\theta\|$$ is large enough, because its squared bias grows without bound.
 
-We can choose a different objective if systematic bias deserves extra weight.
-For example, assigning squared bias weight $$\lambda>0$$ gives the criterion
+What if we care more about avoiding bias than about reducing variance?
+Weighting squared bias by $$\lambda>0$$ produces the modified objective
 
 $$
 \lambda(1-b)^2\|\theta\|^2+b^2pv,
 $$
 
-whose minimizing multiplier is
+which is minimized at
 
 $$
 b_\lambda^*=\frac{\lambda\|\theta\|^2}{\lambda\|\theta\|^2+pv}.
 $$
 
-A larger $$\lambda$$ favors keeping the estimate closer to $$X$$.
-Thus the choice of objective expresses what we value; once we choose squared-error loss, its bias–variance decomposition fixes the relative weights.
-The James–Stein dominance result below uses ordinary squared-error risk, corresponding to $$\lambda=1$$.
+Increasing $$\lambda$$ pushes $$b_\lambda^*$$ closer to $$1$$; ordinary squared-error loss corresponds to $$\lambda=1$$.
 
 ### Explore the tradeoff
 
-The first visual follows one coordinate, with true mean $$\theta$$ and sampling variance $$v$$.
-Shrinking by $$b$$ moves its expected estimate from $$\theta$$ to $$b\theta$$ and reduces its variance from $$v$$ to $$b^2v$$.
-Switch between a density and a CDF to see the whole sampling distribution move.
-Then vary the bias weight to see how the minimizing multiplier changes.
-
-Normal, Laplace, and uniform noise are standardized to the same mean and variance.
-For fixed linear shrinkage, all three therefore have the same squared-error risk: the shape changes, while the bias–variance curves stay put.
-The Gaussian model returns in the dominance visual below.
+The interactive visual below tracks a single coordinate with true mean $$\theta$$ and sampling variance $$v$$.
+Shrinking by $$b$$ shifts the sampling distribution's center from $$\theta$$ to $$b\theta$$ while narrowing its variance from $$v$$ to $$b^2v$$.
+Toggle between the density and CDF views, or vary the bias weight $$\lambda$$ to see how $$b_\lambda^*$$ responds.
+Because the bias–variance decomposition of squared error depends only on the first two moments, standardized Normal, Laplace, and uniform noise all share the exact same risk curves under fixed linear shrinkage $$bX$$.
 
 {% include james-stein-tradeoff.html %}
 
-James–Stein adapts the amount of shrinkage using the observed vector's size.
-Accounting for the dependence between its multiplier and the data produces the crucial $$p-2$$ in the risk calculation.
-The [Berkeley notes](https://stat210a.berkeley.edu/fall-2024/reader/jamesstein.html) develop this connection through Stein's risk identity.
+To achieve dominance across *all* $$\theta$$ without knowing $$\|\theta\|^2$$ in advance, the James–Stein estimator replaces the unknown denominator $$\|\theta\|^2+pv$$ in the oracle multiplier $$b^*=1-pv/(\|\theta\|^2+pv)$$ with the observed squared norm $$\|X\|^2$$.
+Because the multiplier now depends on the data $$X$$, computing its exact risk requires Stein's lemma—which explains why the numerator changes from $$pv$$ to $$(p-2)v$$.
 
 ## 5. The short calculation behind the surprise
 
-Consider the family
+Consider the general data-dependent shrinkage family
 
 $$
 \delta_a(X)=\left(1-\frac{av}{\|X\|^2}\right)X,
 $$
 
-where $$a$$ is a fixed constant.
-The key identity is
+indexed by a constant $$a$$.
+Stein's integration-by-parts identity (derived in the technical note below) yields
 
 $$
 \mathbb E_\theta\!\left[
@@ -185,8 +169,7 @@ $$
 =v(p-2)\mathbb E_\theta\!\left[\frac1{\|X\|^2}\right].
 $$
 
-It measures how the inward adjustment aligns, on average, with the sampling error.
-Expanding the squared loss then gives
+Expanding the expected squared error $$R(\theta,\delta_a)=\mathbb E_\theta\|\delta_a(X)-\theta\|^2$$ and substituting this identity gives
 
 $$
 \begin{aligned}
@@ -198,9 +181,8 @@ R(\theta,\delta_a)
 \end{aligned}
 $$
 
-The squared adjustment costs $$a^2$$; its alignment with the noise saves $$2a(p-2)$$.
-The balance is best at $$a=p-2$$, independently of the unknown $$\theta$$.
-Consequently,
+The quadratic in $$a$$ is minimized at $$a=p-2$$ for *every* value of $$\theta$$ simultaneously!
+Plugging in $$a=p-2$$ gives the exact risk of the James–Stein estimator:
 
 $$
 \boxed{R(\theta,\delta_{\mathrm{JS}})
@@ -209,9 +191,7 @@ $$
 <pv.}
 $$
 
-The expectation is positive and finite when $$p>2$$.
-The improvement holds throughout the parameter space.
-It also shows that any $$0<a<2(p-2)$$ improves on the averages, while $$a=p-2$$ is best **within this constant-$$a$$ family**.
+Whenever $$p\geq3$$, $$\mathbb E_\theta[1/\|X\|^2]$$ is finite and strictly positive, so $$\delta_{\mathrm{JS}}$$ strictly dominates $$X$$ across the entire parameter space $$\mathbb R^p$$ (and in fact any choice of $$a$$ in the interval $$0<a<2(p-2)$$ dominates $$X$$).
 
 <details markdown="1">
 <summary>Technical note: Stein's identity and the missing two</summary>
@@ -244,12 +224,10 @@ Dominated convergence therefore gives the displayed identity and validates the r
 
 </details>
 
-The dimensional threshold is substantive.
-For one or two unrestricted normal means, the usual estimator is admissible under this loss.
+The threshold $$p\geq3$$ is sharp: in dimensions $$p=1$$ and $$p=2$$, the sample mean $$X$$ is admissible under squared-error loss, and no estimator can improve on it everywhere.
 
-At $$\theta=0$$, we can quantify the gain exactly.
-Since $$\|X\|^2/v$$ has a chi-squared distribution with $$p$$ degrees of freedom, its expected reciprocal is $$1/(p-2)$$.
-Thus $$R(0,\delta_{\mathrm{JS}})=2v$$:
+At $$\theta=0$$, the risk reduction is dramatic.
+Because $$\|X\|^2/v$$ follows a chi-squared distribution with $$p$$ degrees of freedom, $$\mathbb E_0[v/\|X\|^2]=1/(p-2)$$, which collapses the risk at the origin to $$R(0,\delta_{\mathrm{JS}})=pv-(p-2)v=2v$$ regardless of how large $$p$$ is:
 
 | Number of means | Risk of sample averages at zero | Risk of James–Stein at zero |
 | --- | --- | --- |
@@ -257,22 +235,20 @@ Thus $$R(0,\delta_{\mathrm{JS}})=2v$$:
 | 5 | $$5v$$ | $$2v$$ |
 | 10 | $$10v$$ | $$2v$$ |
 
-Far from the target, the gain tends to zero.
+As $$\|\theta\|\to\infty$$, $$\mathbb E_\theta[1/\|X\|^2]\to0$$, so the risk of $$\delta_{\mathrm{JS}}$$ approaches $$pv$$ from below.
 
 ## 6. Must we shrink toward zero?
 
-For any vector $$m$$ fixed in advance, applying the same argument to $$X-m$$ gives
+There is nothing special about the origin: for any pre-chosen target vector $$m\in\mathbb R^p$$, applying the James–Stein adjustment to $$X-m$$ yields
 
 $$
 \delta_m(X)=m+
-\left(1-\frac{(p-2)v}{\|X-m\|^2}\right)(X-m).
+\left(1-\frac{(p-2)v}{\|X-m\|^2}\right)(X-m),
 $$
 
-This also dominates the sample averages.
-A target close to the true vector produces larger gains.
+which dominates $$X$$ for every $$\theta$$ and achieves its largest risk reduction when $$\theta$$ is close to $$m$$.
 
-Choosing a target from the same data changes the calculation.
-A particularly natural choice is the grand average across experiments, which pulls estimates toward one another.
+Better yet, instead of picking a target vector in advance, we can shrink the coordinates toward their own **grand average** $$\bar X=p^{-1}\sum_{i=1}^p X_i$$, pulling the ten treatment estimates toward one another rather than toward zero.
 
 <details markdown="1">
 <summary>Technical note: shrinking toward the grand average</summary>
@@ -300,34 +276,22 @@ Estimating the common level leaves one fewer dimension available for shrinkage.
 
 ## 7. Better than James–Stein: stop at zero
 
-Ordinary James–Stein has a visible defect.
-If the observed vector is very small, its negative multiplier reverses every sign.
-Evidence that the signal is weak leads the rule to point in the opposite direction.
-
-The **positive-part James–Stein estimator** prevents that reversal:
+Whenever $$\|X\|^2<(p-2)v$$, the ordinary James–Stein multiplier $$1-(p-2)v/\|X\|^2$$ turns negative and pushes the estimate past zero into the opposite orthant.
+Truncating the multiplier at zero eliminates that sign reversal and gives the **positive-part James–Stein estimator**:
 
 $$
 \boxed{\delta_{\mathrm{JS}}^+(X)
 =\max\!\left\{0,1-\frac{(p-2)v}{\|X\|^2}\right\}X.}
 $$
 
-Set its value at zero to zero.
-It agrees with James–Stein when the multiplier is nonnegative and otherwise reports the target itself.
-For example, with $$p=3$$, $$v=1$$, and $$X=(1/2,0,0)$$, ordinary James–Stein reports $$(-3/2,0,0)$$; the positive-part rule reports $$(0,0,0)$$.
-
-This simple modification has **strictly smaller risk than ordinary James–Stein at every $$\theta$$**.
-Ordinary James–Stein is therefore inadmissible too.
+For instance, when $$p=3$$, $$v=1$$, and $$X=(1/2,0,0)$$, ordinary James–Stein overshoots to $$(-3/2,0,0)$$, whereas $$\delta_{\mathrm{JS}}^+$$ stops at $$(0,0,0)$$.
+As proved in the technical note below, truncating the negative multiplier **strictly lowers risk at every $$\theta\in\mathbb R^p$$**—which means the ordinary James–Stein estimator is itself inadmissible!
 
 ### See inadmissibility in the risk curves
 
-In the Gaussian model, rotational symmetry makes these risks depend on $$\theta$$ only through its length.
-The next visual sets $$v=1$$ and plots risk against $$\|\theta\|$$.
-The sample averages have constant risk $$p$$; both James–Stein curves lie below that line, and the positive-part curve lies below ordinary James–Stein.
-The proofs establish these orderings for every signal size.
-
-Compare this with a fixed multiplier $$0\leq b<1$$.
-Its risk starts low near zero but eventually crosses above $$p$$ as bias grows.
-That crossing explains why a useful improvement near one parameter value is weaker than dominance throughout the parameter space.
+By rotational symmetry, the risk of each estimator depends on $$\theta$$ only through its Euclidean norm $$\|\theta\|$$.
+The interactive chart below sets $$v=1$$ and plots risk as a function of $$\|\theta\|$$: the sample mean sits flat at $$p$$, ordinary James–Stein lies strictly below $$p$$ everywhere, and the positive-part estimator lies strictly below ordinary James–Stein.
+By contrast, a fixed linear shrinkage estimator $$bX$$ ($$0\leq b<1$$) beats $$X$$ near the origin but crosses above $$p$$ once $$\|\theta\|$$ grows large.
 
 {% include james-stein-dominance.html %}
 
@@ -358,23 +322,14 @@ Integrating proves strict dominance.
 
 </details>
 
-## 8. Is the positive part the end of the story?
+## 8. Beyond the positive-part estimator
 
-No: the positive-part rule is itself inadmissible.
-Its kink is a clue; admissible rules in this normal-mean problem must have a smoother generalized Bayes form.
+Even $$\delta_{\mathrm{JS}}^+$$ is not the final word: because of the sharp corner where its multiplier hits zero, it too is inadmissible!
+By a general theorem of Brown (1971), any admissible estimator of a multivariate normal mean must be analytic, corresponding to a generalized Bayes rule.
 
-[Maruyama's paper](https://arxiv.org/pdf/math/0701206) constructs a smooth family, indexed by $$\alpha\geq1$$, that dominates ordinary James–Stein.
-At $$\alpha=1$$ it is the admissible generalized Bayes estimator associated with the improper harmonic prior $$\pi(\theta)\propto\|\theta\|^{2-p}$$.
-That endpoint ties James–Stein's risk at zero; for $$\alpha>1$$, the family improves strictly there.
-As $$\alpha\to\infty$$, the estimators converge to positive-part James–Stein.
-The family's dominance comparison is with **ordinary James–Stein**.
-The paper leaves admissibility for $$\alpha>1$$ unresolved.
+[Yuzo Maruyama (2007)](https://arxiv.org/pdf/math/0701206) constructs a smooth family of shrinkage estimators, indexed by $$\alpha\geq1$$, that bridges generalized Bayes rules and positive-part shrinkage: at $$\alpha=1$$ it gives the admissible generalized Bayes estimator under the harmonic prior $$\pi(\theta)\propto\|\theta\|^{2-p}$$, and as $$\alpha\to\infty$$ it converges pointwise to $$\delta_{\mathrm{JS}}^+$$.
 
-There can be several admissible rules with different strengths.
-
-The lasting lesson is about the task we ask an estimator to perform.
-When we assess several estimates together, insisting that each remain unbiased can waste information about the scale of their collective noise.
-A carefully chosen amount of bias lowers total risk across the unknown means.
+Across all of these refinements, the core statistical lesson is the same: when we evaluate three or more estimates by their combined squared error, the pooled norm $$\|X\|^2$$ tells us how much of the apparent spread across coordinates is just sampling noise—and using that pooled scale to shrink the individual averages beats unbiased estimation everywhere.
 
 ## Sources and further reading
 

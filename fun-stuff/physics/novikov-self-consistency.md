@@ -91,84 +91,63 @@ Neither the existence nor the uniqueness of such an extension is guaranteed by t
 
 ## History as a fixed point
 
-There is a useful way to make the global condition more concrete.
-Imagine cutting a causal loop at the exit of a wormhole.
-Specify the state emerging there: its arrival time, position, velocity, and whatever other variables the model requires.
-Call that state $$x$$.
+We can make the global consistency condition concrete by cutting a causal loop at the exit of a wormhole.
+Specify the state emerging from the exit—its arrival time, position, velocity, and any internal degrees of freedom—and call that state $$x$$.
 
-Hold the external incoming data fixed.
-Let the system evolve, including any interactions with its younger self, until it enters the wormhole.
-Apply the wormhole's rule for transporting that state back to the exit.
-When this construction defines a return map $$F$$, consistency requires
+Holding the incoming external state fixed, let the system evolve forward in time (including any collision or interaction with its younger self) until it enters the wormhole, and apply the wormhole's boundary rule to transport that state back to the exit.
+When this forward evolution and transport define a return map $$F$$, global self-consistency is simply the fixed-point equation
 
 $$
 \boxed{x=F(x).}
 $$
 
-The state we assumed would emerge must equal the state the resulting history actually sends back.
-For a field, $$x$$ might be an entire function rather than a short vector.
-For more complicated dynamics, a system of matching equations can be more appropriate than a single-valued map.
-The underlying requirement is the same.
+The state emerging from the wormhole exit must equal the state that the resulting history sends into the entrance.
 
-A bit sent into the past shows why existence and uniqueness must be kept separate.
-Let $$x\in\{0,1\}$$ be the received bit, and let a device send $$F(x)$$ back to that same receiving event.
+A single classical bit sent backward in time already illustrates why **existence** and **uniqueness** of fixed points are separate questions.
+Let $$x\in\{0,1\}$$ be the bit emerging from the receiver, and suppose an automatic circuit feeds $$F(x)$$ into the transmitter aimed at that receiver:
 
-| Device rule | Consistency equation | Allowed histories |
+| Circuit rule | Fixed-point equation | Self-consistent histories |
 | --- | --- | --- |
-| Copy the bit | $$x=x$$ | Both 0 and 1 |
-| Always send 0 | $$x=0$$ | Only 0 |
-| Flip the bit | $$x=1-x$$ | Neither 0 nor 1 |
+| Copy the bit | $$x=x$$ | Both $$0$$ and $$1$$ (nonunique) |
+| Reset to $$0$$ | $$x=0$$ | Only $$0$$ (unique) |
+| Flip the bit (NOT gate) | $$x=1-x$$ | Neither $$0$$ nor $$1$$ (none in $$\{0,1\}$$) |
 
-The last row is a contradiction within the stipulated classical model.
-The solution $$x=1/2$$ is unavailable because a classical bit is either 0 or 1.
-Assigning equal probabilities to the two values does not make an individual history satisfy the equation.
-
-Novikov's principle excludes the complete, perfectly functioning bit-flipping loop as described.
+In a discrete two-state model, the NOT-gate loop has no fixed point in $$\{0,1\}$$; by contrast, as soon as the state space is a continuous interval or manifold (where Brouwer's or Schauder's fixed-point theorem applies), a continuous return map $$F$$ naturally admits fixed points—often through a glancing or partial interaction that resolves an apparent discrete paradox.
 
 ## A billiard ball meets its younger self
 
-The classic physical puzzle replaces a would-be murderer of their own grandfather with a billiard ball.
-Send a ball toward a wormhole that returns it to an earlier time.
-Arrange the geometry so that the older ball appears to knock the younger ball away from the entrance.
-Then the younger ball never enters, so the older ball cannot emerge to deliver the collision.
+To test whether continuous physics avoids the NOT-gate trap, Kip Thorne and his collaborators replaced the science-fiction “grandfather paradox” with a mechanical model: **Polchinski's billiard ball**.
+Aim a billiard ball toward a wormhole mouth so that, if nothing interferes, it enters the wormhole, exits in the past before it entered, and knocks its younger self away from the entrance.
+If the younger ball is knocked away, it never enters the wormhole—so how could the older ball emerge to hit it?
 
-The tempting mistake is to combine pieces from incompatible trajectories: use the collision-free path to determine the older ball's arrival, then add a collision that destroys the path which produced it.
-A valid solution must determine the arrival and collision together.
+The fallacy in the paradox is pasting together two incompatible trajectories: using the *unperturbed* straight path to get the ball into the wormhole, and then using a *head-on collision* path that prevents it from entering.
+A genuine solution must solve for the collision and the wormhole transit simultaneously as a fixed point $$x=F(x)$$.
 
-Echeverria, Klinkhammer, and Thorne's [1991 billiard-ball paper](https://doi.org/10.1103/PhysRevD.44.1077) did just that.
-For a broad class of apparently dangerous incoming trajectories, they found infinitely many self-consistent solutions.
+In their [1991 billiard-ball paper](https://doi.org/10.1103/PhysRevD.44.1077), Fernando Echeverria, Gunnar Klinkhammer, and Kip Thorne proved that instead of having *no* solution, generic paradox-aimed initial trajectories admit **multiple** self-consistent solutions: a glancing blow deflects the younger ball just enough to enter the wormhole on a slightly shifted path, emerging at the exact angle needed to deliver that glancing blow!
 
-We can check one self-consistent collision explicitly without reproducing their full geometry.
-The following construction is an elementary illustration, with a prescribed wormhole connection and Newtonian motion outside it.
+We can verify a complete, exact self-consistent collision in elementary planar mechanics.
 
 ### An exactly solvable loop
 
-Represent the ball in a plane as a perfectly elastic, frictionless disk with radius $$1/\sqrt2$$ and mass $$m$$.
-Choose units in which its nonrelativistic speed is 1.
-The wormhole connects an entrance at $$B=(0,-2)$$ to an exit at $$A=(1,3)$$.
-Our idealized boundary rule maps the disk's center at $$B$$ to $$A$$, four time units earlier, preserving its velocity.
-We neglect the thickness and transit duration of the connection and any forces away from collisions.
+Model the billiard ball in the plane as a frictionless, perfectly elastic disk of radius $$1/\sqrt2$$, mass $$m$$, and speed $$1$$.
+Suppose the wormhole entrance sits at $$B=(0,-2)$$ and its exit sits at $$A=(1,3)$$, with the boundary rule that a disk center entering $$B$$ at time $$t$$ emerges from $$A$$ at time $$t-4$$ with the same velocity vector.
 
-At external time $$t=0$$, let the younger disk have center $$(0,0)$$ and velocity $$(1,0)$$.
-Let its older version have center $$(1,1)$$ and velocity $$(0,-1)$$.
-Their centers are $$\sqrt2$$ apart, exactly the sum of their radii, so they are touching.
+At time $$t=0$$, place the younger disk at center $$(0,0)$$ with velocity $$(1,0)$$ (moving right) and the older disk at center $$(1,1)$$ with velocity $$(0,-1)$$ (moving down).
+The distance between their centers is $$\sqrt{1^2+1^2}=\sqrt2$$, which equals the sum of their radii, so they kiss at $$t=0$$ along the $$45^\circ$$ line joining $$(0,0)$$ and $$(1,1)$$.
 
 <figure class="math-figure">
   <img src="/img/others/novikov-billiard-loop.svg" width="520" height="640" style="max-width: 520px; margin-inline: auto;" alt="Two ages of one ball touch at time zero. The younger ball approaches from the left and turns downward into entrance B at time 2. It exits mouth A at time minus 2, moves downward as the older ball, and turns right after the collision. A dashed connection links B to A through the wormhole.">
   <figcaption>A spatial diagram of one consistent history. The disks show the two ages at the collision; the arrows trace their center paths. The dashed connection is the wormhole identification, not a path through the surrounding space.</figcaption>
 </figure>
 
-The elastic collision exchanges these two velocities.
-The younger disk turns downward; the older disk turns right.
-Now follow the younger disk along its own journey:
+Because the two disks have equal mass and collide elastically along the $$45^\circ$$ line of centers, the impact swaps their velocities:
 
-1. It collides at $$t=0$$ and travels down from $$(0,0)$$ to $$B=(0,-2)$$, arriving at $$t=2$$.
-2. The wormhole takes it from $$t=2$$ to $$t=-2$$ at $$A=(1,3)$$, still moving downward.
-3. It travels down for two time units and reaches $$(1,1)$$ at $$t=0$$, supplying precisely the older disk assumed in the collision.
-4. After striking its younger self, it moves to the right and leaves the scene.
+1. At $$t=0$$, the younger disk's velocity changes from $$(1,0)$$ to $$(0,-1)$$, sending it straight down from $$(0,0)$$ to the wormhole entrance $$B=(0,-2)$$ at $$t=2$$.
+2. The wormhole transports it four time units into the past to the exit $$A=(1,3)$$ at $$t=-2$$, still moving downward with velocity $$(0,-1)$$.
+3. Traveling downward from $$(1,3)$$ for two time units brings the older disk to $$(1,1)$$ at $$t=0$$—the exact position and velocity needed to strike its younger self!
+4. At $$t=0$$, the collision changes the older disk's velocity from $$(0,-1)$$ to $$(1,0)$$, and it rolls off to the right forever.
 
-Everything matches: position, time, velocity, and the collision law.
-The impact causes the trip that supplies the impact.
+Every conservation law and boundary condition is satisfied: the collision itself deflects the younger ball into the wormhole so that it can emerge in the past and deliver the collision.
 
 <details markdown="1">
 <summary>Check the collision and the full trajectory</summary>
@@ -256,134 +235,74 @@ This verifies the entire proposed trajectory within the idealized model.
 
 </details>
 
-This particular construction also has a second solution for the same incoming path: the ball can simply continue along $$(t,0)$$ forever, miss both mouths, and never encounter an older version.
-Thus even this small example demonstrates **nonuniqueness**.
-The incoming motion by itself does not tell us which globally consistent history occurs.
-It is a simpler illustration than the original paradoxical setup, where the unperturbed path enters the wormhole.
+Notice that for this same incoming trajectory $$q_{\mathrm{young}}(t)=(t,0)$$ ($$t\leq0$$), a second self-consistent history also exists: nothing emerges from $$A$$, the disk rolls straight along the $$x$$-axis forever, and it never enters $$B$$.
+Thus this simple planar geometry already exhibits **nonuniqueness**: specifying the initial state in the distant past does not uniquely determine whether the self-collision loop occurs or not.
 
-## What about breathing, chaos, and free will?
+## Breathing, butterfly effects, and agency
 
-Return to the traveler who disturbs the air.
-In a self-consistent history, those disturbances belong to the physical state being solved for.
-The principle has no exemption for small changes and no special prohibition reserved for large ones.
-What matters is whether the whole account is compatible with itself.
+What about our opening puzzle—the traveler whose breathing disturbs the air molecules in the past?
+In a self-consistent spacetime, those disturbed air molecules are not a “change” to a pre-existing history; they are part of the single fixed-point solution $$x=F(x)$$.
+Novikov's principle draws no distinction between tiny perturbations (like displaced air molecules) and macroscopic actions (like warning someone of a fire): every interaction in the past is permitted so long as the global history closes consistently.
 
-Chaos makes nearby initial conditions produce very different later outcomes.
-That can make finding or predicting consistent histories difficult.
-It does not imply that a history must repair itself after a perturbation, or that every possible intervention admits a consistent completion.
+Nor does chaos or the butterfly effect prevent self-consistent loops.
+High sensitivity to initial conditions means that the return map $$F$$ stretches small differences, which actually makes fixed points $$x=F(x)$$ *more* plentiful rather than scarce.
 
-The distinction is between two claims:
+Within a self-consistent loop, actions still carry their ordinary causal force: in our billiard-ball loop, the older ball's impact is what causes the younger ball to turn downward into the wormhole, and a time traveler's warning can be the exact cause that saves someone's life.
+What Novikov's principle rules out is only a history that undermines its own boundary conditions.
 
-- A realized history must be consistent with the interactions it contains.
-- A realized history must remain unchanged under every imaginable replacement of those interactions.
+## Who wrote the proof? (Bootstrap paradoxes)
 
-Only the first expresses the consistency requirement.
-Changing a device, a decision rule, or an incoming state changes the mathematical problem.
-The new problem may have different solutions or no solution under the stipulated assumptions.
+Suppose your older self emerges from a wormhole and hands you a notebook containing a sleek proof of a difficult theorem.
+You verify every step, copy it onto a fresh pad of paper when the old notebook wears out, and years later step into the wormhole to hand that fresh copy to your younger self.
+You learned the proof from the notebook, and your older self had the notebook only because you kept it.
+Who discovered the proof?
 
-Your actions can still have causes and consequences.
-The ball's collision is indispensable to its looping trajectory.
-Likewise, a traveler's warning might be the reason someone survives; it must then belong to the history in which that person survived.
-Whether such a picture allows the kind of free will we care about is a further philosophical question.
-The consistency equation alone does not settle it.
+This is an **ontological (or information) bootstrap loop**: every link in the chain of transmission has an immediate local explanation, yet the information content has no point of origin.
 
-## Who wrote the proof?
-
-Suppose your older self hands you a beautiful mathematical proof.
-You check every step, keep a copy, and eventually travel back to give it to your younger self.
-You learned it by reading it, and your older self remembered it because you had read it.
-Nobody independently worked it out.
-This is a **bootstrap loop**: information circulates through a chain of causes with no act of invention at its beginning.
-
-The physical age of the paper leaves this puzzle untouched.
-You can copy the proof onto fresh paper before taking it back; the text is what circulates.
-The question is why that particular argument exists in the history at all.
-
-There are two levels of explanation here.
-We can explain each person's possession of the proof by pointing to a transmission elsewhere in the loop.
-But following those transmissions brings us back to where we started, without identifying an independent source of the content.
-An explanation of each link can leave a question about the whole chain unanswered.
-
-The fixed-point formulation makes the gap precise.
-Encode the text as a string $$x$$ of $$n$$ bits.
-If the entire operation is faithful copying, its return map is
+Our fixed-point equation $$x=F(x)$$ shows immediately why bootstrap loops arise.
+Encode the text in the notebook as an $$n$$-bit string $$x\in\{0,1\}^n$$.
+If the traveler simply copies the notebook faithfully from arrival to departure, the return map is the identity:
 
 $$
 F(x)=x,\qquad x\in\{0,1\}^n.
 $$
 
-Every one of the $$2^n$$ strings is a fixed point.
-A brilliant proof, a shopping list, and meaningless symbols all satisfy the same consistency condition.
-**The copying rule preserves content; it supplies no reason for one content rather than another.**
-Requiring the text to be a valid proof would restrict the candidates, but that is an additional condition.
-The consistency requirement by itself also supplies no probabilities over the candidates.
+Every one of the $$2^n$$ possible bit strings is a fixed point!
+A valid proof, a grocery list, and random gibberish all satisfy $$x=F(x)$$ equally well.
+**Because the copying dynamics act as the identity map on content, self-consistency alone does not select which string $$x$$ circulates around the loop.**
 
-Checking the proof does answer a different question: why should we believe the theorem?
-Its logical steps can justify the conclusion regardless of how we acquired the text.
-The puzzling absence is an independent discovery of those steps.
-Logical justification, causal transmission, and historical invention come apart.
+As philosopher David Lewis observed in [*The Paradoxes of Time Travel* (1976), pp. 148–149](https://pages.jh.edu/rrynasi1/spacetime/eprints/Lewis_David1976TheParadoxesOfTimeTravel.pdf#page=5), a closed causal loop is simply the time-like analog of a familiar philosophical question about the universe as a whole: every event inside the loop is caused by the preceding event, even if the loop as a whole has no external author.
+Note too that logical justification is independent of historical authorship: once you verify each step of the proof in the notebook, you know the theorem is true, even though the proof was never “invented” by anyone.
 
-Further dynamics or boundary conditions might select a particular text.
-For example, if the traveler independently derives a proof before sending it back, that derivation contributes an explanation of its content.
-In the pure copying story, however, treating the realized text as part of the global history leaves its selection unexplained by the copying dynamics.
-This resembles the familiar need to supplement equations of motion with data, although here the unspecified information is distributed around a causal loop.
+## Self-consistency in science fiction
 
-David Lewis addressed this issue in [*The Paradoxes of Time Travel* (1976), pp. 148–149](https://pages.jh.edu/rrynasi1/spacetime/eprints/Lewis_David1976TheParadoxesOfTimeTravel.pdf#page=5).
-He allowed that events within a loop can have causal explanations while the loop as a whole remains unexplained.
-His response was to accept that as a possible brute fact, much as explanations elsewhere eventually reach facts taken as given.
-This is a philosophical position about where explanation may end.
-Someone who requires information to have an origin outside its own transmission cycle will find it unsatisfying.
+Science fiction and general relativity have traded ideas back and forth for decades: Carl Sagan's novel *Contact* prompted Kip Thorne's work on traversable wormholes, and Thorne's papers on billiard-ball time machines directly inspired Ted Chiang's novella *The Merchant and the Alchemist's Gate* ([as Chiang recounts in a 2019 interview](https://www.manifold1.com/episodes/ted-chiang-on-free-will-time-travel-many-worlds-genetic-engineering-and-hard-science-fiction-19/transcript)).
 
-Novikov's principle therefore leaves the explanatory puzzle open.
-It tells us how the proof's appearances must agree with one another.
-In a pure bootstrap loop, the answer to “Who first discovered it?” is “No one”; the question “Why this proof?” still calls for something beyond self-consistency.
+Several classic stories explore what a single self-consistent timeline feels like from the inside:
 
-## The idea in fiction—and fiction in the idea
-
-Fixed-history stories existed before the modern physics literature, so resemblance alone is not evidence that a writer borrowed from Novikov.
-The more interesting relationship runs in both directions: fiction supplies questions, physics sharpens them, and fiction explores what the answers might mean for a person.
-
-There is a particularly clear example in Ted Chiang's *The Merchant and the Alchemist's Gate*.
-In a [2019 interview](https://www.manifold1.com/episodes/ted-chiang-on-free-will-time-travel-many-worlds-genetic-engineering-and-hard-science-fiction-19/transcript), Chiang explicitly identifies Thorne's discussion of the billiard-ball time machine as an inspiration.
-He wanted to explore a fixed past without making the result inevitably despairing.
-Understanding, regret, and reconciliation can change even when the events being understood cannot.
-
-Several stories explore the human consequences of this structure:
-
-| Work | Connection to self-consistency |
+| Work | Role of self-consistency |
 | --- | --- |
-| *La Jetée* and *Twelve Monkeys* | Memory and later experience fit into a single causal history. The latter's [production notes](https://www.gilliamdreams.com/12-monkeys-prod) explicitly trace its inspiration to the former. The tension is discovering how the pieces fit. |
-| *All You Zombies* and *Predestination* | Personal identity becomes entangled with causal loops. [The film adapts Heinlein's story](https://www.sonypictures.com/movies/predestination). The bootstrap question becomes a question about a person's own origin. |
-| *Los cronocrímenes* (*Timecrimes*) | Attempts to escape a predicament help produce it. Its [distributor's account](https://magpictures.com/profile.aspx?id=c249edca-6e66-4d7d-b085-f7bac8cb827d) emphasizes the protagonist's increasing involvement in the events he tries to fix. |
-| *Dark* | Interlocking generations and encounters across time make causal loops central to its mystery. Its later use of multiple worlds complicates a strict single-history reading. [Series page](https://www.netflix.com/title/80100172). |
-| *The Merchant and the Alchemist's Gate* | Visiting the past changes the traveler's understanding of it. The scientific connection is documented by Chiang's own account, and the emotional possibilities extend beyond fatalism. |
+| *La Jetée* and *Twelve Monkeys* | A childhood memory of an airport turns out to be the protagonist's own future; attempts to prevent the catastrophe are already woven into how it unfolded ([production notes](https://www.gilliamdreams.com/12-monkeys-prod)). |
+| *“—All You Zombies—”* and *Predestination* | Robert Heinlein's story ([adapted as *Predestination*](https://www.sonypictures.com/movies/predestination)) turns the bootstrap loop into a biological loop where the protagonist is their own mother, father, and recruiter. |
+| *Los cronocrímenes* (*Timecrimes*) | Seeing a bandaged figure in the woods drives the protagonist to recreate the exact sequence of events he witnessed from the outside ([synopsis](https://magpictures.com/profile.aspx?id=c249edca-6e66-4d7d-b085-f7bac8cb827d)). |
+| *Dark* | Generations of families in Winden are linked by interlocking bootstrap loops of objects, books, and parentage across 33-year cycles ([series page](https://www.netflix.com/title/80100172)). |
+| *The Merchant and the Alchemist's Gate* | Ted Chiang uses Novikov-consistent time gates in medieval Baghdad and Cairo to show that even when the past cannot be altered, visiting it can transform understanding, grief, and forgiveness. |
 
-Stories about rewriting a timeline or moving between alternative histories ask a different question.
-If a traveler prevents an event in another branch while the original branch still exists, the story has changed the relationship between the histories.
-
-The appeal of the fixed-history story is that a familiar scene can acquire a new explanation without any of its events being replaced.
-The audience experiences a revision in knowledge rather than a revision in the world.
-There is a thematic connection to the [forty cheating husbands puzzle](/fun-stuff/logics/forty-cheating-husbands.html): what someone can infer changes even when an underlying fact was already true.
-The mechanisms are different—public information in one case, causal loops in the other—but both reward asking what was known, as distinct from what happened.
+Notice the parallel with epistemic puzzles like the [forty cheating husbands](/fun-stuff/logics/forty-cheating-husbands.html): in a self-consistent timeline, the external facts of the past never change, yet the traveler's *knowledge* of how those facts fit together changes completely.
 
 ## Must causal loops be consistent—or absent?
 
-Novikov's proposal asks how histories must fit together **if** backward time travel is available.
-Hawking's [chronology protection conjecture](https://doi.org/10.1103/PhysRevD.46.603) instead proposes that physical laws prevent the formation of closed timelike curves.
-His work investigates whether quantum effects and their gravitational backreaction obstruct the creation of a time machine.
-The two proposals address different questions: Novikov constrains the histories within a spacetime containing causal loops; chronology protection concerns whether such loops can form.
+Novikov's self-consistency principle answers a conditional question: **if** spacetime contains closed timelike curves, how do local physical laws fit together globally?
+Stephen Hawking's [chronology protection conjecture (1992)](https://doi.org/10.1103/PhysRevD.46.603) attacks the antecedent instead, arguing that quantum field fluctuations and their gravitational backreaction diverge at the threshold (Cauchy horizon) where closed timelike curves would first form, preventing any macroscopic time machine from being built.
 
-The original breathing question therefore has a precise answer within Novikov's picture.
-A traveler does interact with the past, down to the air molecules.
-Those interactions must belong to the same history that contains the journey.
-The mathematical task is to find a complete history in which the departure, arrival, and consequences all agree.
+Until quantum gravity settles whether closed timelike curves can exist, Novikov's principle resolves the logical puzzle of time travel: visiting the past does not require walking on eggshells to avoid disturbing a prior timeline, because your footsteps and breath were already part of the only past that ever happened.
 
 ## Further reading
 
-- David Lewis (1976), [*The Paradoxes of Time Travel*](https://pages.jh.edu/rrynasi1/spacetime/eprints/Lewis_David1976TheParadoxesOfTimeTravel.pdf). Causal loops, the origins of information, and the distinction between explaining each event and explaining a whole history.
-- Michael S. Morris and Kip S. Thorne (1988), [*Wormholes in spacetime and their use for interstellar travel: A tool for teaching general relativity*](https://doi.org/10.1119/1.15620). The traversable-wormhole framework and its connection to *Contact*.
-- Michael S. Morris, Kip S. Thorne, and Ulvi Yurtsever (1988), [*Wormholes, Time Machines, and the Weak Energy Condition*](https://doi.org/10.1103/PhysRevLett.61.1446). The conditional conversion of a traversable wormhole into a time machine.
-- Igor D. Novikov (1989), [*An analysis of the operation of a time machine*](https://www.jetp.ras.ru/cgi-bin/dn/e_068_03_0439.pdf). An early discussion of global consistency and restrictions on initial data.
-- John Friedman and coauthors (1990), [*Cauchy problem in spacetimes with closed timelike curves*](https://doi.org/10.1103/PhysRevD.42.1915). The global principle and model field equations.
-- Fernando Echeverria, Gunnar Klinkhammer, and Kip S. Thorne (1991), [*Billiard balls in wormhole spacetimes with closed timelike curves: Classical theory*](https://doi.org/10.1103/PhysRevD.44.1077). Consistent self-collisions and the failure of uniqueness.
-- Stephen W. Hawking (1992), [*Chronology protection conjecture*](https://doi.org/10.1103/PhysRevD.46.603). The possibility that physics prevents time machines from forming.
+- David Lewis (1976), [*The Paradoxes of Time Travel*](https://pages.jh.edu/rrynasi1/spacetime/eprints/Lewis_David1976TheParadoxesOfTimeTravel.pdf). Causal loops, information bootstrap paradoxes, and personal versus external time.
+- Michael S. Morris and Kip S. Thorne (1988), [*Wormholes in spacetime and their use for interstellar travel: A tool for teaching general relativity*](https://doi.org/10.1119/1.15620). Traversable wormholes and their origin in Carl Sagan's *Contact*.
+- Michael S. Morris, Kip S. Thorne, and Ulvi Yurtsever (1988), [*Wormholes, Time Machines, and the Weak Energy Condition*](https://doi.org/10.1103/PhysRevLett.61.1446). How differential aging of wormhole mouths creates closed timelike curves.
+- Igor D. Novikov (1989), [*An analysis of the operation of a time machine*](https://www.jetp.ras.ru/cgi-bin/dn/e_068_03_0439.pdf). Early formulation of the self-consistency principle.
+- John Friedman et al. (1990), [*Cauchy problem in spacetimes with closed timelike curves*](https://doi.org/10.1103/PhysRevD.42.1915). The global self-consistency principle for fields and particles.
+- Fernando Echeverria, Gunnar Klinkhammer, and Kip S. Thorne (1991), [*Billiard balls in wormhole spacetimes with closed timelike curves: Classical theory*](https://doi.org/10.1103/PhysRevD.44.1077). Self-consistent glancing collisions and multiplicity of solutions.
+- Stephen W. Hawking (1992), [*Chronology protection conjecture*](https://doi.org/10.1103/PhysRevD.46.603). Quantum backreaction as a barrier to forming closed timelike curves.
